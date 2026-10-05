@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#3E9BFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Little School">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-512.png">
+<style>body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head><body>
+<title>Vamika's Little School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap">
+<style>
+/* Layout: a preschool "school bag" — home has three shelves (Likho / Seekho / Khelo) of chunky cards; each activity opens on one big stage that talks by itself. Single bright theme on purpose (a toy). */
+:root{
+  --bg:#EAF6FF; --ink:#22264A; --card:#FFFFFF; --soft:#CFE3F3;
+  --sun:#FFC83D; --berry:#FF5C8A; --leaf:#2FBF7F; --sky:#3E9BFF; --grape:#8E6CFF; --tang:#FF7A45; --teal:#20B2B8;
+  --paper:#FFFDF6; --guide:#E6E0F5; --dash:#B9AEDB;
+  --display:"Baloo 2","Comic Sans MS","Trebuchet MS",system-ui,sans-serif;
+  color-scheme:light;
+}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--display);-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;overscroll-behavior:none}
+.wrap{max-width:900px;margin:0 auto;padding-inline:16px;padding-block:12px 28px;display:flex;flex-direction:column;gap:12px}
+button{font-family:var(--display);color:inherit}
+button:focus-visible{outline:4px solid var(--grape);outline-offset:3px}
+/* home */
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:52px;height:52px;border-radius:16px;background:var(--berry);color:#fff;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center;transform:rotate(-6deg);box-shadow:0 4px 0 rgba(34,38,74,.2)}
+h1{margin:0;font-size:clamp(1.4rem,5.6vw,2.1rem);font-weight:800;line-height:1}
+h1 span{color:var(--berry)}
+.tag{font-size:.9rem;font-weight:600;opacity:.6;margin:0}
+.pill{display:flex;background:var(--card);border-radius:999px;padding:4px;gap:4px;box-shadow:0 3px 0 var(--soft)}
+.pill button{font-weight:700;font-size:.95rem;border:0;border-radius:999px;padding:6px 12px;background:transparent;cursor:pointer}
+.pill button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.shelf{background:var(--card);border-radius:28px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 5px 0 var(--soft)}
+h2{margin:0;font-size:1.35rem;font-weight:800;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+h2 small{font-size:.85rem;font-weight:600;opacity:.6}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px}
+.card{border:0;border-radius:22px;padding:10px 6px 8px;cursor:pointer;color:#fff;box-shadow:0 5px 0 rgba(34,38,74,.22);display:flex;flex-direction:column;align-items:center;gap:0;transition:transform .1s}
+.card:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(34,38,74,.22)}
+.card i{font-style:normal;font-size:2.7rem;line-height:1.15}
+.card b{font-size:1.15rem;line-height:1.05}
+.card small{font-size:.8rem;font-weight:600;opacity:.92}
+.note{background:#FFF4D6;border-radius:18px;padding:10px 14px;font-weight:600;margin:0}
+/* play */
+.bar{display:flex;align-items:center;gap:10px}
+.bar h1{flex:1;text-align:center;font-size:clamp(1.25rem,5vw,1.8rem)}
+.round{width:54px;height:54px;flex:none;border:0;border-radius:50%;background:var(--card);box-shadow:0 4px 0 var(--soft);font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.stage{background:var(--card);border-radius:30px;min-height:min(70vh,600px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;text-align:center;position:relative;overflow:hidden;box-shadow:0 8px 0 var(--soft)}
+.face{display:flex;flex-direction:column;align-items:center;gap:4px}
+.big{font-size:clamp(5.5rem,28vw,9.5rem);line-height:1;font-weight:800}
+.big small{font-size:.55em}
+.pic{font-size:clamp(5.5rem,28vw,9rem);line-height:1.1}
+.blob{width:min(180px,46vw);aspect-ratio:1;max-width:100%;border-radius:50%;box-shadow:0 10px 0 rgba(0,0,0,.1),inset 0 0 0 4px rgba(0,0,0,.06)}
+.shape{width:min(200px,50vw);aspect-ratio:1;max-width:100%}
+.shape svg{width:100%;height:100%}
+.spell{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.spell span{min-width:42px;height:52px;padding-inline:6px;border-radius:14px;background:var(--bg);font-size:1.9rem;font-weight:800;display:flex;align-items:center;justify-content:center;transition:transform .15s,background .15s}
+.spell span.on{background:var(--sun);transform:scale(1.22) translateY(-4px)}
+.spell.all span{background:var(--leaf);color:#fff}
+.cap{font-size:clamp(1.15rem,4.8vw,1.55rem);font-weight:700;opacity:.8;min-height:1.5em;max-width:30ch;text-wrap:balance}
+.objs{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;max-width:520px}
+.objs span{font-size:clamp(2.2rem,10vw,3.2rem);opacity:.18;transition:opacity .2s,transform .2s;position:relative}
+.objs.shown span{opacity:1}
+.objs span.on{opacity:1;transform:scale(1.25)}
+.objs span b{position:absolute;top:-8px;right:-6px;background:var(--grape);color:#fff;font-size:.9rem;border-radius:999px;min-width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.q{font-size:clamp(1.6rem,6.6vw,2.5rem);font-weight:800;line-height:1.1;text-wrap:balance}
+.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:560px}
+.choices button{aspect-ratio:1;max-width:100%;border:0;border-radius:26px;background:var(--bg);font-size:clamp(3rem,15vw,5rem);font-weight:800;cursor:pointer;box-shadow:0 6px 0 var(--soft);display:flex;align-items:center;justify-content:center;padding:8px;overflow:hidden}
+.choices button svg{width:80%;height:80%}
+.choices .dot{display:block;width:72%;aspect-ratio:1;border-radius:50%}
+.choices button.right{background:#D9F7E8;box-shadow:0 6px 0 var(--leaf)}
+.pop{animation:pop .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{0%{transform:scale(.5)}100%{transform:scale(1)}}
+.shake{animation:shk .4s}
+@keyframes shk{25%{transform:translateX(-12px)}75%{transform:translateX(12px)}}
+.bounce{animation:bnc .6s infinite}
+@keyframes bnc{50%{transform:translateY(-14px) scale(1.06)}}
+.wiggle{animation:wig .6s}
+@keyframes wig{25%{transform:rotate(-12deg) scale(1.1)}75%{transform:rotate(12deg) scale(1.1)}}
+.burst{position:absolute;pointer-events:none;font-size:1.8rem;animation:fly 1s ease-out forwards;z-index:9}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(220deg);opacity:0}}
+.score{position:absolute;top:12px;left:16px;font-weight:800;font-size:1.3rem;z-index:4}
+/* tracing */
+.tracewrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:10px}
+#cv{width:min(100%,58vh);aspect-ratio:1;max-width:100%;background:var(--paper);border-radius:24px;touch-action:none;box-shadow:inset 0 0 0 3px var(--soft)}
+.tctl{display:flex;gap:14px;justify-content:center}
+.tctl button{width:64px;height:64px;border:0;border-radius:50%;background:var(--bg);font-size:1.7rem;cursor:pointer;box-shadow:0 4px 0 var(--soft)}
+.tlabel{font-size:clamp(1.3rem,5vw,1.8rem);font-weight:800;min-height:1.3em}
+.overlay{position:absolute;inset:0;background:rgba(255,255,255,.86);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;z-index:6}
+.overlay .pic{animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
+.strip{display:flex;gap:6px;overflow-x:auto;max-width:100%;padding:4px 2px 8px;scrollbar-width:none}
+.strip button{flex:none;min-width:44px;height:44px;border:0;border-radius:12px;background:var(--bg);font-weight:800;font-size:1.25rem;cursor:pointer;padding-inline:8px}
+.strip button[aria-current="true"]{background:var(--ink);color:#fff}
+.strip button.done{box-shadow:inset 0 -4px 0 var(--leaf)}
+/* bubbles */
+.field{position:absolute;inset:0}
+.target{position:absolute;top:10px;left:0;right:0;z-index:4;font-weight:800;font-size:clamp(1.3rem,5.5vw,1.8rem);display:flex;justify-content:center;align-items:center;gap:8px;pointer-events:none}
+.target .dot{width:34px;height:34px;border-radius:50%;display:inline-block}
+.bubble{position:absolute;bottom:-120px;width:100px;height:100px;border-radius:50%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:2.8rem;font-weight:800;color:#fff;background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.85) 0 11%,transparent 12%),var(--c);opacity:.95;animation:rise var(--t) linear forwards;box-shadow:inset -6px -8px 0 rgba(0,0,0,.08)}
+@keyframes rise{to{transform:translate(var(--sway),var(--h))}}
+.bubble.gone{animation:out .25s forwards}
+@keyframes out{to{transform:scale(1.7);opacity:0}}
+/* feed */
+.eater{width:min(220px,56vw);aspect-ratio:1;max-width:100%;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:clamp(5rem,26vw,8rem);box-shadow:inset 0 0 0 6px var(--soft);transition:box-shadow .2s}
+.eater.near{box-shadow:inset 0 0 0 8px var(--leaf)}
+.foods{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.food{width:86px;height:86px;border:0;border-radius:24px;background:var(--paper);font-size:3.4rem;cursor:grab;box-shadow:0 5px 0 var(--soft);touch-action:none;position:relative;z-index:5}
+.food.drag{cursor:grabbing;z-index:8;box-shadow:0 14px 24px rgba(34,38,74,.25)}
+.food.back{transition:transform .3s}
+.food.eaten{transition:transform .35s,opacity .35s;opacity:0}
+/* tap tap */
+.tapzone{position:absolute;inset:0;touch-action:none;cursor:pointer}
+.tapitem{position:absolute;font-size:clamp(4rem,20vw,6.5rem);pointer-events:none;transform:translate(-50%,-50%);animation:tapin 2.2s ease-out forwards;display:flex;flex-direction:column;align-items:center}
+.tapitem b{font-size:1.4rem;background:var(--ink);color:#fff;border-radius:999px;padding:0 12px;line-height:1.6}
+@keyframes tapin{0%{transform:translate(-50%,-50%) scale(.2)}15%{transform:translate(-50%,-50%) scale(1.15)}25%{transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{transform:translate(-50%,-90%) scale(1);opacity:0}}
+.taphint{font-size:clamp(1.6rem,7vw,2.4rem);font-weight:800;opacity:.35;pointer-events:none}
+/* music */
+.xylo{display:flex;align-items:flex-end;justify-content:center;gap:6px;width:100%;max-width:560px;height:240px}
+.xylo button{flex:1;border:0;border-radius:14px;cursor:pointer;color:#fff;font-weight:800;font-size:1.1rem;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px;box-shadow:0 5px 0 rgba(34,38,74,.2);transition:transform .08s}
+.xylo button.hit{transform:translateY(6px);filter:brightness(1.2)}
+.songs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.songs button{font-weight:700;font-size:1.05rem;border:0;border-radius:999px;padding:10px 18px;background:var(--ink);color:#fff;cursor:pointer}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition:none!important}}
+</style>
+
+<div class="wrap" id="home">
+  <div class="top">
+    <div class="brand"><div class="logo">abc</div><div><h1>Vamika's <span>Little School</span></h1><p class="tag">Likho · Seekho · Khelo — har cheez bol ke sikhata hai</p></div></div>
+    <div class="pill" role="group" aria-label="Language">
+      <button id="lang-en" aria-pressed="true">English</button>
+      <button id="lang-hi" aria-pressed="false">English + हिंदी</button>
+    </div>
+  </div>
+  <p class="note" id="note" hidden></p>
+  <section class="shelf"><h2>Likho <small>tracing — ungli se likhna seekho</small></h2><div class="cards" id="writeCards"></div></section>
+  <section class="shelf"><h2>Seekho <small>app khud sikhayega, phir poochega</small></h2><div class="cards" id="learnCards"></div></section>
+  <section class="shelf"><h2>Khelo <small>chhote games</small></h2><div class="cards" id="gameCards"></div></section>
+</div>
+
+<div class="wrap" id="play" hidden>
+  <div class="bar">
+    <button class="round" id="back" aria-label="Home">🏠</button>
+    <h1 id="ptitle"></h1>
+    <button class="round" id="pause" aria-label="Pause">⏸</button>
+  </div>
+  <section class="stage" id="stage" aria-live="polite"></section>
+</div>
+
+<script>
+/* =================================================================== data */
+const PAL=['#FF5C8A','#2FBF7F','#3E9BFF','#8E6CFF','#FFB020','#FF7A45','#20B2B8'];
+const LN={A:"ay",B:"bee",C:"see",D:"dee",E:"ee",F:"eff",G:"jee",H:"aitch",I:"eye",J:"jay",K:"kay",L:"el",M:"em",N:"en",O:"oh",P:"pee",Q:"cue",R:"are",S:"ess",T:"tee",U:"you",V:"vee",W:"double you",X:"ex",Y:"why",Z:"zed"};
+const ABC=[["A","Apple","🍎","सेब"],["B","Ball","⚽","गेंद"],["C","Cat","🐱","बिल्ली"],["D","Dog","🐶","कुत्ता"],["E","Egg","🥚","अंडा"],["F","Fish","🐟","मछली"],["G","Grapes","🍇","अंगूर"],["H","Hat","👒","टोपी"],["I","Ice cream","🍦","आइसक्रीम"],["J","Juice","🧃","जूस"],["K","Kite","🪁","पतंग"],["L","Lion","🦁","शेर"],["M","Mango","🥭","आम"],["N","Nest","🪺","घोंसला"],["O","Orange","🍊","संतरा"],["P","Parrot","🦜","तोता"],["Q","Queen","👸","रानी"],["R","Rabbit","🐰","खरगोश"],["S","Sun","☀️","सूरज"],["T","Tiger","🐯","बाघ"],["U","Umbrella","☂️","छाता"],["V","Van","🚐","गाड़ी"],["W","Watch","⌚","घड़ी"],["X","Xylophone","🎹","बाजा"],["Y","Yak","🐂","याक"],["Z","Zebra","🦓","ज़ेबरा"]];
+const ANIMALS=[["Cow","🐄","गाय","moo moo","माँ माँ"],["Dog","🐶","कुत्ता","woof woof","भौं भौं"],["Cat","🐱","बिल्ली","meow meow","म्याऊँ म्याऊँ"],["Duck","🦆","बत्तख","quack quack","क्वैक क्वैक"],["Lion","🦁","शेर","roar","दहाड़"],["Sheep","🐑","भेड़","baa baa","में में"],["Hen","🐔","मुर्गी","cluck cluck","कुट कुट"],["Elephant","🐘","हाथी","pawoo","पूऊ"],["Frog","🐸","मेंढक","ribbit ribbit","टर्र टर्र"],["Monkey","🐒","बंदर","ooh ooh aah aah","हू हू हा हा"],["Horse","🐴","घोड़ा","neigh","हिनहिन"],["Pig","🐷","सूअर","oink oink","ओइंक ओइंक"],["Owl","🦉","उल्लू","hoo hoo","हू हू"],["Bee","🐝","मधुमक्खी","buzz buzz","भिन भिन"],["Goat","🐐","बकरी","meh meh","में में"],["Parrot","🦜","तोता","mitthu mitthu","मिट्ठू मिट्ठू"]];
+const NUM_EN=["one","two","three","four","five","six","seven","eight","nine","ten"];
+const NUM_HI=["एक","दो","तीन","चार","पाँच","छह","सात","आठ","नौ","दस"];
+const THINGS=[["🍎","apples","सेब"],["🎈","balloons","गुब्बारे"],["⭐","stars","तारे"],["🐥","chicks","चूज़े"],["🍌","bananas","केले"],["🚗","cars","गाड़ियाँ"],["🦋","butterflies","तितलियाँ"],["🐟","fish","मछलियाँ"],["🍓","strawberries","स्ट्रॉबेरी"],["🌸","flowers","फूल"]];
+const COLS=[["Red","#E8323C","लाल","🍎","apple","सेब"],["Blue","#2F7BEA","नीला","🐳","whale","व्हेल"],["Yellow","#FFCC1F","पीला","🍌","banana","केला"],["Green","#2DB45E","हरा","🐸","frog","मेंढक"],["Orange","#FF8A1F","नारंगी","🍊","orange","संतरा"],["Pink","#FF6FB0","गुलाबी","🌸","flower","फूल"],["Purple","#8B4CE0","बैंगनी","🍇","grapes","अंगूर"],["Brown","#8A5A35","भूरा","🐻","bear","भालू"],["Black","#262626","काला","🐈‍⬛","cat","बिल्ली"],["White","#F2F2F2","सफ़ेद","☁️","cloud","बादल"]];
+const SHAPES=[["Circle","circle","गोला"],["Square","square","चौकोर"],["Triangle","triangle","तिकोन"],["Star","star","तारा"],["Heart","heart","दिल"],["Rectangle","rect","आयत"],["Oval","oval","अंडाकार"],["Diamond","diamond","हीरा"]];
+/* [english, emoji, hindi, sentence, hindi sentence, question, hindi question, word to spell] */
+const HOME=[["Bed","🛏️","बिस्तर","We sleep on the bed.","हम बिस्तर पर सोते हैं।"],["Chair","🪑","कुर्सी","We sit on the chair.","हम कुर्सी पर बैठते हैं।"],["Door","🚪","दरवाज़ा","Knock knock! Open the door.","दरवाज़ा खोलो।"],["Sofa","🛋️","सोफ़ा","We sit together on the sofa.","हम सोफ़े पर बैठते हैं।"],["Clock","🕰️","घड़ी","The clock says tick tock.","घड़ी टिक टिक करती है।"],["Bulb","💡","बल्ब","The bulb gives light.","बल्ब से रोशनी होती है।"],["TV","📺","टीवी","We watch TV.","हम टीवी देखते हैं।"],["Phone","📱","फ़ोन","Hello hello! on the phone.","फ़ोन पर हैलो हैलो!"],["Cup","☕","कप","We drink from a cup.","हम कप से पीते हैं।"],["Plate","🍽️","थाली","We eat food in a plate.","हम थाली में खाना खाते हैं।"],["Spoon","🥄","चम्मच","We eat with a spoon.","हम चम्मच से खाते हैं।"],["Soap","🧼","साबुन","We wash hands with soap.","हम साबुन से हाथ धोते हैं।"],["Bucket","🪣","बाल्टी","Water goes in the bucket.","बाल्टी में पानी है।"],["Window","🪟","खिड़की","Look out of the window.","खिड़की से बाहर देखो।"],["Key","🔑","चाबी","The key opens the lock.","चाबी से ताला खुलता है।"],["Shoes","👟","जूते","We wear shoes on our feet.","हम पैरों में जूते पहनते हैं।"],["Teddy","🧸","टेडी","My soft teddy bear.","मेरा प्यारा टेडी।"],["Umbrella","☂️","छाता","The umbrella keeps us dry.","छाता बारिश से बचाता है।"]];
+const FAMILY=[["Mummy","👩","मम्मी","Mummy loves me.","मम्मी मुझसे प्यार करती हैं।"],["Papa","👨","पापा","Papa plays with me.","पापा मेरे साथ खेलते हैं।"],["Baby","👶","बेबी","A little baby.","छोटा सा बेबी।"],["Dadi","👵","दादी","Dadi is Papa's mummy.","दादी पापा की मम्मी हैं।"],["Dada","👴","दादा","Dada is Papa's papa.","दादा पापा के पापा हैं।"],["Sister","👧","बहन","My sister.","मेरी बहन।"],["Nani","👵🏽","नानी","Nani is Mummy's mummy.","नानी मम्मी की मम्मी हैं।"],["Nana","👴🏽","नाना","Nana is Mummy's papa.","नाना मम्मी के पापा हैं।"],["Brother","👦","भाई","My brother.","मेरा भाई।"],["Family","👨‍👩‍👧","परिवार","We are a happy family.","हम एक खुश परिवार हैं।"]];
+const HABITS=[["Brush teeth","🪥","दाँत साफ़ करो","We brush our teeth every morning.","रोज़ सुबह दाँत साफ़ करो।","What do we brush teeth with?","दाँत किससे साफ़ करते हैं?","Brush"],["Wash hands","🧼","हाथ धोओ","Wash hands before we eat.","खाने से पहले हाथ धोओ।","What do we wash hands with?","हाथ किससे धोते हैं?","Wash"],["Take a bath","🛁","नहाओ","We take a bath every day.","रोज़ नहाओ।","Where do we take a bath?","हम कहाँ नहाते हैं?","Bath"],["Drink milk","🥛","दूध पियो","Milk makes us strong.","दूध पीकर ताक़त आती है।","What makes us strong?","दूध कहाँ है?","Milk"],["Eat veggies","🥕","सब्ज़ी खाओ","Vegetables are healthy.","सब्ज़ी खाना अच्छा है।","Which one is healthy food?","सब्ज़ी कहाँ है?","Eat"],["Sleep on time","😴","समय पर सो","We sleep early at night.","रात को जल्दी सोते हैं।","Who is sleeping?","कौन सो रहा है?","Sleep"],["Say thank you","🙏","धन्यवाद बोलो","Always say thank you.","हमेशा धन्यवाद बोलो।","How do we say thank you?","धन्यवाद कैसे बोलते हैं?","Thank you"],["Share toys","🧸","खिलौने बाँटो","Share your toys with friends.","दोस्तों के साथ खिलौने बाँटो।","What do we share?","हम क्या बाँटते हैं?","Share"],["Put toys away","🧺","खिलौने समेटो","Put toys back in the basket.","खिलौने टोकरी में रखो।","Where do toys go?","खिलौने कहाँ रखते हैं?","Tidy"],["Use the dustbin","🗑️","कचरा डस्टबिन में","Throw trash in the dustbin.","कचरा डस्टबिन में डालो।","Where does trash go?","कचरा कहाँ डालते हैं?","Bin"],["Cover your sneeze","🤧","छींक ढको","Cover your mouth when you sneeze.","छींकते समय मुँह ढको।","Who is covering the sneeze?","छींक कौन ढक रहा है?","Achoo"],["Hug","🤗","गले मिलो","A big hug for mummy and papa!","मम्मी पापा को गले लगाओ!","Who is giving a hug?","गले कौन लगा रहा है?","Hug"]];
+const PLACES=[["Home","🏠","घर","We live in our home.","हम घर में रहते हैं।","Where do we live?","हम कहाँ रहते हैं?"],["School","🏫","स्कूल","We learn at school.","हम स्कूल में पढ़ते हैं।","Where do we learn?","हम कहाँ पढ़ते हैं?"],["Park","🛝","पार्क","We play on the slide in the park.","हम पार्क में खेलते हैं।","Where do we play?","हम कहाँ खेलते हैं?"],["Hospital","🏥","अस्पताल","The doctor is at the hospital.","डॉक्टर अस्पताल में होते हैं।","Where is the doctor?","डॉक्टर कहाँ होते हैं?"],["Shop","🏪","दुकान","We buy things at the shop.","हम दुकान से सामान लेते हैं।","Where do we buy things?","सामान कहाँ से लेते हैं?"],["Temple","🛕","मंदिर","We pray at the temple.","हम मंदिर में पूजा करते हैं।","Where do we pray?","पूजा कहाँ करते हैं?"],["Zoo","🦒","चिड़ियाघर","We see animals at the zoo.","चिड़ियाघर में जानवर होते हैं।","Where do we see animals?","जानवर कहाँ देखते हैं?"],["Beach","🏖️","समुद्र तट","Sand and water at the beach.","समुद्र तट पर रेत और पानी है।","Where is the sand?","रेत कहाँ है?"],["Farm","🚜","खेत","Cows and hens live on the farm.","खेत में गाय और मुर्गी रहती हैं।","Where do cows live?","गाय कहाँ रहती है?"],["Airport","✈️","हवाई अड्डा","Aeroplanes fly from the airport.","हवाई जहाज़ हवाई अड्डे से उड़ते हैं।","Where are the aeroplanes?","हवाई जहाज़ कहाँ हैं?"]];
+const FEED=[["Rabbit","🐰","खरगोश","carrot","🥕","गाजर"],["Monkey","🐒","बंदर","banana","🍌","केला"],["Dog","🐶","कुत्ता","bone","🦴","हड्डी"],["Cat","🐱","बिल्ली","milk","🥛","दूध"],["Cow","🐄","गाय","grass","🌿","घास"],["Mouse","🐭","चूहा","cheese","🧀","पनीर"],["Bear","🐻","भालू","honey","🍯","शहद"],["Panda","🐼","पांडा","bamboo","🎋","बाँस"],["Bee","🐝","मधुमक्खी","flower","🌸","फूल"],["Squirrel","🐿️","गिलहरी","nut","🌰","अखरोट"]];
+function shapeSVG(k,c){
+  const p={circle:`<circle cx="50" cy="50" r="42"/>`,square:`<rect x="10" y="10" width="80" height="80" rx="6"/>`,triangle:`<polygon points="50,8 94,90 6,90"/>`,star:`<polygon points="50,5 61,38 96,38 68,59 78,93 50,72 22,93 32,59 4,38 39,38"/>`,heart:`<path d="M50 90 C10 62 4 40 14 24 C24 8 44 10 50 28 C56 10 76 8 86 24 C96 40 90 62 50 90Z"/>`,rect:`<rect x="4" y="24" width="92" height="52" rx="6"/>`,oval:`<ellipse cx="50" cy="50" rx="44" ry="30"/>`,diamond:`<polygon points="50,4 92,50 50,96 8,50"/>`}[k];
+  return `<svg viewBox="0 0 100 100" aria-hidden="true"><g fill="${c}">${p}</g></svg>`;
+}
+
+/* =================================================================== helpers */
+const $=id=>document.getElementById(id);
+const rand=n=>Math.floor(Math.random()*n);
+const shuffle=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const stage=$("stage");
+let lang="en", run=0, timers=[], paused=false, cur=null, wake=null;
+function later(fn,ms){ const t=setTimeout(fn,ms); timers.push(t); return t; }
+function every(fn,ms){ const t=setInterval(fn,ms); timers.push(t); return t; }
+function anim(el,c){ if(!el) return; el.classList.remove(c); void el.offsetWidth; el.classList.add(c); }
+function burst(x,y){
+  const r=stage.getBoundingClientRect(); x??=r.width/2; y??=r.height/2;
+  for(let i=0;i<14;i++){ const s=document.createElement("span"); s.className="burst"; s.textContent=["⭐","✨","💖","🎉","🌟"][i%5];
+    s.style.left=x+"px"; s.style.top=y+"px"; const a=Math.random()*Math.PI*2, d=90+Math.random()*110;
+    s.style.setProperty("--dx",Math.cos(a)*d+"px"); s.style.setProperty("--dy",Math.sin(a)*d+"px");
+    stage.appendChild(s); setTimeout(()=>s.remove(),1050); }
+}
+function burstAt(el){ const r=el.getBoundingClientRect(), s=stage.getBoundingClientRect(); burst(r.left-s.left+r.width/2,r.top-s.top+r.height/2); }
+
+/* =================================================================== sounds — only for success, and the music game */
+let ac=null, master=null;
+function audio(){ try{ if(!ac){ ac=new (window.AudioContext||window.webkitAudioContext)(); master=ac.createGain(); master.gain.value=.5; master.connect(ac.destination);} if(ac.state==="suspended") ac.resume(); }catch(e){} return ac; }
+function tone(f,dur=.3,type="sine",vol=.4,when=0){
+  const a=audio(); if(!a) return; const t=a.currentTime+when, o=a.createOscillator(), g=a.createGain();
+  o.type=type; o.frequency.setValueAtTime(f,t); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+.01); g.gain.exponentialRampToValueAtTime(.001,t+dur);
+  o.connect(g); g.connect(master); o.start(t); o.stop(t+dur+.05);
+}
+function cheer(){ [523,659,784,1047,1319].forEach((f,i)=>tone(f,.35,"triangle",.32,i*.09)); [1568,2093].forEach((f,i)=>tone(f,.3,"sine",.12,.5+i*.08)); }
+function ding(n=0){ tone(784*Math.pow(2,n/12),.25,"sine",.3); tone(1568*Math.pow(2,n/12),.18,"sine",.08,.02); }
+function popGood(){ tone(880,.12,"sine",.35); tone(1320,.2,"triangle",.25,.08); }
+
+/* =================================================================== speech queue */
+const synth=window.speechSynthesis||null;
+const voices=()=>{ try{ return synth?synth.getVoices():[] }catch(e){ return [] } };
+function voiceFor(l){ const vs=voices(), w=l==="hi"?"hi":"en"; return vs.find(v=>v.lang.toLowerCase().replace("_","-")===w+"-in")||vs.find(v=>v.lang.toLowerCase().startsWith(w)); }
+const hasHi=()=>voices().some(v=>v.lang.toLowerCase().startsWith("hi"));
+const H=()=>lang==="hi"&&hasHi();
+const L_=()=>H()?"hi":"en";
+if(synth) synth.onvoiceschanged=()=>showNote();
+function speakOne(text,l,cb){
+  let done=false, ft=null; const fin=()=>{ if(done) return; done=true; clearTimeout(ft); cb(); };
+  const est=700+text.length*120;
+  if(!synth){ ft=setTimeout(fin,est); return; }
+  ft=setTimeout(fin,est*2.5+1500);
+  const u=new SpeechSynthesisUtterance(text), v=voiceFor(l);
+  if(v) u.voice=v; u.lang=l==="hi"?"hi-IN":"en-IN"; u.rate=.78; u.pitch=1.2; u.volume=1;
+  u.onend=fin; u.onerror=fin;
+  try{ synth.resume(); synth.speak(u); }catch(e){ fin(); }
+}
+function play(segs,done){
+  const tok=run; let i=0; segs=segs.filter(Boolean);
+  const step=()=>{ if(tok!==run||paused) return;
+    if(i>=segs.length){ done&&done(); return; }
+    const s=segs[i++]; s.on&&s.on();
+    if(!s.t){ later(step,s.gap||0); return; }
+    speakOne(s.t,s.l||"en",()=>{ if(tok===run) later(step,s.gap??220); });
+  };
+  step();
+}
+function hush(){ run++; try{ synth&&synth.cancel() }catch(e){} }
+function stopAll(){ hush(); timers.forEach(t=>{clearTimeout(t);clearInterval(t)}); timers=[]; TR.on=false; }
+let unlocked=false;
+function unlock(){ audio(); if(unlocked||!synth) return; unlocked=true; try{ const u=new SpeechSynthesisUtterance(" "); u.volume=0; synth.speak(u);}catch(e){} }
+const spellRow=w=>`<div class="spell" id="spell">${[...w.toUpperCase()].map(c=>`<span>${c===" "?"&nbsp;":c}</span>`).join("")}</div>`;
+function hl(i){ const r=$("spell"); if(!r) return; r.classList.toggle("all",i==="all"); [...r.children].forEach((s,k)=>s.classList.toggle("on",k===i)); }
+function spell(word){ const segs=[]; [...word.toUpperCase()].forEach((c,i)=>{ if(LN[c]) segs.push({t:LN[c],on:()=>hl(i),gap:140}); }); segs.push({t:word+"!",on:()=>hl("all"),gap:450}); return segs; }
+
+/* =================================================================== TRACING */
+const seg=(x1,y1,x2,y2)=>[[x1,y1],[x2,y2]];
+const arc=(cx,cy,rx,ry,a0,a1)=>{ const n=Math.max(8,Math.ceil(Math.abs(a1-a0)/5)); return Array.from({length:n+1},(_,i)=>{ const a=(a0+(a1-a0)*i/n)*Math.PI/180; return [cx+rx*Math.cos(a),cy+ry*Math.sin(a)]; }); };
+const J=(...parts)=>parts.flat();
+const GLYPH={
+  A:[seg(50,10,22,90),seg(50,10,78,90),seg(33,62,67,62)],
+  B:[seg(28,10,28,90),J(seg(28,10,50,10),arc(50,29,20,19,-90,90),seg(50,48,28,48)),J(seg(28,48,53,48),arc(53,69,22,21,-90,90),seg(53,90,28,90))],
+  C:[arc(52,50,30,40,-40,-320)],
+  D:[seg(28,10,28,90),J(seg(28,10,42,10),arc(42,50,32,40,-90,90),seg(42,90,28,90))],
+  E:[seg(30,10,30,90),seg(30,10,72,10),seg(30,50,64,50),seg(30,90,72,90)],
+  F:[seg(30,10,30,90),seg(30,10,72,10),seg(30,50,64,50)],
+  G:[J(arc(52,50,30,40,-40,-360),seg(82,50,58,50))],
+  H:[seg(28,10,28,90),seg(72,10,72,90),seg(28,50,72,50)],
+  I:[seg(32,10,68,10),seg(50,10,50,90),seg(32,90,68,90)],
+  J:[J(seg(64,10,64,66),arc(45,66,19,22,0,180))],
+  K:[seg(30,10,30,90),seg(72,10,30,58),seg(44,47,74,90)],
+  L:[J(seg(30,10,30,90),seg(30,90,72,90))],
+  M:[J(seg(22,90,22,10),seg(22,10,50,62),seg(50,62,78,10),seg(78,10,78,90))],
+  N:[J(seg(26,90,26,10),seg(26,10,74,90),seg(74,90,74,10))],
+  O:[arc(50,50,30,40,-90,-450)],
+  P:[seg(28,10,28,90),J(seg(28,10,50,10),arc(50,30,22,20,-90,90),seg(50,50,28,50))],
+  Q:[arc(50,50,30,40,-90,-450),seg(56,68,80,94)],
+  R:[seg(28,10,28,90),J(seg(28,10,50,10),arc(50,30,22,20,-90,90),seg(50,50,28,50)),seg(46,50,74,90)],
+  S:[J(arc(50,30,22,20,-20,-270),arc(50,70,24,20,-90,160))],
+  T:[seg(24,10,76,10),seg(50,10,50,90)],
+  U:[J(seg(26,10,26,62),arc(50,62,24,28,180,0),seg(74,62,74,10))],
+  V:[J(seg(22,10,50,90),seg(50,90,78,10))],
+  W:[J(seg(14,10,32,90),seg(32,90,50,34),seg(50,34,68,90),seg(68,90,86,10))],
+  X:[seg(24,10,76,90),seg(76,10,24,90)],
+  Y:[seg(24,10,50,50),J(seg(76,10,50,50),seg(50,50,50,90))],
+  Z:[J(seg(24,10,76,10),seg(76,10,24,90),seg(24,90,76,90))],
+  "0":[arc(50,50,24,40,-90,-450)],
+  "1":[J(seg(36,24,52,10),seg(52,10,52,90))],
+  "2":[J(arc(50,32,22,22,-165,30),seg(69,43,26,90),seg(26,90,76,90))],
+  "3":[J(arc(48,30,22,20,-150,90),arc(48,70,24,20,-90,150))],
+  "4":[J(seg(58,10,22,64),seg(22,64,80,64)),seg(60,36,60,90)],
+  "5":[J(seg(34,10,34,46),arc(50,66,24,24,-125,150)),seg(34,10,72,10)],
+  "6":[J(seg(66,10,33,62),arc(51,68,20,22,180,-180))],
+  "7":[J(seg(24,10,76,10),seg(76,10,42,90))],
+  "8":[J(arc(50,30,22,20,-20,-270),arc(50,70,24,20,-90,270),arc(50,30,22,20,90,-20))],
+  "9":[J(arc(50,30,20,20,0,-360),seg(70,30,68,90))],
+};
+const shiftG=(g,dx,sx)=>g.map(s=>s.map(([x,y])=>[50+(x-50)*sx+dx,y]));
+GLYPH["10"]=[...shiftG(GLYPH["1"],-22,.75),...shiftG(GLYPH["0"],18,.75)];
+const sine=Array.from({length:61},(_,i)=>[8+i*84/60,50+18*Math.sin(i/60*Math.PI*4)]);
+const zig=[[8,62],[22,34],[36,62],[50,34],[64,62],[78,34],[92,62]];
+const spiral=Array.from({length:160},(_,i)=>{ const t=i/159, a=-Math.PI/2+t*Math.PI*5, r=38-t*34; return [50+r*Math.cos(a),52+r*Math.sin(a)]; });
+const LINES=[
+  {n:"Standing line",hi:"खड़ी रेखा",g:[seg(50,12,50,88)],a:"🐝",b:"🌸",say:"Help the bee fly down to the flower!",sayHi:"मधुमक्खी को फूल तक ले चलो!",done:"Yay! The bee found the flower!"},
+  {n:"Sleeping line",hi:"पड़ी रेखा",g:[seg(12,50,88,50)],a:"🚗",b:"🏠",say:"Drive the car to the house!",sayHi:"गाड़ी को घर तक ले चलो!",done:"Beep beep! The car is home!"},
+  {n:"Slanting line",hi:"तिरछी रेखा",g:[seg(16,16,84,84)],a:"🐿️",b:"🌰",say:"Slide the squirrel down to the nut!",sayHi:"गिलहरी को अखरोट तक ले चलो!",done:"Yummy! The squirrel got the nut!"},
+  {n:"Zig zag",hi:"टेढ़ी-मेढ़ी",g:[zig],a:"🐸",b:"🪷",say:"Jump the frog up and down to the lotus!",sayHi:"मेंढक को कमल तक कुदाओ!",done:"Hop hop! The frog is on the lotus!"},
+  {n:"Waves",hi:"लहरें",g:[sine],a:"🐟",b:"🐚",say:"Swim the fish over the waves to the shell!",sayHi:"मछली को सीप तक तैराओ!",done:"Splash! The fish found the shell!"},
+  {n:"Hills",hi:"पहाड़",g:[J(arc(20,66,10,26,180,360),arc(40,66,10,26,180,360),arc(60,66,10,26,180,360),arc(80,66,10,26,180,360))],a:"🐰",b:"🥕",say:"Hop the bunny over the hills to the carrot!",sayHi:"खरगोश को गाजर तक कुदाओ!",done:"Hop hop! The bunny got the carrot!"},
+  {n:"Rainbow",hi:"इंद्रधनुष",g:[arc(50,78,38,52,180,360)],a:"🌧️",b:"☀️",say:"Draw a big rainbow in the sky!",sayHi:"बड़ा सा इंद्रधनुष बनाओ!",done:"Wow! A beautiful rainbow!",fin:"🌈"},
+  {n:"Circle",hi:"गोला",g:[arc(50,50,34,34,-90,-450)],a:"🐞",say:"Go round and round. Draw a big cookie!",sayHi:"गोल गोल घुमाओ!",done:"Yummy! A big round cookie!",fin:"🍪"},
+  {n:"Spiral",hi:"चक्कर",g:[spiral],a:"🐌",b:"🏡",say:"Help the snail go round and round to its home!",sayHi:"घोंघे को घर तक ले चलो!",done:"The snail is home! Good night snail!"},
+];
+/* dot to dot: number dots to join in order */
+const DOTS=[
+  {n:"Triangle",hi:"तिकोन",e:"🔺",pts:[[50,14],[86,84],[14,84]]},
+  {n:"Square",hi:"चौकोर",e:"🟦",pts:[[18,18],[82,18],[82,82],[18,82]]},
+  {n:"Kite",hi:"पतंग",e:"🪁",pts:[[50,8],[80,42],[50,92],[20,42]]},
+  {n:"House",hi:"घर",e:"🏠",pts:[[20,88],[20,45],[50,14],[80,45],[80,88]]},
+  {n:"Boat",hi:"नाव",e:"⛵",pts:[[50,10],[50,62],[86,62],[72,86],[28,86],[14,62]]},
+  {n:"Tent",hi:"तंबू",e:"⛺",pts:[[50,12],[88,84],[62,84],[50,58],[38,84],[12,84]]},
+  {n:"Heart",hi:"दिल",e:"❤️",pts:[[50,30],[64,14],[84,16],[92,36],[50,88],[8,36],[16,16],[36,14]]},
+  {n:"Fish",hi:"मछली",e:"🐟",pts:[[10,50],[30,30],[56,26],[74,40],[92,24],[92,76],[74,60],[56,74],[30,70]]},
+  {n:"Star",hi:"तारा",e:"⭐",pts:[[50,6],[61,38],[95,38],[68,58],[78,92],[50,72],[22,92],[32,58],[5,38],[39,38]]},
+];
+const TR={on:false};
+function resample(pts,step=1.5){ const out=[pts[0]]; for(let i=1;i<pts.length;i++){ const [x0,y0]=pts[i-1],[x1,y1]=pts[i], d=Math.hypot(x1-x0,y1-y0), n=Math.max(1,Math.ceil(d/step)); for(let k=1;k<=n;k++) out.push([x0+(x1-x0)*k/n,y0+(y1-y0)*k/n]); } return out; }
+
+function traceList(kind){
+  if(kind==="lines") return LINES.map(o=>({kind:"line",label:H()?`${o.n} · ${o.hi}`:o.n,chip:o.a,g:o.g,a:o.a,b:o.b,fin:o.fin,
+    intro:[{t:H()?o.sayHi:o.say,l:L_()}], outro:()=>[{t:o.done}], show:o.fin||o.b}));
+  if(kind==="abc") return ABC.map(([L,w,e,h])=>({kind:"glyph",label:L,chip:L,g:GLYPH[L],
+    intro:[{t:`Let's write ${LN[L]}.`},H()&&{t:`${L} लिखो`,l:"hi"},{t:"Start at the green dot."}],
+    outro:()=>[{t:`Wow! ${LN[L]}!`,gap:300},{t:`${LN[L]} for ${w}!`},H()&&{t:`${L} से ${h}`,l:"hi"}], show:e, sub:`${L} for ${w}`}));
+  if(kind==="num") return NUM_EN.map((w,i)=>{ const n=i+1, th=THINGS[i]; return {kind:"glyph",label:String(n),chip:String(n),g:GLYPH[String(n)],
+    intro:[{t:`Let's write ${w}.`},H()&&{t:`${NUM_HI[i]} लिखो`,l:"hi"},{t:"Start at the green dot."}],
+    outro:()=>[{t:`${w}!`,gap:300},{t:"Count with me!"},...Array.from({length:n},(_,k)=>({t:H()?NUM_HI[k]:NUM_EN[k],l:L_(),on:()=>{ const o=$("ovobjs"); o&&o.children[k].classList.add("on"); },gap:150})),{t:`${w} ${th[1]}!`}],
+    count:n, thing:th[0], sub:`${n} = ${w}`}; });
+  return DOTS.map(o=>({kind:"dots",label:H()?`${o.n} · ${o.hi}`:o.n,chip:o.pts.length,pts:o.pts,e:o.e,
+    intro:[{t:H()?"बिंदु जोड़ो! एक से शुरू करो।":"Join the dots! Start at number one."}],
+    outro:()=>[{t:H()?`${o.hi}! शाबाश!`:`It's a ${o.n}! Well done!`,l:L_()}], show:o.e}));
+}
+function openTrace(kind,title){
+  enter(title); TR.kind=kind; TR.list=traceList(kind); TR.idx=0; TR.done=new Set();
+  stage.innerHTML=`<div class="tracewrap"><div class="tlabel" id="tlabel"></div><canvas id="cv"></canvas><div class="tctl"><button id="tprev" aria-label="Previous">◀</button><button id="tredo" aria-label="Again">↺</button><button id="tnext" aria-label="Next">▶</button></div><div class="strip" id="strip"></div></div><div class="overlay" id="ov" hidden></div>`;
+  $("strip").innerHTML=TR.list.map((it,i)=>`<button data-i="${i}" aria-label="${it.label}">${it.chip}</button>`).join("");
+  $("strip").onclick=e=>{ const b=e.target.closest("button"); if(b){ TR.idx=+b.dataset.i; loadTrace(); } };
+  $("tprev").onclick=()=>{ TR.idx=(TR.idx-1+TR.list.length)%TR.list.length; loadTrace(); };
+  $("tnext").onclick=()=>{ TR.idx=(TR.idx+1)%TR.list.length; loadTrace(); };
+  $("tredo").onclick=()=>loadTrace();
+  const cv=$("cv");
+  cv.addEventListener("pointerdown",e=>{ if(!TR.on||TR.finished) return; cv.setPointerCapture(e.pointerId); TR.down=true; TR.last=null; TR.idle=performance.now(); onPt(e); });
+  cv.addEventListener("pointermove",e=>{ if(!TR.down) return; (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(onPt); });
+  const up=()=>{ TR.down=false; TR.last=null; TR.idle=performance.now(); };
+  cv.addEventListener("pointerup",up); cv.addEventListener("pointercancel",up);
+  cur={resume:()=>loadTrace()};
+  loadTrace();
+}
+function loadTrace(){
+  stopAll(); $("ov").hidden=true;
+  const it=TR.list[TR.idx]; TR.it=it; TR.on=true; TR.finished=false; TR.trail=[]; TR.si=0; TR.k=0; TR.idle=performance.now(); TR.down=false;
+  TR.ink=PAL[TR.idx%PAL.length];
+  if(it.kind==="dots"){ TR.dn=0; } else { TR.strokes=it.g.map(s=>resample(s)); }
+  $("tlabel").textContent=it.kind==="glyph"?(it.sub||it.label):it.label;
+  [...$("strip").children].forEach((b,i)=>{ b.setAttribute("aria-current",i===TR.idx); b.classList.toggle("done",TR.done.has(i)); });
+  $("strip").children[TR.idx]?.scrollIntoView({block:"nearest",inline:"center"});
+  sizeCanvas(); cur.resume=()=>loadTrace();
+  later(()=>play(it.intro),250);
+  const lt=TR.lt=(TR.lt||0)+1; const loop=()=>{ if(lt!==TR.lt||!TR.on) return; draw(); requestAnimationFrame(loop); }; requestAnimationFrame(loop);
+}
+function sizeCanvas(){ const cv=$("cv"); const r=cv.getBoundingClientRect(), dpr=Math.min(2,window.devicePixelRatio||1); TR.S=r.width; cv.width=r.width*dpr; cv.height=r.width*dpr; TR.ctx=cv.getContext("2d"); TR.ctx.setTransform(dpr,0,0,dpr,0,0); }
+window.addEventListener("resize",()=>{ if(TR.on) sizeCanvas(); });
+function toU(e){ const r=$("cv").getBoundingClientRect(); return [(e.clientX-r.left)/r.width*100,(e.clientY-r.top)/r.height*100]; }
+function onPt(e){
+  const p=toU(e); TR.idle=performance.now();
+  /* fill gaps between fast finger events so no part of the path is skipped */
+  const pts=[]; if(TR.last){ const d=Math.hypot(p[0]-TR.last[0],p[1]-TR.last[1]), n=Math.ceil(d/2); for(let i=1;i<=n;i++) pts.push([TR.last[0]+(p[0]-TR.last[0])*i/n,TR.last[1]+(p[1]-TR.last[1])*i/n]); } else pts.push(p);
+  TR.last=p; TR.trail.push(p); if(TR.trail.length>600) TR.trail.shift();
+  pts.forEach(q=>TR.it.kind==="dots"?dotStep(q):traceStep(q));
+}
+const TOL=13;
+function traceStep(q){
+  if(TR.finished) return; const P=TR.strokes[TR.si]; if(!P) return;
+  if(TR.k===0){ if(Math.hypot(q[0]-P[0][0],q[1]-P[0][1])<TOL*1.3) TR.k=1; else return; }
+  let best=TR.k; for(let j=TR.k;j<Math.min(P.length,TR.k+12);j++){ if(Math.hypot(q[0]-P[j][0],q[1]-P[j][1])<TOL) best=j; }
+  TR.k=best;
+  if(TR.k>=P.length-3){ TR.k=P.length; TR.si++; if(TR.si>=TR.strokes.length) finishTrace(); else { ding(TR.si*2); TR.k=0; TR.last=null; } }
+}
+function dotStep(q){
+  if(TR.finished) return; const pts=TR.it.pts; const nx=pts[TR.dn]; if(!nx) return;
+  if(Math.hypot(q[0]-nx[0],q[1]-nx[1])<10){ TR.dn++; hush(); play([{t:H()?NUM_HI[TR.dn-1]:NUM_EN[TR.dn-1],l:L_(),gap:0}]); if(TR.dn>=pts.length) later(finishTrace,700); }
+}
+function finishTrace(){
+  if(TR.finished) return; TR.finished=true; TR.done.add(TR.idx); $("strip").children[TR.idx]?.classList.add("done");
+  const it=TR.it; hush(); cheer(); burst();
+  later(()=>{
+    const ov=$("ov");
+    ov.innerHTML=it.count?`<div class="big" style="color:${TR.ink}">${it.label}</div><div class="objs" id="ovobjs">${Array.from({length:it.count},()=>`<span>${it.thing}</span>`).join("")}</div><div class="cap">${it.sub}</div>`
+      :`<div class="pic">${it.show}</div>${it.kind==="glyph"?`<div class="big" style="color:${TR.ink};font-size:4rem">${it.label}</div>`:""}<div class="cap">${it.sub||it.label}</div>`;
+    ov.hidden=false;
+    play(it.outro(),()=>later(()=>{ TR.idx=(TR.idx+1)%TR.list.length; loadTrace(); },1800));
+  },900);
+}
+function draw(){
+  const c=TR.ctx, S=TR.S; if(!c) return; const u=v=>v*S/100, it=TR.it, now=performance.now();
+  c.clearRect(0,0,S,S);
+  /* light baseline guides like a school notebook */
+  if(it.kind==="glyph"){ c.strokeStyle="#E5EEF8"; c.lineWidth=2; [10,50,90].forEach(y=>{ c.beginPath(); c.moveTo(u(4),u(y)); c.lineTo(u(96),u(y)); c.stroke(); }); }
+  c.lineCap="round"; c.lineJoin="round";
+  const path=(P,upto)=>{ c.beginPath(); c.moveTo(u(P[0][0]),u(P[0][1])); for(let i=1;i<Math.min(P.length,upto);i++) c.lineTo(u(P[i][0]),u(P[i][1])); c.stroke(); };
+  if(it.kind==="dots"){
+    const pts=it.pts;
+    if(TR.finished){ c.fillStyle=TR.ink+"55"; c.beginPath(); pts.forEach(([x,y],i)=>i?c.lineTo(u(x),u(y)):c.moveTo(u(x),u(y))); c.closePath(); c.fill(); }
+    c.strokeStyle=TR.ink; c.lineWidth=S*.03;
+    if(TR.dn>1||TR.finished){ c.beginPath(); pts.slice(0,TR.finished?pts.length:TR.dn).forEach(([x,y],i)=>i?c.lineTo(u(x),u(y)):c.moveTo(u(x),u(y))); if(TR.finished) c.closePath(); c.stroke(); }
+    if(TR.dn>0&&!TR.finished&&TR.down&&TR.last){ c.globalAlpha=.35; c.beginPath(); c.moveTo(u(pts[TR.dn-1][0]),u(pts[TR.dn-1][1])); c.lineTo(u(TR.last[0]),u(TR.last[1])); c.stroke(); c.globalAlpha=1; }
+    pts.forEach(([x,y],i)=>{
+      const isNext=i===TR.dn&&!TR.finished, r=S*(isNext?.05+.008*Math.sin(now/180):.042);
+      c.fillStyle=i<TR.dn||TR.finished?TR.ink:isNext?"#2FBF7F":"#C9D4E4"; c.beginPath(); c.arc(u(x),u(y),r,0,7); c.fill();
+      c.fillStyle="#fff"; c.font=`800 ${S*.045}px "Baloo 2",sans-serif`; c.textAlign="center"; c.textBaseline="middle"; c.fillText(i+1,u(x),u(y)+S*.004);
+    });
+    if(TR.finished){ c.font=`${S*.22}px serif`; c.fillText(it.e,S/2,S/2); }
+    return;
+  }
+  /* guide road */
+  c.strokeStyle="#E6E0F5"; c.lineWidth=S*.12; TR.strokes.forEach(P=>path(P,P.length));
+  c.strokeStyle="#B9AEDB"; c.lineWidth=S*.012; c.setLineDash([S*.025,S*.025]); TR.strokes.forEach(P=>path(P,P.length)); c.setLineDash([]);
+  /* child's crayon marks */
+  if(TR.trail.length>1){ c.strokeStyle=TR.ink; c.globalAlpha=.22; c.lineWidth=S*.03; c.beginPath(); TR.trail.forEach(([x,y],i)=>{ if(i&&Math.hypot(x-TR.trail[i-1][0],y-TR.trail[i-1][1])>20) c.moveTo(u(x),u(y)); else i?c.lineTo(u(x),u(y)):c.moveTo(u(x),u(y)); }); c.stroke(); c.globalAlpha=1; }
+  /* painted progress */
+  c.strokeStyle=TR.ink; c.lineWidth=S*.085;
+  TR.strokes.forEach((P,i)=>{ if(i<TR.si) path(P,P.length); else if(i===TR.si&&TR.k>1) path(P,TR.k+1); });
+  /* end emoji and start dot */
+  c.textAlign="center"; c.textBaseline="middle";
+  if(it.b&&!TR.finished){ const P=TR.strokes[TR.strokes.length-1], e=P[P.length-1]; c.font=`${S*.11}px serif`; c.fillText(it.b,u(e[0]),u(e[1])); }
+  if(!TR.finished){
+    const P=TR.strokes[TR.si], head=P[Math.min(TR.k,P.length-1)];
+    if(TR.k===0){ const r=S*(.05+.01*Math.sin(now/160)); c.fillStyle="#2FBF7F"; c.beginPath(); c.arc(u(P[0][0]),u(P[0][1]),r,0,7); c.fill();
+      if(TR.strokes.length>1&&it.kind==="glyph"){ c.fillStyle="#fff"; c.font=`800 ${S*.05}px "Baloo 2",sans-serif`; c.fillText(TR.si+1,u(P[0][0]),u(P[0][1])+S*.004); } }
+    if(it.a){ c.font=`${S*.11}px serif`; c.fillText(it.a,u(head[0]),u(head[1])); }
+    else if(TR.k>0){ c.fillStyle="#FFC83D"; c.beginPath(); c.arc(u(head[0]),u(head[1]),S*.035,0,7); c.fill(); }
+    /* when idle, a little star shows the way */
+    if(!TR.down&&now-TR.idle>1800){ const f=((now-TR.idle)%1800)/1800, j=Math.floor(TR.k+(P.length-1-TR.k)*f), g=P[Math.max(0,Math.min(P.length-1,j))]; c.globalAlpha=1-f*.6; c.font=`${S*.07}px serif`; c.fillText("⭐",u(g[0]),u(g[1])); c.globalAlpha=1; }
+  } else if(it.fin){ c.font=`${S*.3}px serif`; c.fillText(it.fin,S/2,S/2+(it.fin==="🌈"?S*.08:0)); }
+}
+
+/* =================================================================== LEARN topics */
+function mkE(list,opt={}){ return list.map((r,i)=>{ const [en,e,hi,sen,senHi,qEn,qHi,sp]=r, word=sp||en;
+  return {face:()=>`<div class="pic">${e}</div>`, word, cap:()=>`${sen}${H()?`<br>${senHi}`:""}`,
+    teach:()=>[{t:en,gap:350},...(word.length<=10?spell(word):[]),{t:sen,gap:300},H()&&{t:`${hi}. ${senHi}`,l:"hi"}],
+    choice:e, nm:()=>H()?hi:en, q:()=>H()?(qHi||`${hi} कहाँ है?`):(qEn||`Where is ${opt.the?"the ":""}${en}?`)}; }); }
+const TOPICS={
+  animals:{title:"Animals",hi:"जानवर",icon:"🐮",bg:PAL[1],items:ANIMALS.map(([n,e,h,s,sh])=>({face:()=>`<div class="pic">${e}</div>`,word:n,cap:()=>`${n} says “${s}”${H()?`<br>${h} · ${sh}`:""}`,
+    teach:()=>[{t:n,gap:350},...spell(n),{t:`The ${n} says, ${s}!`},H()&&{t:`${h}. ${h} बोले ${sh}`,l:"hi"}],choice:e,nm:()=>H()?h:n,q:()=>H()?`${h} कहाँ है?`:`Where is the ${n}?`}))},
+  homeitems:{title:"My Home",hi:"घर की चीज़ें",icon:"🛋️",bg:PAL[5],items:mkE(HOME,{the:1})},
+  family:{title:"Family",hi:"परिवार",icon:"👨‍👩‍👧",bg:PAL[0],items:mkE(FAMILY)},
+  abc:{title:"ABC",hi:"अक्षर",icon:"🔤",bg:PAL[3],items:ABC.map(([L,w,e,h],i)=>({face:()=>`<div class="big" style="color:${PAL[i%7]}">${L}<small>${L.toLowerCase()}</small></div><div class="pic" style="font-size:4.5rem">${e}</div>`,word:w,cap:()=>`${L} for ${w}${H()?` · ${h}`:""}`,
+    teach:()=>[{t:LN[L],gap:400},{t:`${LN[L]} for ${w}`},...spell(w),H()&&{t:`${L} से ${h}`,l:"hi"}],choice:`<span style="color:${PAL[i%7]}">${L}</span>`,nm:()=>LN[L],q:()=>H()?`${L} कहाँ है?`:`Where is ${LN[L]}?`}))},
+  numbers:{title:"123",hi:"गिनती",icon:"🔢",bg:PAL[2],items:NUM_EN.map((w,i)=>{ const n=i+1, th=THINGS[i];
+    return {face:()=>`<div class="big" style="color:${PAL[n%7]}">${n}</div><div class="objs" id="objs">${Array.from({length:n},()=>`<span>${th[0]}</span>`).join("")}</div>`,word:w,cap:()=>`${n} = ${w}${H()?` · ${NUM_HI[i]}`:""}`,
+    teach:()=>[...Array.from({length:n},(_,k)=>({t:H()?NUM_HI[k]:NUM_EN[k],l:L_(),on:()=>{const o=$("objs");o&&o.children[k].classList.add("on")},gap:160})),{t:`${w}!`,on:()=>$("objs")?.classList.add("shown"),gap:400},...spell(w)],
+    choice:`<span style="color:${PAL[n%7]}">${n}</span>`,nm:()=>H()?NUM_HI[i]:w,q:()=>H()?`${NUM_HI[i]} कहाँ है?`:`Where is ${w}?`};})},
+  colors:{title:"Colors",hi:"रंग",icon:"🎨",bg:PAL[4],items:COLS.map(([n,c,h,e,ex,exh])=>({face:()=>`<div class="blob" style="background:${c}"></div><div class="pic" style="font-size:3.4rem">${e}</div>`,word:n,cap:()=>`The ${ex} is ${n.toLowerCase()}${H()?` · ${h}`:""}`,
+    teach:()=>[{t:n,gap:350},...spell(n),{t:`The ${ex} is ${n}.`},H()&&{t:`${h}. ${exh} ${h} है`,l:"hi"}],choice:`<span class="dot" style="background:${c};box-shadow:inset 0 0 0 3px rgba(0,0,0,.08)"></span>`,nm:()=>H()?h:n,q:()=>H()?`${h} कहाँ है?`:`Where is ${n}?`}))},
+  shapes:{title:"Shapes",hi:"आकार",icon:"🔺",bg:PAL[6],items:SHAPES.map(([n,k,h],i)=>({face:()=>`<div class="shape">${shapeSVG(k,PAL[i%7])}</div>`,word:n,cap:()=>H()?h:"",
+    teach:()=>[{t:n,gap:350},...spell(n),{t:`This is a ${n}.`},H()&&{t:h,l:"hi"}],choice:shapeSVG(k,PAL[i%7]),nm:()=>H()?h:n,q:()=>H()?`${h} कहाँ है?`:`Where is the ${n}?`}))},
+  habits:{title:"Good Habits",hi:"अच्छी आदतें",icon:"🪥",bg:"#E0A100",items:mkE(HABITS)},
+  places:{title:"Places",hi:"जगहें",icon:"🏫",bg:"#5B7CFA",items:mkE(PLACES)},
+};
+function openTopic(key){ const T=TOPICS[key]; cur={T,idx:0,recent:[]}; enter(T.title); teach(); }
+function teach(){
+  stopAll(); const it=cur.T.items[cur.idx]; cur.resume=teach;
+  stage.innerHTML=`<div class="face pop">${it.face()}</div>${spellRow(it.word)}<div class="cap">${it.cap()}</div>`;
+  later(()=>play(it.teach(),()=>later(afterTeach,1300)),250);
+}
+function afterTeach(){ cur.recent.push(cur.T.items[cur.idx]); cur.idx=(cur.idx+1)%cur.T.items.length;
+  if(cur.recent.length>=3){ const pool=cur.recent; cur.recent=[]; quiz(pool,teach); } else teach(); }
+function quiz(pool,next,ans=pool[rand(pool.length)]){
+  stopAll(); cur.resume=()=>quiz(pool,next,ans);
+  const opts=shuffle(pool); let asks=0, wt=null;
+  stage.innerHTML=`<div class="q">${ans.q()}</div><div class="choices">${opts.map((o,i)=>`<button data-i="${i}" aria-label="${o.nm()}">${o.choice}</button>`).join("")}</div>`;
+  const btns=[...stage.querySelectorAll(".choices button")];
+  const wait=()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) ask(); else hint(); },9000); };
+  const ask=()=>{ asks++; play([{t:ans.q(),l:L_()}],wait); };
+  const hint=()=>{ btns[opts.indexOf(ans)].classList.add("bounce"); play([{t:H()?`${ans.nm()} यहाँ है!`:`Here it is! ${ans.nm()}!`,l:L_()}],()=>later(next,1600)); };
+  btns.forEach(b=>b.onclick=()=>{ const o=opts[+b.dataset.i];
+    if(o===ans){ stopAll(); btns.forEach(x=>x.disabled=true); b.classList.remove("bounce"); b.classList.add("right"); anim(b,"pop"); cheer(); burstAt(b);
+      play([{t:H()?`शाबाश! ${ans.nm()}!`:`Yay! ${ans.nm()}! Good job!`,l:L_()}],()=>later(next,900)); }
+    else { stopAll(); anim(b,"shake"); play([{t:H()?`यह ${o.nm()} है।`:`That is ${o.nm()}.`,l:L_(),gap:300},{t:ans.q(),l:L_()}],wait); } });
+  later(ask,300);
+}
+
+/* =================================================================== GAMES */
+function tapTap(){
+  stopAll(); cur.resume=tapTap;
+  const pool=[...ANIMALS.map(a=>[a[1],a[0],a[2]]),...HOME.slice(0,12).map(a=>[a[1],a[0],a[2]]),["🍎","apple","सेब"],["🎈","balloon","गुब्बारा"],["⭐","star","तारा"],["🐥","chick","चूज़ा"],["🍌","banana","केला"],["🚗","car","गाड़ी"]];
+  stage.innerHTML=`<div class="taphint">${H()?"कहीं भी टैप करो!":"Tap anywhere!"}</div><div class="tapzone" id="tz" aria-label="Tap"></div>`;
+  $("tz").addEventListener("pointerdown",e=>{
+    const r=stage.getBoundingClientRect(), p=pool[rand(pool.length)];
+    const el=document.createElement("div"); el.className="tapitem"; el.style.left=(e.clientX-r.left)+"px"; el.style.top=(e.clientY-r.top)+"px";
+    el.innerHTML=`${p[0]}<b>${H()?p[2]:p[1]}</b>`; stage.appendChild(el); setTimeout(()=>el.remove(),2200);
+    tone(660+rand(6)*80,.18,"sine",.18); hush(); play([{t:H()?p[2]:p[1],l:L_()}]);
+  });
+  play([{t:H()?"कहीं भी टैप करो!":"Tap tap! Tap anywhere!",l:L_()}]);
+}
+function feed(){
+  stopAll(); cur.resume=feed;
+  const a=FEED[rand(FEED.length)], others=shuffle(FEED.filter(f=>f[4]!==a[4])).slice(0,2);
+  const foods=shuffle([a,...others]);
+  const ask=H()?`${a[2]} को भूख लगी है! ${a[5]} खिलाओ।`:`The ${a[0]} is hungry! Give the ${a[3]} to the ${a[0]}.`;
+  stage.innerHTML=`<div class="q">${H()?`${a[2]} को ${a[5]} खिलाओ`:`Feed the ${a[0]}`}</div><div class="eater" id="eater">${a[1]}</div><div class="foods">${foods.map((f,i)=>`<button class="food" data-i="${i}" aria-label="${f[3]}">${f[4]}</button>`).join("")}</div>`;
+  const eater=$("eater"); let wt=null, asks=0, done=false;
+  const wait=()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) say(); else { const b=stage.querySelector(`.food[data-i="${foods.indexOf(a)}"]`); b.classList.add("bounce"); play([{t:H()?`यह रहा ${a[5]}!`:`Here is the ${a[3]}!`,l:L_()}],wait); } },10000); };
+  const say=()=>{ asks++; play([{t:ask,l:L_()}],wait); };
+  const success=b=>{ if(done) return; done=true; stopAll(); const er=eater.getBoundingClientRect(), br=b.getBoundingClientRect();
+    b.classList.remove("bounce","drag"); b.classList.add("eaten"); b.style.transform=`translate(${er.left+er.width/2-br.left-br.width/2+(b._dx||0)}px,${er.top+er.height/2-br.top-br.height/2+(b._dy||0)}px) scale(.3)`;
+    later(()=>{ anim(eater,"wiggle"); cheer(); burstAt(eater); play([{t:H()?`यम यम! ${a[2]} को ${a[5]} पसंद है!`:`Yum yum! The ${a[0]} loves the ${a[3]}!`,l:L_()}],()=>later(feed,1200)); },350); };
+  const wrong=(b,f)=>{ stopAll(); anim(b,"shake"); play([{t:H()?`नहीं नहीं! ${a[2]} को ${a[5]} चाहिए।`:`No no! The ${a[0]} wants the ${a[3]}.`,l:L_()}],wait); };
+  stage.querySelectorAll(".food").forEach(b=>{
+    const f=foods[+b.dataset.i]; let sx=0, sy=0, moved=false;
+    b.addEventListener("pointerdown",e=>{ if(done) return; b.setPointerCapture(e.pointerId); sx=e.clientX; sy=e.clientY; moved=false; b._dx=0; b._dy=0; b.classList.remove("back","bounce"); b.classList.add("drag"); });
+    b.addEventListener("pointermove",e=>{ if(!b.classList.contains("drag")) return; const dx=e.clientX-sx, dy=e.clientY-sy; if(Math.hypot(dx,dy)>8) moved=true; b._dx=dx; b._dy=dy; b.style.transform=`translate(${dx}px,${dy}px) scale(1.1)`;
+      const er=eater.getBoundingClientRect(); eater.classList.toggle("near", e.clientX>er.left&&e.clientX<er.right&&e.clientY>er.top&&e.clientY<er.bottom); });
+    const end=e=>{ if(!b.classList.contains("drag")) return; b.classList.remove("drag"); eater.classList.remove("near");
+      const er=eater.getBoundingClientRect(), over=e.clientX>er.left&&e.clientX<er.right&&e.clientY>er.top&&e.clientY<er.bottom;
+      if(!moved){ f===a?success(b):wrong(b,f); b.style.transform=""; return; }
+      if(over&&f===a){ success(b); return; }
+      b.classList.add("back"); b.style.transform=""; if(over) wrong(b,f); };
+    b.addEventListener("pointerup",end); b.addEventListener("pointercancel",end);
+  });
+  later(say,300);
+}
+function whoSays(){
+  const three=shuffle(ANIMALS).slice(0,3), ans=three[rand(3)];
+  const pool=three.map(a=>({choice:a[1],nm:()=>H()?a[2]:a[0],q:()=>H()?`कौन बोले ${a[4]}?`:`Who says ${a[3]}?`}));
+  quiz(pool,whoSays,pool[three.indexOf(ans)]); cur.resume=whoSays;
+}
+function howMany(){
+  stopAll(); cur.resume=howMany;
+  const n=1+rand(5), th=THINGS[rand(THINGS.length)];
+  const nums=shuffle([n,...shuffle([1,2,3,4,5,6].filter(x=>x!==n)).slice(0,2)]);
+  const q=H()?`कितने ${th[2]} हैं?`:`How many ${th[1]}?`;
+  stage.innerHTML=`<div class="objs shown" id="objs">${Array.from({length:n},()=>`<span>${th[0]}</span>`).join("")}</div><div class="q">${q}</div><div class="choices">${nums.map(x=>`<button data-n="${x}" style="color:${PAL[x%7]}">${x}</button>`).join("")}</div>`;
+  const btns=[...stage.querySelectorAll(".choices button")];
+  const clr=()=>[...$("objs").children].forEach(z=>{z.classList.remove("on");z.querySelector("b")?.remove()});
+  const countAlong=()=>Array.from({length:n},(_,k)=>({t:H()?NUM_HI[k]:NUM_EN[k],l:L_(),on:()=>{ const s=$("objs").children[k]; s.classList.add("on"); s.insertAdjacentHTML("beforeend",`<b>${k+1}</b>`); },gap:150}));
+  let wt=null, asks=0;
+  const wait=()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) ask(); else play([{t:H()?"चलो साथ में गिनें!":"Let's count together!",l:L_(),on:clr},...countAlong(),{t:`${NUM_EN[n-1]}!`}],()=>later(howMany,1500)); },9000); };
+  const ask=()=>{ asks++; play([{t:q,l:L_()}],wait); };
+  btns.forEach(b=>b.onclick=()=>{ const x=+b.dataset.n; stopAll();
+    if(x===n){ btns.forEach(y=>y.disabled=true); b.classList.add("right"); anim(b,"pop"); cheer(); burst(); play([{on:clr},...countAlong(),{t:H()?`शाबाश! ${NUM_HI[n-1]}!`:`Yes! ${NUM_EN[n-1]} ${th[1]}!`,l:L_()}],()=>later(howMany,1200)); }
+    else { anim(b,"shake"); play([{t:H()?"चलो गिनें!":"Let's count!",l:L_(),on:clr},...countAlong()],()=>{ clr(); ask(); }); } });
+  later(ask,300);
+}
+function bubbles(){
+  stopAll(); cur.resume=bubbles;
+  stage.innerHTML=`<div class="score" id="sc">⭐ 0</div><div class="target" id="tg"></div><div class="field" id="field"></div>`;
+  const field=$("field"); let score=0, got=0, target=null, kind;
+  const kinds={
+    color:()=>{ const c=COLS.slice(0,8)[rand(8)]; return {key:c[0],bg:c[1],label:"",nm:()=>H()?c[2]:c[0],ask:()=>H()?`${c[2]} बुलबुला फोड़ो!`:`Pop the ${c[0]} bubbles!`,tag:`<span class="dot" style="background:${c[1]}"></span>`}; },
+    letter:()=>{ const L=ABC[rand(26)][0]; return {key:L,label:L,nm:()=>LN[L],ask:()=>H()?`${L} फोड़ो!`:`Pop the ${LN[L]}!`,tag:`<span style="font-size:1.6em">${L}</span>`}; },
+    animal:()=>{ const a=ANIMALS[rand(ANIMALS.length)]; return {key:a[0],label:a[1],nm:()=>H()?a[2]:a[0],ask:()=>H()?`${a[2]} फोड़ो!`:`Pop the ${a[0]}!`,tag:`<span style="font-size:1.6em">${a[1]}</span>`}; },
+  };
+  const names=Object.keys(kinds);
+  const newTarget=()=>{ kind=names[rand(3)]; target=kinds[kind](); got=0; $("tg").innerHTML=`${H()?"फोड़ो":"Pop"} ${target.tag}`; play([{t:target.ask(),l:L_()}]); };
+  const spawn=()=>{ if(paused||field.childElementCount>6) return;
+    let it=target; if(Math.random()>=.42){ let g=0; do{ it=kinds[kind](); g++; }while(it.key===target.key&&g<10); }
+    const b=document.createElement("button"); b.className="bubble"; b.textContent=it.label; b.setAttribute("aria-label",it.nm());
+    b.style.setProperty("--c",it.bg||PAL[rand(7)]); b.style.left=Math.max(4,rand(stage.clientWidth-108))+"px";
+    b.style.setProperty("--t",(7+Math.random()*3)+"s"); b.style.setProperty("--sway",(rand(60)-30)+"px"); b.style.setProperty("--h",-(stage.clientHeight+140)+"px");
+    b.onclick=()=>{ if(b.classList.contains("gone")) return;
+      if(it.key===target.key){ b.classList.add("gone"); popGood(); score++; got++; $("sc").textContent=`⭐ ${score}`; burstAt(b); setTimeout(()=>b.remove(),260);
+        hush(); if(got>=4){ cheer(); play([{t:H()?"शाबाश!":"Yay! Super!"}],()=>later(newTarget,500)); } else play([{t:it.nm()+"!",l:L_()}]); }
+      else { anim(b,"shake"); hush(); play([{t:H()?`यह ${it.nm()} है।`:`That is ${it.nm()}.`,l:L_()}]); } };
+    b.addEventListener("animationend",e=>{ if(e.animationName==="rise") b.remove(); });
+    field.appendChild(b); };
+  newTarget(); spawn(); every(spawn,1000); every(()=>{ if(!paused) play([{t:target.ask(),l:L_()}]); },14000);
+}
+const NOTE={C4:261.6,D4:293.7,E4:329.6,F4:349.2,G4:392,A4:440,B4:493.9,C5:523.3};
+const SONGS={"Twinkle":"C4 C4 G4 G4 A4 A4 G4- F4 F4 E4 E4 D4 D4 C4- G4 G4 F4 F4 E4 E4 D4- G4 G4 F4 F4 E4 E4 D4- C4 C4 G4 G4 A4 A4 G4- F4 F4 E4 E4 D4 D4 C4-","Mary's Lamb":"E4 D4 C4 D4 E4 E4 E4- D4 D4 D4- E4 G4 G4- E4 D4 C4 D4 E4 E4 E4 E4 D4 D4 E4 D4 C4-","Happy Birthday":"C4 C4 D4- C4- F4- E4-- C4 C4 D4- C4- G4- F4-- C4 C4 C5- A4- F4- E4- D4-- B4 B4 A4- F4- G4- F4--"};
+const BARS=[["C4","#FF5C8A"],["D4","#FF7A45"],["E4","#FFB020"],["F4","#2FBF7F"],["G4","#20B2B8"],["A4","#3E9BFF"],["B4","#8E6CFF"],["C5","#D14FB5"]];
+function music(){
+  stopAll(); cur.resume=music;
+  stage.innerHTML=`<div class="xylo">${BARS.map((b,i)=>`<button data-n="${b[0]}" style="background:${b[1]};height:${100-i*7}%" aria-label="note ${i+1}">${i+1}</button>`).join("")}</div><div class="songs">${Object.keys(SONGS).map(s=>`<button data-s="${s}">▶ ${s}</button>`).join("")}</div>`;
+  const hit=n=>{ const el=stage.querySelector(`[data-n="${n}"]`); if(el){ el.classList.add("hit"); setTimeout(()=>el.classList.remove("hit"),180);} };
+  stage.querySelectorAll(".xylo button").forEach(b=>b.addEventListener("pointerdown",()=>{ tone(NOTE[b.dataset.n],.9,"triangle",.5); tone(NOTE[b.dataset.n]*4,.3,"sine",.07); hit(b.dataset.n); }));
+  stage.querySelectorAll(".songs button").forEach(b=>b.onclick=()=>{ stopAll(); cur.resume=music; let t=0;
+    SONGS[b.dataset.s].split(" ").forEach(tok=>{ const n=tok.replace(/-/g,""), d=1+(tok.match(/-/g)||[]).length; later(()=>{ tone(NOTE[n],.5*d,"triangle",.45); hit(n); },t*1000); t+=.42*d; }); });
+  play([{t:H()?"बाजा बजाओ!":"Let's make music! Tap the colours.",l:L_()}]);
+}
+const WRITE={lines:{title:"Lines",hi:"रेखाएँ",icon:"〰️",bg:PAL[6]},abc:{title:"Trace ABC",hi:"A–Z लिखो",icon:"✏️",bg:PAL[0]},num:{title:"Trace 123",hi:"1–10 लिखो",icon:"🔢",bg:PAL[2]},dots:{title:"Dot to Dot",hi:"बिंदु जोड़ो",icon:"⭐",bg:PAL[3]}};
+const GAMES={
+  taptap:{title:"Tap Tap",hi:"1 saal+ ke liye",icon:"👆",bg:PAL[4],start:tapTap},
+  feed:{title:"Feed Me",hi:"khana khilao",icon:"🐰",bg:PAL[1],start:feed},
+  whosays:{title:"Who Says?",hi:"awaaz pehchano",icon:"🐄",bg:"#20B2B8",start:whoSays},
+  howmany:{title:"How Many?",hi:"kitne hain?",icon:"🍎",bg:PAL[0],start:howMany},
+  bubbles:{title:"Bubbles",hi:"sahi wala phodo",icon:"🫧",bg:PAL[2],start:bubbles},
+  music:{title:"Music",hi:"baaja bajao",icon:"🎹",bg:"#D14FB5",start:music},
+};
+function openGame(key){ const G=GAMES[key]; cur={}; enter(G.title); G.start(); }
+
+/* =================================================================== screens */
+function enter(title){
+  unlock(); stopAll(); paused=false; $("pause").textContent="⏸"; $("pause").setAttribute("aria-label","Pause");
+  $("ptitle").textContent=title; $("home").hidden=true; $("play").hidden=false; window.scrollTo(0,0);
+  try{ navigator.wakeLock?.request("screen").then(w=>wake=w).catch(()=>{}); }catch(e){}
+}
+function goHome(){ stopAll(); cur=null; $("play").hidden=true; $("home").hidden=false; try{wake&&wake.release()}catch(e){} wake=null; }
+$("back").onclick=goHome;
+$("pause").onclick=()=>{ paused=!paused; $("pause").textContent=paused?"▶":"⏸"; $("pause").setAttribute("aria-label",paused?"Play":"Pause");
+  if(paused) stopAll(); else { unlock(); cur&&cur.resume&&cur.resume(); } };
+document.addEventListener("visibilitychange",()=>{ if(document.hidden&&cur&&!paused) $("pause").click(); });
+function card(parent,o,fn){ const b=document.createElement("button"); b.className="card"; b.style.background=o.bg;
+  b.innerHTML=`<i>${o.icon}</i><b>${o.title}</b><small>${o.hi}</small>`; b.onclick=fn; parent.appendChild(b); }
+Object.entries(WRITE).forEach(([k,o])=>card($("writeCards"),o,()=>openTrace(k,o.title)));
+Object.entries(TOPICS).forEach(([k,o])=>card($("learnCards"),o,()=>openTopic(k)));
+Object.entries(GAMES).forEach(([k,o])=>card($("gameCards"),o,()=>openGame(k)));
+function showNote(){
+  const n=$("note");
+  if(!synth){ n.textContent="Is browser mein bolne wali awaaz nahi chal rahi. Ise Chrome (Android) ya Safari (iPhone) mein kholo."; n.hidden=false; return; }
+  if(lang==="hi"&&voices().length&&!hasHi()){ n.textContent="Is phone mein Hindi awaaz install nahi hai, isliye abhi English mein bolega. Settings → Text-to-speech mein Hindi voice add kar do."; n.hidden=false; return; }
+  n.hidden=true;
+}
+function setLang(l){ lang=l; $("lang-en").setAttribute("aria-pressed",l==="en"); $("lang-hi").setAttribute("aria-pressed",l==="hi"); showNote(); }
+$("lang-en").onclick=()=>setLang("en"); $("lang-hi").onclick=()=>setLang("hi");
+showNote();
+</script>
+
+<script>if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script>
+</body></html>
