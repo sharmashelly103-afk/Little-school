@@ -128,6 +128,55 @@ h2 small{font-size:.85rem;font-weight:600;opacity:.6}
 .xylo button.hit{transform:translateY(6px);filter:brightness(1.2)}
 .songs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .songs button{font-weight:700;font-size:1.05rem;border:0;border-radius:999px;padding:10px 18px;background:var(--ink);color:#fff;cursor:pointer}
+/* sound boards */
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;width:100%;align-self:stretch}
+.board button{aspect-ratio:1;max-width:100%;border:0;border-radius:24px;background:var(--bg);font-size:clamp(2.8rem,13vw,3.6rem);cursor:pointer;box-shadow:0 5px 0 var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
+.board button small{font-size:.85rem;font-weight:700}
+.board button.on{background:#FFF1C2;box-shadow:0 5px 0 var(--sun)}
+/* quiz extras */
+.head{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;max-width:100%}
+.head .cell{width:clamp(48px,14vw,68px);height:clamp(48px,14vw,68px);border-radius:16px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:clamp(1.8rem,9vw,2.6rem)}
+.head .cell.ask{background:#FFF1C2;box-shadow:inset 0 0 0 3px var(--sun);font-weight:800;color:var(--tang)}
+.bigword{font-size:clamp(3rem,15vw,5rem);font-weight:800;letter-spacing:.06em;color:var(--sky)}
+.grp{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;font-size:clamp(1.4rem,6vw,2rem);line-height:1}
+.bar2{height:22px;border-radius:999px;align-self:center}
+.tower{display:flex;flex-direction:column-reverse;align-items:center;justify-content:flex-start;height:100%;gap:2px;font-size:clamp(1.1rem,5vw,1.6rem);line-height:1}
+.choices.two{grid-template-columns:repeat(2,1fr);max-width:440px}
+.silh{filter:brightness(0) opacity(.85)}
+.pair{display:flex;align-items:flex-end;justify-content:center;gap:18px}
+.pair .pic.small{font-size:clamp(3rem,15vw,4.6rem)}
+/* sorting */
+.sortrow{display:flex;gap:14px;width:100%;justify-content:center}
+.basket{flex:1;max-width:220px;min-height:150px;border-radius:26px;background:var(--bg);box-shadow:inset 0 0 0 4px var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:10px 6px;gap:4px;cursor:pointer;border:0;transition:box-shadow .2s}
+.basket.near{box-shadow:inset 0 0 0 6px var(--leaf)}
+.basket i{font-style:normal;font-size:2.6rem;line-height:1}
+.basket b{font-size:1.15rem}
+.basket .in{display:flex;flex-wrap:wrap;justify-content:center;font-size:1.4rem;gap:2px}
+.sortee{width:112px;height:112px;border:0;border-radius:28px;background:var(--paper);font-size:4.4rem;box-shadow:0 6px 0 var(--soft);touch-action:none;cursor:grab;position:relative;z-index:5}
+.sortee.drag{z-index:8;box-shadow:0 14px 24px rgba(34,38,74,.25)}
+.sortee.back{transition:transform .3s}
+/* colouring */
+.colorwrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
+.colorwrap svg{width:min(100%,52vh);height:auto;aspect-ratio:1;max-width:100%;background:var(--paper);border-radius:24px;touch-action:manipulation}
+.colorwrap svg .rg{cursor:pointer;stroke:#22264A;stroke-width:3;stroke-linejoin:round;transition:fill .25s}
+.palette{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.palette button{width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;box-shadow:inset 0 0 0 3px rgba(0,0,0,.12)}
+.palette button[aria-pressed="true"]{transform:scale(1.2);box-shadow:0 0 0 4px var(--ink)}
+/* jigsaw & memory */
+.jig{display:grid;grid-template-columns:repeat(2,var(--p));gap:4px;padding:4px;border-radius:18px;background:var(--bg);position:relative}
+.slot{width:var(--p);height:var(--p);border-radius:12px;position:relative;box-shadow:inset 0 0 0 2px var(--soft);overflow:hidden;cursor:pointer}
+.slot .ghost{position:absolute;inset:0;opacity:.18;transition:opacity .3s}
+.slot.filled .ghost{opacity:1}
+.head .dot{display:block;width:70%;aspect-ratio:1;border-radius:50%}
+.pieces{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.piece{width:calc(var(--p)*.8);height:calc(var(--p)*.8);border:0;border-radius:12px;cursor:grab;touch-action:none;box-shadow:0 5px 0 var(--soft);background-color:var(--paper);position:relative;z-index:5}
+.piece.sel{box-shadow:0 0 0 4px var(--sun)}
+.piece.drag{z-index:8}
+.piece.back{transition:transform .3s}
+.mem{display:grid;gap:10px;width:100%;max-width:460px}
+.mem button{aspect-ratio:1;max-width:100%;border:0;border-radius:22px;cursor:pointer;font-size:clamp(2.6rem,13vw,3.6rem);background:var(--grape);color:#fff;box-shadow:0 5px 0 rgba(34,38,74,.2);transition:transform .25s,background .25s}
+.mem button.open{background:var(--paper);color:var(--ink)}
+.mem button.got{background:#D9F7E8;box-shadow:0 5px 0 var(--leaf)}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition:none!important}}
 </style>
 
@@ -142,6 +191,9 @@ h2 small{font-size:.85rem;font-weight:600;opacity:.6}
   <p class="note" id="note" hidden></p>
   <section class="shelf"><h2>Likho <small>tracing — ungli se likhna seekho</small></h2><div class="cards" id="writeCards"></div></section>
   <section class="shelf"><h2>Seekho <small>app khud sikhayega, phir poochega</small></h2><div class="cards" id="learnCards"></div></section>
+  <section class="shelf"><h2>Maths Adventure <small>ginti, pattern, sorting, bada-chhota</small></h2><div class="cards" id="mathCards"></div></section>
+  <section class="shelf"><h2>Puzzles <small>dimaag wale khel</small></h2><div class="cards" id="puzzleCards"></div></section>
+  <section class="shelf"><h2>Suno aur Padho <small>listening aur reading</small></h2><div class="cards" id="listenCards"></div></section>
   <section class="shelf"><h2>Khelo <small>chhote games</small></h2><div class="cards" id="gameCards"></div></section>
 </div>
 
@@ -171,6 +223,21 @@ const FAMILY=[["Mummy","👩","मम्मी","Mummy loves me.","मम्म�
 const HABITS=[["Brush teeth","🪥","दाँत साफ़ करो","We brush our teeth every morning.","रोज़ सुबह दाँत साफ़ करो।","What do we brush teeth with?","दाँत किससे साफ़ करते हैं?","Brush"],["Wash hands","🧼","हाथ धोओ","Wash hands before we eat.","खाने से पहले हाथ धोओ।","What do we wash hands with?","हाथ किससे धोते हैं?","Wash"],["Take a bath","🛁","नहाओ","We take a bath every day.","रोज़ नहाओ।","Where do we take a bath?","हम कहाँ नहाते हैं?","Bath"],["Drink milk","🥛","दूध पियो","Milk makes us strong.","दूध पीकर ताक़त आती है।","What makes us strong?","दूध कहाँ है?","Milk"],["Eat veggies","🥕","सब्ज़ी खाओ","Vegetables are healthy.","सब्ज़ी खाना अच्छा है।","Which one is healthy food?","सब्ज़ी कहाँ है?","Eat"],["Sleep on time","😴","समय पर सो","We sleep early at night.","रात को जल्दी सोते हैं।","Who is sleeping?","कौन सो रहा है?","Sleep"],["Say thank you","🙏","धन्यवाद बोलो","Always say thank you.","हमेशा धन्यवाद बोलो।","How do we say thank you?","धन्यवाद कैसे बोलते हैं?","Thank you"],["Share toys","🧸","खिलौने बाँटो","Share your toys with friends.","दोस्तों के साथ खिलौने बाँटो।","What do we share?","हम क्या बाँटते हैं?","Share"],["Put toys away","🧺","खिलौने समेटो","Put toys back in the basket.","खिलौने टोकरी में रखो।","Where do toys go?","खिलौने कहाँ रखते हैं?","Tidy"],["Use the dustbin","🗑️","कचरा डस्टबिन में","Throw trash in the dustbin.","कचरा डस्टबिन में डालो।","Where does trash go?","कचरा कहाँ डालते हैं?","Bin"],["Cover your sneeze","🤧","छींक ढको","Cover your mouth when you sneeze.","छींकते समय मुँह ढको।","Who is covering the sneeze?","छींक कौन ढक रहा है?","Achoo"],["Hug","🤗","गले मिलो","A big hug for mummy and papa!","मम्मी पापा को गले लगाओ!","Who is giving a hug?","गले कौन लगा रहा है?","Hug"]];
 const PLACES=[["Home","🏠","घर","We live in our home.","हम घर में रहते हैं।","Where do we live?","हम कहाँ रहते हैं?"],["School","🏫","स्कूल","We learn at school.","हम स्कूल में पढ़ते हैं।","Where do we learn?","हम कहाँ पढ़ते हैं?"],["Park","🛝","पार्क","We play on the slide in the park.","हम पार्क में खेलते हैं।","Where do we play?","हम कहाँ खेलते हैं?"],["Hospital","🏥","अस्पताल","The doctor is at the hospital.","डॉक्टर अस्पताल में होते हैं।","Where is the doctor?","डॉक्टर कहाँ होते हैं?"],["Shop","🏪","दुकान","We buy things at the shop.","हम दुकान से सामान लेते हैं।","Where do we buy things?","सामान कहाँ से लेते हैं?"],["Temple","🛕","मंदिर","We pray at the temple.","हम मंदिर में पूजा करते हैं।","Where do we pray?","पूजा कहाँ करते हैं?"],["Zoo","🦒","चिड़ियाघर","We see animals at the zoo.","चिड़ियाघर में जानवर होते हैं।","Where do we see animals?","जानवर कहाँ देखते हैं?"],["Beach","🏖️","समुद्र तट","Sand and water at the beach.","समुद्र तट पर रेत और पानी है।","Where is the sand?","रेत कहाँ है?"],["Farm","🚜","खेत","Cows and hens live on the farm.","खेत में गाय और मुर्गी रहती हैं।","Where do cows live?","गाय कहाँ रहती है?"],["Airport","✈️","हवाई अड्डा","Aeroplanes fly from the airport.","हवाई जहाज़ हवाई अड्डे से उड़ते हैं।","Where are the aeroplanes?","हवाई जहाज़ कहाँ हैं?"]];
 const FEED=[["Rabbit","🐰","खरगोश","carrot","🥕","गाजर"],["Monkey","🐒","बंदर","banana","🍌","केला"],["Dog","🐶","कुत्ता","bone","🦴","हड्डी"],["Cat","🐱","बिल्ली","milk","🥛","दूध"],["Cow","🐄","गाय","grass","🌿","घास"],["Mouse","🐭","चूहा","cheese","🧀","पनीर"],["Bear","🐻","भालू","honey","🍯","शहद"],["Panda","🐼","पांडा","bamboo","🎋","बाँस"],["Bee","🐝","मधुमक्खी","flower","🌸","फूल"],["Squirrel","🐿️","गिलहरी","nut","🌰","अखरोट"]];
+const FRUITS=[["Apple","🍎","सेब","An apple a day is good for me.","सेब लाल और मीठा है।"],["Banana","🍌","केला","The banana is long and yellow.","केला पीला है।"],["Mango","🥭","आम","Mango is the king of fruits.","आम फलों का राजा है।"],["Grapes","🍇","अंगूर","Grapes are small and round.","अंगूर छोटे और गोल हैं।"],["Orange","🍊","संतरा","The orange is juicy.","संतरा रसीला है।"],["Watermelon","🍉","तरबूज़","Watermelon is big and sweet.","तरबूज़ बड़ा और मीठा है।"],["Strawberry","🍓","स्ट्रॉबेरी","The strawberry is red.","स्ट्रॉबेरी लाल है।"],["Pineapple","🍍","अनानास","Pineapple has a crown.","अनानास के सिर पर ताज है।"],["Cherry","🍒","चेरी","Two little cherries.","दो छोटी चेरी।"],["Pear","🍐","नाशपाती","The pear is green.","नाशपाती हरी है।"],["Coconut","🥥","नारियल","Coconut has water inside.","नारियल में पानी होता है।"],["Lemon","🍋","नींबू","The lemon is sour.","नींबू खट्टा है।"]];
+const VEG=[["Carrot","🥕","गाजर","The carrot is orange.","गाजर नारंगी है।"],["Potato","🥔","आलू","Potato is round and brown.","आलू भूरा है।"],["Tomato","🍅","टमाटर","The tomato is red.","टमाटर लाल है।"],["Onion","🧅","प्याज़","The onion makes us cry.","प्याज़ काटो तो आँसू आते हैं।"],["Brinjal","🍆","बैंगन","The brinjal is purple.","बैंगन बैंगनी है।"],["Corn","🌽","भुट्टा","Corn is yellow.","भुट्टा पीला है।"],["Broccoli","🥦","ब्रोकली","Broccoli looks like a little tree.","ब्रोकली छोटे पेड़ जैसी है।"],["Cucumber","🥒","खीरा","The cucumber is green.","खीरा हरा है।"],["Chilli","🌶️","मिर्च","The chilli is hot!","मिर्च तीखी है!"],["Garlic","🧄","लहसुन","Garlic is white.","लहसुन सफ़ेद है।"],["Capsicum","🫑","शिमला मिर्च","The capsicum is green.","शिमला मिर्च हरी है।"],["Mushroom","🍄","मशरूम","The mushroom has an umbrella top.","मशरूम छाते जैसा है।"]];
+const FLOWERS=[["Rose","🌹","गुलाब","The rose is red and smells nice.","गुलाब लाल है।"],["Sunflower","🌻","सूरजमुखी","The sunflower looks at the sun.","सूरजमुखी सूरज को देखता है।"],["Lotus","🪷","कमल","The lotus grows in water.","कमल पानी में खिलता है।"],["Tulip","🌷","ट्यूलिप","The tulip is pink.","ट्यूलिप गुलाबी है।"],["Hibiscus","🌺","गुड़हल","The hibiscus is big and red.","गुड़हल लाल है।"],["Marigold","🌼","गेंदा","Marigold is yellow.","गेंदा पीला है।"],["Blossom","🌸","फूल","Pink flowers on the tree.","पेड़ पर गुलाबी फूल।"],["Bouquet","💐","गुलदस्ता","Many flowers together.","बहुत सारे फूल एक साथ।"]];
+const VEHICLES=[["Car","🚗","कार","The car goes beep beep!","कार पीं पीं करती है।","car"],["Bus","🚌","बस","We go to school in the bus.","बस में स्कूल जाते हैं।","bus"],["Train","🚂","रेलगाड़ी","The train goes choo choo!","रेलगाड़ी छुक छुक करती है।","train"],["Aeroplane","✈️","हवाई जहाज़","The aeroplane flies in the sky.","हवाई जहाज़ आसमान में उड़ता है।","plane"],["Cycle","🚲","साइकिल","The cycle bell goes tring tring!","साइकिल की घंटी ट्रिंग ट्रिंग।","bell"],["Ship","🚢","जहाज़","The ship sails on the sea.","जहाज़ समुद्र में चलता है।","ship"],["Ambulance","🚑","एम्बुलेंस","The ambulance helps sick people.","एम्बुलेंस बीमार लोगों की मदद करती है।","siren"],["Fire truck","🚒","दमकल","The fire truck puts out fire.","दमकल आग बुझाती है।","siren2"],["Police car","🚓","पुलिस की गाड़ी","The police car keeps us safe.","पुलिस हमें बचाती है।","siren3"],["Tractor","🚜","ट्रैक्टर","The tractor works on the farm.","ट्रैक्टर खेत में चलता है।","tractor"],["Helicopter","🚁","हेलीकॉप्टर","The helicopter goes round and round.","हेलीकॉप्टर के पंखे घूमते हैं।","heli"],["Auto","🛺","ऑटो","The auto has three wheels.","ऑटो के तीन पहिए हैं।","auto"],["Truck","🚚","ट्रक","The big truck carries things.","ट्रक सामान ले जाता है।","truck"],["Scooter","🛵","स्कूटर","Vroom vroom scooter!","स्कूटर भर्र भर्र।","scooter"]];
+const BODY=[["Eyes","👀","आँखें","We see with our eyes.","हम आँखों से देखते हैं।"],["Ears","👂","कान","We hear with our ears.","हम कानों से सुनते हैं।"],["Nose","👃","नाक","We smell with our nose.","हम नाक से सूंघते हैं।"],["Mouth","👄","मुँह","We eat with our mouth.","हम मुँह से खाते हैं।"],["Teeth","🦷","दाँत","We chew with our teeth.","हम दाँतों से चबाते हैं।"],["Tongue","👅","जीभ","We taste with our tongue.","जीभ से स्वाद आता है।"],["Hand","✋","हाथ","We clap with our hands.","हम हाथों से ताली बजाते हैं।"],["Foot","🦶","पैर","We walk with our feet.","हम पैरों से चलते हैं।"],["Leg","🦵","टाँग","We jump with our legs.","हम टाँगों से कूदते हैं।"]];
+const CLOTHES=[["Shirt","👕","कमीज़","I wear a shirt.","मैं कमीज़ पहनती हूँ।"],["Frock","👗","फ्रॉक","A pretty frock.","सुंदर फ्रॉक।"],["Shorts","🩳","निकर","Shorts for summer.","गर्मी में निकर।"],["Pants","👖","पैंट","Long blue pants.","लंबी नीली पैंट।"],["Socks","🧦","मोज़े","Socks keep feet warm.","मोज़े पैर गरम रखते हैं।"],["Cap","🧢","टोपी","A cap for the sun.","धूप के लिए टोपी।"],["Jacket","🧥","जैकेट","A jacket for the cold.","ठंड में जैकेट।"],["Gloves","🧤","दस्ताने","Gloves for my hands.","हाथों के लिए दस्ताने।"],["Scarf","🧣","मफ़लर","A warm scarf.","गरम मफ़लर।"],["Shoes","👟","जूते","Shoes for my feet.","पैरों के लिए जूते।"]];
+/* [mother, emoji, hindi, baby, emoji, hindi, sound key] */
+const BABIES=[["Hen","🐔","मुर्गी","Chick","🐥","चूज़ा","Hen"],["Dog","🐕","कुत्ता","Puppy","🐶","पिल्ला","Dog"],["Cat","🐈","बिल्ली","Kitten","🐱","बिल्ली का बच्चा","Cat"],["Cow","🐄","गाय","Calf","🐮","बछड़ा","Cow"],["Duck","🦆","बत्तख","Duckling","🐤","बत्तख का बच्चा","Duck"],["Horse","🐎","घोड़ा","Foal","🐴","घोड़े का बच्चा","Horse"],["Pig","🐖","सूअर","Piglet","🐷","सूअर का बच्चा","Pig"],["Butterfly","🦋","तितली","Caterpillar","🐛","इल्ली",""]];
+const WORDS=[["Cat","🐱"],["Dog","🐶"],["Sun","☀️"],["Bus","🚌"],["Car","🚗"],["Cow","🐄"],["Hat","👒"],["Bed","🛏️"],["Cup","☕"],["Pig","🐷"],["Egg","🥚"],["Fish","🐟"],["Ball","⚽"],["Duck","🦆"],["Cake","🎂"],["Star","⭐"],["Frog","🐸"],["Tree","🌳"],["Moon","🌙"],["Book","📖"]];
+const SORTS=[
+  {a:["Fruits","🍎","फल"],b:["Vegetables","🥕","सब्ज़ियाँ"],A:[["Apple","🍎"],["Banana","🍌"],["Grapes","🍇"],["Mango","🥭"],["Orange","🍊"],["Cherry","🍒"]],B:[["Carrot","🥕"],["Potato","🥔"],["Corn","🌽"],["Brinjal","🍆"],["Broccoli","🥦"],["Onion","🧅"]],is:"is a"},
+  {a:["Land","🌳","ज़मीन"],b:["Water","🌊","पानी"],A:[["Cow","🐄"],["Dog","🐶"],["Lion","🦁"],["Elephant","🐘"],["Rabbit","🐰"],["Horse","🐴"]],B:[["Fish","🐟"],["Whale","🐳"],["Octopus","🐙"],["Crab","🦀"],["Dolphin","🐬"],["Shark","🦈"]],is:"lives on",isB:"lives in"},
+  {a:["Red","🔴","लाल"],b:["Yellow","🟡","पीला"],A:[["Apple","🍎"],["Strawberry","🍓"],["Rose","🌹"],["Cherry","🍒"],["Fire truck","🚒"],["Tomato","🍅"]],B:[["Banana","🍌"],["Sunflower","🌻"],["Chick","🐥"],["Corn","🌽"],["Lemon","🍋"],["Star","⭐"]],is:"is"},
+  {a:["Sky","☁️","आसमान"],b:["Road","🛣️","सड़क"],A:[["Aeroplane","✈️"],["Helicopter","🚁"],["Bird","🐦"],["Balloon","🎈"],["Rocket","🚀"],["Butterfly","🦋"]],B:[["Car","🚗"],["Bus","🚌"],["Bike","🛵"],["Truck","🚚"],["Tractor","🚜"],["Auto","🛺"]],is:"goes in the",isB:"goes on the"},
+];
 function shapeSVG(k,c){
   const p={circle:`<circle cx="50" cy="50" r="42"/>`,square:`<rect x="10" y="10" width="80" height="80" rx="6"/>`,triangle:`<polygon points="50,8 94,90 6,90"/>`,star:`<polygon points="50,5 61,38 96,38 68,59 78,93 50,72 22,93 32,59 4,38 39,38"/>`,heart:`<path d="M50 90 C10 62 4 40 14 24 C24 8 44 10 50 28 C56 10 76 8 86 24 C96 40 90 62 50 90Z"/>`,rect:`<rect x="4" y="24" width="92" height="52" rx="6"/>`,oval:`<ellipse cx="50" cy="50" rx="44" ry="30"/>`,diamond:`<polygon points="50,4 92,50 50,96 8,50"/>`}[k];
   return `<svg viewBox="0 0 100 100" aria-hidden="true"><g fill="${c}">${p}</g></svg>`;
@@ -206,6 +273,68 @@ function cheer(){ [523,659,784,1047,1319].forEach((f,i)=>tone(f,.35,"triangle",.
 function ding(n=0){ tone(784*Math.pow(2,n/12),.25,"sine",.3); tone(1568*Math.pow(2,n/12),.18,"sine",.08,.02); }
 function popGood(){ tone(880,.12,"sine",.35); tone(1320,.2,"triangle",.25,.08); }
 
+/* ---- cartoon animal & vehicle voices, built from filtered oscillators and noise ---- */
+let noiseBuf=null;
+function ramp(p,pts,t0){ p.setValueAtTime(pts[0][1],t0); pts.slice(1).forEach(([t,v])=>p.linearRampToValueAtTime(v,t0+t)); }
+function syn({type="sawtooth",f=[[0,200]],dur=.5,when=0,vol=.3,filt=null,fq=[[0,1000]],Q=1,vib=null,trem=null,atk=.03}){
+  const a=audio(); if(!a) return; const t=a.currentTime+when;
+  const o=a.createOscillator(); o.type=type; ramp(o.frequency,f,t);
+  const g=a.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+atk); g.gain.setValueAtTime(vol,t+Math.max(atk,dur-.08)); g.gain.linearRampToValueAtTime(0,t+dur);
+  let node=o;
+  if(filt){ const fl=a.createBiquadFilter(); fl.type=filt; fl.Q.value=Q; ramp(fl.frequency,fq,t); node.connect(fl); node=fl; }
+  if(vib){ const l=a.createOscillator(), lg=a.createGain(); l.frequency.value=vib[0]; lg.gain.value=vib[1]; l.connect(lg); lg.connect(o.frequency); l.start(t); l.stop(t+dur+.05); }
+  let out=g;
+  if(trem){ const tg=a.createGain(); tg.gain.value=.5; const l=a.createOscillator(), lg=a.createGain(); l.frequency.value=trem; lg.gain.value=.5; l.connect(lg); lg.connect(tg.gain); l.start(t); l.stop(t+dur+.05); node.connect(tg); tg.connect(g); }
+  else node.connect(g);
+  out.connect(master); o.start(t); o.stop(t+dur+.05);
+}
+function nz({dur=.4,when=0,vol=.3,filt="bandpass",fq=[[0,1000]],Q=1,trem=null,atk=.02}){
+  const a=audio(); if(!a) return; const t=a.currentTime+when;
+  if(!noiseBuf){ noiseBuf=a.createBuffer(1,a.sampleRate*2,a.sampleRate); const d=noiseBuf.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; }
+  const s=a.createBufferSource(); s.buffer=noiseBuf; const fl=a.createBiquadFilter(); fl.type=filt; fl.Q.value=Q; ramp(fl.frequency,fq,t);
+  const g=a.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+atk); g.gain.setValueAtTime(vol,t+Math.max(atk,dur-.06)); g.gain.linearRampToValueAtTime(0,t+dur);
+  s.connect(fl);
+  if(trem){ const tg=a.createGain(); tg.gain.value=.5; const l=a.createOscillator(), lg=a.createGain(); l.frequency.value=trem; lg.gain.value=.5; l.connect(lg); lg.connect(tg.gain); l.start(t); l.stop(t+dur+.05); fl.connect(tg); tg.connect(g); } else fl.connect(g);
+  g.connect(master); s.start(t); s.stop(t+dur+.05);
+}
+/* each returns its length in seconds */
+const SND={
+  Cow:()=>{ syn({f:[[0,128],[.5,122],[1.2,104]],dur:1.25,vol:.5,filt:"lowpass",fq:[[0,350],[.4,700],[1.2,400]],Q:4,vib:[5,3],atk:.18}); return 1.3; },
+  Dog:()=>{ [0,.3].forEach(w=>{ syn({f:[[0,560],[.12,380]],dur:.16,when:w,vol:.45,filt:"bandpass",fq:[[0,900]],Q:1.5,atk:.01}); nz({dur:.1,when:w,vol:.25,fq:[[0,1300]],Q:1}); }); return .55; },
+  Cat:()=>{ syn({f:[[0,420],[.25,720],[.7,480]],dur:.75,vol:.35,filt:"bandpass",fq:[[0,700],[.3,1700],[.7,900]],Q:5,vib:[6,8],atk:.06}); return .8; },
+  Duck:()=>{ [0,.24,.48].forEach(w=>syn({type:"square",f:[[0,330],[.16,260]],dur:.18,when:w,vol:.22,filt:"bandpass",fq:[[0,1100]],Q:7,atk:.01})); return .7; },
+  Lion:()=>{ syn({f:[[0,95],[.6,75],[1.4,55]],dur:1.5,vol:.5,filt:"lowpass",fq:[[0,500],[.5,900],[1.4,300]],Q:2,vib:[22,12],atk:.12}); nz({dur:1.4,vol:.3,filt:"lowpass",fq:[[0,600],[1.3,250]],Q:1,trem:23,atk:.15}); return 1.5; },
+  Sheep:()=>{ syn({f:[[0,340],[.8,310]],dur:.85,vol:.35,filt:"bandpass",fq:[[0,950]],Q:3,vib:[8,22],atk:.05}); return .9; },
+  Hen:()=>{ [0,.12,.24].forEach(w=>syn({type:"triangle",f:[[0,620],[.06,440]],dur:.07,when:w,vol:.3,filt:"bandpass",fq:[[0,1000]],Q:3,atk:.005})); syn({f:[[0,480],[.12,760],[.3,520]],dur:.32,when:.42,vol:.3,filt:"bandpass",fq:[[0,1200]],Q:3}); return .8; },
+  Elephant:()=>{ syn({f:[[0,380],[.25,820],[.9,640]],dur:1,vol:.4,filt:"bandpass",fq:[[0,1300],[.3,2200],[.9,1500]],Q:3,vib:[7,25],atk:.05}); return 1.05; },
+  Frog:()=>{ [0,.32].forEach(w=>syn({type:"square",f:[[0,140],[.18,120]],dur:.2,when:w,vol:.3,filt:"lowpass",fq:[[0,700]],Q:3,trem:32,atk:.01})); return .55; },
+  Monkey:()=>{ [[0,420,620],[.22,420,620],[.5,760,520],[.78,760,520]].forEach(([w,a,b])=>syn({type:"triangle",f:[[0,a],[.18,b]],dur:.2,when:w,vol:.35,atk:.02})); return 1; },
+  Horse:()=>{ syn({f:[[0,950],[.3,820],[1,460]],dur:1.05,vol:.3,filt:"bandpass",fq:[[0,1500],[1,900]],Q:2,vib:[13,140],atk:.04}); return 1.1; },
+  Pig:()=>{ [0,.26].forEach(w=>syn({f:[[0,230],[.18,170]],dur:.2,when:w,vol:.38,filt:"bandpass",fq:[[0,650]],Q:9,atk:.01})); return .5; },
+  Owl:()=>{ syn({type:"sine",f:[[0,420],[.35,390]],dur:.4,vol:.45,atk:.06}); syn({type:"sine",f:[[0,400],[.5,360]],dur:.6,when:.55,vol:.45,atk:.08}); return 1.2; },
+  Bee:()=>{ syn({f:[[0,215],[.5,235],[1,205]],dur:1.1,vol:.18,filt:"lowpass",fq:[[0,1800]],Q:1,trem:45,atk:.08}); return 1.1; },
+  Goat:()=>{ syn({f:[[0,460],[.6,420]],dur:.65,vol:.3,filt:"bandpass",fq:[[0,1100]],Q:3,vib:[11,30],atk:.03}); return .7; },
+  Parrot:()=>{ [[0,1400,2000],[.16,2000,1500],[.34,1500,2100]].forEach(([w,a,b])=>syn({type:"triangle",f:[[0,a],[.12,b]],dur:.13,when:w,vol:.25,atk:.01})); return .5; },
+  Mouse:()=>{ [0,.14,.28].forEach(w=>syn({type:"sine",f:[[0,2400],[.08,3000]],dur:.09,when:w,vol:.2,atk:.005})); return .4; },
+  Bird:()=>{ [0,.15,.3,.45].forEach(w=>syn({type:"sine",f:[[0,2600],[.1,3400]],dur:.1,when:w,vol:.2,atk:.005})); return .6; },
+  car:()=>{ [0,.32].forEach(w=>{ syn({type:"square",f:[[0,420]],dur:.2,when:w,vol:.15,filt:"lowpass",fq:[[0,1800]]}); syn({type:"square",f:[[0,525]],dur:.2,when:w,vol:.15,filt:"lowpass",fq:[[0,1800]]}); }); return .6; },
+  bus:()=>{ syn({type:"square",f:[[0,300]],dur:.5,vol:.16,filt:"lowpass",fq:[[0,1200]]}); syn({type:"square",f:[[0,378]],dur:.5,vol:.16,filt:"lowpass",fq:[[0,1200]]}); return .55; },
+  train:()=>{ [0,.25,.5,.75].forEach(w=>nz({dur:.16,when:w,vol:.35,fq:[[0,1600]],Q:.8})); [880,1110,1320].forEach(f=>syn({type:"sine",f:[[0,f]],dur:.9,when:1,vol:.12,atk:.05})); return 1.95; },
+  plane:()=>{ nz({dur:1.8,vol:.35,filt:"lowpass",fq:[[0,250],[1.2,1600],[1.8,900]],Q:2,atk:.4}); return 1.8; },
+  bell:()=>{ [0,.35].forEach(w=>{ tone(2400,.5,"sine",.25,w); tone(3150,.4,"sine",.12,w); tone(4100,.25,"sine",.06,w); }); return .8; },
+  ship:()=>{ syn({f:[[0,110]],dur:1.3,vol:.35,filt:"lowpass",fq:[[0,450]],Q:2,atk:.1}); syn({f:[[0,165]],dur:1.3,vol:.25,filt:"lowpass",fq:[[0,450]],Q:2,atk:.1}); return 1.3; },
+  siren:()=>{ syn({type:"triangle",f:[[0,650],[.5,950],[1,650],[1.5,950],[2,650]],dur:2,vol:.25,atk:.05}); return 2; },
+  siren2:()=>{ syn({type:"sawtooth",f:[[0,500],[1,1000],[2,500]],dur:2,vol:.15,filt:"lowpass",fq:[[0,2500]],atk:.05}); return 2; },
+  siren3:()=>{ syn({type:"square",f:[[0,700],[.25,700],[.26,950],[.5,950],[.51,700],[.75,700],[.76,950],[1,950],[1.01,700],[1.25,700],[1.26,950],[1.5,950]],dur:1.5,vol:.12,filt:"lowpass",fq:[[0,2000]],atk:.02}); return 1.5; },
+  tractor:()=>{ syn({type:"square",f:[[0,48],[1.3,52]],dur:1.4,vol:.35,filt:"lowpass",fq:[[0,320]],Q:3,trem:11,atk:.1}); return 1.4; },
+  heli:()=>{ nz({dur:1.5,vol:.45,filt:"lowpass",fq:[[0,500]],Q:2,trem:13,atk:.1}); return 1.5; },
+  auto:()=>{ [0,.3].forEach(w=>syn({type:"square",f:[[0,620]],dur:.18,when:w,vol:.13,filt:"bandpass",fq:[[0,1400]],Q:2})); return .5; },
+  truck:()=>{ [0,.45].forEach(w=>{ syn({f:[[0,196]],dur:.35,when:w,vol:.2,filt:"lowpass",fq:[[0,900]]}); syn({f:[[0,247]],dur:.35,when:w,vol:.2,filt:"lowpass",fq:[[0,900]]}); }); return .85; },
+  scooter:()=>{ syn({f:[[0,90],[.4,180],[.9,150],[1.3,230]],dur:1.35,vol:.3,filt:"lowpass",fq:[[0,500],[1.3,1200]],Q:4,vib:[30,8]}); return 1.35; },
+};
+/* play a sound and let the speech queue wait for it */
+function sndThen(k){ if(!SND[k]) return []; let len=1; return [{on:()=>{ len=SND[k](); }},{gapFn:()=>len*1000+200}]; }
+
 /* =================================================================== speech queue */
 const synth=window.speechSynthesis||null;
 const voices=()=>{ try{ return synth?synth.getVoices():[] }catch(e){ return [] } };
@@ -229,7 +358,7 @@ function play(segs,done){
   const step=()=>{ if(tok!==run||paused) return;
     if(i>=segs.length){ done&&done(); return; }
     const s=segs[i++]; s.on&&s.on();
-    if(!s.t){ later(step,s.gap||0); return; }
+    if(!s.t){ later(step,s.gapFn?s.gapFn():(s.gap||0)); return; }
     speakOne(s.t,s.l||"en",()=>{ if(tok===run) later(step,s.gap??220); });
   };
   step();
@@ -436,11 +565,19 @@ function draw(){
 /* =================================================================== LEARN topics */
 function mkE(list,opt={}){ return list.map((r,i)=>{ const [en,e,hi,sen,senHi,qEn,qHi,sp]=r, word=sp||en;
   return {face:()=>`<div class="pic">${e}</div>`, word, cap:()=>`${sen}${H()?`<br>${senHi}`:""}`,
-    teach:()=>[{t:en,gap:350},...(word.length<=10?spell(word):[]),{t:sen,gap:300},H()&&{t:`${hi}. ${senHi}`,l:"hi"}],
+    teach:()=>[...(opt.snd?sndThen(opt.snd(i)):[]),{t:en,gap:350},...(word.length<=10?spell(word):[]),{t:sen,gap:300},H()&&{t:`${hi}. ${senHi}`,l:"hi"}],
     choice:e, nm:()=>H()?hi:en, q:()=>H()?(qHi||`${hi} कहाँ है?`):(qEn||`Where is ${opt.the?"the ":""}${en}?`)}; }); }
 const TOPICS={
   animals:{title:"Animals",hi:"जानवर",icon:"🐮",bg:PAL[1],items:ANIMALS.map(([n,e,h,s,sh])=>({face:()=>`<div class="pic">${e}</div>`,word:n,cap:()=>`${n} says “${s}”${H()?`<br>${h} · ${sh}`:""}`,
-    teach:()=>[{t:n,gap:350},...spell(n),{t:`The ${n} says, ${s}!`},H()&&{t:`${h}. ${h} बोले ${sh}`,l:"hi"}],choice:e,nm:()=>H()?h:n,q:()=>H()?`${h} कहाँ है?`:`Where is the ${n}?`}))},
+    teach:()=>[...sndThen(n),{t:n,gap:350},...spell(n),{t:`The ${n} says, ${s}!`},H()&&{t:`${h}. ${h} बोले ${sh}`,l:"hi"}],choice:e,nm:()=>H()?h:n,q:()=>H()?`${h} कहाँ है?`:`Where is the ${n}?`}))},
+  babies:{title:"Animal Babies",hi:"जानवरों के बच्चे",icon:"🐥",bg:"#F28C28",items:BABIES.map(([m,me,mh,b,be,bh,k])=>({face:()=>`<div class="pair"><div class="pic">${me}</div><div class="pic small">${be}</div></div>`,word:b,cap:()=>`${m} → ${b}${H()?`<br>${mh} का बच्चा ${bh}`:""}`,
+    teach:()=>[...sndThen(k),{t:`This is a ${m}.`,gap:300},{t:`Her baby is a ${b}!`},...spell(b),H()&&{t:`${mh} का बच्चा ${bh}`,l:"hi"}],choice:be,nm:()=>H()?bh:b,q:()=>H()?`${mh} का बच्चा कौन है?`:`Who is the ${m}'s baby?`}))},
+  fruits:{title:"Fruits",hi:"फल",icon:"🍌",bg:"#E0A100",items:mkE(FRUITS,{the:1})},
+  veg:{title:"Vegetables",hi:"सब्ज़ियाँ",icon:"🥕",bg:"#3BA55C",items:mkE(VEG,{the:1})},
+  flowers:{title:"Flowers",hi:"फूल",icon:"🌻",bg:"#FF6FB0",items:mkE(FLOWERS,{the:1})},
+  vehicles:{title:"Vehicles",hi:"गाड़ियाँ",icon:"🚒",bg:"#E8323C",items:mkE(VEHICLES.map(r=>r.slice(0,5)),{the:1,snd:i=>VEHICLES[i][5]})},
+  body:{title:"My Body",hi:"शरीर",icon:"👀",bg:"#C2703D",items:mkE(BODY.map(r=>[...r,`Show me: ${r[0].toLowerCase()}!`,`${r[2]} कहाँ है?`]))},
+  clothes:{title:"Clothes",hi:"कपड़े",icon:"👗",bg:"#7A5AF8",items:mkE(CLOTHES)},
   homeitems:{title:"My Home",hi:"घर की चीज़ें",icon:"🛋️",bg:PAL[5],items:mkE(HOME,{the:1})},
   family:{title:"Family",hi:"परिवार",icon:"👨‍👩‍👧",bg:PAL[0],items:mkE(FAMILY)},
   abc:{title:"ABC",hi:"अक्षर",icon:"🔤",bg:PAL[3],items:ABC.map(([L,w,e,h],i)=>({face:()=>`<div class="big" style="color:${PAL[i%7]}">${L}<small>${L.toLowerCase()}</small></div><div class="pic" style="font-size:4.5rem">${e}</div>`,word:w,cap:()=>`${L} for ${w}${H()?` · ${h}`:""}`,
@@ -464,22 +601,26 @@ function teach(){
 }
 function afterTeach(){ cur.recent.push(cur.T.items[cur.idx]); cur.idx=(cur.idx+1)%cur.T.items.length;
   if(cur.recent.length>=3){ const pool=cur.recent; cur.recent=[]; quiz(pool,teach); } else teach(); }
-function quiz(pool,next,ans=pool[rand(pool.length)]){
-  stopAll(); cur.resume=()=>quiz(pool,next,ans);
-  const opts=shuffle(pool); let asks=0, wt=null;
-  stage.innerHTML=`<div class="q">${ans.q()}</div><div class="choices">${opts.map((o,i)=>`<button data-i="${i}" aria-label="${o.nm()}">${o.choice}</button>`).join("")}</div>`;
+/* generic "find it" question. o.head = picture/pattern shown above choices, o.pre = segments played before each ask,
+   o.right = called on the right answer, o.rightSay = what to say then, o.two = two big choices */
+function quiz(pool,next,ans=pool[rand(pool.length)],o={}){
+  stopAll(); cur.resume=()=>quiz(pool,next,ans,o);
+  const opts=o.keep?pool:shuffle(pool); let asks=0, wt=null;
+  stage.innerHTML=`<div class="q">${ans.q()}</div>${o.head||""}<div class="choices${o.two?" two":""}">${opts.map((x,i)=>`<button data-i="${i}" aria-label="${x.nm()}">${x.choice}</button>`).join("")}</div>`;
   const btns=[...stage.querySelectorAll(".choices button")];
   const wait=()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) ask(); else hint(); },9000); };
-  const ask=()=>{ asks++; play([{t:ans.q(),l:L_()}],wait); };
+  const ask=()=>{ asks++; play([...(o.pre&&asks<=3?o.pre():[]),{t:ans.q(),l:L_()}],wait); };
   const hint=()=>{ btns[opts.indexOf(ans)].classList.add("bounce"); play([{t:H()?`${ans.nm()} यहाँ है!`:`Here it is! ${ans.nm()}!`,l:L_()}],()=>later(next,1600)); };
-  btns.forEach(b=>b.onclick=()=>{ const o=opts[+b.dataset.i];
-    if(o===ans){ stopAll(); btns.forEach(x=>x.disabled=true); b.classList.remove("bounce"); b.classList.add("right"); anim(b,"pop"); cheer(); burstAt(b);
-      play([{t:H()?`शाबाश! ${ans.nm()}!`:`Yay! ${ans.nm()}! Good job!`,l:L_()}],()=>later(next,900)); }
-    else { stopAll(); anim(b,"shake"); play([{t:H()?`यह ${o.nm()} है।`:`That is ${o.nm()}.`,l:L_(),gap:300},{t:ans.q(),l:L_()}],wait); } });
+  btns.forEach(b=>b.onclick=()=>{ const x=opts[+b.dataset.i];
+    if(x===ans){ stopAll(); btns.forEach(y=>y.disabled=true); b.classList.remove("bounce"); b.classList.add("right"); anim(b,"pop"); cheer(); burstAt(b);
+      o.right&&o.right();
+      play(o.rightSay?o.rightSay():[{t:H()?`शाबाश! ${ans.nm()}!`:`Yay! ${ans.nm()}! Good job!`,l:L_()}],()=>later(next,900)); }
+    else { stopAll(); anim(b,"shake"); play([{t:o.wrongSay?o.wrongSay(x):(H()?`यह ${x.nm()} है।`:`That is ${x.nm()}.`),l:L_(),gap:300},{t:ans.q(),l:L_()}],wait); } });
   later(ask,300);
 }
 
 /* =================================================================== GAMES */
+let tapTok=0;
 function tapTap(){
   stopAll(); cur.resume=tapTap;
   const pool=[...ANIMALS.map(a=>[a[1],a[0],a[2]]),...HOME.slice(0,12).map(a=>[a[1],a[0],a[2]]),["🍎","apple","सेब"],["🎈","balloon","गुब्बारा"],["⭐","star","तारा"],["🐥","chick","चूज़ा"],["🍌","banana","केला"],["🚗","car","गाड़ी"]];
@@ -488,7 +629,7 @@ function tapTap(){
     const r=stage.getBoundingClientRect(), p=pool[rand(pool.length)];
     const el=document.createElement("div"); el.className="tapitem"; el.style.left=(e.clientX-r.left)+"px"; el.style.top=(e.clientY-r.top)+"px";
     el.innerHTML=`${p[0]}<b>${H()?p[2]:p[1]}</b>`; stage.appendChild(el); setTimeout(()=>el.remove(),2200);
-    tone(660+rand(6)*80,.18,"sine",.18); hush(); play([{t:H()?p[2]:p[1],l:L_()}]);
+    hush(); const my=++tapTok; if(SND[p[1]]){ const len=SND[p[1]](); later(()=>{ if(my===tapTok) play([{t:H()?p[2]:p[1],l:L_()}]); },len*1000+100); } else { tone(660+rand(6)*80,.18,"sine",.18); play([{t:H()?p[2]:p[1],l:L_()}]); }
   });
   play([{t:H()?"कहीं भी टैप करो!":"Tap tap! Tap anywhere!",l:L_()}]);
 }
@@ -503,7 +644,7 @@ function feed(){
   const say=()=>{ asks++; play([{t:ask,l:L_()}],wait); };
   const success=b=>{ if(done) return; done=true; stopAll(); const er=eater.getBoundingClientRect(), br=b.getBoundingClientRect();
     b.classList.remove("bounce","drag"); b.classList.add("eaten"); b.style.transform=`translate(${er.left+er.width/2-br.left-br.width/2+(b._dx||0)}px,${er.top+er.height/2-br.top-br.height/2+(b._dy||0)}px) scale(.3)`;
-    later(()=>{ anim(eater,"wiggle"); cheer(); burstAt(eater); play([{t:H()?`यम यम! ${a[2]} को ${a[5]} पसंद है!`:`Yum yum! The ${a[0]} loves the ${a[3]}!`,l:L_()}],()=>later(feed,1200)); },350); };
+    later(()=>{ anim(eater,"wiggle"); SND[a[0]]&&SND[a[0]](); cheer(); burstAt(eater); play([{t:H()?`यम यम! ${a[2]} को ${a[5]} पसंद है!`:`Yum yum! The ${a[0]} loves the ${a[3]}!`,l:L_()}],()=>later(feed,1200)); },350); };
   const wrong=(b,f)=>{ stopAll(); anim(b,"shake"); play([{t:H()?`नहीं नहीं! ${a[2]} को ${a[5]} चाहिए।`:`No no! The ${a[0]} wants the ${a[3]}.`,l:L_()}],wait); };
   stage.querySelectorAll(".food").forEach(b=>{
     const f=foods[+b.dataset.i]; let sx=0, sy=0, moved=false;
@@ -518,11 +659,6 @@ function feed(){
     b.addEventListener("pointerup",end); b.addEventListener("pointercancel",end);
   });
   later(say,300);
-}
-function whoSays(){
-  const three=shuffle(ANIMALS).slice(0,3), ans=three[rand(3)];
-  const pool=three.map(a=>({choice:a[1],nm:()=>H()?a[2]:a[0],q:()=>H()?`कौन बोले ${a[4]}?`:`Who says ${a[3]}?`}));
-  quiz(pool,whoSays,pool[three.indexOf(ans)]); cur.resume=whoSays;
 }
 function howMany(){
   stopAll(); cur.resume=howMany;
@@ -577,14 +713,212 @@ function music(){
     SONGS[b.dataset.s].split(" ").forEach(tok=>{ const n=tok.replace(/-/g,""), d=1+(tok.match(/-/g)||[]).length; later(()=>{ tone(NOTE[n],.5*d,"triangle",.45); hit(n); },t*1000); t+=.42*d; }); });
   play([{t:H()?"बाजा बजाओ!":"Let's make music! Tap the colours.",l:L_()}]);
 }
+/* =================================================================== MORE GAMES */
+const hitT=(t,e)=>{ const r=t.getBoundingClientRect(); return e.clientX>r.left&&e.clientX<r.right&&e.clientY>r.top&&e.clientY<r.bottom; };
+const snapBack=el=>{ el.classList.add("back"); el.style.transform=""; };
+/* drag an element; onDrop(index of target under finger, or -1 none, or -2 if it was only a tap) */
+function dragify(el,targets,onDrop){
+  let sx=0,sy=0,moved=false;
+  el.addEventListener("pointerdown",e=>{ el.setPointerCapture(e.pointerId); sx=e.clientX; sy=e.clientY; moved=false; el.classList.remove("back","bounce"); el.classList.add("drag"); });
+  el.addEventListener("pointermove",e=>{ if(!el.classList.contains("drag")) return; const dx=e.clientX-sx, dy=e.clientY-sy; if(Math.hypot(dx,dy)>8) moved=true;
+    el.style.transform=`translate(${dx}px,${dy}px) scale(1.08)`; targets().forEach(t=>t.classList.toggle("near",hitT(t,e))); });
+  const end=e=>{ if(!el.classList.contains("drag")) return; el.classList.remove("drag"); const ts=targets(); ts.forEach(t=>t.classList.remove("near"));
+    onDrop(moved?ts.findIndex(t=>hitT(t,e)):-2,e); };
+  el.addEventListener("pointerup",end); el.addEventListener("pointercancel",end);
+}
+const PICS=()=>[...ANIMALS.map(a=>[a[1],a[0],a[2],a[0]]),...VEHICLES.map(v=>[v[1],v[0],v[2],v[5]]),...FRUITS.map(f=>[f[1],f[0],f[2],""])];
+
+/* ---------- listening: sound boards ---------- */
+function soundBoard(kind){
+  stopAll(); cur.resume=()=>soundBoard(kind);
+  const list=kind==="animals"
+    ? [...ANIMALS.filter(a=>SND[a[0]]).map(a=>({e:a[1],n:a[0],h:a[2],k:a[0],say:()=>H()?`${a[2]} बोले ${a[4]}`:`The ${a[0]} says ${a[3]}!`})),
+       {e:"🐭",n:"Mouse",h:"चूहा",k:"Mouse",say:()=>H()?"चूहा बोले चूँ चूँ":"The mouse says squeak squeak!"},{e:"🐦",n:"Bird",h:"चिड़िया",k:"Bird",say:()=>H()?"चिड़िया बोले चीं चीं":"The bird says tweet tweet!"}]
+    : VEHICLES.map(v=>({e:v[1],n:v[0],h:v[2],k:v[5],say:()=>H()?v[4]:v[3]}));
+  stage.innerHTML=`<div class="q">${H()?"टैप करो और सुनो!":"Tap and listen!"}</div><div class="board">${list.map((x,i)=>`<button data-i="${i}" aria-label="${x.n}"><span style="display:inline-block">${x.e}</span><small>${H()?x.h:x.n}</small></button>`).join("")}</div>`;
+  let tk=0;
+  stage.querySelectorAll(".board button").forEach(b=>b.addEventListener("pointerdown",()=>{
+    const x=list[+b.dataset.i], my=++tk; stage.querySelectorAll(".board .on").forEach(z=>z.classList.remove("on")); b.classList.add("on"); anim(b.firstElementChild,"wiggle");
+    hush(); const len=SND[x.k]?SND[x.k]():0; later(()=>{ if(my===tk) play([{t:H()?x.h:x.n,l:L_(),gap:200},{t:x.say(),l:L_()}]); },len*1000+150); }));
+  play([{t:H()?"किसी भी तस्वीर पे टैप करो और आवाज़ सुनो!":"Tap a picture to hear its sound!",l:L_()}]);
+}
+/* listen to a sound, find who made it */
+function whoSays(){
+  const veh=Math.random()<.35;
+  const src=veh?VEHICLES.map(v=>({e:v[1],n:v[0],h:v[2],k:v[5]})):ANIMALS.filter(a=>SND[a[0]]).map(a=>({e:a[1],n:a[0],h:a[2],k:a[0],s:a[3],sh:a[4]}));
+  const three=[]; for(const x of shuffle(src)){ if(!three.some(y=>y.k.slice(0,5)===x.k.slice(0,5))) three.push(x); if(three.length===3) break; }
+  const pool=three.map(x=>({choice:x.e,k:x.k,nm:()=>H()?x.h:x.n,q:()=>veh?(H()?"यह आवाज़ किसकी है?":"Which one makes this sound?"):(H()?`कौन बोले ${x.sh}?`:`Who says ${x.s}?`)}));
+  const ans=pool[rand(3)];
+  quiz(pool,whoSays,ans,{pre:()=>[{t:H()?"सुनो!":"Listen!",l:L_(),gap:150},...sndThen(ans.k)],rightSay:()=>[...sndThen(ans.k),{t:H()?`शाबाश! ${ans.nm()}!`:`Yes! The ${ans.nm()}!`,l:L_()}]});
+  cur.resume=whoSays;
+}
+/* phonics: which picture starts with this letter */
+function firstSound(){
+  const all=[...ABC.map(a=>[a[1],a[2]]),...FRUITS.map(f=>[f[0],f[1]]),...VEG.map(v=>[v[0],v[1]]),...ANIMALS.map(a=>[a[0],a[1]]),...VEHICLES.map(v=>[v[0],v[1]])];
+  const tgt=ABC[rand(26)], L=tgt[0];
+  const others=[]; for(const w of shuffle(all)){ const f=w[0][0]; if(f!==L&&!others.some(o=>o[0][0]===f)&&w[1]!==tgt[2]) others.push(w); if(others.length===2) break; }
+  const mk=w=>({choice:w[1],w:w[0],nm:()=>w[0],q:()=>H()?`${L} से कौन शुरू होता है?`:`Which one starts with ${LN[L]}?`});
+  const pool=[mk([tgt[1],tgt[2]]),...others.map(mk)], ans=pool[0];
+  quiz(pool,firstSound,ans,{head:`<div class="big" style="color:${PAL[rand(7)]}">${L}<small>${L.toLowerCase()}</small></div>`,
+    rightSay:()=>[{t:`Yes! ${LN[L]} for ${tgt[1]}!`}],wrongSay:x=>`${x.w} starts with ${LN[x.w[0].toUpperCase()]}.`});
+  cur.resume=firstSound;
+}
+/* reading: see a word, find its picture */
+function readFind(){
+  const three=shuffle(WORDS).slice(0,3), pool=three.map(w=>({choice:w[1],w:w[0],nm:()=>w[0],q:()=>`Where is the ${w[0].toLowerCase()}?`})), ans=pool[rand(3)];
+  quiz(pool,readFind,ans,{head:spellRow(ans.w).replace('class="spell"','class="spell" style="transform:scale(1.15)"'),pre:()=>spell(ans.w),
+    rightSay:()=>[{t:`Yes! ${ans.w}!`,on:()=>hl("all")},...spell(ans.w)]});
+  cur.resume=readFind;
+}
+
+/* ---------- maths adventure ---------- */
+function patterns(){
+  const sets=[FRUITS.slice(0,8).map(f=>[f[1],f[0],f[2]]),ANIMALS.slice(0,10).map(a=>[a[1],a[0],a[2]]),COLS.slice(0,7).map(c=>[`<span class="dot" style="background:${c[1]}"></span>`,c[0],c[2]]),VEHICLES.slice(0,8).map(v=>[v[1],v[0],v[2]])];
+  const set=shuffle(sets[rand(sets.length)]), [A,B,C,D]=set;
+  const units=[[A,B],[A,A,B],[A,B,C],[A,B,B]], unit=units[rand(units.length)];
+  const shown=Array.from({length:5},(_,i)=>unit[i%unit.length]), nxt=unit[5%unit.length];
+  const pick=[nxt,...shuffle([A,B,C,D].filter(x=>x!==nxt)).slice(0,2)];
+  const pool=pick.map(x=>({choice:x[0],x,nm:()=>H()?x[2]:x[1],q:()=>H()?"आगे क्या आएगा?":"What comes next?"}));
+  quiz(pool,patterns,pool[0],{head:`<div class="head">${shown.map(x=>`<div class="cell">${x[0]}</div>`).join("")}<div class="cell ask" id="pq">?</div></div>`,
+    pre:()=>shown.map(x=>({t:H()?x[2]:x[1],l:L_(),gap:80})),
+    right:()=>{ const q=$("pq"); q.innerHTML=nxt[0]; q.classList.remove("ask"); anim(q,"pop"); },
+    rightSay:()=>[{t:H()?`शाबाश! ${nxt[2]}!`:`Yes! ${nxt[1]} comes next!`,l:L_()}]});
+  cur.resume=patterns;
+}
+function sizes(){
+  const p=PICS()[rand(PICS().length)], wantBig=Math.random()<.5;
+  const q=()=>wantBig?(H()?`बड़ा वाला ${p[2]} कहाँ है?`:`Where is the BIG ${p[1]}?`):(H()?`छोटा वाला ${p[2]} कहाँ है?`:`Where is the small ${p[1]}?`);
+  const big={choice:`<span style="font-size:clamp(4.5rem,24vw,7rem)">${p[0]}</span>`,nm:()=>H()?`बड़ा ${p[2]}`:`big ${p[1]}`,q};
+  const small={choice:`<span style="font-size:clamp(1.5rem,7vw,2.2rem)">${p[0]}</span>`,nm:()=>H()?`छोटा ${p[2]}`:`small ${p[1]}`,q};
+  quiz([big,small],sizes,wantBig?big:small,{two:true}); cur.resume=sizes;
+}
+function compare(){
+  const kind=rand(4); let pool, ans;
+  if(kind===0){ const th=THINGS[rand(THINGS.length)]; const a=2+rand(4); let b; do{ b=1+rand(6); }while(Math.abs(a-b)<2); const more=Math.random()<.5;
+    const q=()=>more?(H()?`ज़्यादा ${th[2]} किसमें हैं?`:`Which side has MORE ${th[1]}?`):(H()?`कम ${th[2]} किसमें हैं?`:`Which side has LESS ${th[1]}?`);
+    pool=[a,b].map(n=>({n,choice:`<div class="grp">${Array(n).fill(`<span>${th[0]}</span>`).join("")}</div>`,nm:()=>H()?`${NUM_HI[n-1]} ${th[2]}`:`${NUM_EN[n-1]} ${th[1]}`,q}));
+    ans=more?(a>b?pool[0]:pool[1]):(a<b?pool[0]:pool[1]); }
+  else if(kind===1){ const tall=Math.random()<.5, c=["🟥","🟦","🟩","🟨"][rand(4)];
+    const q=()=>tall?(H()?"ऊँचा टावर कौन सा है?":"Which tower is TALLER?"):(H()?"छोटा टावर कौन सा है?":"Which tower is SHORTER?");
+    pool=[6,2].map(n=>({n,choice:`<div class="tower">${Array(n).fill(`<span>${c}</span>`).join("")}</div>`,nm:()=>n>3?(H()?"ऊँचा टावर":"the tall tower"):(H()?"छोटा टावर":"the short tower"),q}));
+    ans=tall?pool[0]:pool[1]; }
+  else if(kind===2){ const long=Math.random()<.5;
+    const q=()=>long?(H()?"लंबी इल्ली कौन सी है?":"Which caterpillar is LONGER?"):(H()?"छोटी इल्ली कौन सी है?":"Which caterpillar is SHORTER?");
+    pool=[6,2].map(n=>({n,choice:`<div style="display:flex;align-items:center;font-size:clamp(.9rem,4vw,1.3rem);line-height:1">${Array(n).fill("🟢").join("")}<span style="font-size:1.8em">🐛</span></div>`,nm:()=>n>3?(H()?"लंबी इल्ली":"the long one"):(H()?"छोटी इल्ली":"the short one"),q}));
+    ans=long?pool[0]:pool[1]; }
+  else { const pr=[[["🐘","elephant","हाथी"],["🐭","mouse","चूहा"]],[["🚚","truck","ट्रक"],["🪶","feather","पंख"]],[["🪨","rock","पत्थर"],["🎈","balloon","गुब्बारा"]],[["🐻","bear","भालू"],["🐦","bird","चिड़िया"]]][rand(4)], heavy=Math.random()<.5;
+    const q=()=>heavy?(H()?"भारी कौन है?":"Which one is HEAVY?"):(H()?"हल्का कौन है?":"Which one is LIGHT?");
+    pool=pr.map(x=>({choice:x[0],nm:()=>H()?x[2]:`the ${x[1]}`,q})); ans=heavy?pool[0]:pool[1]; }
+  quiz(pool,compare,ans,{two:true}); cur.resume=compare;
+}
+const SORT_SAY=[["is a fruit","is a vegetable"],["lives on land","lives in water"],["is red","is yellow"],["goes in the sky","goes on the road"]];
+function sorting(){
+  stopAll(); cur.resume=sorting;
+  const si=rand(SORTS.length), S=SORTS[si];
+  const items=shuffle([...shuffle(S.A).slice(0,3).map(x=>[...x,0]),...shuffle(S.B).slice(0,3).map(x=>[...x,1])]);
+  let idx=0, wt=null;
+  stage.innerHTML=`<div class="q" id="sq">${H()?"सही टोकरी में डालो!":"Put it in the right basket!"}</div><div class="sortrow"><button class="basket" id="bk0"><i>${S.a[1]}</i><b>${H()?S.a[2]:S.a[0]}</b><div class="in" id="in0"></div></button><button class="basket" id="bk1"><i>${S.b[1]}</i><b>${H()?S.b[2]:S.b[0]}</b><div class="in" id="in1"></div></button></div><div id="sslot" style="min-height:130px;display:flex;align-items:center;justify-content:center"></div>`;
+  const baskets=()=>[$("bk0"),$("bk1")];
+  const ask=()=>{ const it=items[idx]; play([{t:`Where does the ${it[0].toLowerCase()} go?`},{t:H()?`${S.a[2]} या ${S.b[2]}?`:`${S.a[0]} or ${S.b[0]}?`,l:L_()}],()=>{ clearTimeout(wt); wt=later(ask,11000); }); };
+  const tryPut=(side,el)=>{ const it=items[idx]; if(!it) return; hush(); clearTimeout(wt);
+    if(side===it[2]){ el&&el.remove(); $("in"+side).insertAdjacentHTML("beforeend",`<span class="pop">${it[1]}</span>`); popGood(); anim(baskets()[side],"pop");
+      idx++; play([{t:`${it[0]} ${SORT_SAY[si][side]}!`}],()=>later(nextItem,400)); }
+    else { if(el){ snapBack(el); anim(el,"shake"); } play([{t:`Hmm! ${it[0]} ${SORT_SAY[si][it[2]]}. Try again!`}],()=>{ wt=later(ask,9000); }); } };
+  baskets().forEach((b,i)=>b.onclick=()=>tryPut(i,$("sortee")));
+  const nextItem=()=>{ if(idx>=items.length){ cheer(); burst(); play([{t:H()?"सब सही! शाबाश!":"All sorted! Super job!",l:L_()}],()=>later(sorting,1500)); return; }
+    const it=items[idx]; $("sslot").innerHTML=`<button class="sortee pop" id="sortee" aria-label="${it[0]}">${it[1]}</button>`;
+    dragify($("sortee"),baskets,(ti,e)=>{ const el=$("sortee"); if(ti===-2){ el.style.transform=""; ask(); return; } if(ti<0){ snapBack(el); return; } tryPut(ti,el); });
+    later(ask,300); };
+  nextItem();
+}
+
+/* ---------- puzzles ---------- */
+function jigsaw(){
+  stopAll(); cur.resume=jigsaw;
+  const all=PICS(), it=all[rand(all.length)];
+  const N=360, cv=document.createElement("canvas"); cv.width=cv.height=N; const c=cv.getContext("2d");
+  c.fillStyle=["#FFF1C2","#DDF3FF","#E5F8EA","#FFE3EE"][rand(4)]; c.fillRect(0,0,N,N); c.font=`${N*.74}px serif`; c.textAlign="center"; c.textBaseline="middle"; c.fillText(it[0],N/2,N*.55);
+  const url=cv.toDataURL(), P=Math.max(96,Math.min(150,Math.floor((stage.clientWidth-60)/2))), p2=Math.round(P*.8);
+  const bg=(i,s)=>`background-image:url(${url});background-size:${2*s}px ${2*s}px;background-position:${-(i%2)*s}px ${-Math.floor(i/2)*s}px`;
+  const order=shuffle([0,1,2,3]);
+  stage.innerHTML=`<div class="q">${H()?"टुकड़े जोड़ो!":"Fix the picture!"}</div><div class="jig" style="--p:${P}px">${[0,1,2,3].map(i=>`<div class="slot" data-i="${i}"><div class="ghost" style="${bg(i,P)}"></div></div>`).join("")}</div><div class="pieces">${order.map(i=>`<button class="piece" data-i="${i}" aria-label="piece" style="width:${p2}px;height:${p2}px;${bg(i,p2)}"></button>`).join("")}</div>`;
+  const slots=()=>[...stage.querySelectorAll(".slot")]; let placed=0, sel=null;
+  const place=(pc,si)=>{ const i=+pc.dataset.i; if(i!==si){ snapBack(pc); anim(pc,"shake"); return; }
+    pc.remove(); const s=slots()[si]; s.classList.add("filled"); anim(s,"pop"); placed++; ding(placed*2); sel=null;
+    if(placed===4){ later(()=>{ cheer(); burst(); play([...sndThen(it[3]),{t:H()?`शाबाश! ${it[2]}!`:`You did it! A ${it[1]}!`,l:L_()}],()=>later(jigsaw,1600)); },300); } };
+  stage.querySelectorAll(".piece").forEach(pc=>dragify(pc,slots,(ti)=>{ if(ti===-2){ pc.style.transform=""; stage.querySelectorAll(".piece.sel").forEach(z=>z.classList.remove("sel")); pc.classList.add("sel"); sel=pc; return; } if(ti<0){ snapBack(pc); return; } place(pc,ti); }));
+  slots().forEach((s,si)=>s.addEventListener("click",()=>{ if(sel) place(sel,si); }));
+  play([{t:H()?"टुकड़ों को सही जगह रखो!":"Put the pieces in the right place!",l:L_()}]);
+}
+function memory(level=2){
+  stopAll(); cur.resume=()=>memory(level);
+  const src=shuffle(PICS()).slice(0,level), cards=shuffle([...src,...src]);
+  stage.innerHTML=`<div class="q">${H()?"जोड़ी ढूँढो!":"Find the pairs!"}</div><div class="mem" style="grid-template-columns:repeat(${level<=2?2:level===3?3:4},1fr)">${cards.map((c,i)=>`<button data-i="${i}" aria-label="card">⭐</button>`).join("")}</div>`;
+  let open=[], got=0, lock=false;
+  stage.querySelectorAll(".mem button").forEach(b=>b.onclick=()=>{
+    const c=cards[+b.dataset.i]; if(lock||b.classList.contains("open")) return;
+    b.textContent=c[0]; b.classList.add("open"); open.push([b,c]); hush(); play([{t:H()?c[2]:c[1],l:L_()}]);
+    if(open.length===2){ const [[b1,c1],[b2,c2]]=open; open=[];
+      if(c1===c2){ b1.classList.add("got"); b2.classList.add("got"); ding(got*3); got++;
+        if(got===level) later(()=>{ cheer(); burst(); play([{t:H()?"सारी जोड़ियाँ मिल गईं! शाबाश!":"You found all the pairs!",l:L_()}],()=>later(()=>memory(level>=4?2:level+1),1200)); },500); }
+      else { lock=true; later(()=>{ [b1,b2].forEach(x=>{ x.textContent="⭐"; x.classList.remove("open"); }); lock=false; },1200); } } });
+  play([{t:H()?"कार्ड पलटो और जोड़ी ढूँढो!":"Turn the cards and find the same pictures!",l:L_()}]);
+}
+function shadow(){
+  const src=shuffle(PICS()).slice(0,3);
+  const pool=src.map(x=>({x,choice:`<span class="silh">${x[0]}</span>`,nm:()=>H()?x[2]:x[1],q:()=>H()?`${x[2]} की परछाईं कौन सी है?`:`Which shadow is the ${x[1]}?`})), ans=pool[rand(3)];
+  quiz(pool,shadow,ans,{head:`<div class="pic" style="font-size:clamp(4rem,20vw,6rem)">${ans.x[0]}</div>`,
+    right:()=>stage.querySelector(".choices .right span")?.classList.remove("silh"),
+    wrongSay:()=>H()?"यह नहीं। फिर से देखो!":"Not this one. Look again!"});
+  cur.resume=shadow;
+}
+
+/* ---------- colouring ---------- */
+const R=(t,a)=>`<${t} class="rg" ${a}/>`;
+const PAGES=[
+  {n:"House",hi:"घर",svg:R("rect",'x="0" y="162" width="200" height="38"')+R("circle",'cx="168" cy="32" r="18"')+R("rect",'x="128" y="48" width="16" height="30"')+R("rect",'x="40" y="92" width="120" height="70"')+R("polygon",'points="28,94 100,38 172,94"')+R("rect",'x="88" y="120" width="26" height="42"')+R("rect",'x="54" y="106" width="22" height="22"')+R("rect",'x="126" y="106" width="22" height="22"')},
+  {n:"Fish",hi:"मछली",svg:R("polygon",'points="146,100 192,66 192,134"')+R("ellipse",'cx="92" cy="100" rx="62" ry="40"')+R("polygon",'points="74,64 104,36 118,66"')+R("polygon",'points="84,136 106,160 112,134"')+R("circle",'cx="58" cy="90" r="9"')+R("circle",'cx="26" cy="52" r="8"')+R("circle",'cx="38" cy="28" r="6"')},
+  {n:"Flower",hi:"फूल",svg:R("rect",'x="95" y="110" width="10" height="84"')+R("ellipse",'cx="76" cy="160" rx="22" ry="9" transform="rotate(-25 76 160)"')+R("ellipse",'cx="124" cy="146" rx="22" ry="9" transform="rotate(25 124 146)"')+[0,60,120,180,240,300].map(a=>R("circle",`cx="${(100+32*Math.cos(a*Math.PI/180)).toFixed(1)}" cy="${(76+32*Math.sin(a*Math.PI/180)).toFixed(1)}" r="22"`)).join("")+R("circle",'cx="100" cy="76" r="20"')},
+  {n:"Butterfly",hi:"तितली",svg:R("ellipse",'cx="66" cy="78" rx="34" ry="38"')+R("ellipse",'cx="134" cy="78" rx="34" ry="38"')+R("ellipse",'cx="72" cy="138" rx="24" ry="28"')+R("ellipse",'cx="128" cy="138" rx="24" ry="28"')+R("ellipse",'cx="100" cy="110" rx="9" ry="50"')+R("circle",'cx="100" cy="54" r="12"')},
+  {n:"Car",hi:"कार",svg:R("rect",'x="0" y="168" width="200" height="32"')+R("polygon",'points="56,102 76,66 134,66 154,102"')+R("rect",'x="18" y="100" width="164" height="46" rx="12"')+R("polygon",'points="72,100 84,74 98,74 98,100"')+R("polygon",'points="104,100 104,74 126,74 140,100"')+R("circle",'cx="60" cy="148" r="19"')+R("circle",'cx="140" cy="148" r="19"')+R("circle",'cx="172" cy="114" r="6"')},
+  {n:"Ice cream",hi:"आइसक्रीम",svg:R("polygon",'points="68,108 132,108 100,192"')+R("circle",'cx="82" cy="96" r="26"')+R("circle",'cx="118" cy="96" r="26"')+R("circle",'cx="100" cy="64" r="26"')+R("circle",'cx="100" cy="32" r="9"')},
+  {n:"Tree",hi:"पेड़",svg:R("rect",'x="0" y="172" width="200" height="28"')+R("rect",'x="88" y="118" width="24" height="56"')+R("circle",'cx="64" cy="96" r="32"')+R("circle",'cx="136" cy="96" r="32"')+R("circle",'cx="100" cy="72" r="44"')+R("circle",'cx="82" cy="70" r="8"')+R("circle",'cx="118" cy="62" r="8"')+R("circle",'cx="106" cy="100" r="8"')+R("circle",'cx="60" cy="104" r="7"')},
+  {n:"Balloons",hi:"गुब्बारे",svg:R("ellipse",'cx="60" cy="72" rx="28" ry="34"')+R("ellipse",'cx="100" cy="54" rx="28" ry="34"')+R("ellipse",'cx="140" cy="72" rx="28" ry="34"')+R("rect",'x="72" y="150" width="56" height="44" rx="4"')+R("rect",'x="94" y="150" width="12" height="44"')},
+];
+function colouring(pi=0){
+  stopAll(); cur.resume=()=>colouring(pi);
+  const pg=PAGES[pi], pal=COLS.slice(0,8); let color=pal[0], said=false;
+  stage.innerHTML=`<div class="colorwrap"><div class="tlabel">${H()?pg.hi:pg.n}</div><svg viewBox="0 0 200 200" id="cpage" aria-label="${pg.n}">${pg.svg}</svg><div class="palette">${pal.map((c,i)=>`<button data-i="${i}" aria-label="${c[0]}" aria-pressed="${i===0}" style="background:${c[1]}"></button>`).join("")}</div><div class="tctl"><button id="cprev" aria-label="Previous">◀</button><button id="cclear" aria-label="Clear">↺</button><button id="cnext" aria-label="Next">▶</button></div></div>`;
+  const regions=[...stage.querySelectorAll(".rg")]; regions.forEach(r=>r.setAttribute("fill","#FFFFFF"));
+  stage.querySelectorAll(".palette button").forEach(b=>b.onclick=()=>{ color=pal[+b.dataset.i]; stage.querySelectorAll(".palette button").forEach(x=>x.setAttribute("aria-pressed",x===b)); hush(); play([{t:H()?color[2]:color[0],l:L_()}]); });
+  regions.forEach(r=>r.addEventListener("click",()=>{ r.setAttribute("fill",color[1]); r.dataset.done=1; tone(700+rand(5)*90,.12,"sine",.15);
+    if(!said&&regions.every(x=>x.dataset.done)){ said=true; cheer(); burst(); hush(); play([{t:H()?`वाह! कितना सुंदर ${pg.hi}!`:`Beautiful! You coloured the ${pg.n.toLowerCase()}!`,l:L_()}]); } }));
+  $("cprev").onclick=()=>colouring((pi-1+PAGES.length)%PAGES.length);
+  $("cnext").onclick=()=>colouring((pi+1)%PAGES.length);
+  $("cclear").onclick=()=>colouring(pi);
+  play([{t:H()?`${pg.hi} में रंग भरो! पहले रंग चुनो, फिर तस्वीर पे टैप करो।`:`Let's colour the ${pg.n.toLowerCase()}! Pick a colour, then tap the picture.`,l:L_()}]);
+}
+
 const WRITE={lines:{title:"Lines",hi:"रेखाएँ",icon:"〰️",bg:PAL[6]},abc:{title:"Trace ABC",hi:"A–Z लिखो",icon:"✏️",bg:PAL[0]},num:{title:"Trace 123",hi:"1–10 लिखो",icon:"🔢",bg:PAL[2]},dots:{title:"Dot to Dot",hi:"बिंदु जोड़ो",icon:"⭐",bg:PAL[3]}};
 const GAMES={
-  taptap:{title:"Tap Tap",hi:"1 saal+ ke liye",icon:"👆",bg:PAL[4],start:tapTap},
-  feed:{title:"Feed Me",hi:"khana khilao",icon:"🐰",bg:PAL[1],start:feed},
-  whosays:{title:"Who Says?",hi:"awaaz pehchano",icon:"🐄",bg:"#20B2B8",start:whoSays},
-  howmany:{title:"How Many?",hi:"kitne hain?",icon:"🍎",bg:PAL[0],start:howMany},
-  bubbles:{title:"Bubbles",hi:"sahi wala phodo",icon:"🫧",bg:PAL[2],start:bubbles},
-  music:{title:"Music",hi:"baaja bajao",icon:"🎹",bg:"#D14FB5",start:music},
+  colour:{shelf:"writeCards",title:"Colouring",hi:"रंग भरो",icon:"🖍️",bg:"#FF7A45",start:()=>colouring(0)},
+  howmany:{shelf:"mathCards",title:"How Many?",hi:"kitne hain?",icon:"🍎",bg:PAL[0],start:howMany},
+  patterns:{shelf:"mathCards",title:"Patterns",hi:"aage kya aayega?",icon:"🔁",bg:PAL[3],start:patterns},
+  sorting:{shelf:"mathCards",title:"Sorting",hi:"tokri mein daalo",icon:"🧺",bg:"#3BA55C",start:sorting},
+  sizes:{shelf:"mathCards",title:"Big & Small",hi:"bada-chhota",icon:"🐘",bg:PAL[2],start:sizes},
+  compare:{shelf:"mathCards",title:"Compare",hi:"zyada-kam, lamba-chhota",icon:"⚖️",bg:PAL[5],start:compare},
+  jigsaw:{shelf:"puzzleCards",title:"Jigsaw",hi:"tukde jodo",icon:"🧩",bg:PAL[6],start:jigsaw},
+  memory:{shelf:"puzzleCards",title:"Memory",hi:"jodi dhoondo",icon:"🃏",bg:PAL[3],start:()=>memory(2)},
+  shadow:{shelf:"puzzleCards",title:"Shadows",hi:"parchhaai pehchano",icon:"🌑",bg:"#3B3F6B",start:shadow},
+  asounds:{shelf:"listenCards",title:"Animal Sounds",hi:"tap karo, suno",icon:"🦁",bg:"#F28C28",start:()=>soundBoard("animals")},
+  vsounds:{shelf:"listenCards",title:"Vehicle Sounds",hi:"gaadi ki awaaz",icon:"🚂",bg:"#E8323C",start:()=>soundBoard("vehicles")},
+  whosays:{shelf:"listenCards",title:"Who Says?",hi:"awaaz pehchano",icon:"👂",bg:"#20B2B8",start:whoSays},
+  first:{shelf:"listenCards",title:"First Sound",hi:"B se kya?",icon:"🅱️",bg:PAL[0],start:firstSound},
+  read:{shelf:"listenCards",title:"Read & Find",hi:"padho aur dhoondo",icon:"📖",bg:"#5B7CFA",start:readFind},
+  taptap:{shelf:"gameCards",title:"Tap Tap",hi:"1 saal+ ke liye",icon:"👆",bg:PAL[4],start:tapTap},
+  feed:{shelf:"gameCards",title:"Feed Me",hi:"khana khilao",icon:"🐰",bg:PAL[1],start:feed},
+  bubbles:{shelf:"gameCards",title:"Bubbles",hi:"sahi wala phodo",icon:"🫧",bg:PAL[2],start:bubbles},
+  music:{shelf:"gameCards",title:"Music",hi:"baaja bajao",icon:"🎹",bg:"#D14FB5",start:music},
 };
 function openGame(key){ const G=GAMES[key]; cur={}; enter(G.title); G.start(); }
 
@@ -603,7 +937,7 @@ function card(parent,o,fn){ const b=document.createElement("button"); b.classNam
   b.innerHTML=`<i>${o.icon}</i><b>${o.title}</b><small>${o.hi}</small>`; b.onclick=fn; parent.appendChild(b); }
 Object.entries(WRITE).forEach(([k,o])=>card($("writeCards"),o,()=>openTrace(k,o.title)));
 Object.entries(TOPICS).forEach(([k,o])=>card($("learnCards"),o,()=>openTopic(k)));
-Object.entries(GAMES).forEach(([k,o])=>card($("gameCards"),o,()=>openGame(k)));
+Object.entries(GAMES).forEach(([k,o])=>card($(o.shelf),o,()=>openGame(k)));
 function showNote(){
   const n=$("note");
   if(!synth){ n.textContent="Is browser mein bolne wali awaaz nahi chal rahi. Ise Chrome (Android) ya Safari (iPhone) mein kholo."; n.hidden=false; return; }
