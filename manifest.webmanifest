@@ -1,13 +1,16 @@
 {
+  "id": "./",
   "name": "Baby Sparkle",
   "short_name": "Baby Sparkle",
-  "description": "Likho, Seekho, Khelo — a talking learning app for little ones",
+  "description": "Write, learn and play — a talking learning app for children aged 1 to 3.",
+  "lang": "en",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "any",
   "background_color": "#BDE7FF",
   "theme_color": "#8A5CFF",
+  "categories": ["education", "kids"],
   "icons": [
     {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
     {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}

@@ -1,7 +1,7 @@
 /* Baby Sparkle offline worker.
    Big voice packs stay in the audio cache between updates, so an update only downloads what changed. */
-const AUD="baby-sparkle-v1", APP="baby-sparkle-app-v3";
-const APPFILES=["./","index.html","manifest.webmanifest","icon-192.png","icon-512.png"];
+const AUD="baby-sparkle-v1", APP="baby-sparkle-app-v4";
+const APPFILES=["./","index.html","manifest.webmanifest","icon-192.png","icon-512.png","privacy.html"];
 const FRESH=["sfx.mp3","sfx.json","voice-x.mp3","voice-x.json"];
 const KEEP=["voice-en1.mp3","voice-en1.json","voice-en2.mp3","voice-en2.json","voice-hi1.mp3","voice-hi1.json","voice-hi2.mp3","voice-hi2.json"];
 const isAudio=u=>/(sfx|voice-[a-z0-9]+)\.(mp3|json)$/.test(new URL(u).pathname);
