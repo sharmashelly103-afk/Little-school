@@ -13,7 +13,7 @@
 </head><body>
 <title>Baby Sparkle</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@500;600;700;800&family=Comic+Neue:wght@700&family=Fredoka:wght@500;600;700&family=Nunito:wght@600;800&display=swap">
 <style>
 /* Layout: a sunny storybook world — animated sky, rainbow and hills sit behind everything; content floats on soft white "cloud" panels. One bright theme on purpose (a toy). */
 :root{
@@ -25,8 +25,8 @@
 }
 [hidden]{display:none!important}
 html,body{height:100%}
-body{background:var(--sky2);color:var(--ink);font-family:var(--display);-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;overscroll-behavior:none;overflow-x:hidden}
-button{font-family:var(--display);color:inherit}
+body{background:var(--sky2);color:var(--ink);font-family:var(--font,var(--display));-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;overscroll-behavior:none;overflow-x:hidden}
+button{font-family:var(--font,var(--display));color:inherit}
 button:focus-visible{outline:4px solid var(--grape);outline-offset:3px}
 
 /* ---------- living background ---------- */
@@ -337,10 +337,96 @@ button:focus-visible{outline:4px solid var(--grape);outline-offset:3px}
 .keypad button{height:56px;border:0;border-radius:16px;background:var(--bg);font-size:1.6rem;font-weight:800;cursor:pointer;box-shadow:0 4px 0 var(--soft)}
 .gate .cancel{border:0;background:none;font-weight:700;font-size:1rem;color:#5B6690;cursor:pointer;padding:6px}
 .bye{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(180deg,#7CCBFF,#FFF4D9);text-align:center;padding:16px}
+/* ---------- world scenes ---------- */
+.scene{position:absolute;inset:0;display:none}
+.scene.on{display:block}
+.scene[data-w="jungle"]{background:linear-gradient(180deg,#A6EBCB 0%,#D6F5B8 55%,#86CF6E 100%)}
+.scene[data-w="ocean"]{background:linear-gradient(180deg,#8EE0F7 0%,#3C9DE0 50%,#1E5EA8 100%)}
+.scene[data-w="space"]{background:radial-gradient(circle at 70% 20%,#4B3A9A 0%,#2A2468 45%,#141638 100%)}
+.scene[data-w="fantasy"]{background:linear-gradient(180deg,#FFD6EC 0%,#E9D8FF 55%,#CDEBFF 100%)}
+.scene[data-w="art"]{background:#FFF4E2}
+.drift{position:absolute;left:-12%;font-size:44px;animation:driftx linear infinite}
+.drift.rev{left:auto;right:-12%;animation-name:driftr}
+@keyframes driftx{0%{transform:translate(0,0)}50%{transform:translate(60vw,-30px)}100%{transform:translate(125vw,0)}}
+@keyframes driftr{0%{transform:translate(0,0) scaleX(-1)}50%{transform:translate(-60vw,30px) scaleX(-1)}100%{transform:translate(-125vw,0) scaleX(-1)}}
+.risebub{animation:bubup linear infinite}
+@keyframes bubup{from{transform:translateY(0)}to{transform:translateY(-1100px)}}
+.shoot{animation:shoot 7s ease-in infinite;opacity:0}
+@keyframes shoot{0%,80%{transform:translate(100px,80px);opacity:0}84%{opacity:1}100%{transform:translate(700px,300px);opacity:0}}
+body[data-w="space"] .word small,body[data-w="space"] .bar h1{color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.4)}
+body[data-w="ocean"] .bar h1{color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.3)}
+/* ---------- world dropdowns on home ---------- */
+.world{border:0;width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:26px;color:#fff;cursor:pointer;text-align:left;
+  background:linear-gradient(120deg,color-mix(in srgb,var(--c) 80%,#fff),var(--c));box-shadow:0 6px 0 color-mix(in srgb,var(--c) 65%,#000)}
+.world:active{transform:translateY(3px)}
+.world i{font-style:normal;font-size:2.3rem;width:58px;height:58px;border-radius:18px;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;flex:none}
+.world .wt{flex:1;min-width:0}
+.world b{display:block;font-size:1.32rem;line-height:1.05;text-shadow:0 2px 0 rgba(0,0,0,.12)}
+.world small{display:block;font-size:.86rem;font-weight:600;opacity:.95;line-height:1.2}
+.world .cnt{font-size:.8rem;font-weight:800;background:rgba(255,255,255,.28);border-radius:999px;padding:2px 9px;flex:none}
+.world .chev{font-size:1.2rem;transition:transform .25s;flex:none}
+.world[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.wbody{background:var(--card);border-radius:26px;padding:12px;margin-top:-6px;box-shadow:0 6px 0 rgba(36,33,74,.10)}
+.hl{display:block;font-size:.66em;opacity:.8;font-weight:700;line-height:1.15}
+.card.locked{filter:grayscale(.85);opacity:.6}
+.card .lk{position:absolute;top:6px;right:8px;font-size:1.05rem;z-index:2}
+/* ---------- game controls ---------- */
+.ctl{display:flex;justify-content:center;gap:12px;background:var(--card);border-radius:999px;padding:8px 14px;align-self:center;box-shadow:0 5px 0 rgba(36,33,74,.12)}
+.ctl button{width:58px;height:58px;border:0;border-radius:50%;font-size:1.45rem;cursor:pointer;background:var(--bg);box-shadow:0 4px 0 var(--soft);display:flex;align-items:center;justify-content:center}
+.ctl button:disabled{opacity:.3;cursor:default}
+.ctl #cPause{background:var(--berry);color:#fff;box-shadow:0 4px 0 #C02A61}
+.ctl button.nudge{animation:pulse 1s infinite;background:#FFF1C2;box-shadow:0 4px 0 var(--sun)}
+/* ---------- settings ---------- */
+.sheet{position:fixed;inset:0;z-index:40;background:rgba(36,33,74,.4);backdrop-filter:blur(6px);overflow-y:auto;padding:16px}
+.sheetcard{max-width:660px;margin:0 auto;background:#fff;border-radius:28px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.sheethead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sheethead h3{margin:0;font-size:1.6rem}
+.sec{border-radius:20px;background:var(--bg);padding:12px;display:flex;flex-direction:column;gap:8px}
+.sec h4{margin:0;font-size:1.12rem;display:flex;gap:8px;align-items:center}
+.sec p{margin:0;font-size:.9rem;font-weight:600;opacity:.7}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:0;border-radius:14px;padding:8px 12px;background:#fff;font-weight:700;font-size:.98rem;cursor:pointer;box-shadow:0 3px 0 var(--soft);display:flex;align-items:center;gap:6px}
+.opt[aria-pressed="true"]{background:var(--ink);color:#fff;box-shadow:0 3px 0 #000}
+.swatch{width:26px;height:26px;border-radius:8px;display:inline-block;box-shadow:inset 0 0 0 2px rgba(0,0,0,.1)}
+.prof{display:flex;align-items:center;gap:10px;background:#fff;border-radius:16px;padding:8px 10px;flex-wrap:wrap}
+.prof .av{font-size:2rem}
+.prof .pn{flex:1;min-width:120px;font-weight:800}
+.sheetcard input[type=text]{font:700 1.1rem var(--display);padding:10px 12px;border-radius:12px;border:2px solid var(--soft);width:100%;max-width:280px}
+.sheetcard input[type=range]{width:100%;max-width:300px;accent-color:#8A5CFF}
+.rowlab{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:700}
+.rowlab span{min-width:90px}
+.lockgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.lockrow{display:flex;align-items:center;gap:6px;background:#fff;border-radius:12px;padding:6px 8px;border:0;font:700 .92rem var(--display);cursor:pointer;text-align:left}
+.lockrow[aria-pressed="true"]{background:#FFE3EC}
+.closebtn{border:0;border-radius:999px;background:var(--ink);color:#fff;font-weight:800;font-size:1.05rem;padding:10px 18px;cursor:pointer}
+/* free paint, peekaboo, car wash, fish, piano */
+#paint{width:min(100%,62vh);aspect-ratio:1;max-width:100%;border-radius:24px;touch-action:none;background:#fff;box-shadow:inset 0 0 0 3px var(--soft)}
+#wash{touch-action:none}
+.washwrap{position:relative;width:min(100%,62vh);max-width:100%;aspect-ratio:1}
+.washwrap .car{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(7rem,40vw,12rem);border-radius:24px;background:linear-gradient(#DFF4FF,#BFE6FF)}
+.washwrap canvas{position:absolute;inset:0;width:100%;height:100%;border-radius:24px}
+.bushes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:520px}
+.bush{position:relative;aspect-ratio:1;max-width:100%;border:0;background:none;cursor:pointer;padding:0}
+.bush .leaf{position:absolute;inset:18% 0 0 0;border-radius:50% 50% 40% 40%;background:radial-gradient(circle at 30% 30%,#7DDB6E,#2E9E50);transition:transform .35s cubic-bezier(.3,1.5,.5,1);z-index:2}
+.bush .who{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(2.6rem,13vw,4rem);transform:translateY(30%) scale(.6);opacity:0;transition:transform .35s cubic-bezier(.3,1.6,.5,1),opacity .2s;z-index:1}
+.bush.open .who{transform:translateY(-22%);opacity:1}
+.bush.open .leaf{transform:translateY(22%)}
+.pond{position:relative;width:100%;height:min(56vh,440px);border-radius:26px;background:linear-gradient(#8EE0F7,#2F8FD6);overflow:hidden}
+.fish{position:absolute;font-size:3.2rem;border:0;background:none;cursor:pointer;animation:swim linear forwards;padding:0}
+@keyframes swim{from{transform:translateX(var(--from)) scaleX(var(--dir))}to{transform:translateX(var(--to)) scaleX(var(--dir))}}
+.net{font-size:2.4rem;font-weight:800}
+.piano{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:560px}
+.piano button{aspect-ratio:.8;max-width:100%;border:0;border-radius:20px;color:#fff;font-size:clamp(2.4rem,12vw,3.4rem);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:8px;cursor:pointer;box-shadow:0 6px 0 rgba(0,0,0,.18)}
+.piano button small{font-size:.8rem;font-weight:800}
+.piano button.hit{transform:translateY(5px);filter:brightness(1.15)}
+.brushes{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.brushes button{width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;font-size:1.4rem;box-shadow:inset 0 0 0 3px rgba(0,0,0,.12)}
+.brushes button[aria-pressed="true"]{transform:scale(1.2);box-shadow:0 0 0 4px var(--ink)}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition:none!important}}
 </style>
 
 <div id="world" aria-hidden="true">
+  <div class="scene on" data-w="sky">
   <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
     <defs>
       <radialGradient id="sunG"><stop offset="0" stop-color="#FFF6B0"/><stop offset=".6" stop-color="#FFD43D"/><stop offset="1" stop-color="#FFB21E"/></radialGradient>
@@ -384,6 +470,100 @@ button:focus-visible{outline:4px solid var(--grape);outline-offset:3px}
   <span class="balloon" style="left:6%;animation-duration:26s;animation-delay:-4s">🎈</span>
   <span class="balloon" style="left:78%;animation-duration:32s;animation-delay:-18s">🎈</span>
   <span class="balloon" style="left:46%;animation-duration:38s;animation-delay:-30s;font-size:34px">🦋</span>
+  </div>
+  <div class="scene" data-w="jungle">
+    <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+      <circle cx="160" cy="130" r="120" fill="#FFF6B0" opacity=".55"/><circle cx="160" cy="130" r="60" fill="#FFE57A"/>
+      <path d="M-20 700 Q200 560 450 660 T1020 620 V1020 H-20Z" fill="#7FD27A"/>
+      <g fill="#3C8F4E"><rect x="120" y="520" width="26" height="260" rx="10"/><rect x="850" y="480" width="30" height="300" rx="10"/></g>
+      <g fill="#2E9E58"><circle cx="133" cy="500" r="80"/><circle cx="80" cy="540" r="60"/><circle cx="190" cy="545" r="62"/><circle cx="865" cy="460" r="90"/><circle cx="800" cy="510" r="64"/><circle cx="930" cy="512" r="66"/></g>
+      <g fill="#46B864" opacity=".9"><circle cx="110" cy="480" r="40"/><circle cx="880" cy="440" r="44"/></g>
+      <path d="M-20 820 Q260 720 540 800 T1020 780 V1020 H-20Z" fill="#45B05C"/>
+      <path d="M-20 920 Q300 850 600 910 T1020 900 V1020 H-20Z" fill="#2F9A50"/>
+      <g class="sway" style="transform-origin:0px 1000px"><path d="M0 1000 C40 860 120 800 190 780 C140 840 80 900 0 1000Z" fill="#2B8A4A"/><path d="M0 1000 C10 860 40 760 90 700 C80 800 50 900 0 1000Z" fill="#37A05A"/></g>
+      <g class="sway" style="transform-origin:1000px 1000px;animation-delay:.8s"><path d="M1000 1000 C960 860 880 800 810 780 C860 840 920 900 1000 1000Z" fill="#2B8A4A"/><path d="M1000 1000 C990 860 960 760 910 700 C920 800 950 900 1000 1000Z" fill="#37A05A"/></g>
+      <g stroke="#3C9A4E" stroke-width="7" fill="none" stroke-linecap="round">
+        <path class="sway" style="transform-origin:300px 0px" d="M300 0 Q290 120 310 220 Q320 280 300 330"/>
+        <path class="sway" style="transform-origin:640px 0px;animation-delay:.5s" d="M640 0 Q655 90 635 170 Q625 220 645 260"/>
+      </g>
+      <g fill="#4CBF63"><ellipse cx="300" cy="120" rx="16" ry="8"/><ellipse cx="312" cy="230" rx="16" ry="8"/><ellipse cx="652" cy="90" rx="14" ry="7"/><ellipse cx="636" cy="200" rx="14" ry="7"/></g>
+      <g><circle cx="260" cy="900" r="12" fill="#FF6FB0"/><circle cx="420" cy="940" r="10" fill="#FFE14D"/><circle cx="700" cy="930" r="12" fill="#FF8A3D"/><circle cx="560" cy="880" r="9" fill="#fff"/></g>
+    </svg>
+    <span class="drift" style="top:24%;animation-duration:34s;animation-delay:-6s">🦋</span>
+    <span class="drift" style="top:44%;animation-duration:44s;animation-delay:-28s">🦜</span>
+    <span class="drift rev" style="top:62%;animation-duration:50s;animation-delay:-14s;font-size:34px">🐝</span>
+  </div>
+  <div class="scene" data-w="ocean">
+    <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+      <g fill="#FFFFFF" opacity=".12"><polygon points="180,0 260,0 420,1000 260,1000"/><polygon points="520,0 580,0 720,1000 600,1000"/><polygon points="820,0 870,0 960,1000 880,1000"/></g>
+      <path d="M-20 880 Q250 830 520 875 T1020 860 V1020 H-20Z" fill="#F3D9A4"/>
+      <g fill="none" stroke-linecap="round" stroke-width="16">
+        <path class="sway" style="transform-origin:90px 900px" d="M90 900 Q60 820 95 750 Q125 690 90 620" stroke="#2BAE7E"/>
+        <path class="sway" style="transform-origin:140px 900px;animation-delay:.6s" d="M140 900 Q170 830 135 770 Q110 720 140 680" stroke="#38C48C"/>
+        <path class="sway" style="transform-origin:880px 890px;animation-delay:.3s" d="M880 890 Q850 800 890 730 Q920 670 885 600" stroke="#2BAE7E"/>
+        <path class="sway" style="transform-origin:930px 890px;animation-delay:1s" d="M930 890 Q960 820 925 760" stroke="#38C48C"/>
+      </g>
+      <g fill="#FF7E9E"><circle cx="300" cy="880" r="20"/><circle cx="330" cy="860" r="16"/><circle cx="355" cy="884" r="14"/></g>
+      <g fill="#FFB347"><circle cx="680" cy="880" r="16"/><circle cx="702" cy="864" r="12"/></g>
+      <g fill="#FFFFFF" opacity=".55">
+        <circle class="risebub" cx="220" cy="980" r="10" style="animation-duration:9s"/><circle class="risebub" cx="240" cy="1000" r="6" style="animation-duration:7s;animation-delay:-3s"/>
+        <circle class="risebub" cx="760" cy="990" r="12" style="animation-duration:11s;animation-delay:-5s"/><circle class="risebub" cx="780" cy="1010" r="7" style="animation-duration:8s;animation-delay:-1s"/>
+        <circle class="risebub" cx="500" cy="1000" r="8" style="animation-duration:10s;animation-delay:-7s"/>
+      </g>
+    </svg>
+    <span class="drift" style="top:30%;animation-duration:30s;animation-delay:-10s">🐠</span>
+    <span class="drift rev" style="top:52%;animation-duration:38s;animation-delay:-4s">🐟</span>
+    <span class="drift" style="top:70%;animation-duration:46s;animation-delay:-20s;font-size:36px">🐡</span>
+    <span class="drift rev" style="top:16%;animation-duration:60s;animation-delay:-30s;font-size:56px">🐳</span>
+  </div>
+  <div class="scene" data-w="space">
+    <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+      <g id="starfield" fill="#FFFFFF"></g>
+      <circle cx="820" cy="180" r="70" fill="#F3EFD6"/><circle cx="800" cy="160" r="12" fill="#DCD6B6"/><circle cx="845" cy="205" r="8" fill="#DCD6B6"/><circle cx="830" cy="150" r="6" fill="#DCD6B6"/>
+      <g transform="translate(170 720)"><ellipse cx="0" cy="0" rx="140" ry="30" fill="none" stroke="#FFD27A" stroke-width="10" transform="rotate(-18)"/><circle r="80" fill="#FF9E6B"/><path d="M-78 -20 Q0 -40 78 -20" stroke="#FFB98F" stroke-width="10" fill="none"/><path d="M-76 22 Q0 4 76 22" stroke="#F0844F" stroke-width="10" fill="none"/></g>
+      <circle cx="620" cy="760" r="34" fill="#7FD3FF"/><circle cx="610" cy="750" r="10" fill="#B5E6FF"/>
+      <line class="shoot" x1="0" y1="0" x2="120" y2="40" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <span class="drift" style="top:36%;animation-duration:40s;animation-delay:-12s">🚀</span>
+    <span class="drift rev" style="top:58%;animation-duration:70s;animation-delay:-40s;font-size:36px">🛸</span>
+  </div>
+  <div class="scene" data-w="fantasy">
+    <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+      <g fill="none" stroke-width="22" opacity=".45" stroke-linecap="round">
+        <path d="M60 760 A440 420 0 0 1 940 760" stroke="#FF8FB8"/><path d="M82 760 A418 398 0 0 1 918 760" stroke="#FFC46B"/><path d="M104 760 A396 376 0 0 1 896 760" stroke="#B9F08B"/><path d="M126 760 A374 354 0 0 1 874 760" stroke="#8FD0FF"/><path d="M148 760 A352 332 0 0 1 852 760" stroke="#C49BFF"/>
+      </g>
+      <g fill="#F6B8D8">
+        <rect x="360" y="560" width="280" height="300"/><rect x="320" y="500" width="70" height="360"/><rect x="610" y="500" width="70" height="360"/><rect x="460" y="440" width="80" height="140"/>
+        <polygon points="315,505 355,420 395,505"/><polygon points="605,505 645,420 685,505"/><polygon points="455,445 500,350 545,445"/>
+      </g>
+      <g fill="#E58CC0"><rect x="470" y="740" width="60" height="120" rx="30"/><rect x="340" y="560" width="30" height="40" rx="14"/><rect x="630" y="560" width="30" height="40" rx="14"/><rect x="485" y="480" width="30" height="40" rx="14"/></g>
+      <g fill="#FFE14D"><path d="M355 420 v-30 l30 10 -30 10" /><path d="M645 420 v-30 l30 10 -30 10"/><path d="M500 350 v-34 l32 11 -32 11"/></g>
+      <path d="M-20 860 Q260 800 520 850 T1020 840 V1020 H-20Z" fill="#B9E6A8"/>
+      <g fill="#FFFFFF">
+        <path class="twinkle" style="transform-origin:150px 300px" d="M150 280l6 14 14 6-14 6-6 14-6-14-14-6 14-6z"/>
+        <path class="twinkle" style="transform-origin:840px 330px;animation-delay:.7s" d="M840 315l5 10 10 5-10 5-5 10-5-10-10-5 10-5z"/>
+        <path class="twinkle" style="transform-origin:700px 160px;animation-delay:1.2s" d="M700 145l5 10 10 5-10 5-5 10-5-10-10-5 10-5z"/>
+        <path class="twinkle" style="transform-origin:260px 140px;animation-delay:.3s" d="M260 125l5 10 10 5-10 5-5 10-5-10-10-5 10-5z"/>
+      </g>
+    </svg>
+    <span class="drift" style="top:20%;animation-duration:42s;animation-delay:-8s">🦄</span>
+    <span class="drift rev" style="top:46%;animation-duration:36s;animation-delay:-20s;font-size:34px">🧚</span>
+  </div>
+  <div class="scene" data-w="art">
+    <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+      <g opacity=".5"><circle cx="120" cy="160" r="90" fill="#FFB3C8"/><circle cx="880" cy="220" r="110" fill="#B8E3FF"/><circle cx="780" cy="820" r="120" fill="#FFE08A"/><circle cx="200" cy="820" r="100" fill="#C7F0B4"/><circle cx="520" cy="520" r="70" fill="#E3D0FF"/></g>
+      <g fill="none" stroke-width="8" stroke-linecap="round" opacity=".55">
+        <path d="M80 420 q40 -40 80 0 t80 0 t80 0" stroke="#FF6FB0"/><path d="M640 120 q30 30 60 0 t60 0 t60 0" stroke="#3E8EFF"/><path d="M560 930 q40 -30 80 0 t80 0" stroke="#22B573"/>
+      </g>
+      <g transform="translate(60 960) rotate(-30)"><rect width="200" height="34" rx="6" fill="#FF4F5E"/><polygon points="200,0 240,17 200,34" fill="#FFD3B0"/><polygon points="228,11 240,17 228,23" fill="#FF4F5E"/></g>
+      <g transform="translate(700 990) rotate(-20)"><rect width="200" height="34" rx="6" fill="#3E8EFF"/><polygon points="200,0 240,17 200,34" fill="#FFD3B0"/><polygon points="228,11 240,17 228,23" fill="#3E8EFF"/></g>
+      <g transform="translate(860 560) rotate(70)"><rect width="160" height="30" rx="6" fill="#FFC83D"/><polygon points="160,0 194,15 160,30" fill="#FFD3B0"/></g>
+      <g fill="#FF8FB8"><path class="twinkle" style="transform-origin:400px 220px" d="M400 240 l-24-24 a14 14 0 0 1 24-14 a14 14 0 0 1 24 14z"/></g>
+      <g fill="#FFC83D"><path class="twinkle" style="transform-origin:640px 700px;animation-delay:.8s" d="M640 680l6 14 14 6-14 6-6 14-6-14-14-6 14-6z"/></g>
+    </svg>
+    <span class="drift" style="top:30%;animation-duration:40s;animation-delay:-16s;font-size:36px">🖍️</span>
+    <span class="drift rev" style="top:64%;animation-duration:52s;animation-delay:-5s;font-size:36px">🎨</span>
+  </div>
 </div>
 
 <div class="gate" id="gate" hidden>
@@ -422,29 +602,37 @@ button:focus-visible{outline:4px solid var(--grape);outline-offset:3px}
   <div class="top">
     <div class="brand">
       <svg class="logo" viewBox="0 0 100 100" aria-hidden="true"><use href="#logoSym"/></svg>
-      <div class="word"><b aria-label="Baby Sparkle" id="wordmark"></b><small>Likho · Seekho · Khelo</small></div>
+      <div class="word"><b aria-label="Baby Sparkle" id="wordmark"></b><small id="hello">Write · Learn · Play</small></div>
     </div>
     <div class="tools">
-      <div class="pill" role="group" aria-label="Language">
-        <button id="lang-en" aria-pressed="true">English</button>
-        <button id="lang-hi" aria-pressed="false">English + हिंदी</button>
+      <div class="pill" role="group" aria-label="Language" id="langPill">
+        <button data-l="en" aria-pressed="true">English</button>
+        <button data-l="both" aria-pressed="false">English + हिंदी</button>
+        <button data-l="hi" aria-pressed="false">हिंदी</button>
       </div>
       <button class="iconbtn" id="tuneBtn" aria-label="Music on or off">🎵</button>
+      <button class="iconbtn" id="setBtn" aria-label="Settings (parents)">⚙️</button>
       <button class="iconbtn" id="exitBtn" aria-label="Exit (parents)">🔒</button>
     </div>
   </div>
   <p class="note" id="note" hidden></p>
-  <div id="shelves" style="display:flex;flex-direction:column;gap:14px"></div>
+  <div id="shelves" style="display:flex;flex-direction:column;gap:12px"></div>
 </div>
 
 <div class="wrap" id="play" hidden>
   <div class="bar">
-    <button class="back" id="back" aria-label="Back"><span>◀</span>Back</button>
+    <button class="back" id="back" aria-label="Back"><span>◀</span><em id="backT" style="font-style:normal">Back</em></button>
     <h1 id="ptitle"></h1>
-    <button class="round" id="pause" aria-label="Pause">⏸</button>
+    <div style="width:40px;flex:none"></div>
   </div>
   <section class="stage" id="stage" aria-live="polite"></section>
+  <div class="ctl" id="ctl" role="group" aria-label="Game controls">
+    <button id="cPrev" aria-label="Previous">⏮</button><button id="cReplay" aria-label="Play again">↺</button><button id="cPause" aria-label="Pause">⏸</button><button id="cNext" aria-label="Next">⏭</button>
+  </div>
 </div>
+
+<div class="sheet" id="settings" hidden><div class="sheetcard" id="setCard"></div></div>
+<div class="bye" id="rest" hidden><div class="pic">😴</div><h2 style="margin:0;font-size:2rem" id="restT">Time to rest!</h2><p style="margin:0;font-weight:600" id="restP">Playtime is over for now. Parents can add more time.</p><button class="bigbtn" style="background:#8A5CFF" id="restOk">Parents: more time</button></div>
 
 <script>
 /* =================================================================== data */
@@ -496,10 +684,18 @@ const HOMESOUNDS=[["Clock","🕰️","घड़ी","tick","tick tock","टि�
 
 /* ---- helpers ---- */
 const $=id=>document.getElementById(id);
-const rand=n=>Math.floor(Math.random()*n);
-const shuffle=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+/* seeded randomness, so ⏮ and ↺ can bring back the exact same round */
+let rngState=(Date.now()>>>0)||1;
+function R(){ rngState=(rngState+0x6D2B79F5)>>>0; let t=rngState; t=Math.imul(t^t>>>15,t|1); t^=t+Math.imul(t^t>>>7,t|61); return ((t^t>>>14)>>>0)/4294967296; }
+const rand=n=>Math.floor(R()*n);
+const shuffle=a=>a.map(x=>[R(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+/* ---- saved settings (this phone only) ---- */
+const DEF={lang:"en",theme:"auto",font:"baloo",tune:"sunny",music:.4,voice:1,fx:.9,locks:{},screen:0,autoNext:true,gateOpen:true,profiles:[{name:"",av:"🐰",age:2,stars:0}],active:0};
+let ST=(()=>{ try{ const j=JSON.parse(localStorage.getItem("sparkle.v1")||"null"); return j?{...DEF,...j}:{...DEF}; }catch(e){ return {...DEF}; } })();
+function save(){ try{ localStorage.setItem("sparkle.v1",JSON.stringify(ST)); }catch(e){} }
+const PROF=()=>ST.profiles[ST.active]||ST.profiles[0];
 const stage=$("stage");
-let lang="en", run=0, timers=[], paused=false, cur=null, wake=null;
+let lang=ST.lang, run=0, timers=[], paused=false, cur=null, wake=null;
 function later(fn,ms){ const t=setTimeout(fn,ms); timers.push(t); return t; }
 function every(fn,ms){ const t=setInterval(fn,ms); timers.push(t); return t; }
 function anim(el,c){ if(!el) return; el.classList.remove(c); void el.offsetWidth; el.classList.add(c); }
@@ -515,8 +711,9 @@ function burstAt(el){ const r=el.getBoundingClientRect(), s=stage.getBoundingCli
 /* =================================================================== audio engine
    Voices and sounds come packed: NAME.mp3 holds many short mp3 clips back to back,
    NAME.json says where each clip starts {key:[offset,length,seconds]}. */
-let ac=null, master=null, musicBus=null;
-function audio(){ try{ if(!ac){ ac=new (window.AudioContext||window.webkitAudioContext)(); master=ac.createGain(); master.gain.value=.95; master.connect(ac.destination); musicBus=ac.createGain(); musicBus.gain.value=.38; musicBus.connect(master);} if(ac.state==="suspended") ac.resume(); }catch(e){} return ac; }
+let ac=null, master=null, musicBus=null, voiceBus=null, fxBus=null;
+function applyVol(){ if(!ac) return; musicBus.gain.value=ST.music; voiceBus.gain.value=ST.voice; fxBus.gain.value=ST.fx; }
+function audio(){ try{ if(!ac){ ac=new (window.AudioContext||window.webkitAudioContext)(); master=ac.createGain(); master.gain.value=.95; master.connect(ac.destination); musicBus=ac.createGain(); musicBus.connect(master); voiceBus=ac.createGain(); voiceBus.connect(master); fxBus=ac.createGain(); fxBus.connect(master); applyVol();} if(ac.state==="suspended") ac.resume(); }catch(e){} return ac; }
 const PACK={}, DEC=new Map(), packWait={};
 function loadPack(name){
   if(packWait[name]) return packWait[name];
@@ -537,17 +734,19 @@ function playBuf(buf,{gain=1,rate=1,dest,loop=false}={}){
   s.connect(g); g.connect(dest||master); s.start(); live.add(s); s.onended=()=>live.delete(s); return s;
 }
 /* play a sound effect / real recording; returns its length in seconds (0 if missing) */
-function sfx(key,o={}){ const d=clipLen("sfx",key); if(!d) return 0; const tok=run; decode("sfx",key).then(b=>{ if(b&&(o.force||tok===run)) playBuf(b,o); }); return d/(o.rate||1); }
+function sfx(key,o={}){ const d=clipLen("sfx",key); if(!d) return 0; const tok=run; decode("sfx",key).then(b=>{ if(b&&(o.force||tok===run)) playBuf(b,{dest:fxBus,...o}); }); return d/(o.rate||1); }
 const hasSfx=k=>!!clipLen("sfx",k);
 const SND=new Proxy({},{get:(_,k)=>hasSfx(k)?(()=>sfx(k)):undefined});
 function sndThen(k){ if(!k||!hasSfx(k)) return []; let len=1; return [{on:()=>{ len=sfx(k); }},{gapFn:()=>len*1000+200}]; }
-function cheer(){ sfx("win",{force:true}); }
+function cheer(){ sfx("win",{force:true}); const p=PROF(); p.stars=(p.stars||0)+1; save(); }
 function ding(n=0){ sfx("ding",{rate:Math.pow(2,n/12),gain:.7,force:true}); }
 function popGood(){ sfx("pop",{force:true}); }
 function tone(f){ sfx("mar",{rate:f/523.25,gain:.9,force:true}); }
 /* home tune */
 let tuneSrc=null, tuneOn=true;
-function startTune(){ if(!tuneOn||tuneSrc||!audio()) return; decode("sfx","tune").then(b=>{ if(!b||tuneSrc||!tuneOn||!$("play").hidden) return; tuneSrc=playBuf(b,{dest:musicBus,loop:true}); }); }
+const TUNES={sunny:["tune","Sunny Day","धूप वाला दिन"],lullaby:["tune_lullaby","Lullaby","लोरी"],jungle:["tune_jungle","Jungle Jam","जंगल की धुन"],stars:["tune_stars","Twinkle Stars","टिमटिमाते तारे"],off:["","No music","कोई धुन नहीं"]};
+let tuneKey="";
+function startTune(force){ const k=(TUNES[ST.tune]||TUNES.sunny)[0]; if(!k||!tuneOn||!audio()) return; if(tuneSrc&&tuneKey===k) return; stopTune(); tuneKey=k; decode("sfx",k).then(b=>{ if(!b||tuneSrc||!tuneOn||(!force&&!$("play").hidden)||tuneKey!==k) return; tuneSrc=playBuf(b,{dest:musicBus,loop:true}); }); }
 function stopTune(){ try{ tuneSrc&&tuneSrc.stop(); }catch(e){} tuneSrc=null; }
 
 /* =================================================================== voice */
@@ -555,21 +754,26 @@ const synth=window.speechSynthesis||null;
 const voices=()=>{ try{ return synth?synth.getVoices():[] }catch(e){ return [] } };
 function voiceFor(l){ const vs=voices(), w=l==="hi"?"hi":"en"; return vs.find(v=>v.lang.toLowerCase().replace("_","-")===w+"-in")||vs.find(v=>v.lang.toLowerCase().startsWith(w)); }
 const hasHi=()=>!!PACK["voice-hi1"]||voices().some(v=>v.lang.toLowerCase().startsWith("hi"));
-const H=()=>lang==="hi"&&hasHi();
+const H=()=>lang!=="en"&&hasHi();
+const EN=()=>lang!=="hi"||!hasHi();
+/* on-screen words: English, both, or Hindi */
+const T=(en,hi)=>lang==="en"?en:lang==="hi"?hi:`${en}<span class="hl">${hi}</span>`;
+const Tp=(en,hi)=>lang==="en"?en:lang==="hi"?hi:`${en} · ${hi}`;
 const L_=()=>H()?"hi":"en";
 if(synth) synth.onvoiceschanged=()=>showNote();
 const norm=t=>String(t).trim().replace(/\s+/g," ");
 function fnv(s){ let h=0x811c9dc5; for(const b of new TextEncoder().encode(s)){ h^=b; h=Math.imul(h,0x01000193)>>>0; } return h.toString(16).padStart(8,"0"); }
 const vkey=(l,t)=>fnv((l==="hi"?"hi":"en")+"|"+norm(t));
-const vpack=(l,k)=>`voice-${l==="hi"?"hi":"en"}${parseInt(k[0],16)<8?1:2}`;
-const VPACKS=["voice-en1","voice-en2","voice-hi1","voice-hi2"];
+const VPACKS=["voice-en1","voice-en2","voice-hi1","voice-hi2","voice-x"];
+const vpack=(l,k)=>VPACKS.find(p=>PACK[p]&&PACK[p].idx[(l==="hi"?"h":"e")+k]||PACK[p]&&PACK[p].idx[k]&&p.includes(l==="hi"?"hi":"en"))||"";
+const vid=(p,l,k)=>PACK[p]&&PACK[p].idx[k]?k:(l==="hi"?"h":"e")+k;
 const MISS=window.__miss=new Set();
 let voiceSrc=null;
 function speakOne(text,l,cb){
   let done=false, ft=null; const fin=()=>{ if(done) return; done=true; clearTimeout(ft); cb(); };
-  const k=vkey(l,text), pack=vpack(l,k), d=clipLen(pack,k);
+  const k0=vkey(l,text), pack=vpack(l,k0), k=vid(pack,l,k0), d=pack?clipLen(pack,k):0;
   if(d){ ft=setTimeout(fin,d*1000+1500);
-    decode(pack,k).then(b=>{ if(done) return; if(!b){ fin(); return; } try{ voiceSrc=playBuf(b,{gain:1}); voiceSrc.onended=()=>{ live.delete(voiceSrc); fin(); }; }catch(e){ fin(); } });
+    decode(pack,k).then(b=>{ if(done) return; if(!b){ fin(); return; } try{ voiceSrc=playBuf(b,{dest:voiceBus}); voiceSrc.onended=()=>{ live.delete(voiceSrc); fin(); }; }catch(e){ fin(); } });
     return; }
   MISS.add((l||"en")+"|"+norm(text));
   const est=700+text.length*120;
@@ -649,15 +853,15 @@ const sine=Array.from({length:61},(_,i)=>[8+i*84/60,50+18*Math.sin(i/60*Math.PI*
 const zig=[[8,62],[22,34],[36,62],[50,34],[64,62],[78,34],[92,62]];
 const spiral=Array.from({length:160},(_,i)=>{ const t=i/159, a=-Math.PI/2+t*Math.PI*5, r=38-t*34; return [50+r*Math.cos(a),52+r*Math.sin(a)]; });
 const LINES=[
-  {n:"Standing line",hi:"खड़ी रेखा",g:[seg(50,12,50,88)],a:"🐝",b:"🌸",say:"Help the bee fly down to the flower!",sayHi:"मधुमक्खी को फूल तक ले चलो!",done:"Yay! The bee found the flower!"},
-  {n:"Sleeping line",hi:"पड़ी रेखा",g:[seg(12,50,88,50)],a:"🚗",b:"🏠",say:"Drive the car to the house!",sayHi:"गाड़ी को घर तक ले चलो!",done:"Beep beep! The car is home!"},
-  {n:"Slanting line",hi:"तिरछी रेखा",g:[seg(16,16,84,84)],a:"🐿️",b:"🌰",say:"Slide the squirrel down to the nut!",sayHi:"गिलहरी को अखरोट तक ले चलो!",done:"Yummy! The squirrel got the nut!"},
-  {n:"Zig zag",hi:"टेढ़ी-मेढ़ी",g:[zig],a:"🐸",b:"🪷",say:"Jump the frog up and down to the lotus!",sayHi:"मेंढक को कमल तक कुदाओ!",done:"Hop hop! The frog is on the lotus!"},
-  {n:"Waves",hi:"लहरें",g:[sine],a:"🐟",b:"🐚",say:"Swim the fish over the waves to the shell!",sayHi:"मछली को सीप तक तैराओ!",done:"Splash! The fish found the shell!"},
-  {n:"Hills",hi:"पहाड़",g:[J(arc(20,66,10,26,180,360),arc(40,66,10,26,180,360),arc(60,66,10,26,180,360),arc(80,66,10,26,180,360))],a:"🐰",b:"🥕",say:"Hop the bunny over the hills to the carrot!",sayHi:"खरगोश को गाजर तक कुदाओ!",done:"Hop hop! The bunny got the carrot!"},
-  {n:"Rainbow",hi:"इंद्रधनुष",g:[arc(50,78,38,52,180,360)],a:"🌧️",b:"☀️",say:"Draw a big rainbow in the sky!",sayHi:"बड़ा सा इंद्रधनुष बनाओ!",done:"Wow! A beautiful rainbow!",fin:"🌈"},
-  {n:"Circle",hi:"गोला",g:[arc(50,50,34,34,-90,-450)],a:"🐞",say:"Go round and round. Draw a big cookie!",sayHi:"गोल गोल घुमाओ!",done:"Yummy! A big round cookie!",fin:"🍪"},
-  {n:"Spiral",hi:"चक्कर",g:[spiral],a:"🐌",b:"🏡",say:"Help the snail go round and round to its home!",sayHi:"घोंघे को घर तक ले चलो!",done:"The snail is home! Good night snail!"},
+  {n:"Standing line",hi:"खड़ी रेखा",g:[seg(50,12,50,88)],a:"🐝",b:"🌸",say:"Help the bee fly down to the flower!",sayHi:"मधुमक्खी को फूल तक ले चलो!",done:"Yay! The bee found the flower!",doneHi:"वाह! मधुमक्खी फूल तक पहुँच गई!"},
+  {n:"Sleeping line",hi:"पड़ी रेखा",g:[seg(12,50,88,50)],a:"🚗",b:"🏠",say:"Drive the car to the house!",sayHi:"गाड़ी को घर तक ले चलो!",done:"Beep beep! The car is home!",doneHi:"पीं पीं! गाड़ी घर पहुँच गई!"},
+  {n:"Slanting line",hi:"तिरछी रेखा",g:[seg(16,16,84,84)],a:"🐿️",b:"🌰",say:"Slide the squirrel down to the nut!",sayHi:"गिलहरी को अखरोट तक ले चलो!",done:"Yummy! The squirrel got the nut!",doneHi:"यम्मी! गिलहरी को अखरोट मिल गया!"},
+  {n:"Zig zag",hi:"टेढ़ी-मेढ़ी",g:[zig],a:"🐸",b:"🪷",say:"Jump the frog up and down to the lotus!",sayHi:"मेंढक को कमल तक कुदाओ!",done:"Hop hop! The frog is on the lotus!",doneHi:"टर्र टर्र! मेंढक कमल पर पहुँच गया!"},
+  {n:"Waves",hi:"लहरें",g:[sine],a:"🐟",b:"🐚",say:"Swim the fish over the waves to the shell!",sayHi:"मछली को सीप तक तैराओ!",done:"Splash! The fish found the shell!",doneHi:"छपाक! मछली को सीप मिल गई!"},
+  {n:"Hills",hi:"पहाड़",g:[J(arc(20,66,10,26,180,360),arc(40,66,10,26,180,360),arc(60,66,10,26,180,360),arc(80,66,10,26,180,360))],a:"🐰",b:"🥕",say:"Hop the bunny over the hills to the carrot!",sayHi:"खरगोश को गाजर तक कुदाओ!",done:"Hop hop! The bunny got the carrot!",doneHi:"वाह! खरगोश को गाजर मिल गई!"},
+  {n:"Rainbow",hi:"इंद्रधनुष",g:[arc(50,78,38,52,180,360)],a:"🌧️",b:"☀️",say:"Draw a big rainbow in the sky!",sayHi:"बड़ा सा इंद्रधनुष बनाओ!",done:"Wow! A beautiful rainbow!",doneHi:"वाह! कितना सुंदर इंद्रधनुष!",fin:"🌈"},
+  {n:"Circle",hi:"गोला",g:[arc(50,50,34,34,-90,-450)],a:"🐞",say:"Go round and round. Draw a big cookie!",sayHi:"गोल गोल घुमाओ!",done:"Yummy! A big round cookie!",doneHi:"यम्मी! बड़ा सा गोल बिस्किट!",fin:"🍪"},
+  {n:"Spiral",hi:"चक्कर",g:[spiral],a:"🐌",b:"🏡",say:"Help the snail go round and round to its home!",sayHi:"घोंघे को घर तक ले चलो!",done:"The snail is home! Good night snail!",doneHi:"घोंघा घर पहुँच गया! शुभ रात्रि!"},
 ];
 /* dot to dot: number dots to join in order */
 const DOTS=[
@@ -676,33 +880,32 @@ const dotDone=o=>[`It's a ${o.n.toLowerCase()}! Well done!`,`${o.hi}! शाब�
 function resample(pts,step=1.5){ const out=[pts[0]]; for(let i=1;i<pts.length;i++){ const [x0,y0]=pts[i-1],[x1,y1]=pts[i], d=Math.hypot(x1-x0,y1-y0), n=Math.max(1,Math.ceil(d/step)); for(let k=1;k<=n;k++) out.push([x0+(x1-x0)*k/n,y0+(y1-y0)*k/n]); } return out; }
 
 function traceList(kind){
-  if(kind==="lines") return LINES.map(o=>({kind:"line",label:H()?`${o.n} · ${o.hi}`:o.n,chip:o.a,g:o.g,a:o.a,b:o.b,fin:o.fin,
-    intro:[bi(o.say,o.sayHi)], outro:()=>[{t:o.done}], show:o.fin||o.b}));
+  if(kind==="shapes") return shapeTraceList();
+  if(kind==="lines") return LINES.map(o=>({kind:"line",label:Tp(o.n,o.hi),chip:o.a,g:o.g,a:o.a,b:o.b,fin:o.fin,
+    intro:[bi(o.say,o.sayHi)], outro:()=>[bi(o.done,o.doneHi)], show:o.fin||o.b}));
   if(kind==="abc") return ABC.map(([L,w,e,h])=>({kind:"glyph",label:L,chip:L,g:GLYPH[L],
-    intro:[{t:`Let's write ${LN[L]}.`},H()&&{t:`${LNH[L]} लिखो`,l:"hi"},sx("startDot")],
-    outro:()=>[{t:`Wow! ${LN[L]}!`,gap:300},{t:`${LN[L]}, for ${w}!`},H()&&{t:`${LNH[L]} से ${h}`,l:"hi"}], show:e, sub:`${L} for ${w}`}));
+    intro:[EN()&&{t:`Let's write ${LN[L]}.`},H()&&{t:`${LNH[L]} लिखो`,l:"hi"},sx("startDot")],
+    outro:()=>[EN()&&{t:`Wow! ${LN[L]}!`,gap:300},EN()&&{t:`${LN[L]}, for ${w}!`},H()&&{t:`${LNH[L]} से ${h}`,l:"hi"}], show:e, sub:`${L} for ${w}`}));
   if(kind==="num") return NUM_EN.map((w,i)=>{ const n=i+1, th=THINGS[i]; return {kind:"glyph",label:String(n),chip:String(n),g:GLYPH[String(n)],
-    intro:[{t:`Let's write ${w}.`},H()&&{t:`${NUM_HI[i]} लिखो`,l:"hi"},sx("startDot")],
-    outro:()=>[{t:`${NUMW[i]}!`,gap:300},sx("countWithMe"),...Array.from({length:n},(_,k)=>({...countSeg(k),on:()=>{ const o=$("ovobjs"); o&&o.children[k].classList.add("on"); },gap:150})),{t:`${NUMW[i]} ${n===1?sing(th[1]):th[1]}!`}],
+    intro:[EN()&&{t:`Let's write ${w}.`},H()&&{t:`${NUM_HI[i]} लिखो`,l:"hi"},sx("startDot")],
+    outro:()=>[EN()?{t:`${NUMW[i]}!`,gap:300}:{t:NUM_HI[i],l:"hi",gap:300},sx("countWithMe"),...Array.from({length:n},(_,k)=>({...countSeg(k),on:()=>{ const o=$("ovobjs"); o&&o.children[k].classList.add("on"); },gap:150})),EN()&&{t:`${NUMW[i]} ${n===1?sing(th[1]):th[1]}!`}],
     count:n, thing:th[0], sub:`${n} = ${w}`}; });
-  return DOTS.map(o=>({kind:"dots",label:H()?`${o.n} · ${o.hi}`:o.n,chip:o.pts.length,pts:o.pts,e:o.e,
+  return DOTS.map(o=>({kind:"dots",label:Tp(o.n,o.hi),chip:o.pts.length,pts:o.pts,e:o.e,
     intro:[sx("joinDots")],
     outro:()=>[sx2(dotDone(o))], show:o.e}));
 }
-function openTrace(kind,title){
-  enter(title); TR.kind=kind; TR.list=traceList(kind); TR.idx=0; TR.done=new Set();
-  stage.innerHTML=`<div class="tracewrap"><div class="tlabel" id="tlabel"></div><canvas id="cv"></canvas><div class="tctl"><button id="tprev" aria-label="Previous">◀</button><button id="tredo" aria-label="Again">↺</button><button id="tnext" aria-label="Next">▶</button></div><div class="strip" id="strip"></div></div><div class="overlay" id="ov" hidden></div>`;
+function openTrace(kind,title,start=0,w){
+  if(!cur||cur.tkind!==kind){ cur={}; enter(title,w); TR.done=new Set(); } cur.tkind=kind; TR.kind=kind; TR.list=traceList(kind); TR.idx=start;
+  stage.innerHTML=`<div class="tracewrap"><div class="tlabel" id="tlabel"></div><canvas id="cv"></canvas><div class="strip" id="strip"></div></div><div class="overlay" id="ov" hidden></div>`;
   $("strip").innerHTML=TR.list.map((it,i)=>`<button data-i="${i}" aria-label="${it.label}">${it.chip}</button>`).join("");
   $("strip").onclick=e=>{ const b=e.target.closest("button"); if(b){ TR.idx=+b.dataset.i; loadTrace(); } };
-  $("tprev").onclick=()=>{ TR.idx=(TR.idx-1+TR.list.length)%TR.list.length; loadTrace(); };
-  $("tnext").onclick=()=>{ TR.idx=(TR.idx+1)%TR.list.length; loadTrace(); };
-  $("tredo").onclick=()=>loadTrace();
+  cur.ctl={prev:()=>{ TR.idx=(TR.idx-1+TR.list.length)%TR.list.length; loadTrace(); },next:()=>{ TR.idx=(TR.idx+1)%TR.list.length; loadTrace(); },replay:()=>loadTrace()};
   const cv=$("cv");
   cv.addEventListener("pointerdown",e=>{ if(!TR.on||TR.finished) return; cv.setPointerCapture(e.pointerId); TR.down=true; TR.last=null; TR.idle=performance.now(); onPt(e); });
   cv.addEventListener("pointermove",e=>{ if(!TR.down) return; (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(onPt); });
   const up=()=>{ TR.down=false; TR.last=null; TR.idle=performance.now(); };
   cv.addEventListener("pointerup",up); cv.addEventListener("pointercancel",up);
-  cur={resume:()=>loadTrace()};
+  cur.resume=()=>loadTrace();
   loadTrace();
 }
 function loadTrace(){
@@ -713,7 +916,7 @@ function loadTrace(){
   $("tlabel").textContent=it.kind==="glyph"?(it.sub||it.label):it.label;
   [...$("strip").children].forEach((b,i)=>{ b.setAttribute("aria-current",i===TR.idx); b.classList.toggle("done",TR.done.has(i)); });
   $("strip").children[TR.idx]?.scrollIntoView({block:"nearest",inline:"center"});
-  sizeCanvas(); cur.resume=()=>loadTrace();
+  sizeCanvas(); cur.resume=()=>loadTrace(); cur.ctl.next=()=>{ TR.idx=(TR.idx+1)%TR.list.length; loadTrace(); };
   later(()=>play(it.intro),250);
   const lt=TR.lt=(TR.lt||0)+1; const loop=()=>{ if(lt!==TR.lt||!TR.on) return; draw(); requestAnimationFrame(loop); }; requestAnimationFrame(loop);
 }
@@ -747,7 +950,7 @@ function finishTrace(){
     ov.innerHTML=it.count?`<div class="big" style="color:${TR.ink}">${it.label}</div><div class="objs" id="ovobjs">${Array.from({length:it.count},()=>`<span>${it.thing}</span>`).join("")}</div><div class="cap">${it.sub}</div>`
       :`<div class="pic">${it.show}</div>${it.kind==="glyph"?`<div class="big" style="color:${TR.ink};font-size:4rem">${it.label}</div>`:""}<div class="cap">${it.sub||it.label}</div>`;
     ov.hidden=false;
-    play(it.outro(),()=>later(()=>{ TR.idx=(TR.idx+1)%TR.list.length; loadTrace(); },1800));
+    play(it.outro(),()=>later(()=>{ if(it.after) return it.after(); if(!ST.autoNext){ $("cNext").classList.add("nudge"); return; } TR.idx=(TR.idx+1)%TR.list.length; loadTrace(); },1800));
   },900);
 }
 function draw(){
@@ -816,6 +1019,13 @@ const S={
   tapBody:["Tap my body! I will tell you what it is.","मेरे शरीर पर टैप करो!"], bodyQuiz:["Now let's play! Listen and tap.","अब खेलते हैं! सुनो और टैप करो।"],
 };
 const sx=k=>bi(S[k][0],S[k][1]);
+/* every random round gets a seed; ⏮ goes back to the last seed, ↺ replays this one */
+function begin(fn){
+  if(!cur) cur={}; if(cur.round!==fn){ cur.round=fn; cur.hist=[]; }
+  const seed=cur.forceSeed!=null?cur.forceSeed:((Math.random()*4294967296)>>>0); cur.forceSeed=null; cur.hist.push(seed); rngState=seed;
+  cur.ctl={ next:()=>fn(), replay:()=>{ cur.forceSeed=cur.hist.pop(); fn(); },
+    prev:()=>{ if(cur.hist.length>1) cur.hist.pop(); cur.forceSeed=cur.hist.pop(); fn(); } };
+}
 
 /* =================================================================== LEARN (Seekho) */
 /* every learnable thing becomes the same shape:
@@ -863,9 +1073,13 @@ function rvHTML(type,it){
   if(type==="truck") return `<div class="rv t-truck" id="rv">${item}<div class="road"></div><div class="truckr">🚚</div><div class="hint">👆</div></div>`;
   if(type==="pair") return `<div class="rv t-curtain" id="rv"><div class="item"><div class="pair"><div class="pic">${it.mom||""}</div><div class="pic small">${it.e}</div></div></div><div class="curt"><i></i><i></i></div><div class="hint">👆</div></div>`;
 }
-function openTopic(key){ const T=TOPICS[key]; cur={T,idx:0,recent:[],k:0}; enter(T.title); teach(); }
+function openTopic(key){ const T=TOPICS[key]; cur={T,idx:0,recent:[],k:0}; enter(Tp(T.title,T.hi),T.w); teach(); }
+function topicCtl(){ cur.ctl={
+  prev:()=>{ cur.recent=[]; cur.idx=(cur.idx-1+cur.T.items.length)%cur.T.items.length; teach(); },
+  next:()=>{ cur.recent=[]; if(!cur.inQuiz) cur.idx=(cur.idx+1)%cur.T.items.length; teach(); },
+  replay:()=>{ cur.inQuiz?cur.resume():teach(); } }; }
 function teach(){
-  stopAll(); const T=cur.T, it=T.items[cur.idx]; cur.resume=teach;
+  stopAll(); const T=cur.T, it=T.items[cur.idx]; cur.resume=teach; cur.inQuiz=false; topicCtl();
   if(T.count) return teachCount(it);
   const type=T.rv||REVEALS[(cur.k++)%REVEALS.length];
   stage.innerHTML=`${rvHTML(type,it)}<div class="nameplate" id="np" style="--c:${T.c}"></div><div id="spellbox"></div><div class="cap" id="cap"></div>`;
@@ -877,39 +1091,46 @@ function teach(){
 }
 const sx2=a=>bi(a[0],a[1]);
 function reveal(it,T){
-  $("np").textContent=it.L?`${it.L} ${it.word}`:(H()?`${it.en} · ${it.hi}`:it.en);
+  $("np").innerHTML=it.L?`${it.L} ${it.word}`:T_(it.en,it.hi);
   if(it.pic&&T===TOPICS.abc){ $("cap").innerHTML=`<span style="font-size:3.4rem">${it.pic}</span>`; }
-  const useSpell=T.spell||(cur.idx%2===0&&it.word.length<=8&&!/\s/.test(it.word));
+  const useSpell=EN()&&(T.spell||(cur.idx%2===0&&it.word.length<=8&&!/\s/.test(it.word)));
   const segs=[];
   if(it.snd&&T!==TOPICS.abc) segs.push(...sndThen(it.snd));
-  segs.push({t:it.en+"!",gap:300});
+  if(EN()) segs.push({t:it.en+"!",gap:300});
   if(H()) segs.push({t:it.hi+"!",l:"hi",gap:300});
   if(useSpell) segs.push({on:()=>{ $("spellbox").innerHTML=spellRow(it.word); }},...spell(it.word));
-  else segs.push({t:it.sayQ,on:()=>{ $("spellbox").innerHTML=`<div class="sayit"><i>🗣️</i>${it.en}</div>`; }},{gap:1900},{t:it.en+"!"},sx("veryGood"));
-  segs.push({t:it.sent,on:()=>{ if(T!==TOPICS.abc) $("cap").textContent=it.sent; }});
+  else if(EN()) segs.push({t:it.sayQ,on:()=>{ $("spellbox").innerHTML=`<div class="sayit"><i>🗣️</i>${it.en}</div>`; }},{gap:1900},{t:it.en+"!"},sx("veryGood"));
+  else segs.push({t:it.sayQh,l:"hi",on:()=>{ $("spellbox").innerHTML=`<div class="sayit"><i>🗣️</i>${it.hi}</div>`; }},{gap:1900},{t:it.hi+"!",l:"hi"},sx("veryGood"));
+  if(EN()) segs.push({t:it.sent,on:()=>{ if(T!==TOPICS.abc) $("cap").textContent=it.sent; }});
   if(H()&&it.sentHi) segs.push({t:it.sentHi,l:"hi",on:()=>{ if(T!==TOPICS.abc) $("cap").textContent=it.sentHi; }});
   play(segs,()=>later(afterTeach,1400));
 }
+const T_=(en,hi)=>lang==="en"?en:lang==="hi"?hi:`${en}<span class="hl">${hi}</span>`;
 function teachCount(it){
   const n=it.n, th=it.th;
-  stage.innerHTML=`<div class="big" style="color:${PAL[n%7]}">${n}</div><div class="objs" id="objs">${Array.from({length:n},()=>`<span>${th[0]}</span>`).join("")}</div><div id="spellbox"></div><div class="cap">${n} = ${it.word}${H()?` · ${it.hi}`:""}</div>`;
+  stage.innerHTML=`<div class="big" style="color:${PAL[n%7]}">${n}</div><div class="objs" id="objs">${Array.from({length:n},()=>`<span>${th[0]}</span>`).join("")}</div><div id="spellbox"></div><div class="cap">${Tp(`${n} = ${it.word}`,`${n} = ${it.hi}`)}</div>`;
   anim(stage.firstElementChild,"pop");
-  later(()=>play([...Array.from({length:n},(_,k)=>({t:H()?NUM_HI[k]:NUM_EN[k][0].toUpperCase()+NUM_EN[k].slice(1)+"!",l:L_(),on:()=>{ $("objs").children[k].classList.add("on"); ding(k); },gap:120})),
-    {t:it.en+"!",on:()=>$("objs").classList.add("shown"),gap:300},{on:()=>{ $("spellbox").innerHTML=spellRow(it.word); }},...spell(it.word),{t:`${it.en} ${n===1?th[1].replace(/ies$/,"y").replace(/s$/,""):th[1]}!`}],()=>later(afterTeach,1400)),300);
+  later(()=>play([...Array.from({length:n},(_,k)=>({...countSeg(k),on:()=>{ $("objs").children[k].classList.add("on"); ding(k); },gap:120})),
+    {...(EN()?{t:it.en+"!"}:{t:it.hi+"!",l:"hi"}),on:()=>$("objs").classList.add("shown"),gap:300},...(EN()?[{on:()=>{ $("spellbox").innerHTML=spellRow(it.word); }},...spell(it.word),{t:`${it.en} ${n===1?th[1].replace(/ies$/,"y").replace(/s$/,""):th[1]}!`}]:[sx("veryGood")])],()=>later(afterTeach,1400)),300);
 }
-function afterTeach(){ const T=cur.T; cur.recent.push(T.items[cur.idx]); cur.idx=(cur.idx+1)%T.items.length;
-  if(cur.recent.length>=3){ const pool=cur.recent; cur.recent=[];
+function afterTeach(){
+  if(!ST.autoNext){ $("cNext").classList.add("nudge"); cur.ctl.next=()=>{ $("cNext").classList.remove("nudge"); goNext(); }; return; }
+  goNext();
+}
+function goNext(){ const T=cur.T; cur.recent.push(T.items[cur.idx]); cur.idx=(cur.idx+1)%T.items.length;
+  if(cur.recent.length>=3){ const pool=cur.recent; cur.recent=[]; cur.inQuiz=true;
     const withSnd=pool.every(x=>x.snd&&hasSfx(x.snd)&&!pool.some(y=>y!==x&&y.snd===x.snd));
-    if(withSnd&&Math.random()<.5){ const ans=pool[rand(3)]; quiz(pool,teach,ans,{q:{q:S.whoSound[0],qh:S.whoSound[1]},pre:()=>sndThen(ans.snd),rightPre:()=>sndThen(ans.snd)}); }
+    if(withSnd&&R()<.5){ const ans=pool[rand(3)]; quiz(pool,teach,ans,{q:{q:S.whoSound[0],qh:S.whoSound[1]},pre:()=>sndThen(ans.snd),rightPre:()=>sndThen(ans.snd)}); }
     else quiz(pool,teach); }
   else teach(); }
 
 /* one question, three big answers. Sound only when the answer is right. */
 function quiz(pool,next,ans=pool[rand(pool.length)],o={}){
   stopAll(); cur.resume=()=>quiz(pool,next,ans,o);
+  if((PROF().age||2)<=1&&pool.length>2&&!o.keep){ pool=[ans,pool.find(x=>x!==ans)]; o={...o,two:true}; }
   const opts=o.keep?pool:shuffle(pool), Q=o.q||ans; let asks=0, wt=null;
   const qseg=()=>o.en?{t:Q.q}:bi(Q.q,Q.qh), NS=x=>o.en?{t:x.en+"!"}:nameSeg(x), PR=()=>o.en?{t:PRAISE[rand(PRAISE.length)]}:praise();
-  stage.innerHTML=`<div class="q">${H()&&!o.en?Q.qh:Q.q}</div>${o.head||""}<div class="choices${o.two?" two":""}">${opts.map((x,i)=>`<button data-i="${i}" aria-label="${x.en}">${x.choice}</button>`).join("")}</div>`;
+  stage.innerHTML=`<div class="q">${o.en?Q.q:T_(Q.q,Q.qh)}</div>${o.head||""}<div class="choices${o.two?" two":""}">${opts.map((x,i)=>`<button data-i="${i}" aria-label="${x.en}">${x.choice}</button>`).join("")}</div>`;
   const btns=[...stage.querySelectorAll(".choices button")];
   const wait=()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) ask(); else hint(); },9000); };
   const ask=()=>{ asks++; play([...(o.pre?o.pre():[]),qseg()],wait); };
@@ -933,12 +1154,13 @@ const lc=w=>w==="TV"?w:w.toLowerCase();
 let tapTok=0;
 const TAPPOOL=[...ANIMALS.map(a=>({e:a[1],en:a[0],hi:a[2],snd:SNDK[a[0]]})),...HOME.slice(0,12).map(a=>({e:a[1],en:a[0],hi:a[2],snd:SNDK[a[0]]})),...VEHICLES.slice(0,8).map(v=>({e:v[1],en:v[0],hi:v[2],snd:SNDK[v[0]]}))];
 function tapTap(){
+  begin(tapTap);
   stopAll(); cur.resume=tapTap;
-  stage.innerHTML=`<div class="taphint">${H()?"कहीं भी टैप करो!":"Tap anywhere!"}</div><div class="tapzone" id="tz" aria-label="Tap"></div>`;
+  stage.innerHTML=`<div class="taphint">${T_("Tap anywhere!","कहीं भी टैप करो!")}</div><div class="tapzone" id="tz" aria-label="Tap"></div>`;
   $("tz").addEventListener("pointerdown",e=>{
     const r=stage.getBoundingClientRect(), p=TAPPOOL[rand(TAPPOOL.length)];
     const el=document.createElement("div"); el.className="tapitem"; el.style.left=(e.clientX-r.left)+"px"; el.style.top=(e.clientY-r.top)+"px";
-    el.innerHTML=`${p.e}<b>${H()?p.hi:p.en}</b>`; stage.appendChild(el); setTimeout(()=>el.remove(),2200);
+    el.innerHTML=`${p.e}<b>${Tp(p.en,p.hi)}</b>`; stage.appendChild(el); setTimeout(()=>el.remove(),2200);
     hush(); play([...(p.snd?sndThen(p.snd):[{on:popGood}]),nameSeg(p)]);
   });
   play([sx("tapAny")]);
@@ -948,10 +1170,11 @@ const feedHere=a=>[`Here is the ${a[3]}!`,`यह रहा ${a[5]}!`];
 const feedYum=a=>[`Yum yum! The ${lc(a[0])} loves the ${a[3]}!`,`यम यम! ${a[2]} को ${a[5]} पसंद है!`];
 const feedNo=a=>[`No no! The ${lc(a[0])} wants the ${a[3]}.`,`नहीं नहीं! ${a[2]} को ${a[5]} चाहिए।`];
 function feed(){
+  begin(feed);
   stopAll(); cur.resume=feed;
   const a=FEED[rand(FEED.length)], others=shuffle(FEED.filter(f=>f[4]!==a[4])).slice(0,2);
   const foods=shuffle([a,...others]);
-  stage.innerHTML=`<div class="q">${H()?`${a[2]} को ${a[5]} खिलाओ`:`Feed the ${lc(a[0])}`}</div><div class="eater" id="eater">${a[1]}</div><div class="foods">${foods.map((f,i)=>`<button class="food" data-i="${i}" aria-label="${f[3]}">${f[4]}</button>`).join("")}</div>`;
+  stage.innerHTML=`<div class="q">${T_(`Feed the ${lc(a[0])}`,`${a[2]} को ${a[5]} खिलाओ`)}</div><div class="eater" id="eater">${a[1]}</div><div class="foods">${foods.map((f,i)=>`<button class="food" data-i="${i}" aria-label="${f[3]}">${f[4]}</button>`).join("")}</div>`;
   const eater=$("eater"); let wt=null, asks=0, done=false;
   const wait=()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) say(); else { const b=stage.querySelector(`.food[data-i="${foods.indexOf(a)}"]`); b.classList.add("bounce"); play([sx2(feedHere(a))],wait); } },10000); };
   const say=()=>{ asks++; play([sx2(feedAsk(a))],wait); };
@@ -976,10 +1199,11 @@ function feed(){
 const hmQ=th=>[`How many ${th[1]}?`,`कितने ${th[2]} हैं?`];
 const hmYes=(n,th)=>[`Yes! ${NUMW[n-1]} ${n===1?sing(th[1]):th[1]}!`,`शाबाश! ${NUM_HI[n-1]}!`];
 function howMany(){
+  begin(howMany);
   stopAll(); cur.resume=howMany;
   const n=1+rand(5), th=THINGS[rand(THINGS.length)];
   const nums=shuffle([n,...shuffle([1,2,3,4,5,6].filter(x=>x!==n)).slice(0,2)]);
-  stage.innerHTML=`<div class="objs shown" id="objs">${Array.from({length:n},()=>`<span>${th[0]}</span>`).join("")}</div><div class="q">${H()?hmQ(th)[1]:hmQ(th)[0]}</div><div class="choices">${nums.map(x=>`<button data-n="${x}" style="color:${PAL[x%7]}">${x}</button>`).join("")}</div>`;
+  stage.innerHTML=`<div class="objs shown" id="objs">${Array.from({length:n},()=>`<span>${th[0]}</span>`).join("")}</div><div class="q">${T_(hmQ(th)[0],hmQ(th)[1])}</div><div class="choices">${nums.map(x=>`<button data-n="${x}" style="color:${PAL[x%7]}">${x}</button>`).join("")}</div>`;
   const btns=[...stage.querySelectorAll(".choices button")];
   const clr=()=>[...$("objs").children].forEach(z=>{z.classList.remove("on");z.querySelector("b")?.remove()});
   const countAlong=()=>Array.from({length:n},(_,k)=>({...countSeg(k),on:()=>{ const s=$("objs").children[k]; s.classList.add("on"); s.insertAdjacentHTML("beforeend",`<b>${k+1}</b>`); },gap:120}));
@@ -997,16 +1221,17 @@ const BUBK={
   animal:()=>{ const a=ANIMALS[rand(ANIMALS.length)]; return {key:a[0],label:a[1],en:a[0],hi:a[2],ask:[`Pop the ${a[0].toLowerCase()}!`,`${a[2]} फोड़ो!`],tag:`<span style="font-size:1.6em">${a[1]}</span>`}; },
 };
 function bubbles(){
+  begin(bubbles);
   stopAll(); cur.resume=bubbles;
   stage.innerHTML=`<div class="score" id="sc">⭐ 0</div><div class="target" id="tg"></div><div class="field" id="field"></div>`;
   const field=$("field"); let score=0, got=0, target=null, kind;
   const names=Object.keys(BUBK);
-  const newTarget=()=>{ kind=names[rand(3)]; target=BUBK[kind](); got=0; $("tg").innerHTML=`${H()?"फोड़ो":"Pop"} ${target.tag}`; play([sx2(target.ask)]); };
+  const newTarget=()=>{ kind=names[rand(3)]; target=BUBK[kind](); got=0; $("tg").innerHTML=`${T_("Pop","फोड़ो")} ${target.tag}`; play([sx2(target.ask)]); };
   const spawn=()=>{ if(paused||field.childElementCount>6) return;
-    let it=target; if(Math.random()>=.42){ let g=0; do{ it=BUBK[kind](); g++; }while(it.key===target.key&&g<10); }
+    let it=target; if(R()>=.42){ let g=0; do{ it=BUBK[kind](); g++; }while(it.key===target.key&&g<10); }
     const b=document.createElement("button"); b.className="bubble"; b.textContent=it.label; b.setAttribute("aria-label",it.en);
     b.style.setProperty("--c",it.bg||PAL[rand(7)]); b.style.left=Math.max(4,rand(stage.clientWidth-108))+"px";
-    b.style.setProperty("--t",(7+Math.random()*3)+"s"); b.style.setProperty("--sway",(rand(60)-30)+"px"); b.style.setProperty("--h",-(stage.clientHeight+140)+"px");
+    b.style.setProperty("--t",(7+R()*3)+"s"); b.style.setProperty("--sway",(rand(60)-30)+"px"); b.style.setProperty("--h",-(stage.clientHeight+140)+"px");
     b.onclick=()=>{ if(b.classList.contains("gone")) return;
       if(it.key===target.key){ b.classList.add("gone"); popGood(); score++; got++; $("sc").textContent=`⭐ ${score}`; burstAt(b); setTimeout(()=>b.remove(),260);
         run++; try{synth&&synth.cancel()}catch(e){} if(got>=4){ cheer(); play([sx("super")],()=>later(newTarget,500)); } else play([nameSeg(it)]); }
@@ -1019,7 +1244,7 @@ const NOTE={C4:261.6,D4:293.7,E4:329.6,F4:349.2,G4:392,A4:440,B4:493.9,C5:523.3}
 const SONGS={"Twinkle":"C4 C4 G4 G4 A4 A4 G4- F4 F4 E4 E4 D4 D4 C4- G4 G4 F4 F4 E4 E4 D4- G4 G4 F4 F4 E4 E4 D4- C4 C4 G4 G4 A4 A4 G4- F4 F4 E4 E4 D4 D4 C4-","Mary's Lamb":"E4 D4 C4 D4 E4 E4 E4- D4 D4 D4- E4 G4 G4- E4 D4 C4 D4 E4 E4 E4 E4 D4 D4 E4 D4 C4-","Happy Birthday":"C4 C4 D4- C4- F4- E4-- C4 C4 D4- C4- G4- F4-- C4 C4 C5- A4- F4- E4- D4-- B4 B4 A4- F4- G4- F4--"};
 const BARS=[["C4","#FF5C8A"],["D4","#FF7A45"],["E4","#FFB020"],["F4","#2FBF7F"],["G4","#20B2B8"],["A4","#3E9BFF"],["B4","#8E6CFF"],["C5","#D14FB5"]];
 function music(){
-  stopAll(); cur.resume=music;
+  stopAll(); cur.resume=music; cur.ctl={replay:music};
   stage.innerHTML=`<div class="xylo">${BARS.map((b,i)=>`<button data-n="${b[0]}" style="background:${b[1]};height:${100-i*7}%" aria-label="note ${i+1}">${i+1}</button>`).join("")}</div><div class="songs">${Object.keys(SONGS).map(s=>`<button data-s="${s}">▶ ${s}</button>`).join("")}</div>`;
   const hit=n=>{ const el=stage.querySelector(`[data-n="${n}"]`); if(el){ el.classList.add("hit"); setTimeout(()=>el.classList.remove("hit"),180);} };
   stage.querySelectorAll(".xylo button").forEach(b=>b.addEventListener("pointerdown",()=>{ tone(NOTE[b.dataset.n]); hit(b.dataset.n); }));
@@ -1047,16 +1272,19 @@ const BOARDS={
 };
 function soundBoard(kind){
   stopAll(); cur.resume=()=>soundBoard(kind);
+  const kinds=Object.keys(BOARDS), ki=kinds.indexOf(kind); let last=null;
+  cur.ctl={prev:()=>soundBoard(kinds[(ki+2)%3]),next:()=>soundBoard(kinds[(ki+1)%3]),replay:()=>{ if(last) last(); }};
   const list=BOARDS[kind]();
-  stage.innerHTML=`<div class="q">${H()?"टैप करो और सुनो!":"Tap and listen!"}</div><div class="board">${list.map((x,i)=>`<button data-i="${i}" aria-label="${x.en}"><span style="display:inline-block">${x.e}</span><small>${H()?x.hi:x.en}</small></button>`).join("")}</div>`;
+  stage.innerHTML=`<div class="q">${T_("Tap and listen!","टैप करो और सुनो!")}</div><div class="board">${list.map((x,i)=>`<button data-i="${i}" aria-label="${x.en}"><span style="display:inline-block">${x.e}</span><small>${Tp(x.en,x.hi)}</small></button>`).join("")}</div>`;
   stage.querySelectorAll(".board button").forEach(b=>b.addEventListener("pointerdown",()=>{
     const x=list[+b.dataset.i]; stage.querySelectorAll(".board .on").forEach(z=>z.classList.remove("on")); b.classList.add("on"); anim(b.firstElementChild,"wiggle");
-    hush(); play([...sndThen(x.k),nameSeg(x),bi(x.sent,x.sentHi)]); }));
+    last=()=>{ hush(); play([...sndThen(x.k),nameSeg(x),bi(x.sent,x.sentHi)]); }; last(); }));
   play([sx("tapListen")]);
 }
 const SOUNDQ=()=>[...BOARDS.animals().map(x=>({...x,q:`Who says ${ANIMALS.find(a=>a[0]===x.en)[3]}?`,qh:`कौन बोले ${ANIMALS.find(a=>a[0]===x.en)[4]}?`})),
   ...BOARDS.vehicles().map(x=>({...x,q:S.whoSound[0],qh:S.whoSound[1]})),...BOARDS.home().map(x=>({...x,q:S.whoSound[0],qh:S.whoSound[1]}))];
 function whoSays(){
+  begin(whoSays);
   const all=SOUNDQ(); const three=[]; for(const x of shuffle(all)){ if(!three.some(y=>y.k.slice(0,5)===x.k.slice(0,5))) three.push(x); if(three.length===3) break; }
   const pool=three.map(x=>({...x,choice:x.e})), ans=pool[rand(3)];
   quiz(pool,whoSays,ans,{pre:()=>[sx("listen"),...sndThen(ans.k)],rightPre:()=>sndThen(ans.k)});
@@ -1065,6 +1293,7 @@ function whoSays(){
 /* phonics and reading are English skills, so these two always speak English */
 const FIRSTW=[...ABC.map(a=>[a[1],a[2]]),...FRUITS.map(f=>[f[0],f[1]]),...VEG.map(v=>[v[0],v[1]]),...ANIMALS.map(a=>[a[0],a[1]])];
 function firstSound(){
+  begin(firstSound);
   const tgt=ABC[rand(26)], L=tgt[0];
   const others=[]; for(const w of shuffle(FIRSTW)){ const f=w[0][0]; if(f!==L&&!others.some(o=>o[0][0]===f)&&w[1]!==tgt[2]) others.push(w); if(others.length===2) break; }
   const mk=w=>({choice:w[1],en:w[0],hi:w[0],q:`Which one starts with ${LN[L]}?`,qh:`Which one starts with ${LN[L]}?`});
@@ -1074,6 +1303,7 @@ function firstSound(){
   cur.resume=firstSound;
 }
 function readFind(){
+  begin(readFind);
   const three=shuffle(WORDS).slice(0,3), pool=three.map(w=>({choice:w[1],en:w[0],hi:w[0],q:`Where is the ${w[0].toLowerCase()}?`,qh:`Where is the ${w[0].toLowerCase()}?`})), ans=pool[rand(3)];
   quiz(pool,readFind,ans,{en:1,head:spellRow(ans.en),pre:()=>spell(ans.en),rightSay:()=>[...spell(ans.en),{t:PRAISE[0]}]});
   cur.resume=readFind;
@@ -1082,6 +1312,7 @@ function readFind(){
 /* ---------- maths adventure ---------- */
 const PATSETS=[FRUITS.slice(0,8).map(f=>({e:f[1],en:f[0],hi:f[2]})),ANIMALS.slice(0,10).map(a=>({e:a[1],en:a[0],hi:a[2]})),COLS.slice(0,7).map(c=>({e:`<span class="dot" style="background:${c[1]}"></span>`,en:c[0],hi:c[2]})),VEHICLES.slice(0,8).map(v=>({e:v[1],en:v[0],hi:v[2]}))];
 function patterns(){
+  begin(patterns);
   const set=shuffle(PATSETS[rand(PATSETS.length)]), [A,B,C,D]=set;
   const units=[[A,B],[A,A,B],[A,B,C],[A,B,B]], unit=units[rand(units.length)];
   const shown=Array.from({length:5},(_,i)=>unit[i%unit.length]), nxt=unit[5%unit.length];
@@ -1095,7 +1326,8 @@ function patterns(){
 const SIZEPICS=[...ANIMALS.slice(0,8),].map(a=>({e:a[1],en:a[0],hi:a[2]})).concat(FRUITS.slice(0,4).map(f=>({e:f[1],en:f[0],hi:f[2]})));
 const sizeQ=(p,big)=>big?[`Where is the big ${lc(p.en)}?`,`बड़ा ${p.hi} कहाँ है?`]:[`Where is the small ${lc(p.en)}?`,`छोटा ${p.hi} कहाँ है?`];
 function sizes(){
-  const p=SIZEPICS[rand(SIZEPICS.length)], wantBig=Math.random()<.5, Q=sizeQ(p,wantBig);
+  begin(sizes);
+  const p=SIZEPICS[rand(SIZEPICS.length)], wantBig=R()<.5, Q=sizeQ(p,wantBig);
   const big={choice:`<span style="font-size:clamp(4.5rem,24vw,7rem)">${p.e}</span>`,en:`Big ${lc(p.en)}`,hi:`बड़ा ${p.hi}`,q:Q[0],qh:Q[1]};
   const small={choice:`<span style="font-size:clamp(1.5rem,7vw,2.2rem)">${p.e}</span>`,en:`Small ${lc(p.en)}`,hi:`छोटा ${p.hi}`,q:Q[0],qh:Q[1]};
   quiz([big,small],sizes,wantBig?big:small,{two:true}); cur.resume=sizes;
@@ -1108,35 +1340,40 @@ const CMPQ={more:th=>[`Which side has more ${th[1]}?`,`ज़्यादा ${t
   heavy:["Which one is heavy?","भारी कौन है?"],light:["Which one is light?","हल्का कौन है?"]};
 const grpName=(n,th)=>({en:`${NUMW[n-1]} ${n===1?sing(th[1]):th[1]}`,hi:`${NUM_HI[n-1]} ${th[2]}`});
 function compare(){
+  begin(compare);
   const kind=rand(4); let pool, ans;
-  if(kind===0){ const th=CMPT[rand(CMPT.length)]; const a=2+rand(4); let b; do{ b=1+rand(6); }while(Math.abs(a-b)<2); const more=Math.random()<.5, Q=more?CMPQ.more(th):CMPQ.less(th);
+  if(kind===0){ const th=CMPT[rand(CMPT.length)]; const a=2+rand(4); let b; do{ b=1+rand(6); }while(Math.abs(a-b)<2); const more=R()<.5, Q=more?CMPQ.more(th):CMPQ.less(th);
     pool=[a,b].map(n=>({n,...grpName(n,th),choice:`<div class="grp">${Array(n).fill(`<span>${th[0]}</span>`).join("")}</div>`,q:Q[0],qh:Q[1]}));
     ans=more?(a>b?pool[0]:pool[1]):(a<b?pool[0]:pool[1]); }
-  else if(kind===1){ const tall=Math.random()<.5, c=["🟥","🟦","🟩","🟨"][rand(4)], Q=tall?CMPQ.tall:CMPQ.short;
+  else if(kind===1){ const tall=R()<.5, c=["🟥","🟦","🟩","🟨"][rand(4)], Q=tall?CMPQ.tall:CMPQ.short;
     pool=[6,2].map(n=>({n,choice:`<div class="tower">${Array(n).fill(`<span>${c}</span>`).join("")}</div>`,en:n>3?"The tall tower":"The short tower",hi:n>3?"ऊँचा टावर":"छोटा टावर",q:Q[0],qh:Q[1]}));
     ans=tall?pool[0]:pool[1]; }
-  else if(kind===2){ const long=Math.random()<.5, Q=long?CMPQ.long:CMPQ.shortc;
+  else if(kind===2){ const long=R()<.5, Q=long?CMPQ.long:CMPQ.shortc;
     pool=[6,2].map(n=>({n,choice:`<div style="display:flex;align-items:center;font-size:clamp(.9rem,4vw,1.3rem);line-height:1">${Array(n).fill("🟢").join("")}<span style="font-size:1.8em">🐛</span></div>`,en:n>3?"The long one":"The short one",hi:n>3?"लंबी इल्ली":"छोटी इल्ली",q:Q[0],qh:Q[1]}));
     ans=long?pool[0]:pool[1]; }
-  else { const pr=HEAVY[rand(4)], heavy=Math.random()<.5, Q=heavy?CMPQ.heavy:CMPQ.light;
+  else { const pr=HEAVY[rand(4)], heavy=R()<.5, Q=heavy?CMPQ.heavy:CMPQ.light;
     pool=pr.map(x=>({choice:x[0],en:x[1],hi:x[2],q:Q[0],qh:Q[1]})); ans=heavy?pool[0]:pool[1]; }
   quiz(pool,compare,ans,{two:true}); cur.resume=compare;
 }
+const HN={Apple:"सेब",Banana:"केला",Grapes:"अंगूर",Mango:"आम",Orange:"संतरा",Cherry:"चेरी",Carrot:"गाजर",Potato:"आलू",Corn:"भुट्टा",Brinjal:"बैंगन",Broccoli:"ब्रोकली",Onion:"प्याज़",Cow:"गाय",Dog:"कुत्ता",Lion:"शेर",Elephant:"हाथी",Rabbit:"खरगोश",Horse:"घोड़ा",Fish:"मछली",Whale:"व्हेल",Octopus:"ऑक्टोपस",Crab:"केकड़ा",Dolphin:"डॉल्फ़िन",Shark:"शार्क",Strawberry:"स्ट्रॉबेरी",Rose:"गुलाब","Fire truck":"दमकल",Tomato:"टमाटर",Sunflower:"सूरजमुखी",Chick:"चूज़ा",Lemon:"नींबू",Star:"तारा",Aeroplane:"हवाई जहाज़",Helicopter:"हेलीकॉप्टर",Bird:"चिड़िया",Balloon:"गुब्बारा",Rocket:"रॉकेट",Butterfly:"तितली",Car:"कार",Bus:"बस",Bike:"बाइक",Truck:"ट्रक",Tractor:"ट्रैक्टर",Auto:"ऑटो"};
+const SORT_SAY_HI=[["फल है","सब्ज़ी है"],["ज़मीन पर रहता है","पानी में रहता है"],["लाल है","पीला है"],["आसमान में उड़ता है","सड़क पर चलता है"]];
+const sortAskHi=it=>`${HN[it[0]]} कहाँ जाएगा?`;
 const SORT_SAY=[["is a fruit","is a vegetable"],["lives on land","lives in water"],["is red","is yellow"],["goes in the sky","goes on the road"]];
 const sortAsk=(it)=>`Where does the ${lc(it[0])} go?`;
 const sortOr=S0=>[`${S0.a[0]} or ${S0.b[0]}?`,`${S0.a[2]} या ${S0.b[2]}?`];
 function sorting(){
+  begin(sorting);
   stopAll(); cur.resume=sorting;
   const si=rand(SORTS.length), S0=SORTS[si];
   const items=shuffle([...shuffle(S0.A).slice(0,3).map(x=>[...x,0]),...shuffle(S0.B).slice(0,3).map(x=>[...x,1])]);
   let idx=0, wt=null;
-  stage.innerHTML=`<div class="q" id="sq">${H()?"सही टोकरी में डालो!":"Put it in the right basket!"}</div><div class="sortrow"><button class="basket" id="bk0"><i>${S0.a[1]}</i><b>${H()?S0.a[2]:S0.a[0]}</b><div class="in" id="in0"></div></button><button class="basket" id="bk1"><i>${S0.b[1]}</i><b>${H()?S0.b[2]:S0.b[0]}</b><div class="in" id="in1"></div></button></div><div id="sslot" style="min-height:130px;display:flex;align-items:center;justify-content:center"></div>`;
+  stage.innerHTML=`<div class="q" id="sq">${T_("Put it in the right basket!","सही टोकरी में डालो!")}</div><div class="sortrow"><button class="basket" id="bk0"><i>${S0.a[1]}</i><b>${Tp(S0.a[0],S0.a[2])}</b><div class="in" id="in0"></div></button><button class="basket" id="bk1"><i>${S0.b[1]}</i><b>${Tp(S0.b[0],S0.b[2])}</b><div class="in" id="in1"></div></button></div><div id="sslot" style="min-height:130px;display:flex;align-items:center;justify-content:center"></div>`;
   const baskets=()=>[$("bk0"),$("bk1")];
-  const ask=()=>{ const it=items[idx]; play([{t:sortAsk(it)},sx2(sortOr(S0))],()=>{ clearTimeout(wt); wt=later(ask,11000); }); };
+  const ask=()=>{ const it=items[idx]; play([bi(sortAsk(it),sortAskHi(it)),sx2(sortOr(S0))],()=>{ clearTimeout(wt); wt=later(ask,11000); }); };
   const tryPut=(side,el)=>{ const it=items[idx]; if(!it) return; hush(); clearTimeout(wt);
     if(side===it[2]){ el&&el.remove(); $("in"+side).insertAdjacentHTML("beforeend",`<span class="pop">${it[1]}</span>`); popGood(); anim(baskets()[side],"pop");
-      idx++; play([{t:`${it[0]} ${SORT_SAY[si][side]}!`}],()=>later(nextItem,400)); }
-    else { if(el){ snapBack(el); anim(el,"shake"); } play([{t:`${it[0]} ${SORT_SAY[si][it[2]]}.`},sx("tryAgain")],()=>{ wt=later(ask,9000); }); } };
+      idx++; play([bi(`${it[0]} ${SORT_SAY[si][side]}!`,`${HN[it[0]]} ${SORT_SAY_HI[si][side]}!`)],()=>later(nextItem,400)); }
+    else { if(el){ snapBack(el); anim(el,"shake"); } play([bi(`${it[0]} ${SORT_SAY[si][it[2]]}.`,`${HN[it[0]]} ${SORT_SAY_HI[si][it[2]]}।`),sx("tryAgain")],()=>{ wt=later(ask,9000); }); } };
   baskets().forEach((b,i)=>b.onclick=()=>tryPut(i,$("sortee")));
   const nextItem=()=>{ if(idx>=items.length){ cheer(); burst(); play([sx("allSorted")],()=>later(sorting,1500)); return; }
     const it=items[idx]; $("sslot").innerHTML=`<button class="sortee pop" id="sortee" aria-label="${it[0]}">${it[1]}</button>`;
@@ -1148,6 +1385,7 @@ function sorting(){
 /* ---------- puzzles ---------- */
 const jigDone=p=>[`You did it! A ${lc(p.en)}!`,`शाबाश! ${p.hi}!`];
 function jigsaw(){
+  begin(jigsaw);
   stopAll(); cur.resume=jigsaw;
   const it=PICS[rand(PICS.length)];
   const N=360, cv=document.createElement("canvas"); cv.width=cv.height=N; const c=cv.getContext("2d");
@@ -1155,7 +1393,7 @@ function jigsaw(){
   const url=cv.toDataURL(), P=Math.max(96,Math.min(150,Math.floor((stage.clientWidth-60)/2))), p2=Math.round(P*.8);
   const bg=(i,s)=>`background-image:url(${url});background-size:${2*s}px ${2*s}px;background-position:${-(i%2)*s}px ${-Math.floor(i/2)*s}px`;
   const order=shuffle([0,1,2,3]);
-  stage.innerHTML=`<div class="q">${H()?"टुकड़े जोड़ो!":"Fix the picture!"}</div><div class="jig" style="--p:${P}px">${[0,1,2,3].map(i=>`<div class="slot" data-i="${i}"><div class="ghost" style="${bg(i,P)}"></div></div>`).join("")}</div><div class="pieces">${order.map(i=>`<button class="piece" data-i="${i}" aria-label="piece" style="width:${p2}px;height:${p2}px;${bg(i,p2)}"></button>`).join("")}</div>`;
+  stage.innerHTML=`<div class="q">${T_("Fix the picture!","टुकड़े जोड़ो!")}</div><div class="jig" style="--p:${P}px">${[0,1,2,3].map(i=>`<div class="slot" data-i="${i}"><div class="ghost" style="${bg(i,P)}"></div></div>`).join("")}</div><div class="pieces">${order.map(i=>`<button class="piece" data-i="${i}" aria-label="piece" style="width:${p2}px;height:${p2}px;${bg(i,p2)}"></button>`).join("")}</div>`;
   const slots=()=>[...stage.querySelectorAll(".slot")]; let placed=0, sel=null;
   const place=(pc,si)=>{ const i=+pc.dataset.i; if(i!==si){ snapBack(pc); anim(pc,"shake"); return; }
     pc.remove(); const s=slots()[si]; s.classList.add("filled"); anim(s,"pop"); placed++; ding(placed*2); sel=null;
@@ -1165,9 +1403,10 @@ function jigsaw(){
   play([sx("jig")]);
 }
 function memory(level=2){
+  begin(memory);
   stopAll(); cur.resume=()=>memory(level);
   const src=shuffle(PICS).slice(0,level), cards=shuffle([...src,...src]);
-  stage.innerHTML=`<div class="q">${H()?"जोड़ी ढूँढो!":"Find the pairs!"}</div><div class="mem" style="grid-template-columns:repeat(${level<=2?2:level===3?3:4},1fr)">${cards.map((c,i)=>`<button data-i="${i}" aria-label="card">⭐</button>`).join("")}</div>`;
+  stage.innerHTML=`<div class="q">${T_("Find the pairs!","जोड़ी ढूँढो!")}</div><div class="mem" style="grid-template-columns:repeat(${level<=2?2:level===3?3:4},1fr)">${cards.map((c,i)=>`<button data-i="${i}" aria-label="card">⭐</button>`).join("")}</div>`;
   let open=[], got=0, lock=false;
   stage.querySelectorAll(".mem button").forEach(b=>b.onclick=()=>{
     const c=cards[+b.dataset.i]; if(lock||b.classList.contains("open")) return;
@@ -1180,6 +1419,7 @@ function memory(level=2){
 }
 const shadowQ=x=>[`Which shadow is the ${lc(x.en)}?`,`${x.hi} की परछाईं कौन सी है?`];
 function shadow(){
+  begin(shadow);
   const src=shuffle(PICS).slice(0,3), ans0=src[rand(3)], Q=shadowQ(ans0);
   const pool=src.map(x=>({...x,choice:`<span class="silh">${x.e}</span>`,q:Q[0],qh:Q[1]})), ans=pool[src.indexOf(ans0)];
   quiz(pool,shadow,ans,{head:`<div class="pic" style="font-size:clamp(4rem,20vw,6rem)">${ans.e}</div>`,
@@ -1188,30 +1428,28 @@ function shadow(){
   cur.resume=shadow;
 }
 
-const R=(t,a)=>`<${t} class="rg" ${a}/>`;
+const RG=(t,a)=>`<${t} class="rg" ${a}/>`;
 const PAGES=[
-  {n:"House",hi:"घर",svg:R("rect",'x="0" y="162" width="200" height="38"')+R("circle",'cx="168" cy="32" r="18"')+R("rect",'x="128" y="48" width="16" height="30"')+R("rect",'x="40" y="92" width="120" height="70"')+R("polygon",'points="28,94 100,38 172,94"')+R("rect",'x="88" y="120" width="26" height="42"')+R("rect",'x="54" y="106" width="22" height="22"')+R("rect",'x="126" y="106" width="22" height="22"')},
-  {n:"Fish",hi:"मछली",svg:R("polygon",'points="146,100 192,66 192,134"')+R("ellipse",'cx="92" cy="100" rx="62" ry="40"')+R("polygon",'points="74,64 104,36 118,66"')+R("polygon",'points="84,136 106,160 112,134"')+R("circle",'cx="58" cy="90" r="9"')+R("circle",'cx="26" cy="52" r="8"')+R("circle",'cx="38" cy="28" r="6"')},
-  {n:"Flower",hi:"फूल",svg:R("rect",'x="95" y="110" width="10" height="84"')+R("ellipse",'cx="76" cy="160" rx="22" ry="9" transform="rotate(-25 76 160)"')+R("ellipse",'cx="124" cy="146" rx="22" ry="9" transform="rotate(25 124 146)"')+[0,60,120,180,240,300].map(a=>R("circle",`cx="${(100+32*Math.cos(a*Math.PI/180)).toFixed(1)}" cy="${(76+32*Math.sin(a*Math.PI/180)).toFixed(1)}" r="22"`)).join("")+R("circle",'cx="100" cy="76" r="20"')},
-  {n:"Butterfly",hi:"तितली",svg:R("ellipse",'cx="66" cy="78" rx="34" ry="38"')+R("ellipse",'cx="134" cy="78" rx="34" ry="38"')+R("ellipse",'cx="72" cy="138" rx="24" ry="28"')+R("ellipse",'cx="128" cy="138" rx="24" ry="28"')+R("ellipse",'cx="100" cy="110" rx="9" ry="50"')+R("circle",'cx="100" cy="54" r="12"')},
-  {n:"Car",hi:"कार",svg:R("rect",'x="0" y="168" width="200" height="32"')+R("polygon",'points="56,102 76,66 134,66 154,102"')+R("rect",'x="18" y="100" width="164" height="46" rx="12"')+R("polygon",'points="72,100 84,74 98,74 98,100"')+R("polygon",'points="104,100 104,74 126,74 140,100"')+R("circle",'cx="60" cy="148" r="19"')+R("circle",'cx="140" cy="148" r="19"')+R("circle",'cx="172" cy="114" r="6"')},
-  {n:"Ice cream",hi:"आइसक्रीम",svg:R("polygon",'points="68,108 132,108 100,192"')+R("circle",'cx="82" cy="96" r="26"')+R("circle",'cx="118" cy="96" r="26"')+R("circle",'cx="100" cy="64" r="26"')+R("circle",'cx="100" cy="32" r="9"')},
-  {n:"Tree",hi:"पेड़",svg:R("rect",'x="0" y="172" width="200" height="28"')+R("rect",'x="88" y="118" width="24" height="56"')+R("circle",'cx="64" cy="96" r="32"')+R("circle",'cx="136" cy="96" r="32"')+R("circle",'cx="100" cy="72" r="44"')+R("circle",'cx="82" cy="70" r="8"')+R("circle",'cx="118" cy="62" r="8"')+R("circle",'cx="106" cy="100" r="8"')+R("circle",'cx="60" cy="104" r="7"')},
-  {n:"Balloons",hi:"गुब्बारे",svg:R("ellipse",'cx="60" cy="72" rx="28" ry="34"')+R("ellipse",'cx="100" cy="54" rx="28" ry="34"')+R("ellipse",'cx="140" cy="72" rx="28" ry="34"')+R("rect",'x="72" y="150" width="56" height="44" rx="4"')+R("rect",'x="94" y="150" width="12" height="44"')},
+  {n:"House",hi:"घर",svg:RG("rect",'x="0" y="162" width="200" height="38"')+RG("circle",'cx="168" cy="32" r="18"')+RG("rect",'x="128" y="48" width="16" height="30"')+RG("rect",'x="40" y="92" width="120" height="70"')+RG("polygon",'points="28,94 100,38 172,94"')+RG("rect",'x="88" y="120" width="26" height="42"')+RG("rect",'x="54" y="106" width="22" height="22"')+RG("rect",'x="126" y="106" width="22" height="22"')},
+  {n:"Fish",hi:"मछली",svg:RG("polygon",'points="146,100 192,66 192,134"')+RG("ellipse",'cx="92" cy="100" rx="62" ry="40"')+RG("polygon",'points="74,64 104,36 118,66"')+RG("polygon",'points="84,136 106,160 112,134"')+RG("circle",'cx="58" cy="90" r="9"')+RG("circle",'cx="26" cy="52" r="8"')+RG("circle",'cx="38" cy="28" r="6"')},
+  {n:"Flower",hi:"फूल",svg:RG("rect",'x="95" y="110" width="10" height="84"')+RG("ellipse",'cx="76" cy="160" rx="22" ry="9" transform="rotate(-25 76 160)"')+RG("ellipse",'cx="124" cy="146" rx="22" ry="9" transform="rotate(25 124 146)"')+[0,60,120,180,240,300].map(a=>RG("circle",`cx="${(100+32*Math.cos(a*Math.PI/180)).toFixed(1)}" cy="${(76+32*Math.sin(a*Math.PI/180)).toFixed(1)}" r="22"`)).join("")+RG("circle",'cx="100" cy="76" r="20"')},
+  {n:"Butterfly",hi:"तितली",svg:RG("ellipse",'cx="66" cy="78" rx="34" ry="38"')+RG("ellipse",'cx="134" cy="78" rx="34" ry="38"')+RG("ellipse",'cx="72" cy="138" rx="24" ry="28"')+RG("ellipse",'cx="128" cy="138" rx="24" ry="28"')+RG("ellipse",'cx="100" cy="110" rx="9" ry="50"')+RG("circle",'cx="100" cy="54" r="12"')},
+  {n:"Car",hi:"कार",svg:RG("rect",'x="0" y="168" width="200" height="32"')+RG("polygon",'points="56,102 76,66 134,66 154,102"')+RG("rect",'x="18" y="100" width="164" height="46" rx="12"')+RG("polygon",'points="72,100 84,74 98,74 98,100"')+RG("polygon",'points="104,100 104,74 126,74 140,100"')+RG("circle",'cx="60" cy="148" r="19"')+RG("circle",'cx="140" cy="148" r="19"')+RG("circle",'cx="172" cy="114" r="6"')},
+  {n:"Ice cream",hi:"आइसक्रीम",svg:RG("polygon",'points="68,108 132,108 100,192"')+RG("circle",'cx="82" cy="96" r="26"')+RG("circle",'cx="118" cy="96" r="26"')+RG("circle",'cx="100" cy="64" r="26"')+RG("circle",'cx="100" cy="32" r="9"')},
+  {n:"Tree",hi:"पेड़",svg:RG("rect",'x="0" y="172" width="200" height="28"')+RG("rect",'x="88" y="118" width="24" height="56"')+RG("circle",'cx="64" cy="96" r="32"')+RG("circle",'cx="136" cy="96" r="32"')+RG("circle",'cx="100" cy="72" r="44"')+RG("circle",'cx="82" cy="70" r="8"')+RG("circle",'cx="118" cy="62" r="8"')+RG("circle",'cx="106" cy="100" r="8"')+RG("circle",'cx="60" cy="104" r="7"')},
+  {n:"Balloons",hi:"गुब्बारे",svg:RG("ellipse",'cx="60" cy="72" rx="28" ry="34"')+RG("ellipse",'cx="100" cy="54" rx="28" ry="34"')+RG("ellipse",'cx="140" cy="72" rx="28" ry="34"')+RG("rect",'x="72" y="150" width="56" height="44" rx="4"')+RG("rect",'x="94" y="150" width="12" height="44"')},
 ];
 const colIntro=pg=>[`Let's colour the ${pg.n.toLowerCase()}!`,`${pg.hi} में रंग भरो!`];
 const colDone=pg=>[`Beautiful! You coloured the ${pg.n.toLowerCase()}!`,`वाह! कितना सुंदर ${pg.hi}!`];
 function colouring(pi=0){
   stopAll(); cur.resume=()=>colouring(pi);
   const pg=PAGES[pi], pal=COLS.slice(0,8); let color=pal[0], said=false;
-  stage.innerHTML=`<div class="colorwrap"><div class="tlabel">${H()?pg.hi:pg.n}</div><svg viewBox="0 0 200 200" id="cpage" aria-label="${pg.n}">${pg.svg}</svg><div class="palette">${pal.map((c,i)=>`<button data-i="${i}" aria-label="${c[0]}" aria-pressed="${i===0}" style="background:${c[1]}"></button>`).join("")}</div><div class="tctl"><button id="cprev" aria-label="Previous">◀</button><button id="cclear" aria-label="Clear">↺</button><button id="cnext" aria-label="Next">▶</button></div></div>`;
+  stage.innerHTML=`<div class="colorwrap"><div class="tlabel">${T_(pg.n,pg.hi)}</div><svg viewBox="0 0 200 200" id="cpage" aria-label="${pg.n}">${pg.svg}</svg><div class="palette">${pal.map((c,i)=>`<button data-i="${i}" aria-label="${c[0]}" aria-pressed="${i===0}" style="background:${c[1]}"></button>`).join("")}</div></div>`;
   const regions=[...stage.querySelectorAll(".rg")]; regions.forEach(r=>r.setAttribute("fill","#FFFFFF"));
   stage.querySelectorAll(".palette button").forEach(b=>b.onclick=()=>{ color=pal[+b.dataset.i]; stage.querySelectorAll(".palette button").forEach(x=>x.setAttribute("aria-pressed",x===b)); hush(); play([nameSeg({en:color[0],hi:color[2]})]); });
   regions.forEach(r=>r.addEventListener("click",()=>{ r.setAttribute("fill",color[1]); r.dataset.done=1; sfx("tap",{force:true,rate:.9+rand(5)*.06});
     if(!said&&regions.every(x=>x.dataset.done)){ said=true; cheer(); burst(); hush(); play([sx2(colDone(pg))]); } }));
-  $("cprev").onclick=()=>colouring((pi-1+PAGES.length)%PAGES.length);
-  $("cnext").onclick=()=>colouring((pi+1)%PAGES.length);
-  $("cclear").onclick=()=>colouring(pi);
+  cur.ctl={prev:()=>colouring((pi-1+PAGES.length)%PAGES.length),next:()=>colouring((pi+1)%PAGES.length),replay:()=>colouring(pi)};
   play([sx2(colIntro(pg)),sx("colourIt")]);
 }
 
@@ -1252,10 +1490,10 @@ function glowPart(k){ stage.querySelectorAll(`.kid [data-p="${k}"]`).forEach(p=>
 function bodyGame(mode="explore"){
   stopAll(); cur.resume=()=>bodyGame(mode);
   let taps=0, ask=null, asks=0, wt=null;
-  stage.innerHTML=`<div class="starbar" id="bstars">⭐ 0</div><div class="q" id="bq">${mode==="explore"?(H()?"मेरे शरीर पर टैप करो!":"Tap my body!"):""}</div>${KID.replace('class="kid"','class="kid tapme"')}<div class="movebtns"><button class="bigbtn" id="bmode" style="background:${mode==="explore"?"#8A5CFF":"#22B573"}">${mode==="explore"?"▶ Play: Where is it?":"👆 Just tap"}</button></div>`;
+  stage.innerHTML=`<div class="starbar" id="bstars">⭐ 0</div><div class="q" id="bq">${mode==="explore"?T_("Tap my body!","मेरे शरीर पर टैप करो!"):""}</div>${KID.replace('class="kid"','class="kid tapme"')}<div class="movebtns"><button class="bigbtn" id="bmode" style="background:${mode==="explore"?"#8A5CFF":"#22B573"}">${mode==="explore"?Tp("▶ Play: Where is it?","▶ खेलो: कहाँ है?"):Tp("👆 Just tap","👆 बस टैप करो")}</button></div>`;
   let stars=0;
   $("bmode").onclick=()=>bodyGame(mode==="explore"?"quiz":"explore");
-  const newQ=()=>{ ask=BODYP[rand(BODYP.length)]; asks=0; $("bq").textContent=H()?ask.qh:ask.q; askIt(); };
+  const newQ=()=>{ ask=BODYP[rand(BODYP.length)]; asks=0; $("bq").innerHTML=T_(ask.q,ask.qh); askIt(); };
   const askIt=()=>{ asks++; play([bi(ask.q,ask.qh)],()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) askIt(); else { glowPart(ask.k); play([sx("hereItIs"),nameSeg(ask)],()=>later(newQ,1500)); } },9000); }); };
   stage.querySelector(".kid").addEventListener("click",e=>{
     const el=e.target.closest("[data-p]"); if(!el) return; const p=BODYP.find(b=>b.k===el.dataset.p); hush(); clearTimeout(wt); glowPart(p.k);
@@ -1264,6 +1502,7 @@ function bodyGame(mode="explore"){
     if(p===ask){ cheer(); burstAt(el); stars++; $("bstars").textContent=`⭐ ${stars}`; play([nameSeg(p),praise()],()=>later(newQ,700)); }
     else play([nameSeg(p),sx("tryAgain"),bi(ask.q,ask.qh)],()=>{ wt=later(askIt,9000); });
   });
+  cur.ctl={prev:()=>bodyGame(mode),replay:()=>{ if(ask){ hush(); askIt(); } else bodyGame(mode); },next:()=>{ if(mode==="quiz"){ hush(); newQ(); } else bodyGame("quiz"); }};
   if(mode==="explore") play([sx("tapBody")]); else play([sx("bodyQuiz")],newQ);
 }
 const ACTIONS=[
@@ -1286,121 +1525,327 @@ const ACTIONS=[
 function moveGame(i=0){
   stopAll(); cur.resume=()=>moveGame(i);
   const A=ACTIONS[i];
-  stage.innerHTML=`<div class="q">${A.ic} ${H()?`${A.en} · ${A.hi}`:A.en}</div>${KID}<div class="counter" id="cnt"></div><div class="movebtns"><button class="bigbtn" id="mvagain" style="background:#8A5CFF">↺ Again</button><button class="bigbtn" id="mvnext" style="background:#22B573">Next ▶</button></div><div class="strip" id="mstrip">${ACTIONS.map((a,j)=>`<button data-i="${j}" aria-current="${j===i}" aria-label="${a.en}">${a.ic}</button>`).join("")}</div>`;
+  stage.innerHTML=`<div class="q">${A.ic} ${T_(A.en,A.hi)}</div>${KID}<div class="counter" id="cnt"></div><div class="strip" id="mstrip">${ACTIONS.map((a,j)=>`<button data-i="${j}" aria-current="${j===i}" aria-label="${a.en}">${a.ic}</button>`).join("")}</div>`;
   $("mstrip").children[i]?.scrollIntoView({block:"nearest",inline:"center"});
   const kid=stage.querySelector(".kid"); kid.classList.add("mv-"+A.k);
-  $("mvagain").onclick=()=>moveGame(i); $("mvnext").onclick=()=>moveGame((i+1)%ACTIONS.length);
+  cur.ctl={prev:()=>moveGame((i-1+ACTIONS.length)%ACTIONS.length),replay:()=>moveGame(i),next:()=>moveGame((i+1)%ACTIONS.length)};
   $("mstrip").onclick=e=>{ const b=e.target.closest("button"); if(b) moveGame(+b.dataset.i); };
   if(A.k==="dance") sfx("tune",{gain:.6});
   const beats=Array.from({length:5},(_,k)=>({...countSeg(k),on:()=>{ $("cnt").textContent=k+1; anim($("cnt"),"pop"); A.fx&&sfx(A.fx,{gain:.9}); },gap:A.k==="sit"||A.k==="stretch"||A.k==="toes"?900:350}));
-  play([bi(A.say,A.sayHi),{gap:300},...beats,{on:()=>{ $("cnt").textContent="⭐"; cheer(); burst(); }},sx("didIt"),...sndThen("clap")],()=>{ kid.classList.remove("mv-"+A.k); later(()=>moveGame((i+1)%ACTIONS.length),2500); });
+  play([bi(A.say,A.sayHi),{gap:300},...beats,{on:()=>{ $("cnt").textContent="⭐"; cheer(); burst(); }},sx("didIt"),...sndThen("clap")],()=>{ kid.classList.remove("mv-"+A.k); if(ST.autoNext) later(()=>moveGame((i+1)%ACTIONS.length),2500); else $("cNext").classList.add("nudge"); });
 }
 function freezeDance(){
-  stopAll(); cur.resume=freezeDance;
-  stage.innerHTML=`<div class="q" id="fz">${H()?"नाचो!":"Dance!"}</div>${KID}<div class="counter" id="cnt"></div>`;
+  stopAll(); cur.resume=freezeDance; cur.ctl={replay:freezeDance};
+  stage.innerHTML=`<div class="q" id="fz">${T_("Dance!","नाचो!")}</div>${KID}<div class="counter" id="cnt"></div>`;
   const kid=stage.querySelector(".kid");
-  const danceOn=()=>{ kid.classList.add("mv-dance"); $("fz").textContent=H()?"नाचो!":"Dance!"; $("cnt").textContent="🎶"; sfx("tune",{gain:.7});
-    later(()=>{ hush(); kid.classList.remove("mv-dance"); $("fz").textContent=H()?"रुक जाओ!":"Freeze!"; $("cnt").textContent="🧊"; play([sx("freeze")],()=>later(()=>play([sx("dance")],danceOn),2600)); },4000+rand(4000)); };
+  const danceOn=()=>{ kid.classList.add("mv-dance"); $("fz").innerHTML=T_("Dance!","नाचो!"); $("cnt").textContent="🎶"; sfx("tune",{gain:.7});
+    later(()=>{ hush(); kid.classList.remove("mv-dance"); $("fz").innerHTML=T_("Freeze!","रुक जाओ!"); $("cnt").textContent="🧊"; play([sx("freeze")],()=>later(()=>play([sx("dance")],danceOn),2600)); },4000+rand(4000)); };
   play([sx("freezeIntro")],danceOn);
 }
 
-/* =================================================================== HOME, PARENT LOCK, NAVIGATION */
-const go=(title,fn)=>()=>{ cur={}; enter(title); fn(); };
+/* =================================================================== SHAPE TRACING (Likho) */
+const heartPts=Array.from({length:90},(_,i)=>{ const t=i/89*Math.PI*2; const x=16*Math.sin(t)**3, y=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t); return [50+2.5*x,46-2.6*y]; });
+const starPts=[[50,6],[61,38],[95,38],[68,58],[78,92],[50,72],[22,92],[32,58],[5,38],[39,38],[50,6]];
+const SHAPE_PATHS={circle:[arc(50,50,34,34,-90,-450)],square:[[[20,20],[80,20],[80,80],[20,80],[20,20]]],triangle:[[[50,14],[86,84],[14,84],[50,14]]],
+  star:[starPts],heart:[heartPts],rect:[[[10,30],[90,30],[90,70],[10,70],[10,30]]],oval:[arc(50,50,40,28,-90,-450)],diamond:[[[50,8],[88,50],[50,92],[12,50],[50,8]]]};
+const SHAPE_CHIP={circle:"●",square:"■",triangle:"▲",star:"★",heart:"♥",rect:"▬",oval:"⬭",diamond:"◆"};
+const shapeIntro=(n,h)=>[`Let's draw a ${n.toLowerCase()}!`,`चलो ${h} बनाएँ!`];
+const shapeDone=(n,h)=>[`Wow! A ${n.toLowerCase()}!`,`वाह! ${h}!`];
+function shapeTraceList(){ return SHAPES.map(([n,k,h],i)=>({kind:"shape",label:Tp(n,h),chip:SHAPE_CHIP[k],g:SHAPE_PATHS[k],
+  intro:[sx2(shapeIntro(n,h)),sx("startDot")], outro:()=>[sx2(shapeDone(n,h))], show:`<span class="shape" style="display:block;width:min(170px,44vw)">${shapeSVG(k,PAL[i%7])}</span>`,
+  after:()=>{ const items=TOPICS.shapes.items, me=items[i], others=shuffle(items.filter(x=>x!==me)).slice(0,2); const idx=i;
+    quiz(shuffle([me,...others]),()=>openTrace("shapes","",(idx+1)%SHAPES.length),me); } })); }
+
+/* =================================================================== MORE KHELO GAMES */
+const PEEKERS=()=>[...ANIMALS.filter(a=>SNDK[a[0]]).map(a=>({e:a[1],en:a[0],hi:a[2],snd:SNDK[a[0]]})),...ANIMALS.filter(a=>!SNDK[a[0]]).slice(0,4).map(a=>({e:a[1],en:a[0],hi:a[2]}))];
+function peekaboo(){
+  begin(peekaboo); stopAll(); cur.resume=peekaboo;
+  const n=(PROF().age||2)<=1?3:6, who=shuffle(PEEKERS()).slice(0,n); let found=0;
+  stage.innerHTML=`<div class="q">${T_("Who is hiding?","कौन छुपा है?")}</div><div class="bushes">${who.map((w,i)=>`<button class="bush" data-i="${i}" aria-label="bush"><span class="who">${w.e}</span><span class="leaf"></span></button>`).join("")}</div>`;
+  stage.querySelectorAll(".bush").forEach(b=>b.onclick=()=>{ if(b.classList.contains("open")) return; const w=who[+b.dataset.i];
+    b.classList.add("open"); popGood(); hush(); found++;
+    const end=found===who.length;
+    play([...sndThen(w.snd),nameSeg(w),...(end?[{on:()=>{ cheer(); burst(); }},sx("foundAll")]:[])],()=>{ if(end) later(peekaboo,1500); }); });
+  play([sx("peek")]);
+}
+const WASHV=[["Car","🚗","कार"],["Bus","🚌","बस"],["Truck","🚚","ट्रक"],["Tractor","🚜","ट्रैक्टर"],["Fire truck","🚒","दमकल"],["Auto","🛺","ऑटो"],["Scooter","🛵","स्कूटर"]];
+const washDone=v=>[`Sparkle clean! A shiny ${lc(v[0])}!`,`चमचमाती ${v[2]}!`];
+function carWash(){
+  begin(carWash); stopAll(); cur.resume=carWash;
+  const v=WASHV[rand(WASHV.length)];
+  stage.innerHTML=`<div class="q">${T_("Rub to wash it!","रगड़ के साफ़ करो!")}</div><div class="washwrap"><div class="car">${v[1]}</div><canvas id="wash"></canvas></div>`;
+  const cv=$("wash"), r=cv.getBoundingClientRect(), S=Math.round(r.width), dpr=Math.min(2,devicePixelRatio||1);
+  cv.width=S*dpr; cv.height=S*dpr; const c=cv.getContext("2d"); c.scale(dpr,dpr);
+  c.fillStyle="#9C6B3E"; c.fillRect(0,0,S,S);
+  for(let i=0;i<70;i++){ c.fillStyle=["#7A4F2A","#B07A47","#8C5A30","#A26D3B"][i%4]; c.beginPath(); c.arc(R()*S,R()*S,10+R()*40,0,7); c.fill(); }
+  c.font=`${S*.09}px serif`; for(let i=0;i<8;i++) c.fillText("💧",R()*S,R()*S);
+  c.globalCompositeOperation="destination-out";
+  let down=false, last=null, done=false, rubs=0;
+  const at=e=>{ const b=cv.getBoundingClientRect(); return [e.clientX-b.left,e.clientY-b.top]; };
+  const rub=e=>{ const p=at(e); c.lineWidth=S*.16; c.lineCap="round"; c.beginPath(); c.moveTo(...(last||p)); c.lineTo(...p); c.stroke(); last=p; rubs++;
+    if(rubs%14===0){ sfx("shaker",{gain:.5,force:true}); check(); } };
+  const check=()=>{ if(done) return; const d=c.getImageData(0,0,cv.width,cv.height).data; let clear=0, tot=0; for(let i=3;i<d.length;i+=4*97){ tot++; if(d[i]<40) clear++; }
+    if(clear/tot>.72){ done=true; c.clearRect(0,0,S,S); cheer(); burst(); hush(); play([sx2(washDone(v))],()=>later(carWash,1800)); } };
+  cv.addEventListener("pointerdown",e=>{ cv.setPointerCapture(e.pointerId); down=true; last=null; rub(e); });
+  cv.addEventListener("pointermove",e=>{ if(down) (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(rub); });
+  cv.addEventListener("pointerup",()=>{ down=false; check(); });
+  play([sx("wash")]);
+}
+const PAINT=["#E8323C","#FF8A1F","#FFCC1F","#2DB45E","#2F7BEA","#8B4CE0","#FF6FB0","#262626"];
+function magicPaint(){
+  stopAll(); cur.resume=magicPaint; cur.ctl={replay:magicPaint};
+  stage.innerHTML=`<canvas id="paint"></canvas><div class="brushes">${COLS.slice(0,8).map((cl,i)=>`<button data-i="${i}" aria-label="${cl[0]}" aria-pressed="${i===0}" style="background:${cl[1]}"></button>`).join("")}<button data-i="rb" aria-label="Rainbow" aria-pressed="false" style="background:conic-gradient(red,orange,yellow,lime,cyan,blue,violet,red)"></button><button data-i="st" aria-label="Stars" aria-pressed="false" style="background:#fff">⭐</button></div>`;
+  const cv=$("paint"), r=cv.getBoundingClientRect(), S=Math.round(r.width), dpr=Math.min(2,devicePixelRatio||1);
+  cv.width=S*dpr; cv.height=S*dpr; const c=cv.getContext("2d"); c.scale(dpr,dpr); c.lineCap="round"; c.lineJoin="round";
+  let mode=0, hue=0, down=false, last=null, n=0;
+  stage.querySelectorAll(".brushes button").forEach(b=>b.onclick=()=>{ const i=b.dataset.i; stage.querySelectorAll(".brushes button").forEach(x=>x.setAttribute("aria-pressed",x===b)); hush();
+    if(i==="rb"){ mode="rb"; play([sx("rainbow")]); } else if(i==="st"){ mode="st"; play([sx("stars")]); } else { mode=+i; play([nameSeg({en:COLS[mode][0],hi:COLS[mode][2]})]); } });
+  const at=e=>{ const b=cv.getBoundingClientRect(); return [e.clientX-b.left,e.clientY-b.top]; };
+  const draw=e=>{ const p=at(e); n++;
+    if(mode==="st"){ if(n%6) return; c.font=`${S*.07}px serif`; c.textAlign="center"; c.textBaseline="middle"; c.fillText(["⭐","🌟","✨","💖"][n%4],p[0],p[1]); return; }
+    c.strokeStyle=mode==="rb"?`hsl(${hue=(hue+6)%360} 90% 55%)`:COLS[mode][1]; c.lineWidth=S*.035;
+    c.beginPath(); c.moveTo(...(last||p)); c.lineTo(...p); c.stroke(); last=p; };
+  cv.addEventListener("pointerdown",e=>{ cv.setPointerCapture(e.pointerId); down=true; last=null; draw(e); });
+  cv.addEventListener("pointermove",e=>{ if(down) (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(draw); });
+  cv.addEventListener("pointerup",()=>{ down=false; last=null; });
+  play([sx("paint")]);
+}
+function fishCatch(){
+  begin(fishCatch); stopAll(); cur.resume=fishCatch;
+  const goal=5; let got=0;
+  stage.innerHTML=`<div class="q">${T_("Catch the fish!","मछली पकड़ो!")} <span class="net" id="fnet">🪣 0</span></div><div class="pond" id="pond"></div>`;
+  const pond=$("pond");
+  const spawn=()=>{ if(paused||got>=goal||pond.childElementCount>4) return;
+    const f=document.createElement("button"); f.className="fish"; f.textContent=["🐟","🐠","🐡","🐟"][rand(4)]; f.setAttribute("aria-label","fish");
+    const ltr=R()<.5, W=pond.clientWidth; f.style.top=(8+rand(70))+"%"; f.style.left="0px";
+    f.style.setProperty("--from",ltr?"-70px":(W+10)+"px"); f.style.setProperty("--to",ltr?(W+10)+"px":"-70px"); f.style.setProperty("--dir",ltr?"-1":"1");
+    f.style.animationDuration=(6+R()*4)+"s";
+    f.onclick=()=>{ if(got>=goal) return; got++; f.remove(); popGood(); $("fnet").textContent=`🪣 ${got}`; hush(); burstAt(pond);
+      if(got>=goal){ cheer(); play([countSeg(got-1),sx("fishDone")],()=>later(fishCatch,1500)); } else play([countSeg(got-1)]); };
+    f.addEventListener("animationend",()=>f.remove()); pond.appendChild(f); };
+  spawn(); every(spawn,1300);
+  play([sx("fish")]);
+}
+const PIANO=[["Dog","🐶","#FF4F8B"],["Cat","🐱","#FF7A33"],["Cow","🐄","#FFB020"],["Pig","🐷","#22B573"],["Hen","🐔","#14B3B8"],["Sheep","🐑","#3E8EFF"],["Frog","🐸","#8A5CFF"],["Rooster","🐓","#D14FB5"]];
+function animalPiano(){
+  stopAll(); cur.resume=animalPiano; cur.ctl={replay:animalPiano};
+  stage.innerHTML=`<div class="q">${T_("Animal piano","जानवरों का बाजा")}</div><div class="piano">${PIANO.map((p,i)=>`<button data-i="${i}" style="background:${p[2]}" aria-label="${p[0]}">${p[1]}<small>${Tp(p[0],ANIMALS.find(a=>a[0]===p[0])[2])}</small></button>`).join("")}</div>`;
+  stage.querySelectorAll(".piano button").forEach(b=>b.addEventListener("pointerdown",()=>{ const p=PIANO[+b.dataset.i]; sfx(SNDK[p[0]],{force:true}); b.classList.add("hit"); setTimeout(()=>b.classList.remove("hit"),200); }));
+  play([sx("piano")]);
+}
+Object.assign(S,{peek:["Who is hiding? Tap a bush!","कौन छुपा है? झाड़ी पर टैप करो!"],foundAll:["You found everyone!","सब मिल गए!"],
+  wash:["Oh no! It is muddy. Rub, rub, rub to wash it!","अरे! गाड़ी गंदी है। रगड़ के साफ़ करो!"],paint:["Draw with your finger! Make something beautiful!","उँगली से कुछ सुंदर बनाओ!"],
+  rainbow:["Rainbow!","इंद्रधनुष!"],stars:["Stars!","तारे!"],fish:["Catch the fish! Tap them!","मछली पकड़ो! टैप करो!"],fishDone:["Yay! Five fish!","शाबाश! पाँच मछलियाँ!"],
+  piano:["Tap the keys! Every key is an animal.","चाबियाँ दबाओ! हर चाबी एक जानवर है।"],rest:["Time to rest your eyes. Bye bye!","अब आँखों को आराम दो। टाटा!"],
+  hello:["Hello! Let's play!","नमस्ते! चलो खेलें!"]});
+
+/* =================================================================== HOME (world dropdowns) */
+const C=(t,th,d,dh,i,c,w,fn)=>({t,th,d,dh,i,c,w,fn});
+const go=(title,fn)=>fn;
 const SHELVES=[
- {title:"Likho",sub:"ungli se likhna aur rang bharna",c:"#FF4F8B",cards:[
-   {t:"Lines",h:"रेखाएँ",i:"〰️",c:"#14B3B8",fn:()=>openTrace("lines","Lines")},
-   {t:"Trace ABC",h:"A–Z लिखो",i:"✏️",c:"#FF4F8B",fn:()=>openTrace("abc","Trace ABC")},
-   {t:"Trace 123",h:"1–10 लिखो",i:"🔢",c:"#3E8EFF",fn:()=>openTrace("num","Trace 123")},
-   {t:"Dot to Dot",h:"बिंदु जोड़ो",i:"⭐",c:"#8A5CFF",fn:()=>openTrace("dots","Dot to Dot")},
-   {t:"Colouring",h:"रंग भरो",i:"🖍️",c:"#FF7A33",fn:go("Colouring",()=>colouring(0))}]},
- {title:"Seekho",sub:"app khud sikhata hai, phir poochta hai",c:"#22B573",cards:Object.entries(TOPICS).map(([k,T])=>({t:T.title,h:T.hi,i:T.icon,c:T.c,fn:()=>openTopic(k)}))},
- {title:"Hilo-Dulo",sub:"naacho, kudo aur apna shareer jaano",c:"#FF7A33",cards:[
-   {t:"Move & Groove",h:"ताली, कूदो, नाचो",i:"🤸",c:"#FF7A33",fn:go("Move & Groove",()=>moveGame(0))},
-   {t:"Freeze Dance",h:"नाचो और रुको",i:"💃",c:"#FF4F8B",fn:go("Freeze Dance",freezeDance)},
-   {t:"Tap My Body",h:"शरीर के अंग",i:"🧒",c:"#14B3B8",fn:go("Tap My Body",()=>bodyGame("explore"))},
-   {t:"Where Is It?",h:"नाक कहाँ है?",i:"👃",c:"#8A5CFF",fn:go("Where Is It?",()=>bodyGame("quiz"))}]},
- {title:"Maths Adventure",sub:"ginti, pattern, sorting, bada-chhota",c:"#3E8EFF",cards:[
-   {t:"How Many?",h:"कितने हैं?",i:"🍎",c:"#FF4F8B",fn:go("How Many?",howMany)},
-   {t:"Patterns",h:"आगे क्या?",i:"🔁",c:"#8A5CFF",fn:go("Patterns",patterns)},
-   {t:"Sorting",h:"टोकरी में डालो",i:"🧺",c:"#22B573",fn:go("Sorting",sorting)},
-   {t:"Big & Small",h:"बड़ा-छोटा",i:"🐘",c:"#3E8EFF",fn:go("Big & Small",sizes)},
-   {t:"Compare",h:"ज़्यादा-कम",i:"⚖️",c:"#FF7A33",fn:go("Compare",compare)}]},
- {title:"Puzzles",sub:"dimaag wale khel",c:"#8A5CFF",cards:[
-   {t:"Jigsaw",h:"टुकड़े जोड़ो",i:"🧩",c:"#14B3B8",fn:go("Jigsaw",jigsaw)},
-   {t:"Memory",h:"जोड़ी ढूँढो",i:"🃏",c:"#8A5CFF",fn:go("Memory",()=>memory(2))},
-   {t:"Shadows",h:"परछाईं",i:"🌑",c:"#3B3F6B",fn:go("Shadows",shadow)}]},
- {title:"Suno aur Padho",sub:"asli awaazein suno, pehchano, padho",c:"#14B3B8",cards:[
-   {t:"Animal Sounds",h:"जानवरों की आवाज़",i:"🐄",c:"#F28C28",fn:go("Animal Sounds",()=>soundBoard("animals"))},
-   {t:"Vehicle Sounds",h:"गाड़ियों की आवाज़",i:"🚂",c:"#E8323C",fn:go("Vehicle Sounds",()=>soundBoard("vehicles"))},
-   {t:"Sounds at Home",h:"घर की आवाज़ें",i:"🕰️",c:"#5B7CFA",fn:go("Sounds at Home",()=>soundBoard("home"))},
-   {t:"Who Says?",h:"आवाज़ पहचानो",i:"👂",c:"#14B3B8",fn:go("Who Says?",whoSays)},
-   {t:"First Sound",h:"B से क्या?",i:"🅱️",c:"#FF4F8B",fn:go("First Sound",firstSound)},
-   {t:"Read & Find",h:"पढ़ो और ढूँढो",i:"📖",c:"#22B573",fn:go("Read & Find",readFind)}]},
- {title:"Khelo",sub:"chhote chhote games",c:"#FFB020",cards:[
-   {t:"Tap Tap",h:"1 साल+",i:"👆",c:"#FFB020",fn:go("Tap Tap",tapTap)},
-   {t:"Feed Me",h:"खाना खिलाओ",i:"🐰",c:"#22B573",fn:go("Feed Me",feed)},
-   {t:"Bubbles",h:"बुलबुले फोड़ो",i:"🫧",c:"#3E8EFF",fn:go("Bubbles",bubbles)},
-   {t:"Music",h:"बाजा बजाओ",i:"🎹",c:"#D14FB5",fn:go("Music",music)}]},
+ {t:"Write & Draw",th:"लिखो और बनाओ",d:"Trace lines, letters, numbers and shapes. Colour pictures.",dh:"रेखाएँ, अक्षर, गिनती और आकार बनाओ। रंग भरो।",i:"✏️",c:"#FF4F8B",w:"art",cards:[
+   C("Lines","रेखाएँ","Pre-writing strokes","लिखने से पहले की रेखाएँ","〰️","#14B3B8","art",()=>openTrace("lines",Tp("Lines","रेखाएँ"),0,"art")),
+   C("Trace ABC","A–Z लिखो","Write A to Z","A से Z लिखो","✏️","#FF4F8B","art",()=>openTrace("abc",Tp("Trace ABC","A–Z लिखो"),0,"art")),
+   C("Trace 123","1–10 लिखो","Write 1 to 10","1 से 10 लिखो","🔢","#3E8EFF","art",()=>openTrace("num",Tp("Trace 123","1–10 लिखो"),0,"art")),
+   C("Trace Shapes","आकार बनाओ","Draw a shape, then find it","आकार बनाओ और पहचानो","🔷","#22B573","art",()=>openTrace("shapes",Tp("Trace Shapes","आकार बनाओ"),0,"art")),
+   C("Dot to Dot","बिंदु जोड़ो","Join dots to make a picture","बिंदु जोड़कर चित्र बनाओ","⭐","#8A5CFF","art",()=>openTrace("dots",Tp("Dot to Dot","बिंदु जोड़ो"),0,"art")),
+   C("Colouring","रंग भरो","Fill colours in pictures","तस्वीर में रंग भरो","🖍️","#FF7A33","art",()=>colouring(0))]},
+ {t:"Learn",th:"सीखो",d:"The app teaches by itself, then asks questions.",dh:"ऐप खुद सिखाता है, फिर सवाल पूछता है।",i:"📚",c:"#22B573",w:"jungle",cards:[
+   ["animals","Names and real sounds","नाम और असली आवाज़","jungle"],["babies","Mummy and baby animals","माँ और बच्चे","jungle"],["fruits","Yummy fruits","मीठे फल","jungle"],
+   ["veg","Healthy vegetables","हरी सब्ज़ियाँ","jungle"],["flowers","Pretty flowers","सुंदर फूल","fantasy"],["vehicles","Things that go, with sounds","गाड़ियाँ और उनकी आवाज़","sky"],
+   ["homeitems","Things in our house","घर की चीज़ें","art"],["family","Mummy, Papa, Dadi, Nani…","मम्मी, पापा, दादी, नानी…","art"],["clothes","What we wear","हम क्या पहनते हैं","art"],
+   ["habits","Brush, bath, say thank you","अच्छी आदतें","sky"],["places","Home, school, park…","घर, स्कूल, पार्क…","sky"],["abc","Letters A to Z","A से Z अक्षर","fantasy"],
+   ["numbers","Count 1 to 10","1 से 10 तक गिनती","space"],["colors","Red, blue, yellow…","लाल, नीला, पीला…","fantasy"],["shapes","Circle, square, star…","गोला, चौकोर, तारा…","fantasy"]]
+   .map(([k,d,dh,w])=>{ const T=TOPICS[k]; T.w=w; return C(T.title,T.hi,d,dh,T.icon,T.c,w,()=>openTopic(k)); })},
+ {t:"Move & Body",th:"हिलो-डुलो",d:"Clap, jump, dance and learn body parts.",dh:"ताली, कूदो, नाचो और शरीर के अंग सीखो।",i:"🤸",c:"#FF7A33",w:"sky",cards:[
+   C("Move & Groove","हिलो-डुलो","16 fun moves to copy","16 मज़ेदार हरकतें","🤸","#FF7A33","sky",()=>moveGame(0)),
+   C("Freeze Dance","नाचो और रुको","Dance, then freeze!","नाचो, फिर रुक जाओ!","💃","#FF4F8B","sky",freezeDance),
+   C("Tap My Body","मेरा शरीर","Tap to hear body parts","टैप करो, अंग का नाम सुनो","🧒","#14B3B8","sky",()=>bodyGame("explore")),
+   C("Where Is It?","कहाँ है?","Find the nose, eyes, feet…","नाक, आँखें, पैर ढूँढो","👃","#8A5CFF","sky",()=>bodyGame("quiz"))]},
+ {t:"Maths Adventure",th:"गणित की सैर",d:"Counting, patterns, sorting, big and small.",dh:"गिनती, पैटर्न, छाँटना, बड़ा-छोटा।",i:"🚀",c:"#3E8EFF",w:"space",cards:[
+   C("How Many?","कितने हैं?","Count and pick the number","गिनो और नंबर चुनो","🍎","#FF4F8B","space",howMany),
+   C("Patterns","पैटर्न","What comes next?","आगे क्या आएगा?","🔁","#8A5CFF","space",patterns),
+   C("Sorting","छाँटो","Put it in the right basket","सही टोकरी में डालो","🧺","#22B573","space",sorting),
+   C("Big & Small","बड़ा-छोटा","Find the big one or small one","बड़ा या छोटा ढूँढो","🐘","#3E8EFF","space",sizes),
+   C("Compare","तुलना","More, less, tall, short","ज़्यादा-कम, लंबा-छोटा","⚖️","#FF7A33","space",compare)]},
+ {t:"Puzzles",th:"पहेलियाँ",d:"Jigsaw, memory and shadow puzzles.",dh:"टुकड़े जोड़ो, जोड़ी ढूँढो, परछाईं पहचानो।",i:"🧩",c:"#8A5CFF",w:"fantasy",cards:[
+   C("Jigsaw","टुकड़े जोड़ो","Fix the picture","तस्वीर पूरी करो","🧩","#14B3B8","fantasy",jigsaw),
+   C("Memory","जोड़ी ढूँढो","Find the matching pairs","एक जैसी जोड़ी ढूँढो","🃏","#8A5CFF","fantasy",()=>memory(2)),
+   C("Shadows","परछाईं","Match the shadow","सही परछाईं ढूँढो","🌑","#3B3F6B","fantasy",shadow)]},
+ {t:"Listen & Read",th:"सुनो और पढ़ो",d:"Real sounds, letter sounds and first words.",dh:"असली आवाज़ें, अक्षरों की ध्वनि और पहले शब्द।",i:"👂",c:"#14B3B8",w:"ocean",cards:[
+   C("Animal Sounds","जानवरों की आवाज़","Real animal sounds","जानवरों की असली आवाज़","🐄","#F28C28","ocean",()=>soundBoard("animals")),
+   C("Vehicle Sounds","गाड़ियों की आवाज़","Car, train, siren…","कार, रेल, सायरन…","🚂","#E8323C","ocean",()=>soundBoard("vehicles")),
+   C("Sounds at Home","घर की आवाज़ें","Clock, door, water…","घड़ी, दरवाज़ा, पानी…","🕰️","#5B7CFA","ocean",()=>soundBoard("home")),
+   C("Who Says?","कौन बोला?","Listen and guess","सुनो और पहचानो","🔊","#14B3B8","ocean",whoSays),
+   C("First Sound","पहली ध्वनि","Which word starts with B?","B से कौन सा शब्द?","🅱️","#FF4F8B","ocean",firstSound),
+   C("Read & Find","पढ़ो और ढूँढो","Read a word, find the picture","शब्द पढ़ो, तस्वीर ढूँढो","📖","#22B573","ocean",readFind)]},
+ {t:"Play",th:"खेलो",d:"Fun games for little hands.",dh:"छोटे हाथों के लिए मज़ेदार खेल।",i:"🎈",c:"#FFB020",w:"sky",cards:[
+   C("Tap Tap","टैप टैप","Tap anywhere for a surprise","कहीं भी टैप करो","👆","#FFB020","sky",tapTap),
+   C("Peek-a-boo","छुपन-छुपाई","Who is hiding in the bush?","झाड़ी में कौन छुपा है?","🙈","#22B573","jungle",peekaboo),
+   C("Feed Me","खाना खिलाओ","Give food to the animals","जानवरों को खाना दो","🐰","#3BA55C","jungle",feed),
+   C("Car Wash","गाड़ी धोओ","Rub to make it shiny","रगड़ के चमकाओ","🧽","#3E8EFF","sky",carWash),
+   C("Magic Paint","जादुई रंग","Draw with your finger","उँगली से चित्र बनाओ","🎨","#FF4F8B","art",magicPaint),
+   C("Bubbles","बुलबुले","Pop the right bubbles","सही बुलबुले फोड़ो","🫧","#14B3B8","ocean",bubbles),
+   C("Fish Catch","मछली पकड़ो","Tap the fish to catch them","मछली पर टैप करो","🐟","#1E7FD6","ocean",fishCatch),
+   C("Animal Piano","जानवरों का बाजा","Every key is an animal","हर चाबी एक जानवर","🎹","#D14FB5","fantasy",animalPiano),
+   C("Music","संगीत","Xylophone and songs","बाजा और गाने","🎵","#8A5CFF","fantasy",music)]},
 ];
-$("shelves").innerHTML=SHELVES.map((s,si)=>`<section class="shelf"><h2><span class="tab" style="background:${s.c}">${s.title}</span><small>${s.sub}</small></h2><div class="cards">${s.cards.map((c,ci)=>`<button class="card" data-s="${si}" data-c="${ci}" style="--c:${c.c}"><i>${c.i}</i><b>${c.t}</b><small>${c.h}</small></button>`).join("")}</div></section>`).join("");
-$("shelves").addEventListener("click",e=>{ const b=e.target.closest(".card"); if(!b) return; SHELVES[+b.dataset.s].cards[+b.dataset.c].fn(); });
+SHELVES.forEach((s,si)=>s.cards.forEach((c,ci)=>c.id=`${si}:${c.t}`));
+let openShelf=-1;
+function renderHome(){
+  $("shelves").innerHTML=SHELVES.map((s,si)=>`<section><button class="world" data-s="${si}" style="--c:${s.c}" aria-expanded="${si===openShelf}"><i>${s.i}</i><span class="wt"><b>${T_(s.t,s.th)}</b><small>${lang==="hi"?s.dh:s.d}</small></span><span class="cnt">${s.cards.length}</span><span class="chev">▼</span></button>${si===openShelf?`<div class="wbody"><div class="cards">${s.cards.map((c,ci)=>`<button class="card${ST.locks[c.id]?" locked":""}" data-s="${si}" data-c="${ci}" style="--c:${c.c}">${ST.locks[c.id]?'<span class="lk">🔒</span>':""}<i>${c.i}</i><b>${lang==="hi"?c.th:c.t}</b><small>${lang==="hi"?c.dh:lang==="both"?c.th:c.d}</small></button>`).join("")}</div></div>`:""}</section>`).join("");
+  const p=PROF(); $("hello").textContent=p.name?`${lang==="hi"?"नमस्ते":"Hi"}, ${p.name}! ${p.av||""} ⭐ ${p.stars||0}`:(lang==="hi"?"लिखो · सीखो · खेलो":"Write · Learn · Play")+`  ⭐ ${p.stars||0}`;
+  $("langPill").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===lang));
+  $("backT").textContent=lang==="hi"?"वापस":"Back";
+  setScene(openShelf>=0?SHELVES[openShelf].w:"sky");
+}
+$("shelves").addEventListener("click",e=>{
+  const w=e.target.closest(".world");
+  if(w){ const si=+w.dataset.s; openShelf=openShelf===si?-1:si; renderHome(); if(openShelf>=0) setTimeout(()=>$("shelves").children[openShelf].scrollIntoView({behavior:"smooth",block:"start"}),30); return; }
+  const b=e.target.closest(".card"); if(!b) return; const c=SHELVES[+b.dataset.s].cards[+b.dataset.c];
+  if(ST.locks[c.id]) showGate("unlock",()=>launch(c)); else launch(c);
+});
+function launch(c){ cur={}; enter(Tp(c.t,c.th),c.w); c.fn(); }
 $("wordmark").innerHTML=[..."Baby Sparkle"].map((ch,i)=>ch===" "?'<span>&nbsp;</span>':`<span style="color:${["#FF4F8B","#FF7A33","#E8A400","#22B573","#3E8EFF","#8A5CFF","#FF4F8B","#14B3B8","#FF7A33","#22B573","#8A5CFF"][i%11]};animation-delay:${i*.12}s">${ch}</span>`).join("");
 
-function enter(title){
-  unlock(); stopAll(); stopTune(); paused=false; $("pause").textContent="⏸"; $("pause").setAttribute("aria-label","Pause");
-  $("ptitle").textContent=title; $("home").hidden=true; $("play").hidden=false; window.scrollTo(0,0);
-  try{ if(history.state?.p!=="act") history.pushState({p:"act"},""); }catch(e){}
-  try{ navigator.wakeLock?.request("screen").then(w=>wake=w).catch(()=>{}); }catch(e){}
-}
-function goHome(){ stopAll(); cur=null; $("play").hidden=true; $("home").hidden=false; try{wake&&wake.release()}catch(e){} wake=null; startTune(); }
-$("back").onclick=()=>{ if(history.state?.p==="act") history.back(); else goHome(); };
-$("pause").onclick=()=>{ paused=!paused; $("pause").textContent=paused?"▶":"⏸"; $("pause").setAttribute("aria-label",paused?"Play":"Pause");
-  if(paused) stopAll(); else { unlock(); cur&&cur.resume&&cur.resume(); } };
-document.addEventListener("visibilitychange",()=>{ if(document.hidden){ if(cur&&!paused) $("pause").click(); stopTune(); } else if(!$("home").hidden) startTune(); });
+/* =================================================================== scenes, fonts */
+function setScene(w){ const want=ST.theme==="auto"?w:ST.theme; document.querySelectorAll(".scene").forEach(s=>s.classList.toggle("on",s.dataset.w===want)); document.body.dataset.w=want; }
+(()=>{ const g=$("starfield"); let h=""; for(let i=0;i<70;i++){ const x=(i*137.5)%1000, y=(i*271.3)%700, r=1+(i%3); h+=`<circle class="${i%4?"":"twinkle"}" style="transform-origin:${x}px ${y}px;animation-delay:${(i%7)*.3}s" cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r}"/>`; } g.innerHTML=h; })();
+const FONTS={baloo:['"Baloo 2"',"Playful","मज़ेदार"],fredoka:['"Fredoka"',"Round","गोल"],andika:['"Andika"',"Easy to read","पढ़ने में आसान"],comic:['"Comic Neue"',"Handwritten","हाथ से लिखा"],nunito:['"Nunito"',"Clean","साफ़"]};
+function applyFont(){ document.documentElement.style.setProperty("--display",`${(FONTS[ST.font]||FONTS.baloo)[0]},"Baloo 2","Comic Sans MS",system-ui,sans-serif`); }
+applyFont();
 
-/* parent lock: shown when the app opens and when someone tries to leave */
-let gateMode="enter", gateA=0, allowExit=false;
+/* =================================================================== playing a game */
+function enter(title,w){
+  unlock(); stopAll(); stopTune(); paused=false; $("cPause").textContent="⏸"; $("cNext").classList.remove("nudge");
+  $("ptitle").innerHTML=title; $("home").hidden=true; $("play").hidden=false; window.scrollTo(0,0);
+  if(w) setScene(w);
+  try{ if(history.state?.p!=="act") history.pushState({p:"act"},""); }catch(e){}
+  try{ navigator.wakeLock?.request("screen").then(x=>wake=x).catch(()=>{}); }catch(e){}
+}
+function goHome(){ stopAll(); cur=null; $("play").hidden=true; $("home").hidden=false; try{wake&&wake.release()}catch(e){} wake=null; renderHome(); startTune(); }
+$("back").onclick=()=>{ if(history.state?.p==="act") history.back(); else goHome(); };
+function setPause(p){ paused=p; $("cPause").textContent=p?"▶":"⏸"; $("cPause").setAttribute("aria-label",p?"Play":"Pause"); if(p) stopAll(); else { unlock(); cur&&cur.resume&&cur.resume(); } }
+$("cPause").onclick=()=>setPause(!paused);
+const ctl=k=>{ $("cNext").classList.remove("nudge"); if(paused){ paused=false; $("cPause").textContent="⏸"; } const f=cur&&cur.ctl&&cur.ctl[k]; if(f) f(); else if(k==="replay"&&cur&&cur.resume) cur.resume(); };
+$("cPrev").onclick=()=>ctl("prev"); $("cNext").onclick=()=>ctl("next"); $("cReplay").onclick=()=>ctl("replay");
+setInterval(()=>{ if($("play").hidden) return; const c=cur&&cur.ctl||{}; $("cPrev").disabled=!c.prev; $("cNext").disabled=!c.next; },400);
+document.addEventListener("visibilitychange",()=>{ if(document.hidden){ if(cur&&!paused&&!$("play").hidden) setPause(true); stopTune(); } else if(!$("home").hidden) startTune(); });
+
+/* =================================================================== parent lock */
+let gateMode="enter", gateA=0, gateOk=null, allowExit=false;
 const KEYS=[1,2,3,4,5,6,7,8,9,0];
 $("gkeys").innerHTML=KEYS.map(k=>`<button data-k="${k}">${k}</button>`).join("");
-function showGate(mode){
-  gateMode=mode; const a=1+rand(5), b=1+rand(4); gateA=a+b;
+const GATE_TXT={enter:["Baby Sparkle","Parents: solve this to start","बेबी स्पार्कल","माता-पिता: शुरू करने के लिए हल करें"],
+  exit:["Leaving?","Parents: solve this to close the app","बंद करना है?","माता-पिता: बंद करने के लिए हल करें"],
+  settings:["Settings","Parents: solve this to open settings","सेटिंग्स","माता-पिता: सेटिंग्स के लिए हल करें"],
+  unlock:["Locked game","Parents: solve this to open it","बंद खेल","माता-पिता: खोलने के लिए हल करें"],
+  rest:["More time?","Parents: solve this to keep playing","और समय?","माता-पिता: खेलना जारी रखने के लिए हल करें"]};
+function showGate(mode,ok){
+  gateMode=mode; gateOk=ok||null; const a=1+rand(5), b=1+rand(4); gateA=a+b; const tx=GATE_TXT[mode], hi=lang==="hi";
   $("geq").textContent=`${a} + ${b} =`; $("gans").textContent="";
-  $("gtitle").textContent=mode==="enter"?"Baby Sparkle":"Leaving?";
-  $("gsub").textContent=mode==="enter"?"Parents: solve this to start":"Parents: solve this to close the app";
-  $("gcancel").hidden=mode==="enter"; $("gate").hidden=false;
+  $("gtitle").textContent=hi?tx[2]:tx[0]; $("gsub").textContent=hi?tx[3]:tx[1];
+  $("gcancel").textContent=hi?"रहने दो":"Not now"; $("gcancel").hidden=mode==="enter"||mode==="rest"; $("gate").hidden=false;
 }
 $("gkeys").onclick=e=>{ const b=e.target.closest("button"); if(!b) return; const k=+b.dataset.k; $("gans").textContent=k;
-  if(k===gateA){ setTimeout(()=>{ $("gate").hidden=true; gateMode==="enter"?startApp():byeBye(); },250); }
-  else { anim($("gans"),"shake"); setTimeout(()=>showGate(gateMode),600); } };
+  if(k===gateA){ setTimeout(()=>{ $("gate").hidden=true; if(gateMode==="enter") startApp(); else if(gateMode==="exit") byeBye(); else if(gateMode==="settings") openSettings(); else if(gateMode==="rest"){ playedMs=0; $("rest").hidden=true; if(!$("home").hidden) startTune(); } else gateOk&&gateOk(); },250); }
+  else { anim($("gans"),"shake"); setTimeout(()=>showGate(gateMode,gateOk),600); } };
 $("gcancel").onclick=()=>{ $("gate").hidden=true; };
 $("exitBtn").onclick=()=>showGate("exit");
+$("setBtn").onclick=()=>showGate("settings");
 async function startApp(){
-  unlock(); $("home").hidden=false;
+  unlock(); $("home").hidden=false; renderHome();
   await Promise.race([Promise.all([...VPACKS,"sfx"].map(loadPack)),new Promise(r=>setTimeout(r,5000))]);
-  ["win","pop","ding","tap","tune"].forEach(k=>decode("sfx",k));
-  if(!$("home").hidden){ run++; play([sx("welcome")],startTune); }
+  ["win","pop","ding","tap",(TUNES[ST.tune]||TUNES.sunny)[0]].forEach(k=>k&&decode("sfx",k));
+  if(!$("home").hidden){ run++; play([sx("welcome")],()=>startTune()); }
 }
 function byeBye(){ stopAll(); stopTune(); $("home").hidden=true; $("play").hidden=true; $("bye").hidden=false; play([sx("bye")]); allowExit=true; try{ history.go(-(history.length-1)); }catch(e){} try{ window.close(); }catch(e){} }
-$("byeback").onclick=()=>{ $("bye").hidden=true; allowExit=false; try{ history.pushState({p:"home"},""); }catch(e){} $("home").hidden=false; startTune(); };
+$("byeback").onclick=()=>{ $("bye").hidden=true; allowExit=false; try{ history.pushState({p:"home"},""); }catch(e){} $("home").hidden=false; renderHome(); startTune(); };
 try{ history.replaceState({p:"root"},""); history.pushState({p:"home"},""); }catch(e){}
 window.addEventListener("popstate",e=>{
   const p=e.state?.p;
+  if(!$("settings").hidden){ closeSettings(); try{ history.pushState({p:"home"},""); }catch(err){} return; }
   if(!$("play").hidden){ goHome(); if(p==="root"){ try{ history.pushState({p:"home"},""); }catch(err){} } return; }
   if(p==="root"&&!allowExit){ try{ history.pushState({p:"home"},""); }catch(err){} if($("gate").hidden&&$("bye").hidden) showGate("exit"); }
 });
 $("tuneBtn").onclick=()=>{ tuneOn=!tuneOn; $("tuneBtn").textContent=tuneOn?"🎵":"🔇"; tuneOn?startTune():stopTune(); };
 
+/* screen-time limit */
+let playedMs=0, lastTick=Date.now();
+setInterval(()=>{ const now=Date.now(), dt=now-lastTick; lastTick=now; if(document.hidden||!$("gate").hidden||!$("rest").hidden||!$("bye").hidden||!$("settings").hidden) return;
+  if($("home").hidden&&$("play").hidden) return; playedMs+=dt;
+  if(ST.screen&&playedMs>=ST.screen*60000){ stopAll(); stopTune(); if(!$("play").hidden) goHome(); stopTune();
+    $("restT").textContent=lang==="hi"?"आराम का समय!":"Time to rest!"; $("restP").textContent=lang==="hi"?"अभी खेलने का समय पूरा हुआ।":"Playtime is over for now. Parents can add more time.";
+    $("restOk").textContent=lang==="hi"?"माता-पिता: और समय":"Parents: more time"; $("rest").hidden=false; run++; play([sx("rest")]); } },5000);
+$("restOk").onclick=()=>showGate("rest");
+
+/* =================================================================== settings (parents) */
+const AVATARS=["🐰","🐱","🐶","🦁","🐼","🦄","🐥","🐻","🐸","🦋","⭐","🌸"];
+const THEMES={auto:["Each world its own","हर दुनिया की अपनी","linear-gradient(90deg,#7CCBFF,#86CF6E,#2F8FD6,#2A2468,#FFD6EC)"],sky:["Sunny sky","नीला आसमान","#7CCBFF"],jungle:["Jungle","जंगल","#86CF6E"],ocean:["Under the sea","समुद्र के अंदर","#2F8FD6"],space:["Space","अंतरिक्ष","#2A2468"],fantasy:["Fairy land","परियों का देश","#FFD6EC"],art:["Art room","चित्रकला कक्ष","#FFE08A"]};
+let editing=null;
+function openSettings(){ stopAll(); $("settings").hidden=false; renderSettings(); try{ history.pushState({p:"set"},""); }catch(e){} }
+function closeSettings(){ $("settings").hidden=true; stopTune(); renderHome(); if(!$("home").hidden) startTune(); }
+const opt=(on,html,act)=>`<button class="opt" aria-pressed="${on}" data-act="${act}">${html}</button>`;
+function renderSettings(){
+  const hi=lang==="hi", L=(e,h)=>hi?h:e, P=PROF();
+  const prof=ST.profiles.map((p,i)=>`<div class="prof"><span class="av">${p.av}</span><span class="pn">${p.name||L("No name yet","अभी नाम नहीं")}<br><small>${L("Age","उम्र")} ${p.age} · ⭐ ${p.stars||0}</small></span>${i===ST.active?`<b>✓ ${L("Playing","चालू")}</b>`:opt(false,L("Use","चुनो"),`use:${i}`)}${opt(false,"✏️",`edit:${i}`)}${ST.profiles.length>1?opt(false,"🗑️",`del:${i}`):""}</div>`).join("");
+  const ed=editing!=null?ST.profiles[editing]:null;
+  $("setCard").innerHTML=`<div class="sheethead"><h3>⚙️ ${L("Settings","सेटिंग्स")}</h3><button class="closebtn" data-act="close">${L("Done","हो गया")}</button></div>
+  <div class="sec"><h4>👧 ${L("Child profile","बच्चे की प्रोफ़ाइल")}</h4>${prof}${opt(false,"➕ "+L("Add a child","बच्चा जोड़ें"),"add")}
+   ${ed?`<div class="sec" style="background:#fff"><div class="rowlab"><span>${L("Name","नाम")}</span><input type="text" id="pname" maxlength="16" value="${(ed.name||"").replace(/"/g,"&quot;")}" placeholder="${L("Child's name","बच्चे का नाम")}"></div>
+   <div class="rowlab"><span>${L("Picture","तस्वीर")}</span><div class="opts">${AVATARS.map(a=>opt(ed.av===a,a,`av:${a}`)).join("")}</div></div>
+   <div class="rowlab"><span>${L("Age","उम्र")}</span><div class="opts">${[1,2,3,4].map(a=>opt(ed.age===a,a===4?"4+":a,`age:${a}`)).join("")}</div></div>
+   <p>${L("Age 1 shows 2 choices in quizzes; older children get 3.","1 साल वालों को 2 विकल्प, बड़े बच्चों को 3।")}</p>${opt(false,"✓ "+L("Save","सहेजें"),"saveprof")}</div>`:""}</div>
+  <div class="sec"><h4>🗣️ ${L("Language","भाषा")}</h4><div class="opts">${opt(lang==="en","English","lang:en")}${opt(lang==="both","English + हिंदी","lang:both")}${opt(lang==="hi","हिंदी","lang:hi")}</div><p>${L("English: only English. English + हिंदी: both on screen and in the voice. हिंदी: only Hindi.","English: सिर्फ़ अंग्रेज़ी। दोनों: अंग्रेज़ी और हिंदी। हिंदी: सिर्फ़ हिंदी।")}</p></div>
+  <div class="sec"><h4>🎨 ${L("Theme","थीम")}</h4><div class="opts">${Object.entries(THEMES).map(([k,v])=>opt(ST.theme===k,`<span class="swatch" style="background:${v[2]}"></span>${L(v[0],v[1])}`,`theme:${k}`)).join("")}</div></div>
+  <div class="sec"><h4>🔤 ${L("Font style","अक्षरों की शैली")}</h4><div class="opts">${Object.entries(FONTS).map(([k,v])=>opt(ST.font===k,`<span style="font-family:${v[0]}">Aa ${L(v[1],v[2])}</span>`,`font:${k}`)).join("")}</div></div>
+  <div class="sec"><h4>🎵 ${L("Background music","पीछे की धुन")}</h4><div class="opts">${Object.entries(TUNES).map(([k,v])=>opt(ST.tune===k,L(v[1],v[2]),`tune:${k}`)).join("")}</div>
+   <div class="rowlab"><span>${L("Music","धुन")}</span><input type="range" min="0" max="1" step=".05" value="${ST.music}" data-vol="music"></div>
+   <div class="rowlab"><span>${L("Voice","आवाज़")}</span><input type="range" min="0" max="1" step=".05" value="${ST.voice}" data-vol="voice"></div>
+   <div class="rowlab"><span>${L("Sounds","ध्वनियाँ")}</span><input type="range" min="0" max="1" step=".05" value="${ST.fx}" data-vol="fx"></div></div>
+  <div class="sec"><h4>⏭️ ${L("Lesson pace","पाठ की रफ़्तार")}</h4><div class="opts">${opt(ST.autoNext,L("Moves on by itself","अपने आप आगे बढ़े"),"auto:1")}${opt(!ST.autoNext,L("Wait for ⏭ Next","⏭ दबाने पर आगे"),"auto:0")}</div></div>
+  <div class="sec"><h4>⏰ ${L("Screen time","स्क्रीन टाइम")}</h4><div class="opts">${[0,10,15,20,30,45].map(m=>opt(ST.screen===m,m?`${m} min`:L("No limit","कोई सीमा नहीं"),`screen:${m}`)).join("")}</div><p>${L("When time is up, the app asks the child to rest. Only a parent can add more time.","समय पूरा होने पर ऐप आराम करने को कहेगा। सिर्फ़ माता-पिता और समय दे सकते हैं।")}</p></div>
+  <div class="sec"><h4>🔒 ${L("Lock games","खेल बंद करें")}</h4><p>${L("Tap a game to lock or unlock it. A locked game needs the parent sum to open.","किसी खेल को बंद या चालू करने के लिए टैप करें।")}</p>
+   ${SHELVES.map(s=>`<b>${s.i} ${L(s.t,s.th)}</b><div class="lockgrid">${s.cards.map(c=>`<button class="lockrow" aria-pressed="${!!ST.locks[c.id]}" data-act="lock:${c.id}">${ST.locks[c.id]?"🔒":"🔓"} ${c.i} ${L(c.t,c.th)}</button>`).join("")}</div>`).join("")}</div>
+  <div class="sec"><h4>🚪 ${L("Parent lock when the app opens","ऐप खुलने पर पैरेंट लॉक")}</h4><div class="opts">${opt(ST.gateOpen,L("On","चालू"),"gate:1")}${opt(!ST.gateOpen,L("Off","बंद"),"gate:0")}</div></div>
+  <div class="sec"><h4>ℹ️ ${L("About","जानकारी")}</h4><p>Baby Sparkle · ${L("Voice made with the Kokoro AI voice. Real animal and everyday sounds from the ESC-50 collection (CC BY-NC). Works offline after the first open.","आवाज़ Kokoro AI से बनी है। जानवरों की असली आवाज़ें ESC-50 संग्रह से। पहली बार खुलने के बाद बिना इंटरनेट चलता है।")}</p>${opt(false,"⭐ "+L("Reset stars","स्टार शून्य करें"),"resetstars")}</div>`;
+}
+$("setCard").addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]"); if(!b) return; const [a,v]=b.dataset.act.split(/:(.*)/s);
+  const P=ST.profiles;
+  if(a==="close"){ if(history.state?.p==="set") history.back(); else closeSettings(); return; }
+  if(a==="use"){ ST.active=+v; }
+  else if(a==="edit"){ editing=+v; }
+  else if(a==="add"){ P.push({name:"",av:AVATARS[P.length%AVATARS.length],age:2,stars:0}); editing=P.length-1; }
+  else if(a==="del"){ P.splice(+v,1); ST.active=Math.min(ST.active,P.length-1); editing=null; }
+  else if(a==="av"){ P[editing].av=v; }
+  else if(a==="age"){ P[editing].age=+v; }
+  else if(a==="saveprof"){ P[editing].name=($("pname").value||"").trim().slice(0,16); ST.active=editing; editing=null; }
+  else if(a==="lang"){ lang=ST.lang=v; showNote(); }
+  else if(a==="theme"){ ST.theme=v; setScene("sky"); }
+  else if(a==="font"){ ST.font=v; applyFont(); }
+  else if(a==="tune"){ ST.tune=v; stopTune(); startTune(true); }
+  else if(a==="auto"){ ST.autoNext=v==="1"; }
+  else if(a==="screen"){ ST.screen=+v; playedMs=0; }
+  else if(a==="lock"){ if(ST.locks[v]) delete ST.locks[v]; else ST.locks[v]=1; }
+  else if(a==="gate"){ ST.gateOpen=v==="1"; }
+  else if(a==="resetstars"){ PROF().stars=0; }
+  if(editing!=null&&a!=="saveprof"&&$("pname")) P[editing].name=($("pname").value||"").trim().slice(0,16);
+  save(); renderSettings();
+});
+$("setCard").addEventListener("input",e=>{ const k=e.target.dataset.vol; if(!k) return; ST[k]=+e.target.value; applyVol(); save(); });
+
 function showNote(){
   const n=$("note"); if(!n) return;
-  const haveVoice=!!PACK["voice-en1"];
-  if(!haveVoice&&!synth){ n.textContent="Awaaz ki files load nahi hui. Internet on karke app dobara kholo."; n.hidden=false; return; }
-  if(lang==="hi"&&!hasHi()){ n.textContent="Hindi awaaz abhi load nahi hui, isliye English mein bolega."; n.hidden=false; return; }
+  if(!PACK["voice-en1"]&&!synth){ n.textContent=lang==="hi"?"आवाज़ की फ़ाइलें लोड नहीं हुईं। इंटरनेट चालू करके ऐप फिर खोलें।":"The voice files did not load. Turn on the internet and open the app again."; n.hidden=false; return; }
   n.hidden=true;
 }
-function setLang(l){ lang=l; $("lang-en").setAttribute("aria-pressed",l==="en"); $("lang-hi").setAttribute("aria-pressed",l==="hi"); showNote(); }
-$("lang-en").onclick=()=>setLang("en"); $("lang-hi").onclick=()=>setLang("hi");
+function setLang(l){ lang=ST.lang=l; save(); showNote(); renderHome(); }
+$("langPill").onclick=e=>{ const b=e.target.closest("button"); if(b) setLang(b.dataset.l); };
 ["sfx",...VPACKS].forEach(loadPack);
-showGate("enter");
+if(ST.gateOpen) showGate("enter");
+else { $("gate").hidden=false; document.querySelector(".eq").hidden=true; $("gkeys").hidden=true; $("gtitle").textContent="Baby Sparkle"; $("gsub").textContent=lang==="hi"?"शुरू करने के लिए टैप करें":"Tap to start"; $("gcancel").hidden=false; $("gcancel").textContent="▶ "+(lang==="hi"?"शुरू":"Start");
+  $("gcancel").onclick=()=>{ $("gate").hidden=true; $("gkeys").hidden=false; document.querySelector(".eq").hidden=false; $("gcancel").onclick=()=>{ $("gate").hidden=true; }; startApp(); }; }
 
 /* =================================================================== every sentence the app can say (used to record the voice packs) */
 function allPhrases(){
@@ -1435,6 +1880,13 @@ function allPhrases(){
   PAGES.forEach(pg=>{ B(...colIntro(pg)); B(...colDone(pg)); });
   BODYP.forEach(b=>{ B(b.en+"!",b.hi+"!"); B(b.s,b.sh); B(b.q,b.qh); });
   ACTIONS.forEach(a=>B(a.say,a.sayHi));
+  /* added in v3 */
+  Object.values(TOPICS).forEach(T=>T.items.forEach(it=>A("hi",it.sayQh)));
+  LINES.forEach(o=>A("hi",o.doneHi));
+  SHAPES.forEach(([n,k,h])=>{ B(...shapeIntro(n,h)); B(...shapeDone(n,h)); });
+  WASHV.forEach(v=>B(...washDone(v)));
+  SORTS.forEach((S0,si)=>[S0.A,S0.B].forEach((L,side)=>L.forEach(it=>{ A("hi",sortAskHi(it)); A("hi",`${HN[it[0]]} ${SORT_SAY_HI[si][side]}!`); A("hi",`${HN[it[0]]} ${SORT_SAY_HI[si][side]}।`); })));
+  PEEKERS().forEach(p=>B(p.en+"!",p.hi+"!"));
   return [...out.values()];
 }
 window.allPhrases=allPhrases; window.fnv=fnv;
