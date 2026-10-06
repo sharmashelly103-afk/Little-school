@@ -1,0 +1,41 @@
+Baby Sparkle — sound credits
+
+Voice: generated with the Kokoro-82M text-to-speech model (Apache-2.0).
+
+Real animal, vehicle and home sounds: ESC-50 dataset by Karol J. Piczak,
+licensed CC BY-NC 3.0 (non-commercial use). Clips come from Freesound.org;
+each was trimmed, cleaned and volume-matched for this app.
+
+Dog        ESC-50 3-157695-A-0  (Freesound sound #157695, category: dog)
+Cat        ESC-50 4-161303-A-5  (Freesound sound #161303, category: cat)
+Cow        ESC-50 1-16568-A-3  (Freesound sound #16568, category: cow)
+Pig        ESC-50 3-257858-A-2  (Freesound sound #257858, category: pig)
+Hen        ESC-50 4-253649-A-6  (Freesound sound #253649, category: hen)
+Rooster    ESC-50 4-164021-A-1  (Freesound sound #164021, category: rooster)
+Frog       ESC-50 1-15689-A-4  (Freesound sound #15689, category: frog)
+Sheep      ESC-50 2-119161-A-8  (Freesound sound #119161, category: sheep)
+Crow       ESC-50 1-96950-A-9  (Freesound sound #96950, category: crow)
+Bird       ESC-50 4-159609-B-14  (Freesound sound #159609, category: chirping_birds)
+car        ESC-50 1-19026-A-43  (Freesound sound #19026, category: car_horn)
+bus        ESC-50 4-178402-A-43  (Freesound sound #178402, category: car_horn)
+auto       ESC-50 2-54086-A-43  (Freesound sound #54086, category: car_horn)
+truck      ESC-50 2-125520-A-43  (Freesound sound #125520, category: car_horn)
+train      ESC-50 4-165933-A-45  (Freesound sound #165933, category: train)
+plane      ESC-50 3-143560-A-47  (Freesound sound #143560, category: airplane)
+heli       ESC-50 3-154926-A-40  (Freesound sound #154926, category: helicopter)
+siren      ESC-50 2-70938-A-42  (Freesound sound #70938, category: siren)
+siren2     ESC-50 4-121532-A-42  (Freesound sound #121532, category: siren)
+siren3     ESC-50 1-76831-A-42  (Freesound sound #76831, category: siren)
+tractor    ESC-50 2-107228-B-44  (Freesound sound #107228, category: engine)
+clap       ESC-50 3-197435-A-22  (Freesound sound #197435, category: clapping)
+walk       ESC-50 1-51147-A-25  (Freesound sound #51147, category: footsteps)
+laugh      ESC-50 4-132810-A-26  (Freesound sound #132810, category: laughing)
+brush      ESC-50 5-220939-A-27  (Freesound sound #220939, category: brushing_teeth)
+sneeze     ESC-50 3-142601-A-21  (Freesound sound #142601, category: sneezing)
+snore      ESC-50 2-114609-B-28  (Freesound sound #114609, category: snoring)
+drink      ESC-50 1-67230-A-29  (Freesound sound #67230, category: drinking_sipping)
+knock      ESC-50 4-261068-A-30  (Freesound sound #261068, category: door_wood_knock)
+tick       ESC-50 5-210571-A-38  (Freesound sound #210571, category: clock_tick)
+drops      ESC-50 3-156907-A-15  (Freesound sound #156907, category: water_drops)
+
+Music and small effects (tune, chimes, pop, bell, boing): made for this app.

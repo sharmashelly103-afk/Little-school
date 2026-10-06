@@ -2,62 +2,85 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#3E9BFF">
+<meta name="theme-color" content="#8A5CFF">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Little School">
+<meta name="apple-mobile-web-app-title" content="Baby Sparkle">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-512.png">
 <style>body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 </head><body>
-<title>Vamika's Little School</title>
+<title>Baby Sparkle</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap">
 <style>
-/* Layout: a preschool "school bag" — home has three shelves (Likho / Seekho / Khelo) of chunky cards; each activity opens on one big stage that talks by itself. Single bright theme on purpose (a toy). */
+/* Layout: a sunny storybook world — animated sky, rainbow and hills sit behind everything; content floats on soft white "cloud" panels. One bright theme on purpose (a toy). */
 :root{
-  --bg:#EAF6FF; --ink:#22264A; --card:#FFFFFF; --soft:#CFE3F3;
-  --sun:#FFC83D; --berry:#FF5C8A; --leaf:#2FBF7F; --sky:#3E9BFF; --grape:#8E6CFF; --tang:#FF7A45; --teal:#20B2B8;
-  --paper:#FFFDF6; --guide:#E6E0F5; --dash:#B9AEDB;
+  --sky1:#7CCBFF; --sky2:#BDE7FF; --sky3:#FFF4D9;
+  --ink:#24214A; --card:#FFFFFFEE; --soft:#D9E8F6; --paper:#FFFDF6; --bg:#F1F7FF;
+  --sun:#FFC83D; --berry:#FF4F8B; --leaf:#22B573; --sky:#3E8EFF; --grape:#8A5CFF; --tang:#FF7A33; --teal:#14B3B8;
   --display:"Baloo 2","Comic Sans MS","Trebuchet MS",system-ui,sans-serif;
   color-scheme:light;
 }
 [hidden]{display:none!important}
 html,body{height:100%}
-body{background:var(--bg);color:var(--ink);font-family:var(--display);-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;overscroll-behavior:none}
-.wrap{max-width:900px;margin:0 auto;padding-inline:16px;padding-block:12px 28px;display:flex;flex-direction:column;gap:12px}
+body{background:var(--sky2);color:var(--ink);font-family:var(--display);-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;overscroll-behavior:none;overflow-x:hidden}
 button{font-family:var(--display);color:inherit}
 button:focus-visible{outline:4px solid var(--grape);outline-offset:3px}
-/* home */
-.top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:10px}
-.logo{width:52px;height:52px;border-radius:16px;background:var(--berry);color:#fff;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center;transform:rotate(-6deg);box-shadow:0 4px 0 rgba(34,38,74,.2)}
-h1{margin:0;font-size:clamp(1.4rem,5.6vw,2.1rem);font-weight:800;line-height:1}
-h1 span{color:var(--berry)}
-.tag{font-size:.9rem;font-weight:600;opacity:.6;margin:0}
-.pill{display:flex;background:var(--card);border-radius:999px;padding:4px;gap:4px;box-shadow:0 3px 0 var(--soft)}
-.pill button{font-weight:700;font-size:.95rem;border:0;border-radius:999px;padding:6px 12px;background:transparent;cursor:pointer}
+
+/* ---------- living background ---------- */
+#world{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 45%,var(--sky3) 100%)}
+#world svg{position:absolute;inset:0;width:100%;height:100%}
+.cloud{animation:drift linear infinite}
+@keyframes drift{from{transform:translateX(-30vw)}to{transform:translateX(130vw)}}
+.rays{transform-origin:88% 12%;animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.twinkle{animation:tw 2.4s ease-in-out infinite}
+@keyframes tw{50%{opacity:.15;transform:scale(.6)}}
+.balloon{position:absolute;bottom:-140px;font-size:46px;animation:floatup linear infinite;opacity:.9}
+@keyframes floatup{0%{transform:translate(0,0)}50%{transform:translate(24px,-60vh)}100%{transform:translate(-10px,-125vh)}}
+.sway{transform-origin:bottom center;animation:sw 3s ease-in-out infinite}
+@keyframes sw{50%{transform:rotate(6deg)}}
+
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding-inline:16px;padding-block:12px 40px;display:flex;flex-direction:column;gap:14px}
+/* ---------- home ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg.logo{width:68px;height:68px;flex:none;filter:drop-shadow(0 5px 0 rgba(36,33,74,.18))}
+.word{display:flex;flex-direction:column;line-height:.9}
+.word b{font-size:clamp(1.9rem,8vw,2.8rem);font-weight:800;letter-spacing:.01em;display:flex}
+.word b span{display:inline-block;animation:bob 2.6s ease-in-out infinite;text-shadow:0 3px 0 rgba(36,33,74,.18)}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.word small{font-size:.92rem;font-weight:700;color:#3B4A7A;opacity:.85;padding-left:3px}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{display:flex;background:var(--card);border-radius:999px;padding:4px;gap:4px;box-shadow:0 4px 0 rgba(36,33,74,.12)}
+.pill button{font-weight:700;font-size:.95rem;border:0;border-radius:999px;padding:7px 13px;background:transparent;cursor:pointer}
 .pill button[aria-pressed="true"]{background:var(--ink);color:#fff}
-.shelf{background:var(--card);border-radius:28px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 5px 0 var(--soft)}
-h2{margin:0;font-size:1.35rem;font-weight:800;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-h2 small{font-size:.85rem;font-weight:600;opacity:.6}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px}
-.card{border:0;border-radius:22px;padding:10px 6px 8px;cursor:pointer;color:#fff;box-shadow:0 5px 0 rgba(34,38,74,.22);display:flex;flex-direction:column;align-items:center;gap:0;transition:transform .1s}
-.card:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(34,38,74,.22)}
-.card i{font-style:normal;font-size:2.7rem;line-height:1.15}
-.card b{font-size:1.15rem;line-height:1.05}
-.card small{font-size:.8rem;font-weight:600;opacity:.92}
+.iconbtn{width:46px;height:46px;border:0;border-radius:50%;background:var(--card);box-shadow:0 4px 0 rgba(36,33,74,.12);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .note{background:#FFF4D6;border-radius:18px;padding:10px 14px;font-weight:600;margin:0}
-/* play */
+.shelf{background:var(--card);border-radius:30px;padding:12px 14px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 6px 0 rgba(36,33,74,.10);backdrop-filter:blur(4px)}
+.shelf h2{margin:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:1.3rem;font-weight:800}
+.shelf h2 .tab{color:#fff;padding:2px 14px 0;border-radius:999px;box-shadow:0 3px 0 rgba(36,33,74,.15)}
+.shelf h2 small{font-size:.85rem;font-weight:600;opacity:.65}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
+.card{position:relative;border:0;border-radius:24px;padding:10px 6px 9px;cursor:pointer;color:#fff;display:flex;flex-direction:column;align-items:center;gap:2px;transition:transform .12s;overflow:hidden;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--c) 78%,#fff) 0%,var(--c) 70%);box-shadow:0 6px 0 color-mix(in srgb,var(--c) 70%,#000)}
+.card::after{content:"";position:absolute;top:-30%;left:-20%;width:70%;height:60%;background:radial-gradient(closest-side,rgba(255,255,255,.45),transparent);pointer-events:none}
+.card:active{transform:translateY(4px);box-shadow:0 2px 0 color-mix(in srgb,var(--c) 70%,#000)}
+.card i{font-style:normal;font-size:2.6rem;line-height:1.15;width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center}
+.card b{font-size:1.08rem;line-height:1.05;text-shadow:0 2px 0 rgba(0,0,0,.12);text-align:center}
+.card small{font-size:.76rem;font-weight:600;opacity:.95;text-align:center;line-height:1.1}
+/* ---------- play ---------- */
 .bar{display:flex;align-items:center;gap:10px}
-.bar h1{flex:1;text-align:center;font-size:clamp(1.25rem,5vw,1.8rem)}
-.round{width:54px;height:54px;flex:none;border:0;border-radius:50%;background:var(--card);box-shadow:0 4px 0 var(--soft);font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.stage{background:var(--card);border-radius:30px;min-height:min(70vh,600px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;text-align:center;position:relative;overflow:hidden;box-shadow:0 8px 0 var(--soft)}
-.face{display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar h1{flex:1;margin:0;text-align:center;font-size:clamp(1.25rem,5vw,1.8rem);font-weight:800;color:var(--ink);text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.back{height:54px;border:0;border-radius:999px;background:var(--berry);color:#fff;font-weight:800;font-size:1.15rem;padding:0 18px 0 12px;display:flex;align-items:center;gap:4px;cursor:pointer;box-shadow:0 5px 0 #C02A61}
+.back span{font-size:1.5rem;line-height:1}
+.round{width:54px;height:54px;flex:none;border:0;border-radius:50%;background:var(--card);box-shadow:0 4px 0 rgba(36,33,74,.15);font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.stage{background:var(--card);border-radius:32px;min-height:min(72vh,620px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;text-align:center;position:relative;overflow:hidden;box-shadow:0 8px 0 rgba(36,33,74,.10)}
+.pic{font-size:clamp(5.5rem,28vw,9rem);line-height:1.1}
 .big{font-size:clamp(5.5rem,28vw,9.5rem);line-height:1;font-weight:800}
 .big small{font-size:.55em}
-.pic{font-size:clamp(5.5rem,28vw,9rem);line-height:1.1}
 .blob{width:min(180px,46vw);aspect-ratio:1;max-width:100%;border-radius:50%;box-shadow:0 10px 0 rgba(0,0,0,.1),inset 0 0 0 4px rgba(0,0,0,.06)}
 .shape{width:min(200px,50vw);aspect-ratio:1;max-width:100%}
 .shape svg{width:100%;height:100%}
@@ -65,7 +88,11 @@ h2 small{font-size:.85rem;font-weight:600;opacity:.6}
 .spell span{min-width:42px;height:52px;padding-inline:6px;border-radius:14px;background:var(--bg);font-size:1.9rem;font-weight:800;display:flex;align-items:center;justify-content:center;transition:transform .15s,background .15s}
 .spell span.on{background:var(--sun);transform:scale(1.22) translateY(-4px)}
 .spell.all span{background:var(--leaf);color:#fff}
-.cap{font-size:clamp(1.15rem,4.8vw,1.55rem);font-weight:700;opacity:.8;min-height:1.5em;max-width:30ch;text-wrap:balance}
+.nameplate{font-size:clamp(2.2rem,10vw,3.4rem);font-weight:800;line-height:1;color:var(--c,var(--berry));text-shadow:0 3px 0 rgba(36,33,74,.12)}
+.cap{font-size:clamp(1.1rem,4.6vw,1.5rem);font-weight:700;opacity:.8;min-height:1.4em;max-width:30ch;text-wrap:balance}
+.sayit{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.3rem;color:var(--grape);background:#F1EBFF;border-radius:999px;padding:4px 16px}
+.sayit i{font-style:normal;font-size:1.8rem;animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.25)}}
 .objs{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;max-width:520px}
 .objs span{font-size:clamp(2.2rem,10vw,3.2rem);opacity:.18;transition:opacity .2s,transform .2s;position:relative}
 .objs.shown span{opacity:1}
@@ -77,8 +104,9 @@ h2 small{font-size:.85rem;font-weight:600;opacity:.6}
 .choices button svg{width:80%;height:80%}
 .choices .dot{display:block;width:72%;aspect-ratio:1;border-radius:50%}
 .choices button.right{background:#D9F7E8;box-shadow:0 6px 0 var(--leaf)}
+.choices.two{grid-template-columns:repeat(2,1fr);max-width:440px}
 .pop{animation:pop .45s cubic-bezier(.2,1.6,.4,1)}
-@keyframes pop{0%{transform:scale(.5)}100%{transform:scale(1)}}
+@keyframes pop{0%{transform:scale(.4)}100%{transform:scale(1)}}
 .shake{animation:shk .4s}
 @keyframes shk{25%{transform:translateX(-12px)}75%{transform:translateX(12px)}}
 .bounce{animation:bnc .6s infinite}
@@ -88,19 +116,85 @@ h2 small{font-size:.85rem;font-weight:600;opacity:.6}
 .burst{position:absolute;pointer-events:none;font-size:1.8rem;animation:fly 1s ease-out forwards;z-index:9}
 @keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(220deg);opacity:0}}
 .score{position:absolute;top:12px;left:16px;font-weight:800;font-size:1.3rem;z-index:4}
+.starbar{position:absolute;top:10px;right:14px;font-weight:800;font-size:1.2rem;background:#FFF4D6;border-radius:999px;padding:2px 12px;z-index:4}
+
+/* ---------- reveal stages (each item in Seekho arrives a different way) ---------- */
+.rv{position:relative;width:min(300px,74vw);aspect-ratio:1;max-width:100%;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.rv .item{font-size:clamp(6rem,30vw,9.5rem);line-height:1;opacity:0;transform:scale(.3);transition:transform .55s cubic-bezier(.2,1.6,.4,1),opacity .3s}
+.rv.open .item{opacity:1;transform:scale(1)}
+.rv .hint{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);font-size:2.2rem;animation:pulse 1s infinite}
+.rv.open .hint{display:none}
+/* gift */
+.giftbox{position:absolute;inset:14%;}
+.giftbox .boxb{position:absolute;left:0;right:0;bottom:0;height:68%;border-radius:16px;background:var(--gc,#FF4F8B);box-shadow:inset 0 -10px 0 rgba(0,0,0,.12)}
+.giftbox .lid{position:absolute;left:-6%;right:-6%;top:18%;height:20%;border-radius:12px;background:color-mix(in srgb,var(--gc,#FF4F8B) 80%,#fff);transition:transform .5s cubic-bezier(.3,1.4,.5,1);transform-origin:10% 100%}
+.giftbox .rib{position:absolute;left:44%;width:12%;top:18%;bottom:0;background:var(--sun)}
+.giftbox .bow{position:absolute;left:50%;top:6%;transform:translateX(-50%);font-size:2.4rem;transition:transform .5s}
+.rv:not(.open) .giftbox{animation:giftshake 1.6s infinite}
+@keyframes giftshake{0%,70%,100%{transform:rotate(0)}75%{transform:rotate(-6deg)}85%{transform:rotate(6deg)}92%{transform:rotate(-3deg)}}
+.rv.open .giftbox .lid{transform:translate(-30%,-90%) rotate(-40deg)}
+.rv.open .giftbox .bow{transform:translate(-160%,-160%) rotate(-40deg)}
+.rv.open .giftbox{opacity:.0;transition:opacity .4s .5s}
+/* curtain */
+.curt{position:absolute;inset:0;display:flex;overflow:hidden;border-radius:24px;border-top:14px solid #B8324A}
+.curt i{flex:1;background:repeating-linear-gradient(90deg,#E8455E 0 18px,#D23A52 18px 30px);transition:transform .7s ease-in-out}
+.rv.open .curt i:first-child{transform:translateX(-96%)}
+.rv.open .curt i:last-child{transform:translateX(96%)}
+/* balloon */
+.bal{position:absolute;left:50%;top:6%;transform:translateX(-50%);width:62%;aspect-ratio:.85;border-radius:50% 50% 48% 48%;background:radial-gradient(circle at 32% 30%,#fff8 0 10%,transparent 11%),var(--gc,#3E8EFF);box-shadow:inset -10px -12px 0 rgba(0,0,0,.1);animation:bfloat 2s ease-in-out infinite}
+.bal::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:60px;background:#7a7a9a}
+@keyframes bfloat{50%{transform:translate(-50%,-10px)}}
+.rv.open .bal{animation:balpop .3s forwards}
+@keyframes balpop{to{transform:translateX(-50%) scale(1.6);opacity:0}}
+/* truck */
+.truckr{position:absolute;bottom:8%;left:0;font-size:5.4rem;animation:drivein 1.6s ease-out forwards;transform:scaleX(-1)}
+@keyframes drivein{from{left:-80%}to{left:18%}}
+.rv .road{position:absolute;bottom:4%;left:-10%;right:-10%;height:10px;border-radius:5px;background:repeating-linear-gradient(90deg,#9AA6BF 0 30px,transparent 30px 46px)}
+.rv.t-truck .item{position:absolute;top:4%}
+.rv.open .truckr{animation:driveout 1s ease-in forwards}
+@keyframes driveout{from{left:18%}to{left:130%}}
+/* bubble */
+.bub{position:absolute;inset:6%;border-radius:50%;background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.9) 0 8%,transparent 9%),radial-gradient(circle,rgba(160,220,255,.25) 55%,rgba(120,180,255,.55) 100%);box-shadow:inset 0 0 30px rgba(255,255,255,.8);animation:bfloat2 2.4s ease-in-out infinite}
+@keyframes bfloat2{50%{transform:translateY(-8px) scale(1.02)}}
+.rv.t-bubble .item{opacity:.55;transform:scale(.8)}
+.rv.open .bub{animation:balpop2 .3s forwards}
+@keyframes balpop2{to{transform:scale(1.5);opacity:0}}
+/* shadow */
+.rv.t-shadow .item{opacity:1;transform:scale(1);filter:brightness(0) opacity(.8);transition:filter .8s}
+.rv.t-shadow.open .item{filter:none}
+/* magic hat */
+.hat{position:absolute;bottom:4%;left:50%;transform:translateX(-50%);font-size:7rem;line-height:1}
+.rv.t-hat .item{transform:translateY(60%) scale(.3)}
+.rv.t-hat.open .item{transform:translateY(-12%) scale(1)}
+.wand{position:absolute;right:4%;top:20%;font-size:3rem;animation:wave 1s ease-in-out infinite}
+@keyframes wave{50%{transform:rotate(-25deg)}}
+
+/* ---------- sound boards ---------- */
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;width:100%;align-self:stretch}
+.board button{aspect-ratio:1;max-width:100%;border:0;border-radius:24px;background:var(--bg);font-size:clamp(2.8rem,13vw,3.6rem);cursor:pointer;box-shadow:0 5px 0 var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
+.board button small{font-size:.85rem;font-weight:700}
+.board button.on{background:#FFF1C2;box-shadow:0 5px 0 var(--sun)}
+.head{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;max-width:100%}
+.head .cell{width:clamp(48px,14vw,68px);height:clamp(48px,14vw,68px);border-radius:16px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:clamp(1.8rem,9vw,2.6rem)}
+.head .cell.ask{background:#FFF1C2;box-shadow:inset 0 0 0 3px var(--sun);font-weight:800;color:var(--tang)}
+.head .dot{display:block;width:70%;aspect-ratio:1;border-radius:50%}
+.grp{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;font-size:clamp(1.4rem,6vw,2rem);line-height:1}
+.tower{display:flex;flex-direction:column-reverse;align-items:center;justify-content:flex-start;height:100%;gap:2px;font-size:clamp(1.1rem,5vw,1.6rem);line-height:1}
+.silh{filter:brightness(0) opacity(.85)}
+.pair{display:flex;align-items:flex-end;justify-content:center;gap:18px}
+.pair .pic.small{font-size:clamp(3rem,15vw,4.6rem)}
 /* tracing */
 .tracewrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:10px}
 #cv{width:min(100%,58vh);aspect-ratio:1;max-width:100%;background:var(--paper);border-radius:24px;touch-action:none;box-shadow:inset 0 0 0 3px var(--soft)}
 .tctl{display:flex;gap:14px;justify-content:center}
 .tctl button{width:64px;height:64px;border:0;border-radius:50%;background:var(--bg);font-size:1.7rem;cursor:pointer;box-shadow:0 4px 0 var(--soft)}
 .tlabel{font-size:clamp(1.3rem,5vw,1.8rem);font-weight:800;min-height:1.3em}
-.overlay{position:absolute;inset:0;background:rgba(255,255,255,.86);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;z-index:6}
-.overlay .pic{animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
+.overlay{position:absolute;inset:0;background:rgba(255,255,255,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;z-index:6}
 .strip{display:flex;gap:6px;overflow-x:auto;max-width:100%;padding:4px 2px 8px;scrollbar-width:none}
 .strip button{flex:none;min-width:44px;height:44px;border:0;border-radius:12px;background:var(--bg);font-weight:800;font-size:1.25rem;cursor:pointer;padding-inline:8px}
 .strip button[aria-current="true"]{background:var(--ink);color:#fff}
 .strip button.done{box-shadow:inset 0 -4px 0 var(--leaf)}
-/* bubbles */
+/* bubbles game */
 .field{position:absolute;inset:0}
 .target{position:absolute;top:10px;left:0;right:0;z-index:4;font-weight:800;font-size:clamp(1.3rem,5.5vw,1.8rem);display:flex;justify-content:center;align-items:center;gap:8px;pointer-events:none}
 .target .dot{width:34px;height:34px;border-radius:50%;display:inline-block}
@@ -113,7 +207,7 @@ h2 small{font-size:.85rem;font-weight:600;opacity:.6}
 .eater.near{box-shadow:inset 0 0 0 8px var(--leaf)}
 .foods{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .food{width:86px;height:86px;border:0;border-radius:24px;background:var(--paper);font-size:3.4rem;cursor:grab;box-shadow:0 5px 0 var(--soft);touch-action:none;position:relative;z-index:5}
-.food.drag{cursor:grabbing;z-index:8;box-shadow:0 14px 24px rgba(34,38,74,.25)}
+.food.drag{cursor:grabbing;z-index:8;box-shadow:0 14px 24px rgba(36,33,74,.25)}
 .food.back{transition:transform .3s}
 .food.eaten{transition:transform .35s,opacity .35s;opacity:0}
 /* tap tap */
@@ -124,27 +218,10 @@ h2 small{font-size:.85rem;font-weight:600;opacity:.6}
 .taphint{font-size:clamp(1.6rem,7vw,2.4rem);font-weight:800;opacity:.35;pointer-events:none}
 /* music */
 .xylo{display:flex;align-items:flex-end;justify-content:center;gap:6px;width:100%;max-width:560px;height:240px}
-.xylo button{flex:1;border:0;border-radius:14px;cursor:pointer;color:#fff;font-weight:800;font-size:1.1rem;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px;box-shadow:0 5px 0 rgba(34,38,74,.2);transition:transform .08s}
+.xylo button{flex:1;border:0;border-radius:14px;cursor:pointer;color:#fff;font-weight:800;font-size:1.1rem;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px;box-shadow:0 5px 0 rgba(36,33,74,.2);transition:transform .08s}
 .xylo button.hit{transform:translateY(6px);filter:brightness(1.2)}
 .songs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .songs button{font-weight:700;font-size:1.05rem;border:0;border-radius:999px;padding:10px 18px;background:var(--ink);color:#fff;cursor:pointer}
-/* sound boards */
-.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;width:100%;align-self:stretch}
-.board button{aspect-ratio:1;max-width:100%;border:0;border-radius:24px;background:var(--bg);font-size:clamp(2.8rem,13vw,3.6rem);cursor:pointer;box-shadow:0 5px 0 var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
-.board button small{font-size:.85rem;font-weight:700}
-.board button.on{background:#FFF1C2;box-shadow:0 5px 0 var(--sun)}
-/* quiz extras */
-.head{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;max-width:100%}
-.head .cell{width:clamp(48px,14vw,68px);height:clamp(48px,14vw,68px);border-radius:16px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:clamp(1.8rem,9vw,2.6rem)}
-.head .cell.ask{background:#FFF1C2;box-shadow:inset 0 0 0 3px var(--sun);font-weight:800;color:var(--tang)}
-.bigword{font-size:clamp(3rem,15vw,5rem);font-weight:800;letter-spacing:.06em;color:var(--sky)}
-.grp{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;font-size:clamp(1.4rem,6vw,2rem);line-height:1}
-.bar2{height:22px;border-radius:999px;align-self:center}
-.tower{display:flex;flex-direction:column-reverse;align-items:center;justify-content:flex-start;height:100%;gap:2px;font-size:clamp(1.1rem,5vw,1.6rem);line-height:1}
-.choices.two{grid-template-columns:repeat(2,1fr);max-width:440px}
-.silh{filter:brightness(0) opacity(.85)}
-.pair{display:flex;align-items:flex-end;justify-content:center;gap:18px}
-.pair .pic.small{font-size:clamp(3rem,15vw,4.6rem)}
 /* sorting */
 .sortrow{display:flex;gap:14px;width:100%;justify-content:center}
 .basket{flex:1;max-width:220px;min-height:150px;border-radius:26px;background:var(--bg);box-shadow:inset 0 0 0 4px var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:10px 6px;gap:4px;cursor:pointer;border:0;transition:box-shadow .2s}
@@ -153,12 +230,12 @@ h2 small{font-size:.85rem;font-weight:600;opacity:.6}
 .basket b{font-size:1.15rem}
 .basket .in{display:flex;flex-wrap:wrap;justify-content:center;font-size:1.4rem;gap:2px}
 .sortee{width:112px;height:112px;border:0;border-radius:28px;background:var(--paper);font-size:4.4rem;box-shadow:0 6px 0 var(--soft);touch-action:none;cursor:grab;position:relative;z-index:5}
-.sortee.drag{z-index:8;box-shadow:0 14px 24px rgba(34,38,74,.25)}
+.sortee.drag{z-index:8;box-shadow:0 14px 24px rgba(36,33,74,.25)}
 .sortee.back{transition:transform .3s}
 /* colouring */
 .colorwrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
 .colorwrap svg{width:min(100%,52vh);height:auto;aspect-ratio:1;max-width:100%;background:var(--paper);border-radius:24px;touch-action:manipulation}
-.colorwrap svg .rg{cursor:pointer;stroke:#22264A;stroke-width:3;stroke-linejoin:round;transition:fill .25s}
+.colorwrap svg .rg{cursor:pointer;stroke:#24214A;stroke-width:3;stroke-linejoin:round;transition:fill .25s}
 .palette{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .palette button{width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;box-shadow:inset 0 0 0 3px rgba(0,0,0,.12)}
 .palette button[aria-pressed="true"]{transform:scale(1.2);box-shadow:0 0 0 4px var(--ink)}
@@ -167,39 +244,202 @@ h2 small{font-size:.85rem;font-weight:600;opacity:.6}
 .slot{width:var(--p);height:var(--p);border-radius:12px;position:relative;box-shadow:inset 0 0 0 2px var(--soft);overflow:hidden;cursor:pointer}
 .slot .ghost{position:absolute;inset:0;opacity:.18;transition:opacity .3s}
 .slot.filled .ghost{opacity:1}
-.head .dot{display:block;width:70%;aspect-ratio:1;border-radius:50%}
 .pieces{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.piece{width:calc(var(--p)*.8);height:calc(var(--p)*.8);border:0;border-radius:12px;cursor:grab;touch-action:none;box-shadow:0 5px 0 var(--soft);background-color:var(--paper);position:relative;z-index:5}
+.piece{border:0;border-radius:12px;cursor:grab;touch-action:none;box-shadow:0 5px 0 var(--soft);background-color:var(--paper);position:relative;z-index:5}
 .piece.sel{box-shadow:0 0 0 4px var(--sun)}
 .piece.drag{z-index:8}
 .piece.back{transition:transform .3s}
 .mem{display:grid;gap:10px;width:100%;max-width:460px}
-.mem button{aspect-ratio:1;max-width:100%;border:0;border-radius:22px;cursor:pointer;font-size:clamp(2.6rem,13vw,3.6rem);background:var(--grape);color:#fff;box-shadow:0 5px 0 rgba(34,38,74,.2);transition:transform .25s,background .25s}
+.mem button{aspect-ratio:1;max-width:100%;border:0;border-radius:22px;cursor:pointer;font-size:clamp(2.6rem,13vw,3.6rem);background:var(--grape);color:#fff;box-shadow:0 5px 0 rgba(36,33,74,.2);transition:transform .25s,background .25s}
 .mem button.open{background:var(--paper);color:var(--ink)}
 .mem button.got{background:#D9F7E8;box-shadow:0 5px 0 var(--leaf)}
+
+/* ---------- Sparky the cartoon kid (move & body games) ---------- */
+.kid{width:min(300px,70vw);max-width:100%;height:auto;overflow:visible}
+.kid .pt{transition:filter .2s}
+.kid.tapme .pt{cursor:pointer}
+.kid .pt.glow{animation:glow .45s 3}
+@keyframes glow{50%{filter:brightness(1.35) drop-shadow(0 0 10px #FFD23D) drop-shadow(0 0 4px #FFD23D)}}
+.kid .armL{transform-origin:72px 150px}
+.kid .armR{transform-origin:168px 150px}
+.kid .legL{transform-origin:104px 232px}
+.kid .legR{transform-origin:136px 232px}
+.kid .whole{transform-origin:120px 200px}
+.mv-clap .armL{animation:clapL .5s ease-in-out infinite}
+.mv-clap .armR{animation:clapR .5s ease-in-out infinite}
+@keyframes clapL{0%,100%{transform:rotate(-20deg)}50%{transform:rotate(-115deg)}}
+@keyframes clapR{0%,100%{transform:rotate(20deg)}50%{transform:rotate(115deg)}}
+.mv-jump .whole{animation:jump .6s cubic-bezier(.3,0,.5,1) infinite}
+.mv-jump .armL{animation:up1 .6s infinite}.mv-jump .armR{animation:up2 .6s infinite}
+@keyframes jump{0%,100%{transform:translateY(0) scaleY(.94)}45%{transform:translateY(-70px) scaleY(1.03)}}
+@keyframes up1{0%,100%{transform:rotate(0)}45%{transform:rotate(150deg)}}
+@keyframes up2{0%,100%{transform:rotate(0)}45%{transform:rotate(-150deg)}}
+.mv-walk .whole{animation:walkb .7s ease-in-out infinite}
+.mv-walk .legL,.mv-march .legL{animation:stepL .7s ease-in-out infinite}
+.mv-walk .legR,.mv-march .legR{animation:stepR .7s ease-in-out infinite}
+.mv-walk .armL{animation:stepR .7s ease-in-out infinite}.mv-walk .armR{animation:stepL .7s ease-in-out infinite}
+@keyframes walkb{50%{transform:translateY(-6px)}}
+@keyframes stepL{0%,100%{transform:rotate(22deg)}50%{transform:rotate(-22deg)}}
+@keyframes stepR{0%,100%{transform:rotate(-22deg)}50%{transform:rotate(22deg)}}
+.mv-march .armL{animation:up1 .7s infinite}.mv-march .armR{animation:up2 .7s .35s infinite}
+.mv-march .legL{animation:knee .7s infinite}.mv-march .legR{animation:knee .7s .35s infinite}
+@keyframes knee{0%,100%{transform:rotate(0)}50%{transform:rotate(-55deg) translateY(-6px)}}
+.mv-hop .whole{animation:hop .5s ease-in-out infinite}
+.mv-hop .legR{transform:rotate(-80deg)}
+.mv-hop .armL{transform:rotate(60deg)}.mv-hop .armR{transform:rotate(-60deg)}
+@keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-40px)}}
+.mv-skip .whole{animation:skip 1s ease-in-out infinite}
+.mv-skip .legL{animation:knee 1s infinite}.mv-skip .legR{animation:knee 1s .5s infinite}
+.mv-skip .armL{animation:stepL .5s infinite}.mv-skip .armR{animation:stepR .5s infinite}
+@keyframes skip{0%,100%{transform:translate(-30px,0)}25%{transform:translate(-10px,-34px)}50%{transform:translate(10px,0)}75%{transform:translate(30px,-34px)}}
+.mv-roll .whole{animation:roll 1.4s ease-in-out infinite}
+.mv-roll .armL{transform:rotate(140deg)}.mv-roll .armR{transform:rotate(-140deg)}
+@keyframes roll{0%{transform:translateX(-60px) rotate(0)}100%{transform:translateX(60px) rotate(360deg)}}
+.mv-spin .whole{animation:spinme 1.2s linear infinite}
+.mv-spin .armL{transform:rotate(80deg)}.mv-spin .armR{transform:rotate(-80deg)}
+@keyframes spinme{0%{transform:scaleX(1)}25%{transform:scaleX(.2)}50%{transform:scaleX(-1)}75%{transform:scaleX(-.2)}100%{transform:scaleX(1)}}
+.mv-wave .armR{animation:wavehand .5s ease-in-out infinite}
+@keyframes wavehand{0%,100%{transform:rotate(-140deg)}50%{transform:rotate(-170deg)}}
+.mv-stretch .armL{animation:up1 1.6s ease-in-out infinite}.mv-stretch .armR{animation:up2 1.6s ease-in-out infinite}
+.mv-stretch .whole{animation:tall 1.6s ease-in-out infinite}
+@keyframes tall{50%{transform:scaleY(1.08) translateY(-8px)}}
+.mv-toes .whole{animation:bend 1.6s ease-in-out infinite}
+@keyframes bend{50%{transform:rotate(0) translateY(20px) scaleY(.85)}}
+.mv-toes .armL{animation:reach1 1.6s ease-in-out infinite}.mv-toes .armR{animation:reach2 1.6s ease-in-out infinite}
+@keyframes reach1{50%{transform:rotate(-25deg)}}
+@keyframes reach2{50%{transform:rotate(25deg)}}
+.mv-stomp .legL{animation:stomp .8s infinite}.mv-stomp .legR{animation:stomp .8s .4s infinite}
+@keyframes stomp{0%,100%{transform:translateY(0)}25%{transform:translateY(-22px)}40%{transform:translateY(0)}}
+.mv-tiptoe .whole{animation:tip 1s ease-in-out infinite}
+.mv-tiptoe .armL{transform:rotate(40deg)}.mv-tiptoe .armR{transform:rotate(-40deg)}
+@keyframes tip{50%{transform:translateY(-14px)}}
+.mv-dance .whole{animation:dance .8s ease-in-out infinite}
+.mv-dance .armL{animation:up1 .8s infinite}.mv-dance .armR{animation:up2 .8s .4s infinite}
+.mv-dance .legL{animation:stepL .8s infinite}.mv-dance .legR{animation:stepR .8s infinite}
+@keyframes dance{25%{transform:rotate(-8deg) translateX(-10px)}75%{transform:rotate(8deg) translateX(10px)}}
+.mv-shake .whole{animation:wig .4s infinite}
+.mv-shake .armL{animation:clapL .3s infinite}.mv-shake .armR{animation:clapR .3s infinite}
+.mv-sit .whole{animation:sit 2s ease-in-out infinite}
+@keyframes sit{0%,100%{transform:translateY(0)}50%{transform:translateY(40px) scaleY(.82)}}
+.movebtns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.bigbtn{border:0;border-radius:999px;padding:12px 24px;font-weight:800;font-size:1.25rem;color:#fff;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.18)}
+.counter{font-size:clamp(3rem,16vw,5rem);font-weight:800;color:var(--tang);min-height:1.1em;line-height:1}
+
+/* ---------- parent lock ---------- */
+.gate{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(36,33,74,.35);backdrop-filter:blur(6px)}
+.gatecard{background:#fff;border-radius:30px;padding:22px 18px;max-width:420px;width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;box-shadow:0 10px 0 rgba(36,33,74,.15)}
+.gatecard svg.logo{width:92px;height:92px}
+.gatecard h3{margin:0;font-size:1.5rem;font-weight:800}
+.gatecard p{margin:0;font-weight:600;opacity:.75}
+.eq{font-size:2.6rem;font-weight:800;display:flex;align-items:center;gap:10px}
+.eq .ans{min-width:62px;height:62px;border-radius:16px;border:3px dashed var(--grape);display:flex;align-items:center;justify-content:center;color:var(--grape)}
+.keypad{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:100%}
+.keypad button{height:56px;border:0;border-radius:16px;background:var(--bg);font-size:1.6rem;font-weight:800;cursor:pointer;box-shadow:0 4px 0 var(--soft)}
+.gate .cancel{border:0;background:none;font-weight:700;font-size:1rem;color:#5B6690;cursor:pointer;padding:6px}
+.bye{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(180deg,#7CCBFF,#FFF4D9);text-align:center;padding:16px}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition:none!important}}
 </style>
 
-<div class="wrap" id="home">
+<div id="world" aria-hidden="true">
+  <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <radialGradient id="sunG"><stop offset="0" stop-color="#FFF6B0"/><stop offset=".6" stop-color="#FFD43D"/><stop offset="1" stop-color="#FFB21E"/></radialGradient>
+      <linearGradient id="h1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8EE07A"/><stop offset="1" stop-color="#4CC25E"/></linearGradient>
+      <linearGradient id="h2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6CD48A"/><stop offset="1" stop-color="#2FAE6A"/></linearGradient>
+    </defs>
+    <g class="rays" opacity=".35">
+      <g transform="translate(880 120)">
+        <path d="M0 0 L-30 -400 L30 -400Z M0 0 L400 -30 L400 30Z M0 0 L30 400 L-30 400Z M0 0 L-400 30 L-400 -30Z M0 0 L-260 -310 L-300 -260Z M0 0 L300 -260 L260 -310Z M0 0 L260 310 L300 260Z M0 0 L-300 260 L-260 310Z" fill="#FFF7C2"/>
+      </g>
+    </g>
+    <circle cx="880" cy="120" r="78" fill="url(#sunG)"/>
+    <g fill="none" stroke-width="26" opacity=".55" stroke-linecap="round">
+      <path d="M-40 760 A560 520 0 0 1 1040 760" stroke="#FF6B8B"/>
+      <path d="M-14 760 A534 494 0 0 1 1014 760" stroke="#FFAA3B"/>
+      <path d="M12 760 A508 468 0 0 1 988 760" stroke="#FFE14D"/>
+      <path d="M38 760 A482 442 0 0 1 962 760" stroke="#5DD37B"/>
+      <path d="M64 760 A456 416 0 0 1 936 760" stroke="#4EA8FF"/>
+      <path d="M90 760 A430 390 0 0 1 910 760" stroke="#9A6BFF"/>
+    </g>
+    <g fill="#fff">
+      <g class="cloud" style="animation-duration:70s;animation-delay:-20s"><g transform="translate(0 150)"><ellipse cx="80" cy="40" rx="80" ry="38"/><ellipse cx="140" cy="20" rx="60" ry="45"/><ellipse cx="190" cy="45" rx="60" ry="32"/></g></g>
+      <g class="cloud" style="animation-duration:95s;animation-delay:-60s" opacity=".9"><g transform="translate(0 300) scale(.7)"><ellipse cx="80" cy="40" rx="80" ry="38"/><ellipse cx="140" cy="20" rx="60" ry="45"/><ellipse cx="190" cy="45" rx="60" ry="32"/></g></g>
+      <g class="cloud" style="animation-duration:80s;animation-delay:-45s" opacity=".85"><g transform="translate(0 70) scale(.55)"><ellipse cx="80" cy="40" rx="80" ry="38"/><ellipse cx="140" cy="20" rx="60" ry="45"/><ellipse cx="190" cy="45" rx="60" ry="32"/></g></g>
+    </g>
+    <g fill="#FFFFFF">
+      <path class="twinkle" style="transform-origin:120px 420px" d="M120 400l6 14 14 6-14 6-6 14-6-14-14-6 14-6z"/>
+      <path class="twinkle" style="transform-origin:640px 260px;animation-delay:.8s" d="M640 245l5 10 10 5-10 5-5 10-5-10-10-5 10-5z"/>
+      <path class="twinkle" style="transform-origin:420px 120px;animation-delay:1.4s" d="M420 105l5 10 10 5-10 5-5 10-5-10-10-5 10-5z"/>
+      <path class="twinkle" style="transform-origin:860px 470px;animation-delay:.4s" d="M860 455l5 10 10 5-10 5-5 10-5-10-10-5 10-5z"/>
+    </g>
+    <path d="M-20 820 Q180 690 420 800 T1020 780 V1020 H-20Z" fill="url(#h1)"/>
+    <path d="M-20 900 Q260 790 560 880 T1020 860 V1020 H-20Z" fill="url(#h2)"/>
+    <g>
+      <g class="sway" style="transform-origin:90px 900px"><path d="M90 900 V860" stroke="#2E9E55" stroke-width="5"/><circle cx="90" cy="852" r="12" fill="#FF6FB0"/><circle cx="90" cy="852" r="5" fill="#FFE14D"/></g>
+      <g class="sway" style="transform-origin:240px 930px;animation-delay:.6s"><path d="M240 930 V888" stroke="#2E9E55" stroke-width="5"/><circle cx="240" cy="880" r="12" fill="#FFAA3B"/><circle cx="240" cy="880" r="5" fill="#fff"/></g>
+      <g class="sway" style="transform-origin:760px 920px;animation-delay:1.1s"><path d="M760 920 V878" stroke="#2E9E55" stroke-width="5"/><circle cx="760" cy="870" r="12" fill="#9A6BFF"/><circle cx="760" cy="870" r="5" fill="#FFE14D"/></g>
+      <g class="sway" style="transform-origin:900px 960px;animation-delay:.3s"><path d="M900 960 V918" stroke="#2E9E55" stroke-width="5"/><circle cx="900" cy="910" r="12" fill="#FF4F5E"/><circle cx="900" cy="910" r="5" fill="#fff"/></g>
+    </g>
+  </svg>
+  <span class="balloon" style="left:6%;animation-duration:26s;animation-delay:-4s">🎈</span>
+  <span class="balloon" style="left:78%;animation-duration:32s;animation-delay:-18s">🎈</span>
+  <span class="balloon" style="left:46%;animation-duration:38s;animation-delay:-30s;font-size:34px">🦋</span>
+</div>
+
+<div class="gate" id="gate" hidden>
+  <div class="gatecard">
+    <svg class="logo" viewBox="0 0 100 100" aria-hidden="true"><use href="#logoSym"/></svg>
+    <h3 id="gtitle">Baby Sparkle</h3>
+    <p id="gsub">Parents: solve this to start</p>
+    <div class="eq"><span id="geq">2 + 3 =</span><span class="ans" id="gans"></span></div>
+    <div class="keypad" id="gkeys"></div>
+    <button class="cancel" id="gcancel" hidden>Not now</button>
+  </div>
+</div>
+<div class="bye" id="bye" hidden><div class="pic">👋</div><h2 style="margin:0;font-size:2rem">Bye bye!</h2><p style="margin:0;font-weight:600">Swipe up or press Home to close Baby Sparkle.</p><button class="bigbtn" style="background:#22B573" id="byeback">Open again</button></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logoSym" viewBox="0 0 100 100">
+    <defs>
+      <linearGradient id="lgBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF7EB3"/><stop offset=".5" stop-color="#A06BFF"/><stop offset="1" stop-color="#3EA8FF"/></linearGradient>
+      <radialGradient id="lgStar" cx=".4" cy=".35"><stop offset="0" stop-color="#FFF7B8"/><stop offset=".7" stop-color="#FFD53D"/><stop offset="1" stop-color="#FFB21E"/></radialGradient>
+    </defs>
+    <rect x="2" y="2" width="96" height="96" rx="26" fill="url(#lgBg)"/>
+    <path d="M6 70 Q50 40 94 70" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="8" stroke-linecap="round"/>
+    <path d="M50 14 L60.5 37 L85 39.5 L66.5 56 L72 80.5 L50 68 L28 80.5 L33.5 56 L15 39.5 L39.5 37Z" fill="url(#lgStar)" stroke="#FFFFFF" stroke-width="3.5" stroke-linejoin="round"/>
+    <circle cx="42" cy="49" r="3.6" fill="#24214A"/><circle cx="58" cy="49" r="3.6" fill="#24214A"/>
+    <circle cx="43.2" cy="47.6" r="1.2" fill="#fff"/><circle cx="59.2" cy="47.6" r="1.2" fill="#fff"/>
+    <path d="M43 57 Q50 64 57 57" fill="none" stroke="#24214A" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="36.5" cy="56" r="3.4" fill="#FF7E9E" opacity=".8"/><circle cx="63.5" cy="56" r="3.4" fill="#FF7E9E" opacity=".8"/>
+    <path d="M50 18 Q47 10 52 6" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <path d="M82 12l2.4 5.6 5.6 2.4-5.6 2.4L82 28l-2.4-5.6L74 20l5.6-2.4z" fill="#fff"/>
+    <path d="M18 76l1.8 4.2 4.2 1.8-4.2 1.8L18 88l-1.8-4.2L12 82l4.2-1.8z" fill="#fff"/>
+    <circle cx="86" cy="80" r="3" fill="#fff"/>
+  </symbol>
+</svg>
+
+<div class="wrap" id="home" hidden>
   <div class="top">
-    <div class="brand"><div class="logo">abc</div><div><h1>Vamika's <span>Little School</span></h1><p class="tag">Likho · Seekho · Khelo — har cheez bol ke sikhata hai</p></div></div>
-    <div class="pill" role="group" aria-label="Language">
-      <button id="lang-en" aria-pressed="true">English</button>
-      <button id="lang-hi" aria-pressed="false">English + हिंदी</button>
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 100 100" aria-hidden="true"><use href="#logoSym"/></svg>
+      <div class="word"><b aria-label="Baby Sparkle" id="wordmark"></b><small>Likho · Seekho · Khelo</small></div>
+    </div>
+    <div class="tools">
+      <div class="pill" role="group" aria-label="Language">
+        <button id="lang-en" aria-pressed="true">English</button>
+        <button id="lang-hi" aria-pressed="false">English + हिंदी</button>
+      </div>
+      <button class="iconbtn" id="tuneBtn" aria-label="Music on or off">🎵</button>
+      <button class="iconbtn" id="exitBtn" aria-label="Exit (parents)">🔒</button>
     </div>
   </div>
   <p class="note" id="note" hidden></p>
-  <section class="shelf"><h2>Likho <small>tracing — ungli se likhna seekho</small></h2><div class="cards" id="writeCards"></div></section>
-  <section class="shelf"><h2>Seekho <small>app khud sikhayega, phir poochega</small></h2><div class="cards" id="learnCards"></div></section>
-  <section class="shelf"><h2>Maths Adventure <small>ginti, pattern, sorting, bada-chhota</small></h2><div class="cards" id="mathCards"></div></section>
-  <section class="shelf"><h2>Puzzles <small>dimaag wale khel</small></h2><div class="cards" id="puzzleCards"></div></section>
-  <section class="shelf"><h2>Suno aur Padho <small>listening aur reading</small></h2><div class="cards" id="listenCards"></div></section>
-  <section class="shelf"><h2>Khelo <small>chhote games</small></h2><div class="cards" id="gameCards"></div></section>
+  <div id="shelves" style="display:flex;flex-direction:column;gap:14px"></div>
 </div>
 
 <div class="wrap" id="play" hidden>
   <div class="bar">
-    <button class="round" id="back" aria-label="Home">🏠</button>
+    <button class="back" id="back" aria-label="Back"><span>◀</span>Back</button>
     <h1 id="ptitle"></h1>
     <button class="round" id="pause" aria-label="Pause">⏸</button>
   </div>
@@ -209,7 +449,8 @@ h2 small{font-size:.85rem;font-weight:600;opacity:.6}
 <script>
 /* =================================================================== data */
 const PAL=['#FF5C8A','#2FBF7F','#3E9BFF','#8E6CFF','#FFB020','#FF7A45','#20B2B8'];
-const LN={A:"ay",B:"bee",C:"see",D:"dee",E:"ee",F:"eff",G:"jee",H:"aitch",I:"eye",J:"jay",K:"kay",L:"el",M:"em",N:"en",O:"oh",P:"pee",Q:"cue",R:"are",S:"ess",T:"tee",U:"you",V:"vee",W:"double you",X:"ex",Y:"why",Z:"zed"};
+const LN={A:"A",B:"B",C:"C",D:"D",E:"E",F:"F",G:"G",H:"H",I:"I",J:"J",K:"K",L:"L",M:"M",N:"N",O:"O",P:"P",Q:"Q",R:"R",S:"S",T:"T",U:"U",V:"V",W:"W",X:"X",Y:"Y",Z:"Zed"};
+const LNH={A:"ए",B:"बी",C:"सी",D:"डी",E:"ई",F:"एफ़",G:"जी",H:"एच",I:"आई",J:"जे",K:"के",L:"एल",M:"एम",N:"एन",O:"ओ",P:"पी",Q:"क्यू",R:"आर",S:"एस",T:"टी",U:"यू",V:"वी",W:"डब्ल्यू",X:"एक्स",Y:"वाई",Z:"ज़ेड"};
 const ABC=[["A","Apple","🍎","सेब"],["B","Ball","⚽","गेंद"],["C","Cat","🐱","बिल्ली"],["D","Dog","🐶","कुत्ता"],["E","Egg","🥚","अंडा"],["F","Fish","🐟","मछली"],["G","Grapes","🍇","अंगूर"],["H","Hat","👒","टोपी"],["I","Ice cream","🍦","आइसक्रीम"],["J","Juice","🧃","जूस"],["K","Kite","🪁","पतंग"],["L","Lion","🦁","शेर"],["M","Mango","🥭","आम"],["N","Nest","🪺","घोंसला"],["O","Orange","🍊","संतरा"],["P","Parrot","🦜","तोता"],["Q","Queen","👸","रानी"],["R","Rabbit","🐰","खरगोश"],["S","Sun","☀️","सूरज"],["T","Tiger","🐯","बाघ"],["U","Umbrella","☂️","छाता"],["V","Van","🚐","गाड़ी"],["W","Watch","⌚","घड़ी"],["X","Xylophone","🎹","बाजा"],["Y","Yak","🐂","याक"],["Z","Zebra","🦓","ज़ेबरा"]];
 const ANIMALS=[["Cow","🐄","गाय","moo moo","माँ माँ"],["Dog","🐶","कुत्ता","woof woof","भौं भौं"],["Cat","🐱","बिल्ली","meow meow","म्याऊँ म्याऊँ"],["Duck","🦆","बत्तख","quack quack","क्वैक क्वैक"],["Lion","🦁","शेर","roar","दहाड़"],["Sheep","🐑","भेड़","baa baa","में में"],["Hen","🐔","मुर्गी","cluck cluck","कुट कुट"],["Elephant","🐘","हाथी","pawoo","पूऊ"],["Frog","🐸","मेंढक","ribbit ribbit","टर्र टर्र"],["Monkey","🐒","बंदर","ooh ooh aah aah","हू हू हा हा"],["Horse","🐴","घोड़ा","neigh","हिनहिन"],["Pig","🐷","सूअर","oink oink","ओइंक ओइंक"],["Owl","🦉","उल्लू","hoo hoo","हू हू"],["Bee","🐝","मधुमक्खी","buzz buzz","भिन भिन"],["Goat","🐐","बकरी","meh meh","में में"],["Parrot","🦜","तोता","mitthu mitthu","मिट्ठू मिट्ठू"]];
 const NUM_EN=["one","two","three","four","five","six","seven","eight","nine","ten"];
@@ -243,7 +484,17 @@ function shapeSVG(k,c){
   return `<svg viewBox="0 0 100 100" aria-hidden="true"><g fill="${c}">${p}</g></svg>`;
 }
 
-/* =================================================================== helpers */
+
+/* ---- data added for Baby Sparkle ---- */
+ANIMALS.splice(7,0,["Rooster","🐓","मुर्गा","cock a doodle doo","कुकड़ूँ कूँ"]);
+ANIMALS.push(["Crow","🐦‍⬛","कौआ","caw caw","काँव काँव"],["Bird","🐦","चिड़िया","tweet tweet","चीं चीं"]);
+/* which real recording goes with which thing */
+const SNDK={Dog:"Dog",Cat:"Cat",Cow:"Cow",Pig:"Pig",Hen:"Hen",Rooster:"Rooster",Frog:"Frog",Sheep:"Sheep",Crow:"Crow",Bird:"Bird",
+  Car:"car",Bus:"bus",Auto:"auto",Truck:"truck",Train:"train",Aeroplane:"plane",Helicopter:"heli",Ambulance:"siren","Fire truck":"siren2","Police car":"siren3",Tractor:"tractor",Cycle:"bell",
+  Clock:"tick",Door:"knock",Bucket:"drops","Brush teeth":"brush","Drink milk":"drink","Sleep on time":"snore","Cover your sneeze":"sneeze","Wash hands":"drops",Baby:"laugh",Chick:"Hen",Puppy:"Dog",Kitten:"Cat",Calf:"Cow",Piglet:"Pig",Lamb:"Sheep"};
+const HOMESOUNDS=[["Clock","🕰️","घड़ी","tick","tick tock","टिक टिक"],["Door","🚪","दरवाज़ा","knock","knock knock","खट खट"],["Water","💧","पानी","drops","drip drop","टप टप"],["Brushing","🪥","ब्रश","brush","brush brush","ब्रश ब्रश"],["Sneeze","🤧","छींक","sneeze","achoo","आछीं"],["Snoring","😴","खर्राटे","snore","zzz","खर्र खर्र"],["Drinking","🥛","पीना","drink","gulp gulp","गट गट"],["Laughing","😂","हँसी","laugh","ha ha ha","हा हा हा"],["Clapping","👏","ताली","clap","clap clap","ताली ताली"],["Walking","👣","चलना","walk","step step","धप धप"]];
+
+/* ---- helpers ---- */
 const $=id=>document.getElementById(id);
 const rand=n=>Math.floor(Math.random()*n);
 const shuffle=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
@@ -261,95 +512,71 @@ function burst(x,y){
 }
 function burstAt(el){ const r=el.getBoundingClientRect(), s=stage.getBoundingClientRect(); burst(r.left-s.left+r.width/2,r.top-s.top+r.height/2); }
 
-/* =================================================================== sounds — only for success, and the music game */
-let ac=null, master=null;
-function audio(){ try{ if(!ac){ ac=new (window.AudioContext||window.webkitAudioContext)(); master=ac.createGain(); master.gain.value=.5; master.connect(ac.destination);} if(ac.state==="suspended") ac.resume(); }catch(e){} return ac; }
-function tone(f,dur=.3,type="sine",vol=.4,when=0){
-  const a=audio(); if(!a) return; const t=a.currentTime+when, o=a.createOscillator(), g=a.createGain();
-  o.type=type; o.frequency.setValueAtTime(f,t); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+.01); g.gain.exponentialRampToValueAtTime(.001,t+dur);
-  o.connect(g); g.connect(master); o.start(t); o.stop(t+dur+.05);
+/* =================================================================== audio engine
+   Voices and sounds come packed: NAME.mp3 holds many short mp3 clips back to back,
+   NAME.json says where each clip starts {key:[offset,length,seconds]}. */
+let ac=null, master=null, musicBus=null;
+function audio(){ try{ if(!ac){ ac=new (window.AudioContext||window.webkitAudioContext)(); master=ac.createGain(); master.gain.value=.95; master.connect(ac.destination); musicBus=ac.createGain(); musicBus.gain.value=.38; musicBus.connect(master);} if(ac.state==="suspended") ac.resume(); }catch(e){} return ac; }
+const PACK={}, DEC=new Map(), packWait={};
+function loadPack(name){
+  if(packWait[name]) return packWait[name];
+  return packWait[name]=Promise.all([fetch(name+".json").then(r=>r.ok?r.json():null),fetch(name+".mp3").then(r=>r.ok?r.arrayBuffer():null)])
+    .then(([idx,ab])=>{ if(idx&&ab){ PACK[name]={idx,ab,base:0}; showNote(); } }).catch(()=>{});
 }
-function cheer(){ [523,659,784,1047,1319].forEach((f,i)=>tone(f,.35,"triangle",.32,i*.09)); [1568,2093].forEach((f,i)=>tone(f,.3,"sine",.12,.5+i*.08)); }
-function ding(n=0){ tone(784*Math.pow(2,n/12),.25,"sine",.3); tone(1568*Math.pow(2,n/12),.18,"sine",.08,.02); }
-function popGood(){ tone(880,.12,"sine",.35); tone(1320,.2,"triangle",.25,.08); }
+function clipLen(pack,key){ const e=PACK[pack]?.idx[key]; return e?e[2]:0; }
+function decode(pack,key){
+  const id=pack+"|"+key; if(DEC.has(id)) return DEC.get(id);
+  const p=PACK[pack], e=p&&p.idx[key]; if(!e||!audio()) return Promise.resolve(null);
+  const ab=p.ab.slice(p.base+e[0],p.base+e[0]+e[1]);
+  const pr=new Promise(res=>{ try{ const r=ac.decodeAudioData(ab,b=>res(b),()=>res(null)); if(r&&r.catch) r.catch(()=>res(null)); }catch(err){ res(null); } });
+  DEC.set(id,pr); return pr;
+}
+const live=new Set();
+function playBuf(buf,{gain=1,rate=1,dest,loop=false}={}){
+  const s=ac.createBufferSource(); s.buffer=buf; s.playbackRate.value=rate; s.loop=loop; const g=ac.createGain(); g.gain.value=gain;
+  s.connect(g); g.connect(dest||master); s.start(); live.add(s); s.onended=()=>live.delete(s); return s;
+}
+/* play a sound effect / real recording; returns its length in seconds (0 if missing) */
+function sfx(key,o={}){ const d=clipLen("sfx",key); if(!d) return 0; const tok=run; decode("sfx",key).then(b=>{ if(b&&(o.force||tok===run)) playBuf(b,o); }); return d/(o.rate||1); }
+const hasSfx=k=>!!clipLen("sfx",k);
+const SND=new Proxy({},{get:(_,k)=>hasSfx(k)?(()=>sfx(k)):undefined});
+function sndThen(k){ if(!k||!hasSfx(k)) return []; let len=1; return [{on:()=>{ len=sfx(k); }},{gapFn:()=>len*1000+200}]; }
+function cheer(){ sfx("win",{force:true}); }
+function ding(n=0){ sfx("ding",{rate:Math.pow(2,n/12),gain:.7,force:true}); }
+function popGood(){ sfx("pop",{force:true}); }
+function tone(f){ sfx("mar",{rate:f/523.25,gain:.9,force:true}); }
+/* home tune */
+let tuneSrc=null, tuneOn=true;
+function startTune(){ if(!tuneOn||tuneSrc||!audio()) return; decode("sfx","tune").then(b=>{ if(!b||tuneSrc||!tuneOn||!$("play").hidden) return; tuneSrc=playBuf(b,{dest:musicBus,loop:true}); }); }
+function stopTune(){ try{ tuneSrc&&tuneSrc.stop(); }catch(e){} tuneSrc=null; }
 
-/* ---- cartoon animal & vehicle voices, built from filtered oscillators and noise ---- */
-let noiseBuf=null;
-function ramp(p,pts,t0){ p.setValueAtTime(pts[0][1],t0); pts.slice(1).forEach(([t,v])=>p.linearRampToValueAtTime(v,t0+t)); }
-function syn({type="sawtooth",f=[[0,200]],dur=.5,when=0,vol=.3,filt=null,fq=[[0,1000]],Q=1,vib=null,trem=null,atk=.03}){
-  const a=audio(); if(!a) return; const t=a.currentTime+when;
-  const o=a.createOscillator(); o.type=type; ramp(o.frequency,f,t);
-  const g=a.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+atk); g.gain.setValueAtTime(vol,t+Math.max(atk,dur-.08)); g.gain.linearRampToValueAtTime(0,t+dur);
-  let node=o;
-  if(filt){ const fl=a.createBiquadFilter(); fl.type=filt; fl.Q.value=Q; ramp(fl.frequency,fq,t); node.connect(fl); node=fl; }
-  if(vib){ const l=a.createOscillator(), lg=a.createGain(); l.frequency.value=vib[0]; lg.gain.value=vib[1]; l.connect(lg); lg.connect(o.frequency); l.start(t); l.stop(t+dur+.05); }
-  let out=g;
-  if(trem){ const tg=a.createGain(); tg.gain.value=.5; const l=a.createOscillator(), lg=a.createGain(); l.frequency.value=trem; lg.gain.value=.5; l.connect(lg); lg.connect(tg.gain); l.start(t); l.stop(t+dur+.05); node.connect(tg); tg.connect(g); }
-  else node.connect(g);
-  out.connect(master); o.start(t); o.stop(t+dur+.05);
-}
-function nz({dur=.4,when=0,vol=.3,filt="bandpass",fq=[[0,1000]],Q=1,trem=null,atk=.02}){
-  const a=audio(); if(!a) return; const t=a.currentTime+when;
-  if(!noiseBuf){ noiseBuf=a.createBuffer(1,a.sampleRate*2,a.sampleRate); const d=noiseBuf.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; }
-  const s=a.createBufferSource(); s.buffer=noiseBuf; const fl=a.createBiquadFilter(); fl.type=filt; fl.Q.value=Q; ramp(fl.frequency,fq,t);
-  const g=a.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+atk); g.gain.setValueAtTime(vol,t+Math.max(atk,dur-.06)); g.gain.linearRampToValueAtTime(0,t+dur);
-  s.connect(fl);
-  if(trem){ const tg=a.createGain(); tg.gain.value=.5; const l=a.createOscillator(), lg=a.createGain(); l.frequency.value=trem; lg.gain.value=.5; l.connect(lg); lg.connect(tg.gain); l.start(t); l.stop(t+dur+.05); fl.connect(tg); tg.connect(g); } else fl.connect(g);
-  g.connect(master); s.start(t); s.stop(t+dur+.05);
-}
-/* each returns its length in seconds */
-const SND={
-  Cow:()=>{ syn({f:[[0,128],[.5,122],[1.2,104]],dur:1.25,vol:.5,filt:"lowpass",fq:[[0,350],[.4,700],[1.2,400]],Q:4,vib:[5,3],atk:.18}); return 1.3; },
-  Dog:()=>{ [0,.3].forEach(w=>{ syn({f:[[0,560],[.12,380]],dur:.16,when:w,vol:.45,filt:"bandpass",fq:[[0,900]],Q:1.5,atk:.01}); nz({dur:.1,when:w,vol:.25,fq:[[0,1300]],Q:1}); }); return .55; },
-  Cat:()=>{ syn({f:[[0,420],[.25,720],[.7,480]],dur:.75,vol:.35,filt:"bandpass",fq:[[0,700],[.3,1700],[.7,900]],Q:5,vib:[6,8],atk:.06}); return .8; },
-  Duck:()=>{ [0,.24,.48].forEach(w=>syn({type:"square",f:[[0,330],[.16,260]],dur:.18,when:w,vol:.22,filt:"bandpass",fq:[[0,1100]],Q:7,atk:.01})); return .7; },
-  Lion:()=>{ syn({f:[[0,95],[.6,75],[1.4,55]],dur:1.5,vol:.5,filt:"lowpass",fq:[[0,500],[.5,900],[1.4,300]],Q:2,vib:[22,12],atk:.12}); nz({dur:1.4,vol:.3,filt:"lowpass",fq:[[0,600],[1.3,250]],Q:1,trem:23,atk:.15}); return 1.5; },
-  Sheep:()=>{ syn({f:[[0,340],[.8,310]],dur:.85,vol:.35,filt:"bandpass",fq:[[0,950]],Q:3,vib:[8,22],atk:.05}); return .9; },
-  Hen:()=>{ [0,.12,.24].forEach(w=>syn({type:"triangle",f:[[0,620],[.06,440]],dur:.07,when:w,vol:.3,filt:"bandpass",fq:[[0,1000]],Q:3,atk:.005})); syn({f:[[0,480],[.12,760],[.3,520]],dur:.32,when:.42,vol:.3,filt:"bandpass",fq:[[0,1200]],Q:3}); return .8; },
-  Elephant:()=>{ syn({f:[[0,380],[.25,820],[.9,640]],dur:1,vol:.4,filt:"bandpass",fq:[[0,1300],[.3,2200],[.9,1500]],Q:3,vib:[7,25],atk:.05}); return 1.05; },
-  Frog:()=>{ [0,.32].forEach(w=>syn({type:"square",f:[[0,140],[.18,120]],dur:.2,when:w,vol:.3,filt:"lowpass",fq:[[0,700]],Q:3,trem:32,atk:.01})); return .55; },
-  Monkey:()=>{ [[0,420,620],[.22,420,620],[.5,760,520],[.78,760,520]].forEach(([w,a,b])=>syn({type:"triangle",f:[[0,a],[.18,b]],dur:.2,when:w,vol:.35,atk:.02})); return 1; },
-  Horse:()=>{ syn({f:[[0,950],[.3,820],[1,460]],dur:1.05,vol:.3,filt:"bandpass",fq:[[0,1500],[1,900]],Q:2,vib:[13,140],atk:.04}); return 1.1; },
-  Pig:()=>{ [0,.26].forEach(w=>syn({f:[[0,230],[.18,170]],dur:.2,when:w,vol:.38,filt:"bandpass",fq:[[0,650]],Q:9,atk:.01})); return .5; },
-  Owl:()=>{ syn({type:"sine",f:[[0,420],[.35,390]],dur:.4,vol:.45,atk:.06}); syn({type:"sine",f:[[0,400],[.5,360]],dur:.6,when:.55,vol:.45,atk:.08}); return 1.2; },
-  Bee:()=>{ syn({f:[[0,215],[.5,235],[1,205]],dur:1.1,vol:.18,filt:"lowpass",fq:[[0,1800]],Q:1,trem:45,atk:.08}); return 1.1; },
-  Goat:()=>{ syn({f:[[0,460],[.6,420]],dur:.65,vol:.3,filt:"bandpass",fq:[[0,1100]],Q:3,vib:[11,30],atk:.03}); return .7; },
-  Parrot:()=>{ [[0,1400,2000],[.16,2000,1500],[.34,1500,2100]].forEach(([w,a,b])=>syn({type:"triangle",f:[[0,a],[.12,b]],dur:.13,when:w,vol:.25,atk:.01})); return .5; },
-  Mouse:()=>{ [0,.14,.28].forEach(w=>syn({type:"sine",f:[[0,2400],[.08,3000]],dur:.09,when:w,vol:.2,atk:.005})); return .4; },
-  Bird:()=>{ [0,.15,.3,.45].forEach(w=>syn({type:"sine",f:[[0,2600],[.1,3400]],dur:.1,when:w,vol:.2,atk:.005})); return .6; },
-  car:()=>{ [0,.32].forEach(w=>{ syn({type:"square",f:[[0,420]],dur:.2,when:w,vol:.15,filt:"lowpass",fq:[[0,1800]]}); syn({type:"square",f:[[0,525]],dur:.2,when:w,vol:.15,filt:"lowpass",fq:[[0,1800]]}); }); return .6; },
-  bus:()=>{ syn({type:"square",f:[[0,300]],dur:.5,vol:.16,filt:"lowpass",fq:[[0,1200]]}); syn({type:"square",f:[[0,378]],dur:.5,vol:.16,filt:"lowpass",fq:[[0,1200]]}); return .55; },
-  train:()=>{ [0,.25,.5,.75].forEach(w=>nz({dur:.16,when:w,vol:.35,fq:[[0,1600]],Q:.8})); [880,1110,1320].forEach(f=>syn({type:"sine",f:[[0,f]],dur:.9,when:1,vol:.12,atk:.05})); return 1.95; },
-  plane:()=>{ nz({dur:1.8,vol:.35,filt:"lowpass",fq:[[0,250],[1.2,1600],[1.8,900]],Q:2,atk:.4}); return 1.8; },
-  bell:()=>{ [0,.35].forEach(w=>{ tone(2400,.5,"sine",.25,w); tone(3150,.4,"sine",.12,w); tone(4100,.25,"sine",.06,w); }); return .8; },
-  ship:()=>{ syn({f:[[0,110]],dur:1.3,vol:.35,filt:"lowpass",fq:[[0,450]],Q:2,atk:.1}); syn({f:[[0,165]],dur:1.3,vol:.25,filt:"lowpass",fq:[[0,450]],Q:2,atk:.1}); return 1.3; },
-  siren:()=>{ syn({type:"triangle",f:[[0,650],[.5,950],[1,650],[1.5,950],[2,650]],dur:2,vol:.25,atk:.05}); return 2; },
-  siren2:()=>{ syn({type:"sawtooth",f:[[0,500],[1,1000],[2,500]],dur:2,vol:.15,filt:"lowpass",fq:[[0,2500]],atk:.05}); return 2; },
-  siren3:()=>{ syn({type:"square",f:[[0,700],[.25,700],[.26,950],[.5,950],[.51,700],[.75,700],[.76,950],[1,950],[1.01,700],[1.25,700],[1.26,950],[1.5,950]],dur:1.5,vol:.12,filt:"lowpass",fq:[[0,2000]],atk:.02}); return 1.5; },
-  tractor:()=>{ syn({type:"square",f:[[0,48],[1.3,52]],dur:1.4,vol:.35,filt:"lowpass",fq:[[0,320]],Q:3,trem:11,atk:.1}); return 1.4; },
-  heli:()=>{ nz({dur:1.5,vol:.45,filt:"lowpass",fq:[[0,500]],Q:2,trem:13,atk:.1}); return 1.5; },
-  auto:()=>{ [0,.3].forEach(w=>syn({type:"square",f:[[0,620]],dur:.18,when:w,vol:.13,filt:"bandpass",fq:[[0,1400]],Q:2})); return .5; },
-  truck:()=>{ [0,.45].forEach(w=>{ syn({f:[[0,196]],dur:.35,when:w,vol:.2,filt:"lowpass",fq:[[0,900]]}); syn({f:[[0,247]],dur:.35,when:w,vol:.2,filt:"lowpass",fq:[[0,900]]}); }); return .85; },
-  scooter:()=>{ syn({f:[[0,90],[.4,180],[.9,150],[1.3,230]],dur:1.35,vol:.3,filt:"lowpass",fq:[[0,500],[1.3,1200]],Q:4,vib:[30,8]}); return 1.35; },
-};
-/* play a sound and let the speech queue wait for it */
-function sndThen(k){ if(!SND[k]) return []; let len=1; return [{on:()=>{ len=SND[k](); }},{gapFn:()=>len*1000+200}]; }
-
-/* =================================================================== speech queue */
+/* =================================================================== voice */
 const synth=window.speechSynthesis||null;
 const voices=()=>{ try{ return synth?synth.getVoices():[] }catch(e){ return [] } };
 function voiceFor(l){ const vs=voices(), w=l==="hi"?"hi":"en"; return vs.find(v=>v.lang.toLowerCase().replace("_","-")===w+"-in")||vs.find(v=>v.lang.toLowerCase().startsWith(w)); }
-const hasHi=()=>voices().some(v=>v.lang.toLowerCase().startsWith("hi"));
+const hasHi=()=>!!PACK["voice-hi1"]||voices().some(v=>v.lang.toLowerCase().startsWith("hi"));
 const H=()=>lang==="hi"&&hasHi();
 const L_=()=>H()?"hi":"en";
 if(synth) synth.onvoiceschanged=()=>showNote();
+const norm=t=>String(t).trim().replace(/\s+/g," ");
+function fnv(s){ let h=0x811c9dc5; for(const b of new TextEncoder().encode(s)){ h^=b; h=Math.imul(h,0x01000193)>>>0; } return h.toString(16).padStart(8,"0"); }
+const vkey=(l,t)=>fnv((l==="hi"?"hi":"en")+"|"+norm(t));
+const vpack=(l,k)=>`voice-${l==="hi"?"hi":"en"}${parseInt(k[0],16)<8?1:2}`;
+const VPACKS=["voice-en1","voice-en2","voice-hi1","voice-hi2"];
+const MISS=window.__miss=new Set();
+let voiceSrc=null;
 function speakOne(text,l,cb){
   let done=false, ft=null; const fin=()=>{ if(done) return; done=true; clearTimeout(ft); cb(); };
+  const k=vkey(l,text), pack=vpack(l,k), d=clipLen(pack,k);
+  if(d){ ft=setTimeout(fin,d*1000+1500);
+    decode(pack,k).then(b=>{ if(done) return; if(!b){ fin(); return; } try{ voiceSrc=playBuf(b,{gain:1}); voiceSrc.onended=()=>{ live.delete(voiceSrc); fin(); }; }catch(e){ fin(); } });
+    return; }
+  MISS.add((l||"en")+"|"+norm(text));
   const est=700+text.length*120;
   if(!synth){ ft=setTimeout(fin,est); return; }
   ft=setTimeout(fin,est*2.5+1500);
   const u=new SpeechSynthesisUtterance(text), v=voiceFor(l);
-  if(v) u.voice=v; u.lang=l==="hi"?"hi-IN":"en-IN"; u.rate=.78; u.pitch=1.2; u.volume=1;
+  if(v) u.voice=v; u.lang=l==="hi"?"hi-IN":"en-IN"; u.rate=.8; u.pitch=1.15; u.volume=1;
   u.onend=fin; u.onerror=fin;
   try{ synth.resume(); synth.speak(u); }catch(e){ fin(); }
 }
@@ -359,17 +586,20 @@ function play(segs,done){
     if(i>=segs.length){ done&&done(); return; }
     const s=segs[i++]; s.on&&s.on();
     if(!s.t){ later(step,s.gapFn?s.gapFn():(s.gap||0)); return; }
-    speakOne(s.t,s.l||"en",()=>{ if(tok===run) later(step,s.gap??220); });
+    speakOne(s.t,s.l||"en",()=>{ if(tok===run) later(step,s.gap??180); });
   };
   step();
 }
-function hush(){ run++; try{ synth&&synth.cancel() }catch(e){} }
+function hush(){ run++; try{ synth&&synth.cancel() }catch(e){} live.forEach(s=>{ if(s!==tuneSrc){ try{s.stop()}catch(e){} } }); }
 function stopAll(){ hush(); timers.forEach(t=>{clearTimeout(t);clearInterval(t)}); timers=[]; TR.on=false; }
 let unlocked=false;
-function unlock(){ audio(); if(unlocked||!synth) return; unlocked=true; try{ const u=new SpeechSynthesisUtterance(" "); u.volume=0; synth.speak(u);}catch(e){} }
+function unlock(){ audio(); if(unlocked) return; unlocked=true; try{ if(synth){ const u=new SpeechSynthesisUtterance(" "); u.volume=0; synth.speak(u);} }catch(e){} }
 const spellRow=w=>`<div class="spell" id="spell">${[...w.toUpperCase()].map(c=>`<span>${c===" "?"&nbsp;":c}</span>`).join("")}</div>`;
 function hl(i){ const r=$("spell"); if(!r) return; r.classList.toggle("all",i==="all"); [...r.children].forEach((s,k)=>s.classList.toggle("on",k===i)); }
-function spell(word){ const segs=[]; [...word.toUpperCase()].forEach((c,i)=>{ if(LN[c]) segs.push({t:LN[c],on:()=>hl(i),gap:140}); }); segs.push({t:word+"!",on:()=>hl("all"),gap:450}); return segs; }
+function spell(word){ const segs=[]; [...word.toUpperCase()].forEach((c,i)=>{ if(LN[c]) segs.push({t:LN[c],on:()=>hl(i),gap:110}); }); segs.push({t:word+"!",on:()=>hl("all"),gap:400}); return segs; }
+const PRAISE=["Yay! Good job!","Well done!","Super!","Wow! You got it!","Super star!","Hooray!"];
+const PRAISE_HI=["शाबाश!","बहुत बढ़िया!","वाह! सही जवाब!","बहुत अच्छे!"];
+const praise=()=>H()?{t:PRAISE_HI[rand(PRAISE_HI.length)],l:"hi"}:{t:PRAISE[rand(PRAISE.length)]};
 
 /* =================================================================== TRACING */
 const seg=(x1,y1,x2,y2)=>[[x1,y1],[x2,y2]];
@@ -442,21 +672,22 @@ const DOTS=[
   {n:"Star",hi:"तारा",e:"⭐",pts:[[50,6],[61,38],[95,38],[68,58],[78,92],[50,72],[22,92],[32,58],[5,38],[39,38]]},
 ];
 const TR={on:false};
+const dotDone=o=>[`It's a ${o.n.toLowerCase()}! Well done!`,`${o.hi}! शाबाश!`];
 function resample(pts,step=1.5){ const out=[pts[0]]; for(let i=1;i<pts.length;i++){ const [x0,y0]=pts[i-1],[x1,y1]=pts[i], d=Math.hypot(x1-x0,y1-y0), n=Math.max(1,Math.ceil(d/step)); for(let k=1;k<=n;k++) out.push([x0+(x1-x0)*k/n,y0+(y1-y0)*k/n]); } return out; }
 
 function traceList(kind){
   if(kind==="lines") return LINES.map(o=>({kind:"line",label:H()?`${o.n} · ${o.hi}`:o.n,chip:o.a,g:o.g,a:o.a,b:o.b,fin:o.fin,
-    intro:[{t:H()?o.sayHi:o.say,l:L_()}], outro:()=>[{t:o.done}], show:o.fin||o.b}));
+    intro:[bi(o.say,o.sayHi)], outro:()=>[{t:o.done}], show:o.fin||o.b}));
   if(kind==="abc") return ABC.map(([L,w,e,h])=>({kind:"glyph",label:L,chip:L,g:GLYPH[L],
-    intro:[{t:`Let's write ${LN[L]}.`},H()&&{t:`${L} लिखो`,l:"hi"},{t:"Start at the green dot."}],
-    outro:()=>[{t:`Wow! ${LN[L]}!`,gap:300},{t:`${LN[L]} for ${w}!`},H()&&{t:`${L} से ${h}`,l:"hi"}], show:e, sub:`${L} for ${w}`}));
+    intro:[{t:`Let's write ${LN[L]}.`},H()&&{t:`${LNH[L]} लिखो`,l:"hi"},sx("startDot")],
+    outro:()=>[{t:`Wow! ${LN[L]}!`,gap:300},{t:`${LN[L]}, for ${w}!`},H()&&{t:`${LNH[L]} से ${h}`,l:"hi"}], show:e, sub:`${L} for ${w}`}));
   if(kind==="num") return NUM_EN.map((w,i)=>{ const n=i+1, th=THINGS[i]; return {kind:"glyph",label:String(n),chip:String(n),g:GLYPH[String(n)],
-    intro:[{t:`Let's write ${w}.`},H()&&{t:`${NUM_HI[i]} लिखो`,l:"hi"},{t:"Start at the green dot."}],
-    outro:()=>[{t:`${w}!`,gap:300},{t:"Count with me!"},...Array.from({length:n},(_,k)=>({t:H()?NUM_HI[k]:NUM_EN[k],l:L_(),on:()=>{ const o=$("ovobjs"); o&&o.children[k].classList.add("on"); },gap:150})),{t:`${w} ${th[1]}!`}],
+    intro:[{t:`Let's write ${w}.`},H()&&{t:`${NUM_HI[i]} लिखो`,l:"hi"},sx("startDot")],
+    outro:()=>[{t:`${NUMW[i]}!`,gap:300},sx("countWithMe"),...Array.from({length:n},(_,k)=>({...countSeg(k),on:()=>{ const o=$("ovobjs"); o&&o.children[k].classList.add("on"); },gap:150})),{t:`${NUMW[i]} ${n===1?sing(th[1]):th[1]}!`}],
     count:n, thing:th[0], sub:`${n} = ${w}`}; });
   return DOTS.map(o=>({kind:"dots",label:H()?`${o.n} · ${o.hi}`:o.n,chip:o.pts.length,pts:o.pts,e:o.e,
-    intro:[{t:H()?"बिंदु जोड़ो! एक से शुरू करो।":"Join the dots! Start at number one."}],
-    outro:()=>[{t:H()?`${o.hi}! शाबाश!`:`It's a ${o.n}! Well done!`,l:L_()}], show:o.e}));
+    intro:[sx("joinDots")],
+    outro:()=>[sx2(dotDone(o))], show:o.e}));
 }
 function openTrace(kind,title){
   enter(title); TR.kind=kind; TR.list=traceList(kind); TR.idx=0; TR.done=new Set();
@@ -506,7 +737,7 @@ function traceStep(q){
 }
 function dotStep(q){
   if(TR.finished) return; const pts=TR.it.pts; const nx=pts[TR.dn]; if(!nx) return;
-  if(Math.hypot(q[0]-nx[0],q[1]-nx[1])<10){ TR.dn++; hush(); play([{t:H()?NUM_HI[TR.dn-1]:NUM_EN[TR.dn-1],l:L_(),gap:0}]); if(TR.dn>=pts.length) later(finishTrace,700); }
+  if(Math.hypot(q[0]-nx[0],q[1]-nx[1])<10){ TR.dn++; hush(); play([{...countSeg(TR.dn-1),gap:0}]); if(TR.dn>=pts.length) later(finishTrace,700); }
 }
 function finishTrace(){
   if(TR.finished) return; TR.finished=true; TR.done.add(TR.idx); $("strip").children[TR.idx]?.classList.add("done");
@@ -562,144 +793,227 @@ function draw(){
   } else if(it.fin){ c.font=`${S*.3}px serif`; c.fillText(it.fin,S/2,S/2+(it.fin==="🌈"?S*.08:0)); }
 }
 
-/* =================================================================== LEARN topics */
-function mkE(list,opt={}){ return list.map((r,i)=>{ const [en,e,hi,sen,senHi,qEn,qHi,sp]=r, word=sp||en;
-  return {face:()=>`<div class="pic">${e}</div>`, word, cap:()=>`${sen}${H()?`<br>${senHi}`:""}`,
-    teach:()=>[...(opt.snd?sndThen(opt.snd(i)):[]),{t:en,gap:350},...(word.length<=10?spell(word):[]),{t:sen,gap:300},H()&&{t:`${hi}. ${senHi}`,l:"hi"}],
-    choice:e, nm:()=>H()?hi:en, q:()=>H()?(qHi||`${hi} कहाँ है?`):(qEn||`Where is ${opt.the?"the ":""}${en}?`)}; }); }
-const TOPICS={
-  animals:{title:"Animals",hi:"जानवर",icon:"🐮",bg:PAL[1],items:ANIMALS.map(([n,e,h,s,sh])=>({face:()=>`<div class="pic">${e}</div>`,word:n,cap:()=>`${n} says “${s}”${H()?`<br>${h} · ${sh}`:""}`,
-    teach:()=>[...sndThen(n),{t:n,gap:350},...spell(n),{t:`The ${n} says, ${s}!`},H()&&{t:`${h}. ${h} बोले ${sh}`,l:"hi"}],choice:e,nm:()=>H()?h:n,q:()=>H()?`${h} कहाँ है?`:`Where is the ${n}?`}))},
-  babies:{title:"Animal Babies",hi:"जानवरों के बच्चे",icon:"🐥",bg:"#F28C28",items:BABIES.map(([m,me,mh,b,be,bh,k])=>({face:()=>`<div class="pair"><div class="pic">${me}</div><div class="pic small">${be}</div></div>`,word:b,cap:()=>`${m} → ${b}${H()?`<br>${mh} का बच्चा ${bh}`:""}`,
-    teach:()=>[...sndThen(k),{t:`This is a ${m}.`,gap:300},{t:`Her baby is a ${b}!`},...spell(b),H()&&{t:`${mh} का बच्चा ${bh}`,l:"hi"}],choice:be,nm:()=>H()?bh:b,q:()=>H()?`${mh} का बच्चा कौन है?`:`Who is the ${m}'s baby?`}))},
-  fruits:{title:"Fruits",hi:"फल",icon:"🍌",bg:"#E0A100",items:mkE(FRUITS,{the:1})},
-  veg:{title:"Vegetables",hi:"सब्ज़ियाँ",icon:"🥕",bg:"#3BA55C",items:mkE(VEG,{the:1})},
-  flowers:{title:"Flowers",hi:"फूल",icon:"🌻",bg:"#FF6FB0",items:mkE(FLOWERS,{the:1})},
-  vehicles:{title:"Vehicles",hi:"गाड़ियाँ",icon:"🚒",bg:"#E8323C",items:mkE(VEHICLES.map(r=>r.slice(0,5)),{the:1,snd:i=>VEHICLES[i][5]})},
-  body:{title:"My Body",hi:"शरीर",icon:"👀",bg:"#C2703D",items:mkE(BODY.map(r=>[...r,`Show me: ${r[0].toLowerCase()}!`,`${r[2]} कहाँ है?`]))},
-  clothes:{title:"Clothes",hi:"कपड़े",icon:"👗",bg:"#7A5AF8",items:mkE(CLOTHES)},
-  homeitems:{title:"My Home",hi:"घर की चीज़ें",icon:"🛋️",bg:PAL[5],items:mkE(HOME,{the:1})},
-  family:{title:"Family",hi:"परिवार",icon:"👨‍👩‍👧",bg:PAL[0],items:mkE(FAMILY)},
-  abc:{title:"ABC",hi:"अक्षर",icon:"🔤",bg:PAL[3],items:ABC.map(([L,w,e,h],i)=>({face:()=>`<div class="big" style="color:${PAL[i%7]}">${L}<small>${L.toLowerCase()}</small></div><div class="pic" style="font-size:4.5rem">${e}</div>`,word:w,cap:()=>`${L} for ${w}${H()?` · ${h}`:""}`,
-    teach:()=>[{t:LN[L],gap:400},{t:`${LN[L]} for ${w}`},...spell(w),H()&&{t:`${L} से ${h}`,l:"hi"}],choice:`<span style="color:${PAL[i%7]}">${L}</span>`,nm:()=>LN[L],q:()=>H()?`${L} कहाँ है?`:`Where is ${LN[L]}?`}))},
-  numbers:{title:"123",hi:"गिनती",icon:"🔢",bg:PAL[2],items:NUM_EN.map((w,i)=>{ const n=i+1, th=THINGS[i];
-    return {face:()=>`<div class="big" style="color:${PAL[n%7]}">${n}</div><div class="objs" id="objs">${Array.from({length:n},()=>`<span>${th[0]}</span>`).join("")}</div>`,word:w,cap:()=>`${n} = ${w}${H()?` · ${NUM_HI[i]}`:""}`,
-    teach:()=>[...Array.from({length:n},(_,k)=>({t:H()?NUM_HI[k]:NUM_EN[k],l:L_(),on:()=>{const o=$("objs");o&&o.children[k].classList.add("on")},gap:160})),{t:`${w}!`,on:()=>$("objs")?.classList.add("shown"),gap:400},...spell(w)],
-    choice:`<span style="color:${PAL[n%7]}">${n}</span>`,nm:()=>H()?NUM_HI[i]:w,q:()=>H()?`${NUM_HI[i]} कहाँ है?`:`Where is ${w}?`};})},
-  colors:{title:"Colors",hi:"रंग",icon:"🎨",bg:PAL[4],items:COLS.map(([n,c,h,e,ex,exh])=>({face:()=>`<div class="blob" style="background:${c}"></div><div class="pic" style="font-size:3.4rem">${e}</div>`,word:n,cap:()=>`The ${ex} is ${n.toLowerCase()}${H()?` · ${h}`:""}`,
-    teach:()=>[{t:n,gap:350},...spell(n),{t:`The ${ex} is ${n}.`},H()&&{t:`${h}. ${exh} ${h} है`,l:"hi"}],choice:`<span class="dot" style="background:${c};box-shadow:inset 0 0 0 3px rgba(0,0,0,.08)"></span>`,nm:()=>H()?h:n,q:()=>H()?`${h} कहाँ है?`:`Where is ${n}?`}))},
-  shapes:{title:"Shapes",hi:"आकार",icon:"🔺",bg:PAL[6],items:SHAPES.map(([n,k,h],i)=>({face:()=>`<div class="shape">${shapeSVG(k,PAL[i%7])}</div>`,word:n,cap:()=>H()?h:"",
-    teach:()=>[{t:n,gap:350},...spell(n),{t:`This is a ${n}.`},H()&&{t:h,l:"hi"}],choice:shapeSVG(k,PAL[i%7]),nm:()=>H()?h:n,q:()=>H()?`${h} कहाँ है?`:`Where is the ${n}?`}))},
-  habits:{title:"Good Habits",hi:"अच्छी आदतें",icon:"🪥",bg:"#E0A100",items:mkE(HABITS)},
-  places:{title:"Places",hi:"जगहें",icon:"🏫",bg:"#5B7CFA",items:mkE(PLACES)},
+
+/* =================================================================== shared phrase helpers */
+const bi=(en,hi)=>H()?{t:hi,l:"hi"}:{t:en};
+const nameSeg=x=>H()?{t:x.hi+"!",l:"hi"}:{t:x.en+"!"};
+/* fixed sentences, listed once so the voice builder records them all */
+const S={
+  tryAgain:["Try again!","फिर से कोशिश करो!"], hereItIs:["Here it is!","यह रहा!"], listen:["Listen!","सुनो!"],
+  whoSound:["Listen! Who makes this sound?","सुनो! यह आवाज़ किसकी है?"], veryGood:["Very good!","बहुत अच्छे!"],
+  welcome:["Hello! Welcome to Baby Sparkle! Let's play and learn!","नमस्ते! बेबी स्पार्कल में आपका स्वागत है!"],
+  bye:["Bye bye! See you soon!","टाटा! फिर मिलेंगे!"], tapAny:["Tap tap! Tap anywhere!","कहीं भी टैप करो!"],
+  countTogether:["Let's count together!","चलो साथ में गिनें!"], letsCount:["Let's count!","चलो गिनें!"],
+  sortIt:["Put it in the right basket!","सही टोकरी में डालो!"], allSorted:["All sorted! Super job!","सब सही! शाबाश!"],
+  jig:["Put the pieces in the right place!","टुकड़ों को सही जगह रखो!"], memo:["Turn the cards and find the same pictures!","कार्ड पलटो और जोड़ी ढूँढो!"],
+  memoDone:["You found all the pairs!","सारी जोड़ियाँ मिल गईं! शाबाश!"], notThis:["Not this one. Look again!","यह नहीं। फिर से देखो!"],
+  music:["Let's make music! Tap the colours.","बाजा बजाओ!"], tapListen:["Tap a picture to hear its sound!","किसी भी तस्वीर पे टैप करो और आवाज़ सुनो!"],
+  next:["What comes next?","आगे क्या आएगा?"], startDot:["Start at the green dot.","हरे बिंदु से शुरू करो।"], countWithMe:["Count with me!","मेरे साथ गिनो!"],
+  joinDots:["Join the dots! Start at number one.","बिंदु जोड़ो! एक से शुरू करो।"], super:["Yay! Super!","शाबाश!"],
+  colourIt:["Pick a colour, then tap the picture.","रंग चुनो, फिर तस्वीर पर टैप करो।"],
+  freeze:["Freeze!","रुक जाओ!"], dance:["Dance, dance, dance!","नाचो, नाचो!"], freezeIntro:["When the music stops, freeze like a statue!","जब गाना रुके, मूर्ति बन जाओ!"],
+  didIt:["Yay! You did it! Give yourself a big clap!","शाबाश! तुमने कर दिखाया! ज़ोर से ताली बजाओ!"],
+  tapBody:["Tap my body! I will tell you what it is.","मेरे शरीर पर टैप करो!"], bodyQuiz:["Now let's play! Listen and tap.","अब खेलते हैं! सुनो और टैप करो।"],
 };
-function openTopic(key){ const T=TOPICS[key]; cur={T,idx:0,recent:[]}; enter(T.title); teach(); }
-function teach(){
-  stopAll(); const it=cur.T.items[cur.idx]; cur.resume=teach;
-  stage.innerHTML=`<div class="face pop">${it.face()}</div>${spellRow(it.word)}<div class="cap">${it.cap()}</div>`;
-  later(()=>play(it.teach(),()=>later(afterTeach,1300)),250);
+const sx=k=>bi(S[k][0],S[k][1]);
+
+/* =================================================================== LEARN (Seekho) */
+/* every learnable thing becomes the same shape:
+   {e: picture html, en, hi, sent, sentHi, q, qh, word, snd, the} */
+function rows(list,the){ return list.map(([en,e,hi,sen,senHi,qEn,qHi,sp])=>({e,en,hi,sent:sen,sentHi:senHi,word:sp||en,the,
+  q:qEn||`Where is ${the?"the ":""}${en.toLowerCase()==="tv"?"TV":the?en.toLowerCase():en}?`, qh:qHi||`${hi} कहाँ है?`, snd:SNDK[en]})); }
+const TOPICS={
+  animals:{title:"Animals",hi:"जानवर",icon:"🐮",c:"#22B573",items:ANIMALS.map(([n,e,h,s,sh])=>({e,en:n,hi:h,sent:`The ${n.toLowerCase()} says, ${s}!`,sentHi:`${h} बोले ${sh}`,word:n,q:`Where is the ${n.toLowerCase()}?`,qh:`${h} कहाँ है?`,snd:SNDK[n]}))},
+  babies:{title:"Animal Babies",hi:"जानवरों के बच्चे",icon:"🐥",c:"#F28C28",rv:"pair",items:BABIES.map(([m,me,mh,b,be,bh,k])=>({e:be,mom:me,en:b,hi:bh,sent:`This is a ${m.toLowerCase()}. Her baby is a ${b.toLowerCase()}!`,sentHi:`${mh} का बच्चा ${bh}`,word:b,q:`Who is the ${m.toLowerCase()}'s baby?`,qh:`${mh} का बच्चा कौन है?`,snd:k}))},
+  fruits:{title:"Fruits",hi:"फल",icon:"🍌",c:"#E8A400",items:rows(FRUITS,1)},
+  veg:{title:"Vegetables",hi:"सब्ज़ियाँ",icon:"🥕",c:"#3BA55C",items:rows(VEG,1)},
+  flowers:{title:"Flowers",hi:"फूल",icon:"🌻",c:"#FF5FA8",items:rows(FLOWERS,1)},
+  vehicles:{title:"Vehicles",hi:"गाड़ियाँ",icon:"🚒",c:"#E8323C",items:rows(VEHICLES.map(r=>r.slice(0,5)),1)},
+  homeitems:{title:"My Home",hi:"घर की चीज़ें",icon:"🛋️",c:"#FF7A33",items:rows(HOME,1)},
+  family:{title:"Family",hi:"परिवार",icon:"👨‍👩‍👧",c:"#FF4F8B",items:rows(FAMILY)},
+  clothes:{title:"Clothes",hi:"कपड़े",icon:"👗",c:"#7A5AF8",items:rows(CLOTHES,1)},
+  habits:{title:"Good Habits",hi:"अच्छी आदतें",icon:"🪥",c:"#14B3B8",items:rows(HABITS)},
+  places:{title:"Places",hi:"जगहें",icon:"🏫",c:"#5B7CFA",items:rows(PLACES)},
+  abc:{title:"ABC",hi:"अक्षर",icon:"🔤",c:"#8A5CFF",spell:1,items:ABC.map(([L,w,e,h],i)=>({e:`<span style="font-weight:800;color:${PAL[i%7]}">${L}<small style="font-size:.55em">${L.toLowerCase()}</small></span>`,pic:e,L,en:LN[L],hi:LNH[L],sent:`${LN[L]}, for ${w}!`,sentHi:`${LNH[L]} से ${h}`,word:w,q:`Where is ${LN[L]}?`,qh:`${LNH[L]} कहाँ है?`,choice:`<span style="color:${PAL[i%7]}">${L}</span>`}))},
+  numbers:{title:"123",hi:"गिनती",icon:"🔢",c:"#3E8EFF",count:1,items:NUM_EN.map((w,i)=>({n:i+1,en:w[0].toUpperCase()+w.slice(1),hi:NUM_HI[i],word:w,th:THINGS[i],q:`Where is ${w}?`,qh:`${NUM_HI[i]} कहाँ है?`,choice:`<span style="color:${PAL[(i+1)%7]}">${i+1}</span>`}))},
+  colors:{title:"Colours",hi:"रंग",icon:"🎨",c:"#FFB020",items:COLS.map(([n,c,h,e,ex,exh])=>({e:`<span class="blob" style="display:block;width:min(170px,44vw);background:${c}"></span>`,en:n,hi:h,sent:`The ${ex} is ${n.toLowerCase()}.`,sentHi:`${exh} ${h} है।`,word:n,q:`Where is ${n.toLowerCase()}?`,qh:`${h} कहाँ है?`,choice:`<span class="dot" style="background:${c};box-shadow:inset 0 0 0 3px rgba(0,0,0,.08)"></span>`,pic:e}))},
+  shapes:{title:"Shapes",hi:"आकार",icon:"🔺",c:"#14B3B8",items:SHAPES.map(([n,k,h],i)=>({e:`<span class="shape" style="display:block;width:min(190px,48vw)">${shapeSVG(k,PAL[i%7])}</span>`,en:n,hi:h,sent:`This is a ${n.toLowerCase()}.`,sentHi:`यह ${h} है।`,word:n,q:`Where is the ${n.toLowerCase()}?`,qh:`${h} कहाँ है?`,choice:shapeSVG(k,PAL[i%7])}))},
+};
+Object.values(TOPICS).forEach(T=>T.items.forEach(it=>{ it.choice??=it.e; it.sayQ=`Can you say, ${it.en}?`; it.sayQh=`बोलो, ${it.hi}!`; }));
+
+const REVEALS=["gift","curtain","balloon","bubble","shadow","hat","truck"];
+const RVSAY={
+  gift:["What is inside the box? Tap it!","डिब्बे में क्या है? टैप करो!"],
+  curtain:["Who is hiding? Tap the curtain!","कौन छुपा है? पर्दे पर टैप करो!"],
+  curtainSnd:["Listen! Who is hiding behind the curtain?","सुनो! पर्दे के पीछे कौन है?"],
+  balloon:["Pop the balloon!","गुब्बारा फोड़ो!"], bubble:["Pop the bubble!","बुलबुला फोड़ो!"],
+  shadow:["Whose shadow is this? Tap to see!","यह किसकी परछाईं है? टैप करो!"],
+  hat:["Abracadabra! Tap the magic hat!","जादू की टोपी पर टैप करो!"],
+  truck:["Beep beep! What did the truck bring? Tap it!","गाड़ी क्या लाई? टैप करो!"],
+  pair:["Who is with mummy? Tap to see!","मम्मी के साथ कौन है? टैप करो!"],
+};
+function rvHTML(type,it){
+  const gc=PAL[rand(7)], item=`<div class="item">${it.e}</div>`;
+  if(type==="gift") return `<div class="rv t-gift" id="rv" style="--gc:${gc}">${item}<div class="giftbox"><div class="boxb"></div><div class="rib"></div><div class="lid"></div><div class="bow">🎀</div></div><div class="hint">👆</div></div>`;
+  if(type==="curtain") return `<div class="rv t-curtain" id="rv">${item}<div class="curt"><i></i><i></i></div><div class="hint">👆</div></div>`;
+  if(type==="balloon") return `<div class="rv t-balloon" id="rv" style="--gc:${gc}">${item}<div class="bal"></div><div class="hint">👆</div></div>`;
+  if(type==="bubble") return `<div class="rv t-bubble" id="rv">${item}<div class="bub"></div><div class="hint">👆</div></div>`;
+  if(type==="shadow") return `<div class="rv t-shadow" id="rv">${item}<div class="hint">👆</div></div>`;
+  if(type==="hat") return `<div class="rv t-hat" id="rv">${item}<div class="hat">🎩</div><div class="wand">🪄</div><div class="hint">👆</div></div>`;
+  if(type==="truck") return `<div class="rv t-truck" id="rv">${item}<div class="road"></div><div class="truckr">🚚</div><div class="hint">👆</div></div>`;
+  if(type==="pair") return `<div class="rv t-curtain" id="rv"><div class="item"><div class="pair"><div class="pic">${it.mom||""}</div><div class="pic small">${it.e}</div></div></div><div class="curt"><i></i><i></i></div><div class="hint">👆</div></div>`;
 }
-function afterTeach(){ cur.recent.push(cur.T.items[cur.idx]); cur.idx=(cur.idx+1)%cur.T.items.length;
-  if(cur.recent.length>=3){ const pool=cur.recent; cur.recent=[]; quiz(pool,teach); } else teach(); }
-/* generic "find it" question. o.head = picture/pattern shown above choices, o.pre = segments played before each ask,
-   o.right = called on the right answer, o.rightSay = what to say then, o.two = two big choices */
+function openTopic(key){ const T=TOPICS[key]; cur={T,idx:0,recent:[],k:0}; enter(T.title); teach(); }
+function teach(){
+  stopAll(); const T=cur.T, it=T.items[cur.idx]; cur.resume=teach;
+  if(T.count) return teachCount(it);
+  const type=T.rv||REVEALS[(cur.k++)%REVEALS.length];
+  stage.innerHTML=`${rvHTML(type,it)}<div class="nameplate" id="np" style="--c:${T.c}"></div><div id="spellbox"></div><div class="cap" id="cap"></div>`;
+  const rv=$("rv"); let opened=false;
+  const open=()=>{ if(opened) return; opened=true; hush(); rv.classList.add("open"); popGood(); later(()=>reveal(it,T),type==="truck"?500:650); };
+  rv.onclick=open;
+  const say=(type==="curtain"&&it.snd&&hasSfx(it.snd))?[sx2(RVSAY.curtainSnd),...sndThen(it.snd)]:[sx2(RVSAY[type])];
+  later(()=>play(say,()=>later(open,6000)),type==="truck"?1500:300);
+}
+const sx2=a=>bi(a[0],a[1]);
+function reveal(it,T){
+  $("np").textContent=it.L?`${it.L} ${it.word}`:(H()?`${it.en} · ${it.hi}`:it.en);
+  if(it.pic&&T===TOPICS.abc){ $("cap").innerHTML=`<span style="font-size:3.4rem">${it.pic}</span>`; }
+  const useSpell=T.spell||(cur.idx%2===0&&it.word.length<=8&&!/\s/.test(it.word));
+  const segs=[];
+  if(it.snd&&T!==TOPICS.abc) segs.push(...sndThen(it.snd));
+  segs.push({t:it.en+"!",gap:300});
+  if(H()) segs.push({t:it.hi+"!",l:"hi",gap:300});
+  if(useSpell) segs.push({on:()=>{ $("spellbox").innerHTML=spellRow(it.word); }},...spell(it.word));
+  else segs.push({t:it.sayQ,on:()=>{ $("spellbox").innerHTML=`<div class="sayit"><i>🗣️</i>${it.en}</div>`; }},{gap:1900},{t:it.en+"!"},sx("veryGood"));
+  segs.push({t:it.sent,on:()=>{ if(T!==TOPICS.abc) $("cap").textContent=it.sent; }});
+  if(H()&&it.sentHi) segs.push({t:it.sentHi,l:"hi",on:()=>{ if(T!==TOPICS.abc) $("cap").textContent=it.sentHi; }});
+  play(segs,()=>later(afterTeach,1400));
+}
+function teachCount(it){
+  const n=it.n, th=it.th;
+  stage.innerHTML=`<div class="big" style="color:${PAL[n%7]}">${n}</div><div class="objs" id="objs">${Array.from({length:n},()=>`<span>${th[0]}</span>`).join("")}</div><div id="spellbox"></div><div class="cap">${n} = ${it.word}${H()?` · ${it.hi}`:""}</div>`;
+  anim(stage.firstElementChild,"pop");
+  later(()=>play([...Array.from({length:n},(_,k)=>({t:H()?NUM_HI[k]:NUM_EN[k][0].toUpperCase()+NUM_EN[k].slice(1)+"!",l:L_(),on:()=>{ $("objs").children[k].classList.add("on"); ding(k); },gap:120})),
+    {t:it.en+"!",on:()=>$("objs").classList.add("shown"),gap:300},{on:()=>{ $("spellbox").innerHTML=spellRow(it.word); }},...spell(it.word),{t:`${it.en} ${n===1?th[1].replace(/ies$/,"y").replace(/s$/,""):th[1]}!`}],()=>later(afterTeach,1400)),300);
+}
+function afterTeach(){ const T=cur.T; cur.recent.push(T.items[cur.idx]); cur.idx=(cur.idx+1)%T.items.length;
+  if(cur.recent.length>=3){ const pool=cur.recent; cur.recent=[];
+    const withSnd=pool.every(x=>x.snd&&hasSfx(x.snd)&&!pool.some(y=>y!==x&&y.snd===x.snd));
+    if(withSnd&&Math.random()<.5){ const ans=pool[rand(3)]; quiz(pool,teach,ans,{q:{q:S.whoSound[0],qh:S.whoSound[1]},pre:()=>sndThen(ans.snd),rightPre:()=>sndThen(ans.snd)}); }
+    else quiz(pool,teach); }
+  else teach(); }
+
+/* one question, three big answers. Sound only when the answer is right. */
 function quiz(pool,next,ans=pool[rand(pool.length)],o={}){
   stopAll(); cur.resume=()=>quiz(pool,next,ans,o);
-  const opts=o.keep?pool:shuffle(pool); let asks=0, wt=null;
-  stage.innerHTML=`<div class="q">${ans.q()}</div>${o.head||""}<div class="choices${o.two?" two":""}">${opts.map((x,i)=>`<button data-i="${i}" aria-label="${x.nm()}">${x.choice}</button>`).join("")}</div>`;
+  const opts=o.keep?pool:shuffle(pool), Q=o.q||ans; let asks=0, wt=null;
+  const qseg=()=>o.en?{t:Q.q}:bi(Q.q,Q.qh), NS=x=>o.en?{t:x.en+"!"}:nameSeg(x), PR=()=>o.en?{t:PRAISE[rand(PRAISE.length)]}:praise();
+  stage.innerHTML=`<div class="q">${H()&&!o.en?Q.qh:Q.q}</div>${o.head||""}<div class="choices${o.two?" two":""}">${opts.map((x,i)=>`<button data-i="${i}" aria-label="${x.en}">${x.choice}</button>`).join("")}</div>`;
   const btns=[...stage.querySelectorAll(".choices button")];
   const wait=()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) ask(); else hint(); },9000); };
-  const ask=()=>{ asks++; play([...(o.pre&&asks<=3?o.pre():[]),{t:ans.q(),l:L_()}],wait); };
-  const hint=()=>{ btns[opts.indexOf(ans)].classList.add("bounce"); play([{t:H()?`${ans.nm()} यहाँ है!`:`Here it is! ${ans.nm()}!`,l:L_()}],()=>later(next,1600)); };
+  const ask=()=>{ asks++; play([...(o.pre?o.pre():[]),qseg()],wait); };
+  const hint=()=>{ btns[opts.indexOf(ans)].classList.add("bounce"); play([o.en?{t:S.hereItIs[0]}:sx("hereItIs"),NS(ans)],()=>later(next,1600)); };
   btns.forEach(b=>b.onclick=()=>{ const x=opts[+b.dataset.i];
     if(x===ans){ stopAll(); btns.forEach(y=>y.disabled=true); b.classList.remove("bounce"); b.classList.add("right"); anim(b,"pop"); cheer(); burstAt(b);
       o.right&&o.right();
-      play(o.rightSay?o.rightSay():[{t:H()?`शाबाश! ${ans.nm()}!`:`Yay! ${ans.nm()}! Good job!`,l:L_()}],()=>later(next,900)); }
-    else { stopAll(); anim(b,"shake"); play([{t:o.wrongSay?o.wrongSay(x):(H()?`यह ${x.nm()} है।`:`That is ${x.nm()}.`),l:L_(),gap:300},{t:ans.q(),l:L_()}],wait); } });
+      play([...(o.rightPre?o.rightPre():[]),...(o.rightSay?o.rightSay():[NS(ans),PR()])],()=>later(next,900)); }
+    else { stopAll(); anim(b,"shake"); play([...(o.wrongSay?o.wrongSay(x):[NS(x),o.en?{t:S.tryAgain[0]}:sx("tryAgain")]),qseg()],wait); } });
   later(ask,300);
 }
 
 /* =================================================================== GAMES */
+const cap1=w=>w[0].toUpperCase()+w.slice(1);
+const NUMW=NUM_EN.map(cap1);                  /* "One" … "Ten" */
+const countSeg=k=>H()?{t:NUM_HI[k],l:"hi"}:{t:NUMW[k]+"!"};
+const sing=w=>w.replace(/ies$/,"y").replace(/s$/,"");
+const PICS=[...ANIMALS.map(a=>({e:a[1],en:a[0],hi:a[2],snd:SNDK[a[0]]})),...VEHICLES.map(v=>({e:v[1],en:v[0],hi:v[2],snd:SNDK[v[0]]})),...FRUITS.map(f=>({e:f[1],en:f[0],hi:f[2]}))];
+const lc=w=>w==="TV"?w:w.toLowerCase();
+
 let tapTok=0;
+const TAPPOOL=[...ANIMALS.map(a=>({e:a[1],en:a[0],hi:a[2],snd:SNDK[a[0]]})),...HOME.slice(0,12).map(a=>({e:a[1],en:a[0],hi:a[2],snd:SNDK[a[0]]})),...VEHICLES.slice(0,8).map(v=>({e:v[1],en:v[0],hi:v[2],snd:SNDK[v[0]]}))];
 function tapTap(){
   stopAll(); cur.resume=tapTap;
-  const pool=[...ANIMALS.map(a=>[a[1],a[0],a[2]]),...HOME.slice(0,12).map(a=>[a[1],a[0],a[2]]),["🍎","apple","सेब"],["🎈","balloon","गुब्बारा"],["⭐","star","तारा"],["🐥","chick","चूज़ा"],["🍌","banana","केला"],["🚗","car","गाड़ी"]];
   stage.innerHTML=`<div class="taphint">${H()?"कहीं भी टैप करो!":"Tap anywhere!"}</div><div class="tapzone" id="tz" aria-label="Tap"></div>`;
   $("tz").addEventListener("pointerdown",e=>{
-    const r=stage.getBoundingClientRect(), p=pool[rand(pool.length)];
+    const r=stage.getBoundingClientRect(), p=TAPPOOL[rand(TAPPOOL.length)];
     const el=document.createElement("div"); el.className="tapitem"; el.style.left=(e.clientX-r.left)+"px"; el.style.top=(e.clientY-r.top)+"px";
-    el.innerHTML=`${p[0]}<b>${H()?p[2]:p[1]}</b>`; stage.appendChild(el); setTimeout(()=>el.remove(),2200);
-    hush(); const my=++tapTok; if(SND[p[1]]){ const len=SND[p[1]](); later(()=>{ if(my===tapTok) play([{t:H()?p[2]:p[1],l:L_()}]); },len*1000+100); } else { tone(660+rand(6)*80,.18,"sine",.18); play([{t:H()?p[2]:p[1],l:L_()}]); }
+    el.innerHTML=`${p.e}<b>${H()?p.hi:p.en}</b>`; stage.appendChild(el); setTimeout(()=>el.remove(),2200);
+    hush(); play([...(p.snd?sndThen(p.snd):[{on:popGood}]),nameSeg(p)]);
   });
-  play([{t:H()?"कहीं भी टैप करो!":"Tap tap! Tap anywhere!",l:L_()}]);
+  play([sx("tapAny")]);
 }
+const feedAsk=a=>[`The ${lc(a[0])} is hungry! Give the ${a[3]} to the ${lc(a[0])}.`,`${a[2]} को भूख लगी है! ${a[5]} खिलाओ।`];
+const feedHere=a=>[`Here is the ${a[3]}!`,`यह रहा ${a[5]}!`];
+const feedYum=a=>[`Yum yum! The ${lc(a[0])} loves the ${a[3]}!`,`यम यम! ${a[2]} को ${a[5]} पसंद है!`];
+const feedNo=a=>[`No no! The ${lc(a[0])} wants the ${a[3]}.`,`नहीं नहीं! ${a[2]} को ${a[5]} चाहिए।`];
 function feed(){
   stopAll(); cur.resume=feed;
   const a=FEED[rand(FEED.length)], others=shuffle(FEED.filter(f=>f[4]!==a[4])).slice(0,2);
   const foods=shuffle([a,...others]);
-  const ask=H()?`${a[2]} को भूख लगी है! ${a[5]} खिलाओ।`:`The ${a[0]} is hungry! Give the ${a[3]} to the ${a[0]}.`;
-  stage.innerHTML=`<div class="q">${H()?`${a[2]} को ${a[5]} खिलाओ`:`Feed the ${a[0]}`}</div><div class="eater" id="eater">${a[1]}</div><div class="foods">${foods.map((f,i)=>`<button class="food" data-i="${i}" aria-label="${f[3]}">${f[4]}</button>`).join("")}</div>`;
+  stage.innerHTML=`<div class="q">${H()?`${a[2]} को ${a[5]} खिलाओ`:`Feed the ${lc(a[0])}`}</div><div class="eater" id="eater">${a[1]}</div><div class="foods">${foods.map((f,i)=>`<button class="food" data-i="${i}" aria-label="${f[3]}">${f[4]}</button>`).join("")}</div>`;
   const eater=$("eater"); let wt=null, asks=0, done=false;
-  const wait=()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) say(); else { const b=stage.querySelector(`.food[data-i="${foods.indexOf(a)}"]`); b.classList.add("bounce"); play([{t:H()?`यह रहा ${a[5]}!`:`Here is the ${a[3]}!`,l:L_()}],wait); } },10000); };
-  const say=()=>{ asks++; play([{t:ask,l:L_()}],wait); };
+  const wait=()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) say(); else { const b=stage.querySelector(`.food[data-i="${foods.indexOf(a)}"]`); b.classList.add("bounce"); play([sx2(feedHere(a))],wait); } },10000); };
+  const say=()=>{ asks++; play([sx2(feedAsk(a))],wait); };
   const success=b=>{ if(done) return; done=true; stopAll(); const er=eater.getBoundingClientRect(), br=b.getBoundingClientRect();
     b.classList.remove("bounce","drag"); b.classList.add("eaten"); b.style.transform=`translate(${er.left+er.width/2-br.left-br.width/2+(b._dx||0)}px,${er.top+er.height/2-br.top-br.height/2+(b._dy||0)}px) scale(.3)`;
-    later(()=>{ anim(eater,"wiggle"); SND[a[0]]&&SND[a[0]](); cheer(); burstAt(eater); play([{t:H()?`यम यम! ${a[2]} को ${a[5]} पसंद है!`:`Yum yum! The ${a[0]} loves the ${a[3]}!`,l:L_()}],()=>later(feed,1200)); },350); };
-  const wrong=(b,f)=>{ stopAll(); anim(b,"shake"); play([{t:H()?`नहीं नहीं! ${a[2]} को ${a[5]} चाहिए।`:`No no! The ${a[0]} wants the ${a[3]}.`,l:L_()}],wait); };
+    later(()=>{ anim(eater,"wiggle"); cheer(); burstAt(eater); play([...sndThen(SNDK[a[0]]),sx2(feedYum(a))],()=>later(feed,1200)); },350); };
+  const wrong=b=>{ stopAll(); anim(b,"shake"); play([sx2(feedNo(a))],wait); };
   stage.querySelectorAll(".food").forEach(b=>{
-    const f=foods[+b.dataset.i]; let sx=0, sy=0, moved=false;
-    b.addEventListener("pointerdown",e=>{ if(done) return; b.setPointerCapture(e.pointerId); sx=e.clientX; sy=e.clientY; moved=false; b._dx=0; b._dy=0; b.classList.remove("back","bounce"); b.classList.add("drag"); });
-    b.addEventListener("pointermove",e=>{ if(!b.classList.contains("drag")) return; const dx=e.clientX-sx, dy=e.clientY-sy; if(Math.hypot(dx,dy)>8) moved=true; b._dx=dx; b._dy=dy; b.style.transform=`translate(${dx}px,${dy}px) scale(1.1)`;
-      const er=eater.getBoundingClientRect(); eater.classList.toggle("near", e.clientX>er.left&&e.clientX<er.right&&e.clientY>er.top&&e.clientY<er.bottom); });
+    const f=foods[+b.dataset.i]; let sx0=0, sy0=0, moved=false;
+    b.addEventListener("pointerdown",e=>{ if(done) return; b.setPointerCapture(e.pointerId); sx0=e.clientX; sy0=e.clientY; moved=false; b._dx=0; b._dy=0; b.classList.remove("back","bounce"); b.classList.add("drag"); });
+    b.addEventListener("pointermove",e=>{ if(!b.classList.contains("drag")) return; const dx=e.clientX-sx0, dy=e.clientY-sy0; if(Math.hypot(dx,dy)>8) moved=true; b._dx=dx; b._dy=dy; b.style.transform=`translate(${dx}px,${dy}px) scale(1.1)`;
+      eater.classList.toggle("near",hitT(eater,e)); });
     const end=e=>{ if(!b.classList.contains("drag")) return; b.classList.remove("drag"); eater.classList.remove("near");
-      const er=eater.getBoundingClientRect(), over=e.clientX>er.left&&e.clientX<er.right&&e.clientY>er.top&&e.clientY<er.bottom;
-      if(!moved){ f===a?success(b):wrong(b,f); b.style.transform=""; return; }
+      const over=hitT(eater,e);
+      if(!moved){ f===a?success(b):wrong(b); b.style.transform=""; return; }
       if(over&&f===a){ success(b); return; }
-      b.classList.add("back"); b.style.transform=""; if(over) wrong(b,f); };
+      b.classList.add("back"); b.style.transform=""; if(over) wrong(b); };
     b.addEventListener("pointerup",end); b.addEventListener("pointercancel",end);
   });
   later(say,300);
 }
+const hmQ=th=>[`How many ${th[1]}?`,`कितने ${th[2]} हैं?`];
+const hmYes=(n,th)=>[`Yes! ${NUMW[n-1]} ${n===1?sing(th[1]):th[1]}!`,`शाबाश! ${NUM_HI[n-1]}!`];
 function howMany(){
   stopAll(); cur.resume=howMany;
   const n=1+rand(5), th=THINGS[rand(THINGS.length)];
   const nums=shuffle([n,...shuffle([1,2,3,4,5,6].filter(x=>x!==n)).slice(0,2)]);
-  const q=H()?`कितने ${th[2]} हैं?`:`How many ${th[1]}?`;
-  stage.innerHTML=`<div class="objs shown" id="objs">${Array.from({length:n},()=>`<span>${th[0]}</span>`).join("")}</div><div class="q">${q}</div><div class="choices">${nums.map(x=>`<button data-n="${x}" style="color:${PAL[x%7]}">${x}</button>`).join("")}</div>`;
+  stage.innerHTML=`<div class="objs shown" id="objs">${Array.from({length:n},()=>`<span>${th[0]}</span>`).join("")}</div><div class="q">${H()?hmQ(th)[1]:hmQ(th)[0]}</div><div class="choices">${nums.map(x=>`<button data-n="${x}" style="color:${PAL[x%7]}">${x}</button>`).join("")}</div>`;
   const btns=[...stage.querySelectorAll(".choices button")];
   const clr=()=>[...$("objs").children].forEach(z=>{z.classList.remove("on");z.querySelector("b")?.remove()});
-  const countAlong=()=>Array.from({length:n},(_,k)=>({t:H()?NUM_HI[k]:NUM_EN[k],l:L_(),on:()=>{ const s=$("objs").children[k]; s.classList.add("on"); s.insertAdjacentHTML("beforeend",`<b>${k+1}</b>`); },gap:150}));
+  const countAlong=()=>Array.from({length:n},(_,k)=>({...countSeg(k),on:()=>{ const s=$("objs").children[k]; s.classList.add("on"); s.insertAdjacentHTML("beforeend",`<b>${k+1}</b>`); },gap:120}));
   let wt=null, asks=0;
-  const wait=()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) ask(); else play([{t:H()?"चलो साथ में गिनें!":"Let's count together!",l:L_(),on:clr},...countAlong(),{t:`${NUM_EN[n-1]}!`}],()=>later(howMany,1500)); },9000); };
-  const ask=()=>{ asks++; play([{t:q,l:L_()}],wait); };
+  const wait=()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) ask(); else play([{...sx("countTogether"),on:clr},...countAlong()],()=>later(howMany,1500)); },9000); };
+  const ask=()=>{ asks++; play([sx2(hmQ(th))],wait); };
   btns.forEach(b=>b.onclick=()=>{ const x=+b.dataset.n; stopAll();
-    if(x===n){ btns.forEach(y=>y.disabled=true); b.classList.add("right"); anim(b,"pop"); cheer(); burst(); play([{on:clr},...countAlong(),{t:H()?`शाबाश! ${NUM_HI[n-1]}!`:`Yes! ${NUM_EN[n-1]} ${th[1]}!`,l:L_()}],()=>later(howMany,1200)); }
-    else { anim(b,"shake"); play([{t:H()?"चलो गिनें!":"Let's count!",l:L_(),on:clr},...countAlong()],()=>{ clr(); ask(); }); } });
+    if(x===n){ btns.forEach(y=>y.disabled=true); b.classList.add("right"); anim(b,"pop"); cheer(); burst(); play([{on:clr},...countAlong(),sx2(hmYes(n,th))],()=>later(howMany,1200)); }
+    else { anim(b,"shake"); play([{...sx("letsCount"),on:clr},...countAlong()],()=>{ clr(); ask(); }); } });
   later(ask,300);
 }
+const BUBK={
+  color:()=>{ const c=COLS.slice(0,8)[rand(8)]; return {key:c[0],bg:c[1],label:"",en:c[0],hi:c[2],ask:[`Pop the ${c[0].toLowerCase()} bubbles!`,`${c[2]} बुलबुला फोड़ो!`],tag:`<span class="dot" style="background:${c[1]}"></span>`}; },
+  letter:()=>{ const L=ABC[rand(26)][0]; return {key:L,label:L,en:LN[L],hi:LNH[L],ask:[`Pop the letter ${LN[L]}!`,`${LNH[L]} फोड़ो!`],tag:`<span style="font-size:1.6em">${L}</span>`}; },
+  animal:()=>{ const a=ANIMALS[rand(ANIMALS.length)]; return {key:a[0],label:a[1],en:a[0],hi:a[2],ask:[`Pop the ${a[0].toLowerCase()}!`,`${a[2]} फोड़ो!`],tag:`<span style="font-size:1.6em">${a[1]}</span>`}; },
+};
 function bubbles(){
   stopAll(); cur.resume=bubbles;
   stage.innerHTML=`<div class="score" id="sc">⭐ 0</div><div class="target" id="tg"></div><div class="field" id="field"></div>`;
   const field=$("field"); let score=0, got=0, target=null, kind;
-  const kinds={
-    color:()=>{ const c=COLS.slice(0,8)[rand(8)]; return {key:c[0],bg:c[1],label:"",nm:()=>H()?c[2]:c[0],ask:()=>H()?`${c[2]} बुलबुला फोड़ो!`:`Pop the ${c[0]} bubbles!`,tag:`<span class="dot" style="background:${c[1]}"></span>`}; },
-    letter:()=>{ const L=ABC[rand(26)][0]; return {key:L,label:L,nm:()=>LN[L],ask:()=>H()?`${L} फोड़ो!`:`Pop the ${LN[L]}!`,tag:`<span style="font-size:1.6em">${L}</span>`}; },
-    animal:()=>{ const a=ANIMALS[rand(ANIMALS.length)]; return {key:a[0],label:a[1],nm:()=>H()?a[2]:a[0],ask:()=>H()?`${a[2]} फोड़ो!`:`Pop the ${a[0]}!`,tag:`<span style="font-size:1.6em">${a[1]}</span>`}; },
-  };
-  const names=Object.keys(kinds);
-  const newTarget=()=>{ kind=names[rand(3)]; target=kinds[kind](); got=0; $("tg").innerHTML=`${H()?"फोड़ो":"Pop"} ${target.tag}`; play([{t:target.ask(),l:L_()}]); };
+  const names=Object.keys(BUBK);
+  const newTarget=()=>{ kind=names[rand(3)]; target=BUBK[kind](); got=0; $("tg").innerHTML=`${H()?"फोड़ो":"Pop"} ${target.tag}`; play([sx2(target.ask)]); };
   const spawn=()=>{ if(paused||field.childElementCount>6) return;
-    let it=target; if(Math.random()>=.42){ let g=0; do{ it=kinds[kind](); g++; }while(it.key===target.key&&g<10); }
-    const b=document.createElement("button"); b.className="bubble"; b.textContent=it.label; b.setAttribute("aria-label",it.nm());
+    let it=target; if(Math.random()>=.42){ let g=0; do{ it=BUBK[kind](); g++; }while(it.key===target.key&&g<10); }
+    const b=document.createElement("button"); b.className="bubble"; b.textContent=it.label; b.setAttribute("aria-label",it.en);
     b.style.setProperty("--c",it.bg||PAL[rand(7)]); b.style.left=Math.max(4,rand(stage.clientWidth-108))+"px";
     b.style.setProperty("--t",(7+Math.random()*3)+"s"); b.style.setProperty("--sway",(rand(60)-30)+"px"); b.style.setProperty("--h",-(stage.clientHeight+140)+"px");
     b.onclick=()=>{ if(b.classList.contains("gone")) return;
       if(it.key===target.key){ b.classList.add("gone"); popGood(); score++; got++; $("sc").textContent=`⭐ ${score}`; burstAt(b); setTimeout(()=>b.remove(),260);
-        hush(); if(got>=4){ cheer(); play([{t:H()?"शाबाश!":"Yay! Super!"}],()=>later(newTarget,500)); } else play([{t:it.nm()+"!",l:L_()}]); }
-      else { anim(b,"shake"); hush(); play([{t:H()?`यह ${it.nm()} है।`:`That is ${it.nm()}.`,l:L_()}]); } };
+        run++; try{synth&&synth.cancel()}catch(e){} if(got>=4){ cheer(); play([sx("super")],()=>later(newTarget,500)); } else play([nameSeg(it)]); }
+      else { anim(b,"shake"); run++; play([nameSeg(it)]); } };
     b.addEventListener("animationend",e=>{ if(e.animationName==="rise") b.remove(); });
     field.appendChild(b); };
-  newTarget(); spawn(); every(spawn,1000); every(()=>{ if(!paused) play([{t:target.ask(),l:L_()}]); },14000);
+  newTarget(); spawn(); every(spawn,1000); every(()=>{ if(!paused) play([sx2(target.ask)]); },14000);
 }
 const NOTE={C4:261.6,D4:293.7,E4:329.6,F4:349.2,G4:392,A4:440,B4:493.9,C5:523.3};
 const SONGS={"Twinkle":"C4 C4 G4 G4 A4 A4 G4- F4 F4 E4 E4 D4 D4 C4- G4 G4 F4 F4 E4 E4 D4- G4 G4 F4 F4 E4 E4 D4- C4 C4 G4 G4 A4 A4 G4- F4 F4 E4 E4 D4 D4 C4-","Mary's Lamb":"E4 D4 C4 D4 E4 E4 E4- D4 D4 D4- E4 G4 G4- E4 D4 C4 D4 E4 E4 E4 E4 D4 D4 E4 D4 C4-","Happy Birthday":"C4 C4 D4- C4- F4- E4-- C4 C4 D4- C4- G4- F4-- C4 C4 C5- A4- F4- E4- D4-- B4 B4 A4- F4- G4- F4--"};
@@ -708,136 +1022,136 @@ function music(){
   stopAll(); cur.resume=music;
   stage.innerHTML=`<div class="xylo">${BARS.map((b,i)=>`<button data-n="${b[0]}" style="background:${b[1]};height:${100-i*7}%" aria-label="note ${i+1}">${i+1}</button>`).join("")}</div><div class="songs">${Object.keys(SONGS).map(s=>`<button data-s="${s}">▶ ${s}</button>`).join("")}</div>`;
   const hit=n=>{ const el=stage.querySelector(`[data-n="${n}"]`); if(el){ el.classList.add("hit"); setTimeout(()=>el.classList.remove("hit"),180);} };
-  stage.querySelectorAll(".xylo button").forEach(b=>b.addEventListener("pointerdown",()=>{ tone(NOTE[b.dataset.n],.9,"triangle",.5); tone(NOTE[b.dataset.n]*4,.3,"sine",.07); hit(b.dataset.n); }));
+  stage.querySelectorAll(".xylo button").forEach(b=>b.addEventListener("pointerdown",()=>{ tone(NOTE[b.dataset.n]); hit(b.dataset.n); }));
   stage.querySelectorAll(".songs button").forEach(b=>b.onclick=()=>{ stopAll(); cur.resume=music; let t=0;
-    SONGS[b.dataset.s].split(" ").forEach(tok=>{ const n=tok.replace(/-/g,""), d=1+(tok.match(/-/g)||[]).length; later(()=>{ tone(NOTE[n],.5*d,"triangle",.45); hit(n); },t*1000); t+=.42*d; }); });
-  play([{t:H()?"बाजा बजाओ!":"Let's make music! Tap the colours.",l:L_()}]);
+    SONGS[b.dataset.s].split(" ").forEach(tok=>{ const n=tok.replace(/-/g,""), d=1+(tok.match(/-/g)||[]).length; later(()=>{ tone(NOTE[n]); hit(n); },t*1000); t+=.42*d; }); });
+  play([sx("music")]);
 }
-/* =================================================================== MORE GAMES */
 const hitT=(t,e)=>{ const r=t.getBoundingClientRect(); return e.clientX>r.left&&e.clientX<r.right&&e.clientY>r.top&&e.clientY<r.bottom; };
 const snapBack=el=>{ el.classList.add("back"); el.style.transform=""; };
-/* drag an element; onDrop(index of target under finger, or -1 none, or -2 if it was only a tap) */
 function dragify(el,targets,onDrop){
-  let sx=0,sy=0,moved=false;
-  el.addEventListener("pointerdown",e=>{ el.setPointerCapture(e.pointerId); sx=e.clientX; sy=e.clientY; moved=false; el.classList.remove("back","bounce"); el.classList.add("drag"); });
-  el.addEventListener("pointermove",e=>{ if(!el.classList.contains("drag")) return; const dx=e.clientX-sx, dy=e.clientY-sy; if(Math.hypot(dx,dy)>8) moved=true;
+  let sx0=0,sy0=0,moved=false;
+  el.addEventListener("pointerdown",e=>{ el.setPointerCapture(e.pointerId); sx0=e.clientX; sy0=e.clientY; moved=false; el.classList.remove("back","bounce"); el.classList.add("drag"); });
+  el.addEventListener("pointermove",e=>{ if(!el.classList.contains("drag")) return; const dx=e.clientX-sx0, dy=e.clientY-sy0; if(Math.hypot(dx,dy)>8) moved=true;
     el.style.transform=`translate(${dx}px,${dy}px) scale(1.08)`; targets().forEach(t=>t.classList.toggle("near",hitT(t,e))); });
   const end=e=>{ if(!el.classList.contains("drag")) return; el.classList.remove("drag"); const ts=targets(); ts.forEach(t=>t.classList.remove("near"));
     onDrop(moved?ts.findIndex(t=>hitT(t,e)):-2,e); };
   el.addEventListener("pointerup",end); el.addEventListener("pointercancel",end);
 }
-const PICS=()=>[...ANIMALS.map(a=>[a[1],a[0],a[2],a[0]]),...VEHICLES.map(v=>[v[1],v[0],v[2],v[5]]),...FRUITS.map(f=>[f[1],f[0],f[2],""])];
 
-/* ---------- listening: sound boards ---------- */
+/* ---------- listening ---------- */
+const BOARDS={
+  animals:()=>ANIMALS.filter(a=>SNDK[a[0]]&&hasSfx(SNDK[a[0]])).map(a=>({e:a[1],en:a[0],hi:a[2],k:SNDK[a[0]],sent:`The ${a[0].toLowerCase()} says, ${a[3]}!`,sentHi:`${a[2]} बोले ${a[4]}`})),
+  vehicles:()=>VEHICLES.filter(v=>SNDK[v[0]]&&hasSfx(SNDK[v[0]])).map(v=>({e:v[1],en:v[0],hi:v[2],k:SNDK[v[0]],sent:v[3],sentHi:v[4]})),
+  home:()=>HOMESOUNDS.filter(h=>hasSfx(h[3])).map(h=>({e:h[1],en:h[0],hi:h[2],k:h[3],sent:cap1(h[4])+"!",sentHi:h[5]+"!"})),
+};
 function soundBoard(kind){
   stopAll(); cur.resume=()=>soundBoard(kind);
-  const list=kind==="animals"
-    ? [...ANIMALS.filter(a=>SND[a[0]]).map(a=>({e:a[1],n:a[0],h:a[2],k:a[0],say:()=>H()?`${a[2]} बोले ${a[4]}`:`The ${a[0]} says ${a[3]}!`})),
-       {e:"🐭",n:"Mouse",h:"चूहा",k:"Mouse",say:()=>H()?"चूहा बोले चूँ चूँ":"The mouse says squeak squeak!"},{e:"🐦",n:"Bird",h:"चिड़िया",k:"Bird",say:()=>H()?"चिड़िया बोले चीं चीं":"The bird says tweet tweet!"}]
-    : VEHICLES.map(v=>({e:v[1],n:v[0],h:v[2],k:v[5],say:()=>H()?v[4]:v[3]}));
-  stage.innerHTML=`<div class="q">${H()?"टैप करो और सुनो!":"Tap and listen!"}</div><div class="board">${list.map((x,i)=>`<button data-i="${i}" aria-label="${x.n}"><span style="display:inline-block">${x.e}</span><small>${H()?x.h:x.n}</small></button>`).join("")}</div>`;
-  let tk=0;
+  const list=BOARDS[kind]();
+  stage.innerHTML=`<div class="q">${H()?"टैप करो और सुनो!":"Tap and listen!"}</div><div class="board">${list.map((x,i)=>`<button data-i="${i}" aria-label="${x.en}"><span style="display:inline-block">${x.e}</span><small>${H()?x.hi:x.en}</small></button>`).join("")}</div>`;
   stage.querySelectorAll(".board button").forEach(b=>b.addEventListener("pointerdown",()=>{
-    const x=list[+b.dataset.i], my=++tk; stage.querySelectorAll(".board .on").forEach(z=>z.classList.remove("on")); b.classList.add("on"); anim(b.firstElementChild,"wiggle");
-    hush(); const len=SND[x.k]?SND[x.k]():0; later(()=>{ if(my===tk) play([{t:H()?x.h:x.n,l:L_(),gap:200},{t:x.say(),l:L_()}]); },len*1000+150); }));
-  play([{t:H()?"किसी भी तस्वीर पे टैप करो और आवाज़ सुनो!":"Tap a picture to hear its sound!",l:L_()}]);
+    const x=list[+b.dataset.i]; stage.querySelectorAll(".board .on").forEach(z=>z.classList.remove("on")); b.classList.add("on"); anim(b.firstElementChild,"wiggle");
+    hush(); play([...sndThen(x.k),nameSeg(x),bi(x.sent,x.sentHi)]); }));
+  play([sx("tapListen")]);
 }
-/* listen to a sound, find who made it */
+const SOUNDQ=()=>[...BOARDS.animals().map(x=>({...x,q:`Who says ${ANIMALS.find(a=>a[0]===x.en)[3]}?`,qh:`कौन बोले ${ANIMALS.find(a=>a[0]===x.en)[4]}?`})),
+  ...BOARDS.vehicles().map(x=>({...x,q:S.whoSound[0],qh:S.whoSound[1]})),...BOARDS.home().map(x=>({...x,q:S.whoSound[0],qh:S.whoSound[1]}))];
 function whoSays(){
-  const veh=Math.random()<.35;
-  const src=veh?VEHICLES.map(v=>({e:v[1],n:v[0],h:v[2],k:v[5]})):ANIMALS.filter(a=>SND[a[0]]).map(a=>({e:a[1],n:a[0],h:a[2],k:a[0],s:a[3],sh:a[4]}));
-  const three=[]; for(const x of shuffle(src)){ if(!three.some(y=>y.k.slice(0,5)===x.k.slice(0,5))) three.push(x); if(three.length===3) break; }
-  const pool=three.map(x=>({choice:x.e,k:x.k,nm:()=>H()?x.h:x.n,q:()=>veh?(H()?"यह आवाज़ किसकी है?":"Which one makes this sound?"):(H()?`कौन बोले ${x.sh}?`:`Who says ${x.s}?`)}));
-  const ans=pool[rand(3)];
-  quiz(pool,whoSays,ans,{pre:()=>[{t:H()?"सुनो!":"Listen!",l:L_(),gap:150},...sndThen(ans.k)],rightSay:()=>[...sndThen(ans.k),{t:H()?`शाबाश! ${ans.nm()}!`:`Yes! The ${ans.nm()}!`,l:L_()}]});
+  const all=SOUNDQ(); const three=[]; for(const x of shuffle(all)){ if(!three.some(y=>y.k.slice(0,5)===x.k.slice(0,5))) three.push(x); if(three.length===3) break; }
+  const pool=three.map(x=>({...x,choice:x.e})), ans=pool[rand(3)];
+  quiz(pool,whoSays,ans,{pre:()=>[sx("listen"),...sndThen(ans.k)],rightPre:()=>sndThen(ans.k)});
   cur.resume=whoSays;
 }
-/* phonics: which picture starts with this letter */
+/* phonics and reading are English skills, so these two always speak English */
+const FIRSTW=[...ABC.map(a=>[a[1],a[2]]),...FRUITS.map(f=>[f[0],f[1]]),...VEG.map(v=>[v[0],v[1]]),...ANIMALS.map(a=>[a[0],a[1]])];
 function firstSound(){
-  const all=[...ABC.map(a=>[a[1],a[2]]),...FRUITS.map(f=>[f[0],f[1]]),...VEG.map(v=>[v[0],v[1]]),...ANIMALS.map(a=>[a[0],a[1]]),...VEHICLES.map(v=>[v[0],v[1]])];
   const tgt=ABC[rand(26)], L=tgt[0];
-  const others=[]; for(const w of shuffle(all)){ const f=w[0][0]; if(f!==L&&!others.some(o=>o[0][0]===f)&&w[1]!==tgt[2]) others.push(w); if(others.length===2) break; }
-  const mk=w=>({choice:w[1],w:w[0],nm:()=>w[0],q:()=>H()?`${L} से कौन शुरू होता है?`:`Which one starts with ${LN[L]}?`});
+  const others=[]; for(const w of shuffle(FIRSTW)){ const f=w[0][0]; if(f!==L&&!others.some(o=>o[0][0]===f)&&w[1]!==tgt[2]) others.push(w); if(others.length===2) break; }
+  const mk=w=>({choice:w[1],en:w[0],hi:w[0],q:`Which one starts with ${LN[L]}?`,qh:`Which one starts with ${LN[L]}?`});
   const pool=[mk([tgt[1],tgt[2]]),...others.map(mk)], ans=pool[0];
-  quiz(pool,firstSound,ans,{head:`<div class="big" style="color:${PAL[rand(7)]}">${L}<small>${L.toLowerCase()}</small></div>`,
-    rightSay:()=>[{t:`Yes! ${LN[L]} for ${tgt[1]}!`}],wrongSay:x=>`${x.w} starts with ${LN[x.w[0].toUpperCase()]}.`});
+  quiz(pool,firstSound,ans,{en:1,head:`<div class="big" style="color:${PAL[rand(7)]}">${L}<small>${L.toLowerCase()}</small></div>`,
+    rightSay:()=>[{t:`Yes! ${LN[L]}, for ${tgt[1]}!`}],wrongSay:x=>[{t:`${x.en} starts with ${LN[x.en[0].toUpperCase()]}.`}]});
   cur.resume=firstSound;
 }
-/* reading: see a word, find its picture */
 function readFind(){
-  const three=shuffle(WORDS).slice(0,3), pool=three.map(w=>({choice:w[1],w:w[0],nm:()=>w[0],q:()=>`Where is the ${w[0].toLowerCase()}?`})), ans=pool[rand(3)];
-  quiz(pool,readFind,ans,{head:spellRow(ans.w).replace('class="spell"','class="spell" style="transform:scale(1.15)"'),pre:()=>spell(ans.w),
-    rightSay:()=>[{t:`Yes! ${ans.w}!`,on:()=>hl("all")},...spell(ans.w)]});
+  const three=shuffle(WORDS).slice(0,3), pool=three.map(w=>({choice:w[1],en:w[0],hi:w[0],q:`Where is the ${w[0].toLowerCase()}?`,qh:`Where is the ${w[0].toLowerCase()}?`})), ans=pool[rand(3)];
+  quiz(pool,readFind,ans,{en:1,head:spellRow(ans.en),pre:()=>spell(ans.en),rightSay:()=>[...spell(ans.en),{t:PRAISE[0]}]});
   cur.resume=readFind;
 }
 
 /* ---------- maths adventure ---------- */
+const PATSETS=[FRUITS.slice(0,8).map(f=>({e:f[1],en:f[0],hi:f[2]})),ANIMALS.slice(0,10).map(a=>({e:a[1],en:a[0],hi:a[2]})),COLS.slice(0,7).map(c=>({e:`<span class="dot" style="background:${c[1]}"></span>`,en:c[0],hi:c[2]})),VEHICLES.slice(0,8).map(v=>({e:v[1],en:v[0],hi:v[2]}))];
 function patterns(){
-  const sets=[FRUITS.slice(0,8).map(f=>[f[1],f[0],f[2]]),ANIMALS.slice(0,10).map(a=>[a[1],a[0],a[2]]),COLS.slice(0,7).map(c=>[`<span class="dot" style="background:${c[1]}"></span>`,c[0],c[2]]),VEHICLES.slice(0,8).map(v=>[v[1],v[0],v[2]])];
-  const set=shuffle(sets[rand(sets.length)]), [A,B,C,D]=set;
+  const set=shuffle(PATSETS[rand(PATSETS.length)]), [A,B,C,D]=set;
   const units=[[A,B],[A,A,B],[A,B,C],[A,B,B]], unit=units[rand(units.length)];
   const shown=Array.from({length:5},(_,i)=>unit[i%unit.length]), nxt=unit[5%unit.length];
   const pick=[nxt,...shuffle([A,B,C,D].filter(x=>x!==nxt)).slice(0,2)];
-  const pool=pick.map(x=>({choice:x[0],x,nm:()=>H()?x[2]:x[1],q:()=>H()?"आगे क्या आएगा?":"What comes next?"}));
-  quiz(pool,patterns,pool[0],{head:`<div class="head">${shown.map(x=>`<div class="cell">${x[0]}</div>`).join("")}<div class="cell ask" id="pq">?</div></div>`,
-    pre:()=>shown.map(x=>({t:H()?x[2]:x[1],l:L_(),gap:80})),
-    right:()=>{ const q=$("pq"); q.innerHTML=nxt[0]; q.classList.remove("ask"); anim(q,"pop"); },
-    rightSay:()=>[{t:H()?`शाबाश! ${nxt[2]}!`:`Yes! ${nxt[1]} comes next!`,l:L_()}]});
+  const pool=pick.map(x=>({...x,choice:x.e,q:S.next[0],qh:S.next[1]}));
+  quiz(pool,patterns,pool[0],{head:`<div class="head">${shown.map(x=>`<div class="cell">${x.e}</div>`).join("")}<div class="cell ask" id="pq">?</div></div>`,
+    pre:()=>shown.map(x=>({...nameSeg(x),gap:60})),
+    right:()=>{ const q=$("pq"); q.innerHTML=nxt.e; q.classList.remove("ask"); anim(q,"pop"); }});
   cur.resume=patterns;
 }
+const SIZEPICS=[...ANIMALS.slice(0,8),].map(a=>({e:a[1],en:a[0],hi:a[2]})).concat(FRUITS.slice(0,4).map(f=>({e:f[1],en:f[0],hi:f[2]})));
+const sizeQ=(p,big)=>big?[`Where is the big ${lc(p.en)}?`,`बड़ा ${p.hi} कहाँ है?`]:[`Where is the small ${lc(p.en)}?`,`छोटा ${p.hi} कहाँ है?`];
 function sizes(){
-  const p=PICS()[rand(PICS().length)], wantBig=Math.random()<.5;
-  const q=()=>wantBig?(H()?`बड़ा वाला ${p[2]} कहाँ है?`:`Where is the BIG ${p[1]}?`):(H()?`छोटा वाला ${p[2]} कहाँ है?`:`Where is the small ${p[1]}?`);
-  const big={choice:`<span style="font-size:clamp(4.5rem,24vw,7rem)">${p[0]}</span>`,nm:()=>H()?`बड़ा ${p[2]}`:`big ${p[1]}`,q};
-  const small={choice:`<span style="font-size:clamp(1.5rem,7vw,2.2rem)">${p[0]}</span>`,nm:()=>H()?`छोटा ${p[2]}`:`small ${p[1]}`,q};
+  const p=SIZEPICS[rand(SIZEPICS.length)], wantBig=Math.random()<.5, Q=sizeQ(p,wantBig);
+  const big={choice:`<span style="font-size:clamp(4.5rem,24vw,7rem)">${p.e}</span>`,en:`Big ${lc(p.en)}`,hi:`बड़ा ${p.hi}`,q:Q[0],qh:Q[1]};
+  const small={choice:`<span style="font-size:clamp(1.5rem,7vw,2.2rem)">${p.e}</span>`,en:`Small ${lc(p.en)}`,hi:`छोटा ${p.hi}`,q:Q[0],qh:Q[1]};
   quiz([big,small],sizes,wantBig?big:small,{two:true}); cur.resume=sizes;
 }
+const CMPT=THINGS.slice(0,5);
+const HEAVY=[[["🐘","Elephant","हाथी"],["🐭","Mouse","चूहा"]],[["🚚","Truck","ट्रक"],["🪶","Feather","पंख"]],[["🪨","Rock","पत्थर"],["🎈","Balloon","गुब्बारा"]],[["🐻","Bear","भालू"],["🐦","Bird","चिड़िया"]]];
+const CMPQ={more:th=>[`Which side has more ${th[1]}?`,`ज़्यादा ${th[2]} किसमें हैं?`],less:th=>[`Which side has less ${th[1]}?`,`कम ${th[2]} किसमें हैं?`],
+  tall:["Which tower is taller?","ऊँचा टावर कौन सा है?"],short:["Which tower is shorter?","छोटा टावर कौन सा है?"],
+  long:["Which caterpillar is longer?","लंबी इल्ली कौन सी है?"],shortc:["Which caterpillar is shorter?","छोटी इल्ली कौन सी है?"],
+  heavy:["Which one is heavy?","भारी कौन है?"],light:["Which one is light?","हल्का कौन है?"]};
+const grpName=(n,th)=>({en:`${NUMW[n-1]} ${n===1?sing(th[1]):th[1]}`,hi:`${NUM_HI[n-1]} ${th[2]}`});
 function compare(){
   const kind=rand(4); let pool, ans;
-  if(kind===0){ const th=THINGS[rand(THINGS.length)]; const a=2+rand(4); let b; do{ b=1+rand(6); }while(Math.abs(a-b)<2); const more=Math.random()<.5;
-    const q=()=>more?(H()?`ज़्यादा ${th[2]} किसमें हैं?`:`Which side has MORE ${th[1]}?`):(H()?`कम ${th[2]} किसमें हैं?`:`Which side has LESS ${th[1]}?`);
-    pool=[a,b].map(n=>({n,choice:`<div class="grp">${Array(n).fill(`<span>${th[0]}</span>`).join("")}</div>`,nm:()=>H()?`${NUM_HI[n-1]} ${th[2]}`:`${NUM_EN[n-1]} ${th[1]}`,q}));
+  if(kind===0){ const th=CMPT[rand(CMPT.length)]; const a=2+rand(4); let b; do{ b=1+rand(6); }while(Math.abs(a-b)<2); const more=Math.random()<.5, Q=more?CMPQ.more(th):CMPQ.less(th);
+    pool=[a,b].map(n=>({n,...grpName(n,th),choice:`<div class="grp">${Array(n).fill(`<span>${th[0]}</span>`).join("")}</div>`,q:Q[0],qh:Q[1]}));
     ans=more?(a>b?pool[0]:pool[1]):(a<b?pool[0]:pool[1]); }
-  else if(kind===1){ const tall=Math.random()<.5, c=["🟥","🟦","🟩","🟨"][rand(4)];
-    const q=()=>tall?(H()?"ऊँचा टावर कौन सा है?":"Which tower is TALLER?"):(H()?"छोटा टावर कौन सा है?":"Which tower is SHORTER?");
-    pool=[6,2].map(n=>({n,choice:`<div class="tower">${Array(n).fill(`<span>${c}</span>`).join("")}</div>`,nm:()=>n>3?(H()?"ऊँचा टावर":"the tall tower"):(H()?"छोटा टावर":"the short tower"),q}));
+  else if(kind===1){ const tall=Math.random()<.5, c=["🟥","🟦","🟩","🟨"][rand(4)], Q=tall?CMPQ.tall:CMPQ.short;
+    pool=[6,2].map(n=>({n,choice:`<div class="tower">${Array(n).fill(`<span>${c}</span>`).join("")}</div>`,en:n>3?"The tall tower":"The short tower",hi:n>3?"ऊँचा टावर":"छोटा टावर",q:Q[0],qh:Q[1]}));
     ans=tall?pool[0]:pool[1]; }
-  else if(kind===2){ const long=Math.random()<.5;
-    const q=()=>long?(H()?"लंबी इल्ली कौन सी है?":"Which caterpillar is LONGER?"):(H()?"छोटी इल्ली कौन सी है?":"Which caterpillar is SHORTER?");
-    pool=[6,2].map(n=>({n,choice:`<div style="display:flex;align-items:center;font-size:clamp(.9rem,4vw,1.3rem);line-height:1">${Array(n).fill("🟢").join("")}<span style="font-size:1.8em">🐛</span></div>`,nm:()=>n>3?(H()?"लंबी इल्ली":"the long one"):(H()?"छोटी इल्ली":"the short one"),q}));
+  else if(kind===2){ const long=Math.random()<.5, Q=long?CMPQ.long:CMPQ.shortc;
+    pool=[6,2].map(n=>({n,choice:`<div style="display:flex;align-items:center;font-size:clamp(.9rem,4vw,1.3rem);line-height:1">${Array(n).fill("🟢").join("")}<span style="font-size:1.8em">🐛</span></div>`,en:n>3?"The long one":"The short one",hi:n>3?"लंबी इल्ली":"छोटी इल्ली",q:Q[0],qh:Q[1]}));
     ans=long?pool[0]:pool[1]; }
-  else { const pr=[[["🐘","elephant","हाथी"],["🐭","mouse","चूहा"]],[["🚚","truck","ट्रक"],["🪶","feather","पंख"]],[["🪨","rock","पत्थर"],["🎈","balloon","गुब्बारा"]],[["🐻","bear","भालू"],["🐦","bird","चिड़िया"]]][rand(4)], heavy=Math.random()<.5;
-    const q=()=>heavy?(H()?"भारी कौन है?":"Which one is HEAVY?"):(H()?"हल्का कौन है?":"Which one is LIGHT?");
-    pool=pr.map(x=>({choice:x[0],nm:()=>H()?x[2]:`the ${x[1]}`,q})); ans=heavy?pool[0]:pool[1]; }
+  else { const pr=HEAVY[rand(4)], heavy=Math.random()<.5, Q=heavy?CMPQ.heavy:CMPQ.light;
+    pool=pr.map(x=>({choice:x[0],en:x[1],hi:x[2],q:Q[0],qh:Q[1]})); ans=heavy?pool[0]:pool[1]; }
   quiz(pool,compare,ans,{two:true}); cur.resume=compare;
 }
 const SORT_SAY=[["is a fruit","is a vegetable"],["lives on land","lives in water"],["is red","is yellow"],["goes in the sky","goes on the road"]];
+const sortAsk=(it)=>`Where does the ${lc(it[0])} go?`;
+const sortOr=S0=>[`${S0.a[0]} or ${S0.b[0]}?`,`${S0.a[2]} या ${S0.b[2]}?`];
 function sorting(){
   stopAll(); cur.resume=sorting;
-  const si=rand(SORTS.length), S=SORTS[si];
-  const items=shuffle([...shuffle(S.A).slice(0,3).map(x=>[...x,0]),...shuffle(S.B).slice(0,3).map(x=>[...x,1])]);
+  const si=rand(SORTS.length), S0=SORTS[si];
+  const items=shuffle([...shuffle(S0.A).slice(0,3).map(x=>[...x,0]),...shuffle(S0.B).slice(0,3).map(x=>[...x,1])]);
   let idx=0, wt=null;
-  stage.innerHTML=`<div class="q" id="sq">${H()?"सही टोकरी में डालो!":"Put it in the right basket!"}</div><div class="sortrow"><button class="basket" id="bk0"><i>${S.a[1]}</i><b>${H()?S.a[2]:S.a[0]}</b><div class="in" id="in0"></div></button><button class="basket" id="bk1"><i>${S.b[1]}</i><b>${H()?S.b[2]:S.b[0]}</b><div class="in" id="in1"></div></button></div><div id="sslot" style="min-height:130px;display:flex;align-items:center;justify-content:center"></div>`;
+  stage.innerHTML=`<div class="q" id="sq">${H()?"सही टोकरी में डालो!":"Put it in the right basket!"}</div><div class="sortrow"><button class="basket" id="bk0"><i>${S0.a[1]}</i><b>${H()?S0.a[2]:S0.a[0]}</b><div class="in" id="in0"></div></button><button class="basket" id="bk1"><i>${S0.b[1]}</i><b>${H()?S0.b[2]:S0.b[0]}</b><div class="in" id="in1"></div></button></div><div id="sslot" style="min-height:130px;display:flex;align-items:center;justify-content:center"></div>`;
   const baskets=()=>[$("bk0"),$("bk1")];
-  const ask=()=>{ const it=items[idx]; play([{t:`Where does the ${it[0].toLowerCase()} go?`},{t:H()?`${S.a[2]} या ${S.b[2]}?`:`${S.a[0]} or ${S.b[0]}?`,l:L_()}],()=>{ clearTimeout(wt); wt=later(ask,11000); }); };
+  const ask=()=>{ const it=items[idx]; play([{t:sortAsk(it)},sx2(sortOr(S0))],()=>{ clearTimeout(wt); wt=later(ask,11000); }); };
   const tryPut=(side,el)=>{ const it=items[idx]; if(!it) return; hush(); clearTimeout(wt);
     if(side===it[2]){ el&&el.remove(); $("in"+side).insertAdjacentHTML("beforeend",`<span class="pop">${it[1]}</span>`); popGood(); anim(baskets()[side],"pop");
       idx++; play([{t:`${it[0]} ${SORT_SAY[si][side]}!`}],()=>later(nextItem,400)); }
-    else { if(el){ snapBack(el); anim(el,"shake"); } play([{t:`Hmm! ${it[0]} ${SORT_SAY[si][it[2]]}. Try again!`}],()=>{ wt=later(ask,9000); }); } };
+    else { if(el){ snapBack(el); anim(el,"shake"); } play([{t:`${it[0]} ${SORT_SAY[si][it[2]]}.`},sx("tryAgain")],()=>{ wt=later(ask,9000); }); } };
   baskets().forEach((b,i)=>b.onclick=()=>tryPut(i,$("sortee")));
-  const nextItem=()=>{ if(idx>=items.length){ cheer(); burst(); play([{t:H()?"सब सही! शाबाश!":"All sorted! Super job!",l:L_()}],()=>later(sorting,1500)); return; }
+  const nextItem=()=>{ if(idx>=items.length){ cheer(); burst(); play([sx("allSorted")],()=>later(sorting,1500)); return; }
     const it=items[idx]; $("sslot").innerHTML=`<button class="sortee pop" id="sortee" aria-label="${it[0]}">${it[1]}</button>`;
-    dragify($("sortee"),baskets,(ti,e)=>{ const el=$("sortee"); if(ti===-2){ el.style.transform=""; ask(); return; } if(ti<0){ snapBack(el); return; } tryPut(ti,el); });
+    dragify($("sortee"),baskets,(ti)=>{ const el=$("sortee"); if(ti===-2){ el.style.transform=""; ask(); return; } if(ti<0){ snapBack(el); return; } tryPut(ti,el); });
     later(ask,300); };
   nextItem();
 }
 
 /* ---------- puzzles ---------- */
+const jigDone=p=>[`You did it! A ${lc(p.en)}!`,`शाबाश! ${p.hi}!`];
 function jigsaw(){
   stopAll(); cur.resume=jigsaw;
-  const all=PICS(), it=all[rand(all.length)];
+  const it=PICS[rand(PICS.length)];
   const N=360, cv=document.createElement("canvas"); cv.width=cv.height=N; const c=cv.getContext("2d");
-  c.fillStyle=["#FFF1C2","#DDF3FF","#E5F8EA","#FFE3EE"][rand(4)]; c.fillRect(0,0,N,N); c.font=`${N*.74}px serif`; c.textAlign="center"; c.textBaseline="middle"; c.fillText(it[0],N/2,N*.55);
+  c.fillStyle=["#FFF1C2","#DDF3FF","#E5F8EA","#FFE3EE"][rand(4)]; c.fillRect(0,0,N,N); c.font=`${N*.74}px serif`; c.textAlign="center"; c.textBaseline="middle"; c.fillText(it.e,N/2,N*.55);
   const url=cv.toDataURL(), P=Math.max(96,Math.min(150,Math.floor((stage.clientWidth-60)/2))), p2=Math.round(P*.8);
   const bg=(i,s)=>`background-image:url(${url});background-size:${2*s}px ${2*s}px;background-position:${-(i%2)*s}px ${-Math.floor(i/2)*s}px`;
   const order=shuffle([0,1,2,3]);
@@ -845,35 +1159,35 @@ function jigsaw(){
   const slots=()=>[...stage.querySelectorAll(".slot")]; let placed=0, sel=null;
   const place=(pc,si)=>{ const i=+pc.dataset.i; if(i!==si){ snapBack(pc); anim(pc,"shake"); return; }
     pc.remove(); const s=slots()[si]; s.classList.add("filled"); anim(s,"pop"); placed++; ding(placed*2); sel=null;
-    if(placed===4){ later(()=>{ cheer(); burst(); play([...sndThen(it[3]),{t:H()?`शाबाश! ${it[2]}!`:`You did it! A ${it[1]}!`,l:L_()}],()=>later(jigsaw,1600)); },300); } };
+    if(placed===4){ later(()=>{ cheer(); burst(); play([...sndThen(it.snd),sx2(jigDone(it))],()=>later(jigsaw,1600)); },300); } };
   stage.querySelectorAll(".piece").forEach(pc=>dragify(pc,slots,(ti)=>{ if(ti===-2){ pc.style.transform=""; stage.querySelectorAll(".piece.sel").forEach(z=>z.classList.remove("sel")); pc.classList.add("sel"); sel=pc; return; } if(ti<0){ snapBack(pc); return; } place(pc,ti); }));
   slots().forEach((s,si)=>s.addEventListener("click",()=>{ if(sel) place(sel,si); }));
-  play([{t:H()?"टुकड़ों को सही जगह रखो!":"Put the pieces in the right place!",l:L_()}]);
+  play([sx("jig")]);
 }
 function memory(level=2){
   stopAll(); cur.resume=()=>memory(level);
-  const src=shuffle(PICS()).slice(0,level), cards=shuffle([...src,...src]);
+  const src=shuffle(PICS).slice(0,level), cards=shuffle([...src,...src]);
   stage.innerHTML=`<div class="q">${H()?"जोड़ी ढूँढो!":"Find the pairs!"}</div><div class="mem" style="grid-template-columns:repeat(${level<=2?2:level===3?3:4},1fr)">${cards.map((c,i)=>`<button data-i="${i}" aria-label="card">⭐</button>`).join("")}</div>`;
   let open=[], got=0, lock=false;
   stage.querySelectorAll(".mem button").forEach(b=>b.onclick=()=>{
     const c=cards[+b.dataset.i]; if(lock||b.classList.contains("open")) return;
-    b.textContent=c[0]; b.classList.add("open"); open.push([b,c]); hush(); play([{t:H()?c[2]:c[1],l:L_()}]);
+    b.textContent=c.e; b.classList.add("open"); open.push([b,c]); hush(); play([nameSeg(c)]);
     if(open.length===2){ const [[b1,c1],[b2,c2]]=open; open=[];
       if(c1===c2){ b1.classList.add("got"); b2.classList.add("got"); ding(got*3); got++;
-        if(got===level) later(()=>{ cheer(); burst(); play([{t:H()?"सारी जोड़ियाँ मिल गईं! शाबाश!":"You found all the pairs!",l:L_()}],()=>later(()=>memory(level>=4?2:level+1),1200)); },500); }
+        if(got===level) later(()=>{ cheer(); burst(); play([sx("memoDone")],()=>later(()=>memory(level>=4?2:level+1),1200)); },500); }
       else { lock=true; later(()=>{ [b1,b2].forEach(x=>{ x.textContent="⭐"; x.classList.remove("open"); }); lock=false; },1200); } } });
-  play([{t:H()?"कार्ड पलटो और जोड़ी ढूँढो!":"Turn the cards and find the same pictures!",l:L_()}]);
+  play([sx("memo")]);
 }
+const shadowQ=x=>[`Which shadow is the ${lc(x.en)}?`,`${x.hi} की परछाईं कौन सी है?`];
 function shadow(){
-  const src=shuffle(PICS()).slice(0,3);
-  const pool=src.map(x=>({x,choice:`<span class="silh">${x[0]}</span>`,nm:()=>H()?x[2]:x[1],q:()=>H()?`${x[2]} की परछाईं कौन सी है?`:`Which shadow is the ${x[1]}?`})), ans=pool[rand(3)];
-  quiz(pool,shadow,ans,{head:`<div class="pic" style="font-size:clamp(4rem,20vw,6rem)">${ans.x[0]}</div>`,
+  const src=shuffle(PICS).slice(0,3), ans0=src[rand(3)], Q=shadowQ(ans0);
+  const pool=src.map(x=>({...x,choice:`<span class="silh">${x.e}</span>`,q:Q[0],qh:Q[1]})), ans=pool[src.indexOf(ans0)];
+  quiz(pool,shadow,ans,{head:`<div class="pic" style="font-size:clamp(4rem,20vw,6rem)">${ans.e}</div>`,
     right:()=>stage.querySelector(".choices .right span")?.classList.remove("silh"),
-    wrongSay:()=>H()?"यह नहीं। फिर से देखो!":"Not this one. Look again!"});
+    wrongSay:()=>[sx("notThis")]});
   cur.resume=shadow;
 }
 
-/* ---------- colouring ---------- */
 const R=(t,a)=>`<${t} class="rg" ${a}/>`;
 const PAGES=[
   {n:"House",hi:"घर",svg:R("rect",'x="0" y="162" width="200" height="38"')+R("circle",'cx="168" cy="32" r="18"')+R("rect",'x="128" y="48" width="16" height="30"')+R("rect",'x="40" y="92" width="120" height="70"')+R("polygon",'points="28,94 100,38 172,94"')+R("rect",'x="88" y="120" width="26" height="42"')+R("rect",'x="54" y="106" width="22" height="22"')+R("rect",'x="126" y="106" width="22" height="22"')},
@@ -885,68 +1199,246 @@ const PAGES=[
   {n:"Tree",hi:"पेड़",svg:R("rect",'x="0" y="172" width="200" height="28"')+R("rect",'x="88" y="118" width="24" height="56"')+R("circle",'cx="64" cy="96" r="32"')+R("circle",'cx="136" cy="96" r="32"')+R("circle",'cx="100" cy="72" r="44"')+R("circle",'cx="82" cy="70" r="8"')+R("circle",'cx="118" cy="62" r="8"')+R("circle",'cx="106" cy="100" r="8"')+R("circle",'cx="60" cy="104" r="7"')},
   {n:"Balloons",hi:"गुब्बारे",svg:R("ellipse",'cx="60" cy="72" rx="28" ry="34"')+R("ellipse",'cx="100" cy="54" rx="28" ry="34"')+R("ellipse",'cx="140" cy="72" rx="28" ry="34"')+R("rect",'x="72" y="150" width="56" height="44" rx="4"')+R("rect",'x="94" y="150" width="12" height="44"')},
 ];
+const colIntro=pg=>[`Let's colour the ${pg.n.toLowerCase()}!`,`${pg.hi} में रंग भरो!`];
+const colDone=pg=>[`Beautiful! You coloured the ${pg.n.toLowerCase()}!`,`वाह! कितना सुंदर ${pg.hi}!`];
 function colouring(pi=0){
   stopAll(); cur.resume=()=>colouring(pi);
   const pg=PAGES[pi], pal=COLS.slice(0,8); let color=pal[0], said=false;
   stage.innerHTML=`<div class="colorwrap"><div class="tlabel">${H()?pg.hi:pg.n}</div><svg viewBox="0 0 200 200" id="cpage" aria-label="${pg.n}">${pg.svg}</svg><div class="palette">${pal.map((c,i)=>`<button data-i="${i}" aria-label="${c[0]}" aria-pressed="${i===0}" style="background:${c[1]}"></button>`).join("")}</div><div class="tctl"><button id="cprev" aria-label="Previous">◀</button><button id="cclear" aria-label="Clear">↺</button><button id="cnext" aria-label="Next">▶</button></div></div>`;
   const regions=[...stage.querySelectorAll(".rg")]; regions.forEach(r=>r.setAttribute("fill","#FFFFFF"));
-  stage.querySelectorAll(".palette button").forEach(b=>b.onclick=()=>{ color=pal[+b.dataset.i]; stage.querySelectorAll(".palette button").forEach(x=>x.setAttribute("aria-pressed",x===b)); hush(); play([{t:H()?color[2]:color[0],l:L_()}]); });
-  regions.forEach(r=>r.addEventListener("click",()=>{ r.setAttribute("fill",color[1]); r.dataset.done=1; tone(700+rand(5)*90,.12,"sine",.15);
-    if(!said&&regions.every(x=>x.dataset.done)){ said=true; cheer(); burst(); hush(); play([{t:H()?`वाह! कितना सुंदर ${pg.hi}!`:`Beautiful! You coloured the ${pg.n.toLowerCase()}!`,l:L_()}]); } }));
+  stage.querySelectorAll(".palette button").forEach(b=>b.onclick=()=>{ color=pal[+b.dataset.i]; stage.querySelectorAll(".palette button").forEach(x=>x.setAttribute("aria-pressed",x===b)); hush(); play([nameSeg({en:color[0],hi:color[2]})]); });
+  regions.forEach(r=>r.addEventListener("click",()=>{ r.setAttribute("fill",color[1]); r.dataset.done=1; sfx("tap",{force:true,rate:.9+rand(5)*.06});
+    if(!said&&regions.every(x=>x.dataset.done)){ said=true; cheer(); burst(); hush(); play([sx2(colDone(pg))]); } }));
   $("cprev").onclick=()=>colouring((pi-1+PAGES.length)%PAGES.length);
   $("cnext").onclick=()=>colouring((pi+1)%PAGES.length);
   $("cclear").onclick=()=>colouring(pi);
-  play([{t:H()?`${pg.hi} में रंग भरो! पहले रंग चुनो, फिर तस्वीर पे टैप करो।`:`Let's colour the ${pg.n.toLowerCase()}! Pick a colour, then tap the picture.`,l:L_()}]);
+  play([sx2(colIntro(pg)),sx("colourIt")]);
 }
 
-const WRITE={lines:{title:"Lines",hi:"रेखाएँ",icon:"〰️",bg:PAL[6]},abc:{title:"Trace ABC",hi:"A–Z लिखो",icon:"✏️",bg:PAL[0]},num:{title:"Trace 123",hi:"1–10 लिखो",icon:"🔢",bg:PAL[2]},dots:{title:"Dot to Dot",hi:"बिंदु जोड़ो",icon:"⭐",bg:PAL[3]}};
-const GAMES={
-  colour:{shelf:"writeCards",title:"Colouring",hi:"रंग भरो",icon:"🖍️",bg:"#FF7A45",start:()=>colouring(0)},
-  howmany:{shelf:"mathCards",title:"How Many?",hi:"kitne hain?",icon:"🍎",bg:PAL[0],start:howMany},
-  patterns:{shelf:"mathCards",title:"Patterns",hi:"aage kya aayega?",icon:"🔁",bg:PAL[3],start:patterns},
-  sorting:{shelf:"mathCards",title:"Sorting",hi:"tokri mein daalo",icon:"🧺",bg:"#3BA55C",start:sorting},
-  sizes:{shelf:"mathCards",title:"Big & Small",hi:"bada-chhota",icon:"🐘",bg:PAL[2],start:sizes},
-  compare:{shelf:"mathCards",title:"Compare",hi:"zyada-kam, lamba-chhota",icon:"⚖️",bg:PAL[5],start:compare},
-  jigsaw:{shelf:"puzzleCards",title:"Jigsaw",hi:"tukde jodo",icon:"🧩",bg:PAL[6],start:jigsaw},
-  memory:{shelf:"puzzleCards",title:"Memory",hi:"jodi dhoondo",icon:"🃏",bg:PAL[3],start:()=>memory(2)},
-  shadow:{shelf:"puzzleCards",title:"Shadows",hi:"parchhaai pehchano",icon:"🌑",bg:"#3B3F6B",start:shadow},
-  asounds:{shelf:"listenCards",title:"Animal Sounds",hi:"tap karo, suno",icon:"🦁",bg:"#F28C28",start:()=>soundBoard("animals")},
-  vsounds:{shelf:"listenCards",title:"Vehicle Sounds",hi:"gaadi ki awaaz",icon:"🚂",bg:"#E8323C",start:()=>soundBoard("vehicles")},
-  whosays:{shelf:"listenCards",title:"Who Says?",hi:"awaaz pehchano",icon:"👂",bg:"#20B2B8",start:whoSays},
-  first:{shelf:"listenCards",title:"First Sound",hi:"B se kya?",icon:"🅱️",bg:PAL[0],start:firstSound},
-  read:{shelf:"listenCards",title:"Read & Find",hi:"padho aur dhoondo",icon:"📖",bg:"#5B7CFA",start:readFind},
-  taptap:{shelf:"gameCards",title:"Tap Tap",hi:"1 saal+ ke liye",icon:"👆",bg:PAL[4],start:tapTap},
-  feed:{shelf:"gameCards",title:"Feed Me",hi:"khana khilao",icon:"🐰",bg:PAL[1],start:feed},
-  bubbles:{shelf:"gameCards",title:"Bubbles",hi:"sahi wala phodo",icon:"🫧",bg:PAL[2],start:bubbles},
-  music:{shelf:"gameCards",title:"Music",hi:"baaja bajao",icon:"🎹",bg:"#D14FB5",start:music},
-};
-function openGame(key){ const G=GAMES[key]; cur={}; enter(G.title); G.start(); }
 
-/* =================================================================== screens */
+/* =================================================================== MOVE & GROOVE + MY BODY */
+const KID=`<svg class="kid" viewBox="0 0 240 330" aria-label="Sparky">
+<g class="whole">
+ <g class="legL"><rect class="pt" data-p="legs" x="94" y="224" width="22" height="72" rx="10" fill="#FFD3B0"/><circle class="pt" data-p="knees" cx="105" cy="262" r="9" fill="#F4B48A"/><circle data-p="knees" class="pt" cx="105" cy="262" r="16" fill="transparent"/><ellipse class="pt" data-p="feet" cx="100" cy="300" rx="21" ry="12" fill="#FF7A33"/></g>
+ <g class="legR"><rect class="pt" data-p="legs" x="124" y="224" width="22" height="72" rx="10" fill="#FFD3B0"/><circle class="pt" data-p="knees" cx="135" cy="262" r="9" fill="#F4B48A"/><circle data-p="knees" class="pt" cx="135" cy="262" r="16" fill="transparent"/><ellipse class="pt" data-p="feet" cx="140" cy="300" rx="21" ry="12" fill="#FF7A33"/></g>
+ <path d="M84 212 h72 v26 q0 6 -6 6 h-22 l-8 -12 l-8 12 h-22 q-6 0 -6 -6z" fill="#3E8EFF"/>
+ <g class="armL"><rect class="pt" data-p="arms" x="62" y="146" width="20" height="62" rx="10" fill="#FFD3B0"/><rect x="62" y="146" width="20" height="24" rx="10" fill="#FF4F8B"/><circle class="pt" data-p="hands" cx="72" cy="214" r="12" fill="#FFD3B0"/><circle class="pt" data-p="hands" cx="72" cy="214" r="18" fill="transparent"/></g>
+ <g class="armR"><rect class="pt" data-p="arms" x="158" y="146" width="20" height="62" rx="10" fill="#FFD3B0"/><rect x="158" y="146" width="20" height="24" rx="10" fill="#FF4F8B"/><circle class="pt" data-p="hands" cx="168" cy="214" r="12" fill="#FFD3B0"/><circle class="pt" data-p="hands" cx="168" cy="214" r="18" fill="transparent"/></g>
+ <rect class="pt" data-p="tummy" x="78" y="138" width="84" height="84" rx="28" fill="#FF4F8B"/>
+ <path d="M120 162l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z" fill="#FFE14D" pointer-events="none"/>
+ <rect class="pt" data-p="neck" x="110" y="124" width="20" height="20" rx="6" fill="#F7C6A0"/>
+ <circle class="pt" data-p="ears" cx="70" cy="88" r="13" fill="#F7C6A0"/><circle class="pt" data-p="ears" cx="170" cy="88" r="13" fill="#F7C6A0"/>
+ <circle class="pt" data-p="head" cx="120" cy="84" r="50" fill="#FFD3B0"/>
+ <g class="pt" data-p="hair" fill="#5A3825"><path d="M68 84 Q66 30 120 30 Q174 30 172 84 Q164 52 136 50 Q130 62 112 58 Q90 54 76 70Z"/><circle cx="66" cy="54" r="15"/><circle cx="174" cy="54" r="15"/><circle cx="66" cy="54" r="5" fill="#FF4F8B"/><circle cx="174" cy="54" r="5" fill="#FF4F8B"/></g>
+ <g class="pt" data-p="eyes"><ellipse cx="102" cy="86" rx="7" ry="9" fill="#24214A"/><ellipse cx="138" cy="86" rx="7" ry="9" fill="#24214A"/><circle cx="104" cy="83" r="2.4" fill="#fff"/><circle cx="140" cy="83" r="2.4" fill="#fff"/><circle cx="102" cy="86" r="15" fill="transparent"/><circle cx="138" cy="86" r="15" fill="transparent"/></g>
+ <circle cx="90" cy="104" r="8" fill="#FF8FAB" opacity=".55" pointer-events="none"/><circle cx="150" cy="104" r="8" fill="#FF8FAB" opacity=".55" pointer-events="none"/>
+ <g class="pt" data-p="nose"><ellipse cx="120" cy="100" rx="5" ry="4" fill="#EE9F78"/><circle cx="120" cy="100" r="12" fill="transparent"/></g>
+ <g class="pt" data-p="mouth"><path d="M106 113 Q120 128 134 113 Z" fill="#D9435E"/><ellipse cx="120" cy="118" rx="18" ry="10" fill="transparent"/></g>
+</g></svg>`;
+const BODYP=[["head","Head","सिर","This is my head.","यह मेरा सिर है।","Where is my head?","मेरा सिर कहाँ है?"],
+ ["hair","Hair","बाल","This is my hair. I comb my hair.","ये मेरे बाल हैं।","Where is my hair?","मेरे बाल कहाँ हैं?"],
+ ["eyes","Eyes","आँखें","These are my eyes. I see with my eyes.","हम आँखों से देखते हैं।","Where are my eyes?","मेरी आँखें कहाँ हैं?"],
+ ["ears","Ears","कान","These are my ears. I hear with my ears.","हम कानों से सुनते हैं।","Where are my ears?","मेरे कान कहाँ हैं?"],
+ ["nose","Nose","नाक","This is my nose. I smell with my nose.","हम नाक से सूँघते हैं।","Where is my nose?","मेरी नाक कहाँ है?"],
+ ["mouth","Mouth","मुँह","This is my mouth. I eat with my mouth.","हम मुँह से खाते हैं।","Where is my mouth?","मेरा मुँह कहाँ है?"],
+ ["neck","Neck","गर्दन","This is my neck.","यह मेरी गर्दन है।","Where is my neck?","मेरी गर्दन कहाँ है?"],
+ ["arms","Arms","बाँहें","These are my arms. I hug with my arms.","हम बाँहों से गले लगाते हैं।","Where are my arms?","मेरी बाँहें कहाँ हैं?"],
+ ["hands","Hands","हाथ","These are my hands. I clap with my hands.","हम हाथों से ताली बजाते हैं।","Where are my hands?","मेरे हाथ कहाँ हैं?"],
+ ["tummy","Tummy","पेट","This is my tummy. Yummy food goes in my tummy!","यह मेरा पेट है।","Where is my tummy?","मेरा पेट कहाँ है?"],
+ ["legs","Legs","टाँगें","These are my legs. I run with my legs.","हम टाँगों से दौड़ते हैं।","Where are my legs?","मेरी टाँगें कहाँ हैं?"],
+ ["knees","Knees","घुटने","These are my knees. I bend my knees.","ये मेरे घुटने हैं।","Where are my knees?","मेरे घुटने कहाँ हैं?"],
+ ["feet","Feet","पैर","These are my feet. I walk with my feet.","हम पैरों से चलते हैं।","Where are my feet?","मेरे पैर कहाँ हैं?"]].map(([k,en,hi,s,sh,q,qh])=>({k,en,hi,s,sh,q,qh}));
+function glowPart(k){ stage.querySelectorAll(`.kid [data-p="${k}"]`).forEach(p=>{ p.classList.remove("glow"); void p.getBoundingClientRect(); p.classList.add("glow"); }); }
+function bodyGame(mode="explore"){
+  stopAll(); cur.resume=()=>bodyGame(mode);
+  let taps=0, ask=null, asks=0, wt=null;
+  stage.innerHTML=`<div class="starbar" id="bstars">⭐ 0</div><div class="q" id="bq">${mode==="explore"?(H()?"मेरे शरीर पर टैप करो!":"Tap my body!"):""}</div>${KID.replace('class="kid"','class="kid tapme"')}<div class="movebtns"><button class="bigbtn" id="bmode" style="background:${mode==="explore"?"#8A5CFF":"#22B573"}">${mode==="explore"?"▶ Play: Where is it?":"👆 Just tap"}</button></div>`;
+  let stars=0;
+  $("bmode").onclick=()=>bodyGame(mode==="explore"?"quiz":"explore");
+  const newQ=()=>{ ask=BODYP[rand(BODYP.length)]; asks=0; $("bq").textContent=H()?ask.qh:ask.q; askIt(); };
+  const askIt=()=>{ asks++; play([bi(ask.q,ask.qh)],()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) askIt(); else { glowPart(ask.k); play([sx("hereItIs"),nameSeg(ask)],()=>later(newQ,1500)); } },9000); }); };
+  stage.querySelector(".kid").addEventListener("click",e=>{
+    const el=e.target.closest("[data-p]"); if(!el) return; const p=BODYP.find(b=>b.k===el.dataset.p); hush(); clearTimeout(wt); glowPart(p.k);
+    if(mode==="explore"){ taps++; play([nameSeg(p),bi(p.s,p.sh)]); return; }
+    if(!ask){ play([nameSeg(p)]); return; }
+    if(p===ask){ cheer(); burstAt(el); stars++; $("bstars").textContent=`⭐ ${stars}`; play([nameSeg(p),praise()],()=>later(newQ,700)); }
+    else play([nameSeg(p),sx("tryAgain"),bi(ask.q,ask.qh)],()=>{ wt=later(askIt,9000); });
+  });
+  if(mode==="explore") play([sx("tapBody")]); else play([sx("bodyQuiz")],newQ);
+}
+const ACTIONS=[
+ ["clap","👏","Clap","ताली","clap1","Clap your hands! Clap, clap, clap!","ताली बजाओ!"],
+ ["jump","🦘","Jump","कूदो","boing","Jump up high! Jump, jump, jump!","ऊपर कूदो!"],
+ ["walk","🚶","Walk","चलो","step1","Let's walk! Step, step, step!","चलो चलें!"],
+ ["march","💂","March","कदम ताल","step1","March like a soldier! Left, right, left, right!","सिपाही की तरह चलो!"],
+ ["hop","🐸","Hop","एक पैर","boing","Hop on one foot!","एक पैर पर कूदो!"],
+ ["skip","🤸","Skip","उछलो","boing","Skip, skip, skip around the room!","उछल उछल कर चलो!"],
+ ["roll","🔄","Roll","लुढ़को","whoosh","Roll like a ball!","गेंद की तरह लुढ़को!"],
+ ["spin","🌀","Spin","घूमो","whoosh","Spin around and around!","गोल गोल घूमो!"],
+ ["wave","👋","Wave","टाटा","","Wave your hand! Bye bye!","हाथ हिलाओ! टाटा!"],
+ ["stretch","🙆","Stretch","खिंचो","whoosh","Stretch up high, like a tall tree!","पेड़ की तरह ऊपर खिंचो!"],
+ ["toes","🦶","Touch toes","पैर छुओ","ding","Bend down and touch your toes!","झुको और पैर छुओ!"],
+ ["stomp","🐘","Stomp","पैर पटको","stomp1","Stomp your feet like an elephant!","हाथी की तरह पैर पटको!"],
+ ["tiptoe","🩰","Tiptoe","पंजों पर","","Walk on tiptoe. Shh, very quietly!","पंजों पर धीरे धीरे चलो!"],
+ ["shake","🫨","Shake","हिलो","shaker","Shake, shake, shake your body!","हिलो, हिलो, हिलो!"],
+ ["sit","🪑","Sit and stand","बैठो उठो","","Sit down, then stand up!","बैठो, फिर खड़े हो जाओ!"],
+ ["dance","💃","Dance","नाचो","","Let's dance!","चलो नाचें!"]].map(([k,ic,en,hi,fx,say,sayHi])=>({k,ic,en,hi,fx,say,sayHi}));
+function moveGame(i=0){
+  stopAll(); cur.resume=()=>moveGame(i);
+  const A=ACTIONS[i];
+  stage.innerHTML=`<div class="q">${A.ic} ${H()?`${A.en} · ${A.hi}`:A.en}</div>${KID}<div class="counter" id="cnt"></div><div class="movebtns"><button class="bigbtn" id="mvagain" style="background:#8A5CFF">↺ Again</button><button class="bigbtn" id="mvnext" style="background:#22B573">Next ▶</button></div><div class="strip" id="mstrip">${ACTIONS.map((a,j)=>`<button data-i="${j}" aria-current="${j===i}" aria-label="${a.en}">${a.ic}</button>`).join("")}</div>`;
+  $("mstrip").children[i]?.scrollIntoView({block:"nearest",inline:"center"});
+  const kid=stage.querySelector(".kid"); kid.classList.add("mv-"+A.k);
+  $("mvagain").onclick=()=>moveGame(i); $("mvnext").onclick=()=>moveGame((i+1)%ACTIONS.length);
+  $("mstrip").onclick=e=>{ const b=e.target.closest("button"); if(b) moveGame(+b.dataset.i); };
+  if(A.k==="dance") sfx("tune",{gain:.6});
+  const beats=Array.from({length:5},(_,k)=>({...countSeg(k),on:()=>{ $("cnt").textContent=k+1; anim($("cnt"),"pop"); A.fx&&sfx(A.fx,{gain:.9}); },gap:A.k==="sit"||A.k==="stretch"||A.k==="toes"?900:350}));
+  play([bi(A.say,A.sayHi),{gap:300},...beats,{on:()=>{ $("cnt").textContent="⭐"; cheer(); burst(); }},sx("didIt"),...sndThen("clap")],()=>{ kid.classList.remove("mv-"+A.k); later(()=>moveGame((i+1)%ACTIONS.length),2500); });
+}
+function freezeDance(){
+  stopAll(); cur.resume=freezeDance;
+  stage.innerHTML=`<div class="q" id="fz">${H()?"नाचो!":"Dance!"}</div>${KID}<div class="counter" id="cnt"></div>`;
+  const kid=stage.querySelector(".kid");
+  const danceOn=()=>{ kid.classList.add("mv-dance"); $("fz").textContent=H()?"नाचो!":"Dance!"; $("cnt").textContent="🎶"; sfx("tune",{gain:.7});
+    later(()=>{ hush(); kid.classList.remove("mv-dance"); $("fz").textContent=H()?"रुक जाओ!":"Freeze!"; $("cnt").textContent="🧊"; play([sx("freeze")],()=>later(()=>play([sx("dance")],danceOn),2600)); },4000+rand(4000)); };
+  play([sx("freezeIntro")],danceOn);
+}
+
+/* =================================================================== HOME, PARENT LOCK, NAVIGATION */
+const go=(title,fn)=>()=>{ cur={}; enter(title); fn(); };
+const SHELVES=[
+ {title:"Likho",sub:"ungli se likhna aur rang bharna",c:"#FF4F8B",cards:[
+   {t:"Lines",h:"रेखाएँ",i:"〰️",c:"#14B3B8",fn:()=>openTrace("lines","Lines")},
+   {t:"Trace ABC",h:"A–Z लिखो",i:"✏️",c:"#FF4F8B",fn:()=>openTrace("abc","Trace ABC")},
+   {t:"Trace 123",h:"1–10 लिखो",i:"🔢",c:"#3E8EFF",fn:()=>openTrace("num","Trace 123")},
+   {t:"Dot to Dot",h:"बिंदु जोड़ो",i:"⭐",c:"#8A5CFF",fn:()=>openTrace("dots","Dot to Dot")},
+   {t:"Colouring",h:"रंग भरो",i:"🖍️",c:"#FF7A33",fn:go("Colouring",()=>colouring(0))}]},
+ {title:"Seekho",sub:"app khud sikhata hai, phir poochta hai",c:"#22B573",cards:Object.entries(TOPICS).map(([k,T])=>({t:T.title,h:T.hi,i:T.icon,c:T.c,fn:()=>openTopic(k)}))},
+ {title:"Hilo-Dulo",sub:"naacho, kudo aur apna shareer jaano",c:"#FF7A33",cards:[
+   {t:"Move & Groove",h:"ताली, कूदो, नाचो",i:"🤸",c:"#FF7A33",fn:go("Move & Groove",()=>moveGame(0))},
+   {t:"Freeze Dance",h:"नाचो और रुको",i:"💃",c:"#FF4F8B",fn:go("Freeze Dance",freezeDance)},
+   {t:"Tap My Body",h:"शरीर के अंग",i:"🧒",c:"#14B3B8",fn:go("Tap My Body",()=>bodyGame("explore"))},
+   {t:"Where Is It?",h:"नाक कहाँ है?",i:"👃",c:"#8A5CFF",fn:go("Where Is It?",()=>bodyGame("quiz"))}]},
+ {title:"Maths Adventure",sub:"ginti, pattern, sorting, bada-chhota",c:"#3E8EFF",cards:[
+   {t:"How Many?",h:"कितने हैं?",i:"🍎",c:"#FF4F8B",fn:go("How Many?",howMany)},
+   {t:"Patterns",h:"आगे क्या?",i:"🔁",c:"#8A5CFF",fn:go("Patterns",patterns)},
+   {t:"Sorting",h:"टोकरी में डालो",i:"🧺",c:"#22B573",fn:go("Sorting",sorting)},
+   {t:"Big & Small",h:"बड़ा-छोटा",i:"🐘",c:"#3E8EFF",fn:go("Big & Small",sizes)},
+   {t:"Compare",h:"ज़्यादा-कम",i:"⚖️",c:"#FF7A33",fn:go("Compare",compare)}]},
+ {title:"Puzzles",sub:"dimaag wale khel",c:"#8A5CFF",cards:[
+   {t:"Jigsaw",h:"टुकड़े जोड़ो",i:"🧩",c:"#14B3B8",fn:go("Jigsaw",jigsaw)},
+   {t:"Memory",h:"जोड़ी ढूँढो",i:"🃏",c:"#8A5CFF",fn:go("Memory",()=>memory(2))},
+   {t:"Shadows",h:"परछाईं",i:"🌑",c:"#3B3F6B",fn:go("Shadows",shadow)}]},
+ {title:"Suno aur Padho",sub:"asli awaazein suno, pehchano, padho",c:"#14B3B8",cards:[
+   {t:"Animal Sounds",h:"जानवरों की आवाज़",i:"🐄",c:"#F28C28",fn:go("Animal Sounds",()=>soundBoard("animals"))},
+   {t:"Vehicle Sounds",h:"गाड़ियों की आवाज़",i:"🚂",c:"#E8323C",fn:go("Vehicle Sounds",()=>soundBoard("vehicles"))},
+   {t:"Sounds at Home",h:"घर की आवाज़ें",i:"🕰️",c:"#5B7CFA",fn:go("Sounds at Home",()=>soundBoard("home"))},
+   {t:"Who Says?",h:"आवाज़ पहचानो",i:"👂",c:"#14B3B8",fn:go("Who Says?",whoSays)},
+   {t:"First Sound",h:"B से क्या?",i:"🅱️",c:"#FF4F8B",fn:go("First Sound",firstSound)},
+   {t:"Read & Find",h:"पढ़ो और ढूँढो",i:"📖",c:"#22B573",fn:go("Read & Find",readFind)}]},
+ {title:"Khelo",sub:"chhote chhote games",c:"#FFB020",cards:[
+   {t:"Tap Tap",h:"1 साल+",i:"👆",c:"#FFB020",fn:go("Tap Tap",tapTap)},
+   {t:"Feed Me",h:"खाना खिलाओ",i:"🐰",c:"#22B573",fn:go("Feed Me",feed)},
+   {t:"Bubbles",h:"बुलबुले फोड़ो",i:"🫧",c:"#3E8EFF",fn:go("Bubbles",bubbles)},
+   {t:"Music",h:"बाजा बजाओ",i:"🎹",c:"#D14FB5",fn:go("Music",music)}]},
+];
+$("shelves").innerHTML=SHELVES.map((s,si)=>`<section class="shelf"><h2><span class="tab" style="background:${s.c}">${s.title}</span><small>${s.sub}</small></h2><div class="cards">${s.cards.map((c,ci)=>`<button class="card" data-s="${si}" data-c="${ci}" style="--c:${c.c}"><i>${c.i}</i><b>${c.t}</b><small>${c.h}</small></button>`).join("")}</div></section>`).join("");
+$("shelves").addEventListener("click",e=>{ const b=e.target.closest(".card"); if(!b) return; SHELVES[+b.dataset.s].cards[+b.dataset.c].fn(); });
+$("wordmark").innerHTML=[..."Baby Sparkle"].map((ch,i)=>ch===" "?'<span>&nbsp;</span>':`<span style="color:${["#FF4F8B","#FF7A33","#E8A400","#22B573","#3E8EFF","#8A5CFF","#FF4F8B","#14B3B8","#FF7A33","#22B573","#8A5CFF"][i%11]};animation-delay:${i*.12}s">${ch}</span>`).join("");
+
 function enter(title){
-  unlock(); stopAll(); paused=false; $("pause").textContent="⏸"; $("pause").setAttribute("aria-label","Pause");
+  unlock(); stopAll(); stopTune(); paused=false; $("pause").textContent="⏸"; $("pause").setAttribute("aria-label","Pause");
   $("ptitle").textContent=title; $("home").hidden=true; $("play").hidden=false; window.scrollTo(0,0);
+  try{ if(history.state?.p!=="act") history.pushState({p:"act"},""); }catch(e){}
   try{ navigator.wakeLock?.request("screen").then(w=>wake=w).catch(()=>{}); }catch(e){}
 }
-function goHome(){ stopAll(); cur=null; $("play").hidden=true; $("home").hidden=false; try{wake&&wake.release()}catch(e){} wake=null; }
-$("back").onclick=goHome;
+function goHome(){ stopAll(); cur=null; $("play").hidden=true; $("home").hidden=false; try{wake&&wake.release()}catch(e){} wake=null; startTune(); }
+$("back").onclick=()=>{ if(history.state?.p==="act") history.back(); else goHome(); };
 $("pause").onclick=()=>{ paused=!paused; $("pause").textContent=paused?"▶":"⏸"; $("pause").setAttribute("aria-label",paused?"Play":"Pause");
   if(paused) stopAll(); else { unlock(); cur&&cur.resume&&cur.resume(); } };
-document.addEventListener("visibilitychange",()=>{ if(document.hidden&&cur&&!paused) $("pause").click(); });
-function card(parent,o,fn){ const b=document.createElement("button"); b.className="card"; b.style.background=o.bg;
-  b.innerHTML=`<i>${o.icon}</i><b>${o.title}</b><small>${o.hi}</small>`; b.onclick=fn; parent.appendChild(b); }
-Object.entries(WRITE).forEach(([k,o])=>card($("writeCards"),o,()=>openTrace(k,o.title)));
-Object.entries(TOPICS).forEach(([k,o])=>card($("learnCards"),o,()=>openTopic(k)));
-Object.entries(GAMES).forEach(([k,o])=>card($(o.shelf),o,()=>openGame(k)));
+document.addEventListener("visibilitychange",()=>{ if(document.hidden){ if(cur&&!paused) $("pause").click(); stopTune(); } else if(!$("home").hidden) startTune(); });
+
+/* parent lock: shown when the app opens and when someone tries to leave */
+let gateMode="enter", gateA=0, allowExit=false;
+const KEYS=[1,2,3,4,5,6,7,8,9,0];
+$("gkeys").innerHTML=KEYS.map(k=>`<button data-k="${k}">${k}</button>`).join("");
+function showGate(mode){
+  gateMode=mode; const a=1+rand(5), b=1+rand(4); gateA=a+b;
+  $("geq").textContent=`${a} + ${b} =`; $("gans").textContent="";
+  $("gtitle").textContent=mode==="enter"?"Baby Sparkle":"Leaving?";
+  $("gsub").textContent=mode==="enter"?"Parents: solve this to start":"Parents: solve this to close the app";
+  $("gcancel").hidden=mode==="enter"; $("gate").hidden=false;
+}
+$("gkeys").onclick=e=>{ const b=e.target.closest("button"); if(!b) return; const k=+b.dataset.k; $("gans").textContent=k;
+  if(k===gateA){ setTimeout(()=>{ $("gate").hidden=true; gateMode==="enter"?startApp():byeBye(); },250); }
+  else { anim($("gans"),"shake"); setTimeout(()=>showGate(gateMode),600); } };
+$("gcancel").onclick=()=>{ $("gate").hidden=true; };
+$("exitBtn").onclick=()=>showGate("exit");
+async function startApp(){
+  unlock(); $("home").hidden=false;
+  await Promise.race([Promise.all([...VPACKS,"sfx"].map(loadPack)),new Promise(r=>setTimeout(r,5000))]);
+  ["win","pop","ding","tap","tune"].forEach(k=>decode("sfx",k));
+  if(!$("home").hidden){ run++; play([sx("welcome")],startTune); }
+}
+function byeBye(){ stopAll(); stopTune(); $("home").hidden=true; $("play").hidden=true; $("bye").hidden=false; play([sx("bye")]); allowExit=true; try{ history.go(-(history.length-1)); }catch(e){} try{ window.close(); }catch(e){} }
+$("byeback").onclick=()=>{ $("bye").hidden=true; allowExit=false; try{ history.pushState({p:"home"},""); }catch(e){} $("home").hidden=false; startTune(); };
+try{ history.replaceState({p:"root"},""); history.pushState({p:"home"},""); }catch(e){}
+window.addEventListener("popstate",e=>{
+  const p=e.state?.p;
+  if(!$("play").hidden){ goHome(); if(p==="root"){ try{ history.pushState({p:"home"},""); }catch(err){} } return; }
+  if(p==="root"&&!allowExit){ try{ history.pushState({p:"home"},""); }catch(err){} if($("gate").hidden&&$("bye").hidden) showGate("exit"); }
+});
+$("tuneBtn").onclick=()=>{ tuneOn=!tuneOn; $("tuneBtn").textContent=tuneOn?"🎵":"🔇"; tuneOn?startTune():stopTune(); };
+
 function showNote(){
-  const n=$("note");
-  if(!synth){ n.textContent="Is browser mein bolne wali awaaz nahi chal rahi. Ise Chrome (Android) ya Safari (iPhone) mein kholo."; n.hidden=false; return; }
-  if(lang==="hi"&&voices().length&&!hasHi()){ n.textContent="Is phone mein Hindi awaaz install nahi hai, isliye abhi English mein bolega. Settings → Text-to-speech mein Hindi voice add kar do."; n.hidden=false; return; }
+  const n=$("note"); if(!n) return;
+  const haveVoice=!!PACK["voice-en1"];
+  if(!haveVoice&&!synth){ n.textContent="Awaaz ki files load nahi hui. Internet on karke app dobara kholo."; n.hidden=false; return; }
+  if(lang==="hi"&&!hasHi()){ n.textContent="Hindi awaaz abhi load nahi hui, isliye English mein bolega."; n.hidden=false; return; }
   n.hidden=true;
 }
 function setLang(l){ lang=l; $("lang-en").setAttribute("aria-pressed",l==="en"); $("lang-hi").setAttribute("aria-pressed",l==="hi"); showNote(); }
 $("lang-en").onclick=()=>setLang("en"); $("lang-hi").onclick=()=>setLang("hi");
-showNote();
+["sfx",...VPACKS].forEach(loadPack);
+showGate("enter");
+
+/* =================================================================== every sentence the app can say (used to record the voice packs) */
+function allPhrases(){
+  const out=new Map(); const A=(l,t)=>{ if(t) out.set(vkey(l,t),[l,norm(t)]); }; const B=(e,h)=>{ A("en",e); A("hi",h); };
+  Object.values(S).forEach(([e,h])=>B(e,h)); Object.values(RVSAY).forEach(([e,h])=>B(e,h));
+  PRAISE.forEach(t=>A("en",t)); PRAISE_HI.forEach(t=>A("hi",t));
+  Object.values(LN).forEach(t=>A("en",t)); NUMW.forEach(w=>A("en",w+"!")); NUM_HI.forEach(t=>A("hi",t));
+  Object.values(TOPICS).forEach(T=>T.items.forEach(it=>{ B(it.en+"!",it.hi+"!"); B(it.q,it.qh); A("en",it.sent); A("hi",it.sentHi); A("en",it.sayQ); A("en",it.word+"!");
+    if(T.count) A("en",`${it.en} ${it.n===1?sing(it.th[1]):it.th[1]}!`); }));
+  WORDS.forEach(w=>{ A("en",w[0]+"!"); A("en",`Where is the ${w[0].toLowerCase()}?`); });
+  LINES.forEach(o=>{ B(o.say,o.sayHi); A("en",o.done); });
+  ABC.forEach(([L,w,e,h])=>{ A("en",`Let's write ${LN[L]}.`); A("hi",`${LNH[L]} लिखो`); A("en",`Wow! ${LN[L]}!`); A("en",`${LN[L]}, for ${w}!`); A("hi",`${LNH[L]} से ${h}`);
+    B(LN[L]+"!",LNH[L]+"!"); B(`Pop the letter ${LN[L]}!`,`${LNH[L]} फोड़ो!`); A("en",`Which one starts with ${LN[L]}?`); A("en",`Yes! ${LN[L]}, for ${w}!`); });
+  NUM_EN.forEach((w,i)=>{ A("en",`Let's write ${w}.`); A("hi",`${NUM_HI[i]} लिखो`); const n=i+1, th=THINGS[i]; A("en",`${NUMW[i]} ${n===1?sing(th[1]):th[1]}!`); });
+  DOTS.forEach(o=>B(...dotDone(o)));
+  TAPPOOL.forEach(p=>B(p.en+"!",p.hi+"!"));
+  FEED.forEach(a=>[feedAsk,feedHere,feedYum,feedNo].forEach(f=>B(...f(a))));
+  THINGS.forEach(th=>{ B(...hmQ(th)); for(let n=1;n<=6;n++) B(...hmYes(n,th)); });
+  COLS.forEach(c=>{ B(c[0]+"!",c[2]+"!"); B(`Pop the ${c[0].toLowerCase()} bubbles!`,`${c[2]} बुलबुला फोड़ो!`); });
+  ANIMALS.forEach(a=>{ B(a[0]+"!",a[2]+"!"); B(`Pop the ${a[0].toLowerCase()}!`,`${a[2]} फोड़ो!`); B(`Who says ${a[3]}?`,`कौन बोले ${a[4]}?`); B(`The ${a[0].toLowerCase()} says, ${a[3]}!`,`${a[2]} बोले ${a[4]}`); });
+  VEHICLES.forEach(v=>{ B(v[0]+"!",v[2]+"!"); B(v[3],v[4]); });
+  HOMESOUNDS.forEach(h=>{ B(h[0]+"!",h[2]+"!"); B(cap1(h[4])+"!",h[5]+"!"); });
+  FIRSTW.forEach(w=>{ A("en",w[0]+"!"); A("en",`${w[0]} starts with ${LN[w[0][0].toUpperCase()]}.`); });
+  PATSETS.flat().forEach(x=>B(x.en+"!",x.hi+"!"));
+  SIZEPICS.forEach(p=>{ B(...sizeQ(p,true)); B(...sizeQ(p,false)); B(`Big ${lc(p.en)}!`,`बड़ा ${p.hi}!`); B(`Small ${lc(p.en)}!`,`छोटा ${p.hi}!`); });
+  CMPT.forEach(th=>{ B(...CMPQ.more(th)); B(...CMPQ.less(th)); for(let n=1;n<=6;n++){ const g=grpName(n,th); B(g.en+"!",g.hi+"!"); } });
+  ["tall","short","long","shortc","heavy","light"].forEach(k=>B(...CMPQ[k]));
+  B("The tall tower!","ऊँचा टावर!"); B("The short tower!","छोटा टावर!"); B("The long one!","लंबी इल्ली!"); B("The short one!","छोटी इल्ली!");
+  HEAVY.flat().forEach(x=>B(x[1]+"!",x[2]+"!"));
+  SORTS.forEach((S0,si)=>{ B(...sortOr(S0)); [S0.A,S0.B].forEach((L,side)=>L.forEach(it=>{ A("en",sortAsk(it)); A("en",`${it[0]} ${SORT_SAY[si][side]}!`); A("en",`${it[0]} ${SORT_SAY[si][side]}.`); })); });
+  PICS.forEach(p=>{ B(p.en+"!",p.hi+"!"); B(...jigDone(p)); B(...shadowQ(p)); });
+  PAGES.forEach(pg=>{ B(...colIntro(pg)); B(...colDone(pg)); });
+  BODYP.forEach(b=>{ B(b.en+"!",b.hi+"!"); B(b.s,b.sh); B(b.q,b.qh); });
+  ACTIONS.forEach(a=>B(a.say,a.sayHi));
+  return [...out.values()];
+}
+window.allPhrases=allPhrases; window.fnv=fnv;
+
 </script>
 
 <script>if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script>
