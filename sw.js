@@ -3,14 +3,15 @@
    - Sound packs are cached the first time the app downloads them (so they download only once),
      and the app then asks for the rest to be filled in quietly so everything works offline.
    - On an update only the files that changed are downloaded again. */
-const AUD="baby-sparkle-v1", APP="baby-sparkle-app-v5";
+const AUD="baby-sparkle-v1", APP="baby-sparkle-app-v6";
 const APPFILES=["./","index.html","manifest.webmanifest","icon-192.png","icon-512.png","privacy.html","CREDITS.txt"];
 const FRESH=["sfx.mp3","sfx.json","voice-x.mp3","voice-x.json"];
 const KEEP=["voice-en1.mp3","voice-en1.json","voice-en2.mp3","voice-en2.json","voice-hi1.mp3","voice-hi1.json","voice-hi2.mp3","voice-hi2.json","voice-x.mp3","voice-x.json","sfx.mp3","sfx.json"];
 const isAudio=u=>/(sfx|voice-[a-z0-9]+)\.(mp3|json)$/.test(new URL(u).pathname);
 self.addEventListener("install",e=>{
   e.waitUntil(Promise.all([
-    caches.open(APP).then(c=>c.addAll(APPFILES)),
+    /* one missing small file must never block an update */
+    caches.open(APP).then(c=>Promise.all(APPFILES.map(f=>c.add(f).catch(()=>{})))),
     /* update: refresh the packs that changed, but only if this phone already had them */
     caches.open(AUD).then(c=>Promise.all(FRESH.map(async f=>{ if(await c.match(f)){ try{ const r=await fetch(f,{cache:"reload"}); if(r.ok) await c.put(f,r); }catch(err){} } })))
   ]));

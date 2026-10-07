@@ -558,6 +558,35 @@ body[data-w="ocean"] .bar h1{color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.3)}
 .holdbtn.holding::before{width:100%;transition:width 1.5s linear}
 .credits{overflow-wrap:anywhere;font-size:.78rem;line-height:1.35;max-height:220px;overflow:auto;background:#fff;border-radius:12px;padding:8px 10px;margin-top:8px}
 a.opt{text-decoration:none;color:inherit;display:inline-flex;align-items:center}
+/* ---------- Count & Feed ---------- */
+.feedwrap{flex:1;min-height:0;width:100%;display:flex;gap:12px;align-items:stretch}
+.pile{flex:1;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:10px;background:rgba(255,255,255,.55);border-radius:24px;padding:10px}
+.treat{border:0;background:#fff;border-radius:22px;box-shadow:0 5px 0 var(--soft);font-size:clamp(2.4rem,min(12cqw,10cqh),4rem);width:min(96px,24cqw);aspect-ratio:1;cursor:pointer;transition:transform .25s,opacity .25s}
+.treat.used{transform:scale(.3) translateX(60%);opacity:0;pointer-events:none}
+.cf-eater{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.cf-eater .bignum{font-size:clamp(2.6rem,min(14cqw,12cqh),4.6rem);font-weight:800;color:#fff;background:var(--berry,#FF4F8B);width:1.5em;height:1.5em;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 0 rgba(0,0,0,.15);line-height:1}
+.cf-eater .who{font-size:clamp(4.4rem,min(26cqw,22cqh),8rem);line-height:1}
+.cf-eater .plate{min-height:1.6em;min-width:70%;background:#fff;border-radius:50%/40%;box-shadow:0 6px 0 var(--soft);display:flex;flex-wrap:wrap;justify-content:center;align-items:center;font-size:clamp(1.4rem,min(7cqw,6cqh),2.2rem);padding:4px 10px}
+.cf-eater .plate span{animation:out .3s reverse}
+.munch{animation:munch .5s}
+@keyframes munch{30%{transform:scale(1.15,.9)}60%{transform:scale(.95,1.08)}}
+@container (max-aspect-ratio:3/4){.feedwrap{flex-direction:column-reverse}.pile{flex:none}}
+/* ---------- Surprise Eggs ---------- */
+.nest{position:relative;flex:1;min-height:0;width:100%;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4%}
+.straw{position:absolute;bottom:3%;left:50%;transform:translateX(-50%);width:min(340px,74cqw,70cqh);height:min(70px,12cqh);border-radius:50%;background:repeating-linear-gradient(115deg,#C98A3A 0 6px,#E8B66A 6px 11px,#B07128 11px 15px);box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.eggbox{position:relative;width:min(210px,48cqw,34cqh);aspect-ratio:.78;margin-bottom:min(28px,5cqh)}
+.egg{position:absolute;inset:0;z-index:2;border:0;background:none;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.egg .shell{position:absolute;inset:0;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 30% 22%,#fff 0 7%,transparent 8%),radial-gradient(circle at 70% 66%,var(--e2) 0 7%,transparent 8%),radial-gradient(circle at 32% 78%,var(--e2) 0 6%,transparent 7%),radial-gradient(circle at 64% 32%,var(--e2) 0 6%,transparent 7%),radial-gradient(circle at 26% 46%,var(--e2) 0 4%,transparent 5%),var(--e1);box-shadow:inset -12px -14px 0 rgba(0,0,0,.08),0 6px 0 rgba(0,0,0,.08)}
+.egg .top{clip-path:polygon(0 0,100% 0,100% 54%,92% 60%,82% 51%,70% 61%,58% 50%,46% 62%,34% 50%,22% 61%,12% 49%,0 56%);transition:transform .55s cubic-bezier(.3,1.4,.5,1),opacity .55s}
+.egg .bot{clip-path:polygon(0 56%,12% 49%,22% 61%,34% 50%,46% 62%,58% 50%,70% 61%,82% 51%,92% 60%,100% 54%,100% 100%,0 100%)}
+.egg .crack{position:absolute;left:0;top:49%;width:100%;height:13%;overflow:visible;z-index:3;pointer-events:none}
+.egg .crack path{fill:none;stroke:#6B4A33;stroke-width:3.5;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:200;stroke-dashoffset:calc(200 - 200 * var(--crack,0));transition:stroke-dashoffset .3s}
+.egg.open .top{transform:translate(35%,-110%) rotate(35deg);opacity:0}
+.egg.open .crack{opacity:0}
+.wobble{animation:wobble .4s}
+@keyframes wobble{25%{transform:rotate(-9deg)}50%{transform:rotate(8deg)}75%{transform:rotate(-4deg)}}
+.baby{position:absolute;z-index:1;left:50%;bottom:30%;transform:translate(-50%,20%) scale(.2);opacity:0;font-size:clamp(3.6rem,min(30cqw,22cqh),8rem);line-height:1;transition:transform .6s cubic-bezier(.2,1.6,.4,1),opacity .3s;pointer-events:none}
+.baby.out{transform:translate(-50%,-10%) scale(1);opacity:1;z-index:4}
 /* ---------- big celebration ---------- */
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
 #confetti span{position:absolute;top:-40px;font-size:1.8rem;animation:fall linear forwards}
@@ -565,7 +594,7 @@ a.opt{text-decoration:none;color:inherit;display:inline-flex;align-items:center}
 #confetti .boom{position:absolute;left:50%;top:45%;font-size:min(30vw,180px);transform:translate(-50%,-50%) scale(0);animation:boom 1.2s cubic-bezier(.2,1.6,.4,1) forwards}
 @keyframes boom{40%{transform:translate(-50%,-50%) scale(1)}80%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-50%) scale(1.3);opacity:0}}
 /* ---------- lesson styles ---------- */
-.lboard{position:relative;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(110px,26cqw),1fr));gap:10px;width:100%;flex:1;min-height:0;overflow-y:auto;align-content:center;padding:4px}
+.lboard{position:relative;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(110px,26cqw),1fr));gap:10px;width:100%;flex:1;min-height:0;overflow-y:auto;align-content:start;align-content:safe center;padding:4px}
 .ltile{border:0;border-radius:22px;background:var(--bg);box-shadow:0 5px 0 var(--soft);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px 4px;font-size:clamp(2.2rem,min(11cqw,9cqh),3.6rem);line-height:1.1;transition:transform .2s,filter .2s,box-shadow .2s}
 .ltile small{font-size:.85rem;font-weight:800}
 .ltile .dot{display:block;width:min(70px,16cqw);aspect-ratio:1;border-radius:50%;box-shadow:inset 0 0 0 3px rgba(0,0,0,.08)}
@@ -593,6 +622,11 @@ a.opt{text-decoration:none;color:inherit;display:inline-flex;align-items:center}
 .road2.cart{background:linear-gradient(#FFF1D6 0 66%,#C88A55 66% 70%,#9BD27E 70%)}
 .parader{position:absolute;top:44%;left:0;border:0;background:none;cursor:pointer;font-size:clamp(4rem,min(26cqw,26cqh),8rem);transform:translate(-120%,-50%);transition:transform .3s;line-height:1;padding:0}
 .parader.big{transform:translate(var(--x),-60%) scale(1.25)}
+/* vehicles: wheels on the road, planes in the sky, ships on the sea */
+.parader.lane{top:var(--y);transform:translate(-120%,-92%);transform-origin:50% 92%}
+.parader.lane.big{transform:translate(var(--x),-92%) scale(1.25)}
+.road2.sea{background:linear-gradient(#DDF3FF 0 58%,#5BC0F0 58% 62%,#2F8FD6 62%)}
+.road2.sea::after{top:66%;height:4px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.7) 0 18px,transparent 18px 46px)}
 .parader .wag{display:block;font-size:.45em;margin-top:-.2em}
 /* ---------- animal fit puzzle ---------- */
 .fitscene{position:relative;width:100%;flex:1;min-height:0;border-radius:24px;overflow:hidden;background:linear-gradient(#A6EBCB 0%,#D6F5B8 60%,#86CF6E 100%)}
@@ -828,7 +862,7 @@ a.opt{text-decoration:none;color:inherit;display:inline-flex;align-items:center}
 <div class="bye" id="rest" hidden><div class="pic">😴</div><h2 style="margin:0;font-size:2rem" id="restT">Time to rest!</h2><p style="margin:0;font-weight:600" id="restP">Playtime is over for now. Parents can add more time.</p><button class="bigbtn" style="background:#8A5CFF" id="restOk">Parents: more time</button></div>
 
 <script>
-const PACKSIZE={"sfx": 2431472, "voice-en1": 7542966, "voice-en2": 8248872, "voice-hi1": 5925501, "voice-hi2": 5484447, "voice-x": 4722534};
+const PACKSIZE={"sfx": 2431472, "voice-en1": 7542966, "voice-en2": 8248872, "voice-hi1": 5925501, "voice-hi2": 5484447, "voice-x": 5528778};
 const CREDITS=[["Dog", "Dog on a chain", "urupin", "CC-BY", "https://freesound.org/people/urupin/sounds/157695/"], ["Cat", "Cat meowing x5", "peridactyloptrix", "CC0", "https://freesound.org/people/peridactyloptrix/sounds/214759/"], ["Cow", "Distressed Mother Cow and Calves.wav", "lolamadeus", "CC0", "https://freesound.org/people/lolamadeus/sounds/194899/"], ["Pig", "Pig_Grunts_Snorts_Breathing_Hackney_City_Farm.wav", "tompallant", "CC0", "https://freesound.org/people/tompallant/sounds/257858/"], ["Hen", "Two Chickens \"Talking\"", "SquaredGlasses", "CC-BY", "https://freesound.org/people/SquaredGlasses/sounds/253649/"], ["Rooster", "Cock-a-doodle-doo", "kangaroovindaloo", "CC-BY", "https://freesound.org/people/kangaroovindaloo/sounds/164021/"], ["Frog", "tree frog.wav", "reinsamba", "CC-BY", "https://freesound.org/people/reinsamba/sounds/15689/"], ["Sheep", "110419-000_sheep_bleating.wav", "reinsamba", "CC-BY", "https://freesound.org/people/reinsamba/sounds/119161/"], ["Crow", "Carrion Crows.wav", "Benboncan", "CC-BY", "https://freesound.org/people/Benboncan/sounds/96950/"], ["Bird", "Sylvia communis (slavka gray).", "urupin", "CC-BY", "https://freesound.org/people/urupin/sounds/159609/"], ["car", "claxon.wav", "han1", "CC-BY", "https://freesound.org/people/han1/sounds/19026/"], ["bus", "honk2.mp3", "genel", "CC0", "https://freesound.org/people/genel/sounds/178402/"], ["auto", "horn.wav", "guitarguy1985", "CC0", "https://freesound.org/people/guitarguy1985/sounds/54086/"], ["truck", "car-horn.wav", "krissyeliot", "CC0", "https://freesound.org/people/krissyeliot/sounds/125520/"], ["train", "On a train in Argentina, between two wagons. Door is knocking", "felix.blume", "CC0", "https://freesound.org/people/felix.blume/sounds/165933/"], ["plane", "P-47 Flyby", "Fight2FlyPhoto", "CC-BY", "https://freesound.org/people/Fight2FlyPhoto/sounds/143560/"], ["heli", "London Exterior  helicopter passes overhead.mp3", "kerouac21", "CC0", "https://freesound.org/people/kerouac21/sounds/154926/"], ["siren", "police2.wav", "guitarguy1985", "CC0", "https://freesound.org/people/guitarguy1985/sounds/70938/"], ["siren2", "01052010 Tornado siren test.flac", "thaighaudio", "CC0", "https://freesound.org/people/thaighaudio/sounds/121532/"], ["siren3", "siren_short_low.wav", "UncleSigmund", "CC0", "https://freesound.org/people/UncleSigmund/sounds/117122/"], ["tractor", "Triumph start and idle.wav", "lonemonk", "CC-BY", "https://freesound.org/people/lonemonk/sounds/107228/"], ["clap", "Polite Clapping with no Yelling", "dianadesim", "CC0", "https://freesound.org/people/dianadesim/sounds/130330/"], ["walk", "Wet Footsteps in Small Shower Cabin.wav", "RutgerMuller", "CC0", "https://freesound.org/people/RutgerMuller/sounds/51147/"], ["laugh", "Child Laughing (wav file)", "OBXJohn", "CC-BY", "https://freesound.org/people/OBXJohn/sounds/242932/"], ["brush", "Brushing Teeth", "nebulousflynn", "CC-BY", "https://freesound.org/people/nebulousflynn/sounds/220939/"], ["sneeze", "sneeze2.mp3", "loisgwenllian", "CC0", "https://freesound.org/people/loisgwenllian/sounds/142601/"], ["snore", "STE-000.wav", "Daxter31", "CC-BY", "https://freesound.org/people/Daxter31/sounds/114609/"], ["drink", "Water_Drink.wav", "Q.K.", "CC0", "https://freesound.org/people/Q.K./sounds/56270/"], ["knock", "Window_Knocking_Door_Interior-perspective_Exterior_Bang_Aggressive.wav", "tompallant", "CC0", "https://freesound.org/people/tompallant/sounds/261068/"], ["tick", "wall_clock.wav", "Sclolex", "CC0", "https://freesound.org/people/Sclolex/sounds/210571/"], ["drops", "Water drop", "Elfman-Rox", "CC0", "https://freesound.org/people/Elfman-Rox/sounds/156907/"]];
 /* =================================================================== data */
 const PAL=['#FF5C8A','#2FBF7F','#3E9BFF','#8E6CFF','#FFB020','#FF7A45','#20B2B8'];
@@ -874,7 +908,7 @@ ANIMALS.push(["Crow","🐦‍⬛","कौआ","caw caw","काँव काँ�
 /* which real recording goes with which thing */
 const SNDK={Dog:"Dog",Cat:"Cat",Cow:"Cow",Pig:"Pig",Hen:"Hen",Rooster:"Rooster",Frog:"Frog",Sheep:"Sheep",Crow:"Crow",Bird:"Bird",
   Car:"car",Bus:"bus",Auto:"auto",Truck:"truck",Train:"train",Aeroplane:"plane",Helicopter:"heli",Ambulance:"siren","Fire truck":"siren2","Police car":"siren3",Tractor:"tractor",Cycle:"bell",
-  Clock:"tick",Door:"knock",Bucket:"drops","Brush teeth":"brush","Drink milk":"drink","Sleep on time":"snore","Cover your sneeze":"sneeze","Wash hands":"drops",Baby:"laugh",Chick:"Hen",Puppy:"Dog",Kitten:"Cat",Calf:"Cow",Piglet:"Pig",Lamb:"Sheep"};
+  Clock:"tick",Door:"knock",Bucket:"drops","Brush teeth":"brush","Drink milk":"drink","Sleep on time":"snore","Cover your sneeze":"sneeze","Wash hands":"drops",Chick:"Hen",Puppy:"Dog",Kitten:"Cat",Calf:"Cow",Piglet:"Pig",Lamb:"Sheep"};
 const HOMESOUNDS=[["Clock","🕰️","घड़ी","tick","tick tock","टिक टिक"],["Door","🚪","दरवाज़ा","knock","knock knock","खट खट"],["Water","💧","पानी","drops","drip drop","टप टप"],["Brushing","🪥","ब्रश","brush","brush brush","ब्रश ब्रश"],["Sneeze","🤧","छींक","sneeze","achoo","आछीं"],["Snoring","😴","खर्राटे","snore","zzz","खर्र खर्र"],["Drinking","🥛","पीना","drink","gulp gulp","गट गट"],["Laughing","😂","हँसी","laugh","ha ha ha","हा हा हा"],["Clapping","👏","ताली","clap","clap clap","ताली ताली"],["Walking","👣","चलना","walk","step step","धप धप"]];
 
 /* ---- helpers ---- */
@@ -1417,11 +1451,12 @@ function floatLesson(){
 function paradeLesson(){
   stopAll(); cur.resume=paradeLesson; cur.inQuiz=false; topicCtl();
   const T=cur.T, it=T.items[cur.idx];
-  stage.innerHTML=`<div class="q">${T_("Here it comes!","देखो कौन आया!")}</div><div class="road2${T.cart?" cart":""}" id="rd"><button class="parader" id="pr" aria-label="${it.en}">${it.e}${T.cart?`<span class="wag">🛒</span>`:""}</button><div class="lpop" id="lpop"></div></div>`;
+  const lane=T.cart?"":/Aeroplane|Helicopter/.test(it.en)?"34%":it.en==="Ship"?"74%":"79%";
+  stage.innerHTML=`<div class="q">${T_("Here it comes!","देखो कौन आया!")}</div><div class="road2${T.cart?" cart":""}${it.en==="Ship"?" sea":""}" id="rd"><button class="parader${lane?" lane":""}" id="pr" style="${lane?`--y:${lane}`:""}" aria-label="${it.en}">${it.e}${T.cart?`<span class="wag">🛒</span>`:""}</button><div class="lpop" id="lpop"></div></div>`;
   const pr=$("pr"), rd=$("rd"), W=rd.clientWidth, tw=pr.offsetWidth||100;
   const mid=(W-tw)/2; let x=-tw-20, stopped=false, raf=0, t0=performance.now();
-  const step=now=>{ if(!document.body.contains(pr)) return; const dt=(now-t0)/1000; t0=now; if(!stopped&&!paused){ x+=W*.18*dt; pr.style.transform=`translate(${x}px,-50%)`; if(x>=mid&&!pr.dataset.auto){ pr.dataset.auto=1; stop(); } } if(x<W+40) raf=requestAnimationFrame(step); };
-  const stop=()=>{ if(stopped) return; stopped=true; pr.style.setProperty("--x",x+"px"); pr.classList.add("big"); hush(); popGood();
+  const step=now=>{ if(!document.body.contains(pr)) return; const dt=(now-t0)/1000; t0=now; if(!stopped&&!paused){ x+=W*.18*dt; pr.style.transform=`translate(${x}px,${lane?"-92%":"-50%"})`; if(x>=mid&&!pr.dataset.auto){ pr.dataset.auto=1; stop(); } } if(x<W+40) raf=requestAnimationFrame(step); };
+  const stop=()=>{ if(stopped) return; stopped=true; pr.style.setProperty("--x",x+"px"); pr.style.transform=""; pr.classList.add("big"); hush(); popGood();
     play(learnSegs(it),()=>later(()=>{ pr.classList.remove("big"); stopped=false; pr.dataset.auto=1; t0=performance.now(); later(afterTeach,1600); },500)); };
   pr.onclick=()=>{ pr.dataset.auto=1; stop(); };
   raf=requestAnimationFrame(step);
@@ -2019,6 +2054,65 @@ function animalFit(){
   play([sx("fit")]);
 }
 
+/* =================================================================== v5 games
+   Count & Feed (Maths): give an animal exactly N treats, one at a time, counting aloud.
+   Surprise Eggs (Play): tap an egg until it cracks and a baby animal pops out. */
+Object.assign(S,{
+  feedDone:["Yummy yummy! Thank you!","वाह, मज़ा आ गया! धन्यवाद!"],
+  eggTap:["Tap the egg! What is inside?","अंडे पर टैप करो! अंदर क्या है?"],
+  eggHello:["Hello, little one!","नमस्ते, छोटू!"],
+  eggMore:["Tap, tap, tap!","टैप, टैप, टैप!"]
+});
+/* animal, treat (one / many), Hindi animal, Hindi treat (one / many) */
+const GIVE=[
+  {a:"🐒",en:"monkey",f:"🍌",one:"banana",many:"bananas",ah:"बंदर",oneH:"केला",manyH:"केले"},
+  {a:"🐰",en:"rabbit",f:"🥕",one:"carrot",many:"carrots",ah:"खरगोश",oneH:"गाजर",manyH:"गाजर"},
+  {a:"🐶",en:"puppy",f:"🦴",one:"bone",many:"bones",ah:"पिल्ले",oneH:"हड्डी",manyH:"हड्डियाँ"},
+  {a:"🐿️",en:"squirrel",f:"🌰",one:"nut",many:"nuts",ah:"गिलहरी",oneH:"अखरोट",manyH:"अखरोट"},
+  {a:"🐴",en:"horse",f:"🍎",one:"apple",many:"apples",ah:"घोड़े",oneH:"सेब",manyH:"सेब"}
+];
+const giveQ=(g,n)=>[`Give the ${g.en} ${NUMW[n-1].toLowerCase()} ${n===1?g.one:g.many}!`,`${g.ah} को ${NUM_HI[n-1]} ${n===1?g.oneH:g.manyH} दो!`];
+function countFeed(){
+  begin(countFeed); stopAll(); cur.resume=countFeed;
+  const age=PROF().age||2, max=age<=1?2:age===2?3:5;
+  const g=GIVE[rand(GIVE.length)], n=1+rand(max), spare=n+2+rand(2); let got=0, done=false;
+  stage.innerHTML=`<div class="q">${T_(...giveQ(g,n))}</div>
+   <div class="feedwrap"><div class="pile" id="pile">${Array.from({length:spare},(_,i)=>`<button class="treat" data-i="${i}" aria-label="${g.one}">${g.f}</button>`).join("")}</div>
+   <div class="cf-eater"><div class="bignum">${n}</div><div class="who" id="who">${g.a}</div><div class="plate" id="plate"></div></div></div>`;
+  const plate=$("plate"), who=$("who");
+  stage.querySelectorAll(".treat").forEach(b=>b.onclick=()=>{
+    if(done||b.classList.contains("used")) return;
+    b.classList.add("used"); got++;
+    const s=document.createElement("span"); s.textContent=g.f; plate.appendChild(s);
+    anim(who,"munch"); ding(got*2); hush(); play([{...countSeg(got-1),gap:0}]);
+    if(got===n){ done=true; later(()=>{ celebrate(); hush(); play([sx("feedDone")],()=>later(countFeed,1400)); },700); }
+  });
+  play([bi(...giveQ(g,n))]);
+}
+const EGGS=[["Chick","🐥","चूज़ा","Hen"],["Duckling","🐤","बत्तख का बच्चा",""],["Turtle","🐢","कछुआ",""],["Crocodile","🐊","मगरमच्छ",""],
+  ["Dinosaur","🦕","डायनासोर",""],["Snake","🐍","साँप",""],["Penguin","🐧","पेंगुइन",""],["Parrot","🦜","तोता",""],["Owl","🦉","उल्लू",""],["Bird","🐦","चिड़िया","Bird"]];
+const EGGCOL=[["#FFE3EE","#FF8FB8"],["#E3F1FF","#6FB2FF"],["#FFF4CC","#FFC233"],["#E5FAEA","#4CC97A"],["#F1E8FF","#A57CFF"]];
+let eggLast=-1;
+function surpriseEggs(){
+  begin(surpriseEggs); stopAll(); cur.resume=surpriseEggs;
+  let k; do{ k=rand(EGGS.length); }while(k===eggLast&&EGGS.length>1); eggLast=k;
+  const it=EGGS[k], col=EGGCOL[rand(EGGCOL.length)]; let taps=0, open=false;
+  stage.innerHTML=`<div class="q">${T_("What is inside?","अंदर क्या है?")}</div>
+   <div class="nest"><div class="straw"></div><div class="eggbox"><div class="baby" id="baby">${it[1]}</div>
+   <button class="egg" id="egg" style="--e1:${col[0]};--e2:${col[1]}" aria-label="egg"><span class="shell top"></span><span class="shell bot"></span>
+   <svg class="crack" viewBox="0 49 100 13" preserveAspectRatio="none"><path d="M0 56 L12 49 L22 61 L34 50 L46 62 L58 50 L70 61 L82 51 L92 60 L100 54"/></svg></button></div></div><div class="nameplate" id="np"></div>`;
+  const egg=$("egg");
+  egg.onclick=()=>{
+    if(open) return; taps++; anim(egg,"wobble"); sfx("tap",{force:true,rate:1+taps*.15});
+    egg.style.setProperty("--crack",Math.min(1,taps/3));
+    if(taps<3){ if(taps===1){ hush(); play([sx("eggMore")]); } return; }
+    open=true; egg.classList.add("open"); sfx("boing",{force:true}); later(()=>{ popGood(); $("baby").classList.add("out"); burstAt($("baby")); },250);
+    const nm={en:it[0],hi:it[2]};
+    later(()=>{ $("np").innerHTML=T_(it[0],it[2]); hush(); play([...sndThen(it[3]),nameSeg(nm),sx("eggHello"),{on:()=>cheer()}],()=>later(surpriseEggs,1700)); },700);
+  };
+  play([sx("eggTap")]);
+}
+
 /* =================================================================== HOME (world dropdowns) */
 const C=(t,th,d,dh,i,c,w,fn,land)=>({t,th,d,dh,i,c,w,fn,land});
 const go=(title,fn)=>fn;
@@ -2047,7 +2141,8 @@ const SHELVES=[
    C("Patterns","पैटर्न","What comes next?","आगे क्या आएगा?","🔁","#8A5CFF","space",patterns),
    C("Sorting","छाँटो","Put it in the right basket","सही टोकरी में डालो","🧺","#22B573","space",sorting),
    C("Big & Small","बड़ा-छोटा","Find the big one or small one","बड़ा या छोटा ढूँढो","🐘","#3E8EFF","space",sizes),
-   C("Compare","तुलना","More, less, tall, short","ज़्यादा-कम, लंबा-छोटा","⚖️","#FF7A33","space",compare)]},
+   C("Compare","तुलना","More, less, tall, short","ज़्यादा-कम, लंबा-छोटा","⚖️","#FF7A33","space",compare),
+   C("Count & Feed","गिनकर खिलाओ","Give the right number of treats","सही गिनती में खाना दो","🍌","#14B3B8","jungle",countFeed)]},
  {t:"Puzzles",th:"पहेलियाँ",d:"Jigsaw, memory and shadow puzzles.",dh:"टुकड़े जोड़ो, जोड़ी ढूँढो, परछाईं पहचानो।",i:"🧩",c:"#8A5CFF",w:"fantasy",cards:[
    C("Jigsaw","टुकड़े जोड़ो","Fix the picture","तस्वीर पूरी करो","🧩","#14B3B8","fantasy",jigsaw),
    C("Memory","जोड़ी ढूँढो","Find the matching pairs","एक जैसी जोड़ी ढूँढो","🃏","#8A5CFF","fantasy",()=>memory(2)),
@@ -2062,6 +2157,7 @@ const SHELVES=[
    C("Read & Find","पढ़ो और ढूँढो","Read a word, find the picture","शब्द पढ़ो, तस्वीर ढूँढो","📖","#22B573","ocean",readFind)]},
  {t:"Play",th:"खेलो",d:"Fun games for little hands.",dh:"छोटे हाथों के लिए मज़ेदार खेल।",i:"🎈",c:"#FFB020",w:"sky",cards:[
    C("Tap Tap","टैप टैप","Tap anywhere for a surprise","कहीं भी टैप करो","👆","#FFB020","sky",tapTap),
+   C("Surprise Eggs","अंडे में क्या?","Tap the egg, who comes out?","अंडा फोड़ो, कौन निकला?","🥚","#FF8FB8","fantasy",surpriseEggs),
    C("Peek-a-boo","छुपन-छुपाई","Who is hiding in the bush?","झाड़ी में कौन छुपा है?","🙈","#22B573","jungle",peekaboo),
    C("Feed Me","खाना खिलाओ","Give food to the animals","जानवरों को खाना दो","🐰","#3BA55C","jungle",feed),
    C("Car Wash","गाड़ी धोओ","Rub to make it shiny","रगड़ के चमकाओ","🧽","#3E8EFF","sky",carWash,1),
@@ -2331,6 +2427,9 @@ function allPhrases(){
   SORTS.forEach((S0,si)=>[S0.A,S0.B].forEach((L,side)=>L.forEach(it=>{ A("hi",sortAskHi(it)); A("hi",`${HN[it[0]]} ${SORT_SAY_HI[si][side]}!`); A("hi",`${HN[it[0]]} ${SORT_SAY_HI[si][side]}।`); })));
   PEEKERS().forEach(p=>B(p.en+"!",p.hi+"!"));
   Object.values(TOPICS).forEach(T=>T.items.forEach(it=>{ if(it.sent) A("en",it.sent); if(it.sentHi) A("hi",it.sentHi); }));
+  /* added in v5 */
+  GIVE.forEach(g=>{ for(let n=1;n<=5;n++) B(...giveQ(g,n)); });
+  EGGS.forEach(e=>B(e[0]+"!",e[2]+"!"));
   return [...out.values()];
 }
 window.allPhrases=allPhrases; window.fnv=fnv;
