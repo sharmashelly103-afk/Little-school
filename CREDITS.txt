@@ -1,41 +1,42 @@
-Baby Sparkle — sound credits
+BABY SPARKLE — SOUND AND VOICE CREDITS
 
-Voice: generated with the Kokoro-82M text-to-speech model (Apache-2.0).
+Real-world sounds: short clips cut from recordings on freesound.org, via the ESC-50 collection
+(K. J. Piczak, https://github.com/karolpiczak/ESC-50). Every clip used here comes from an original
+recording released as CC0 (public domain) or CC BY 3.0 (free for any use, including commercial, with credit).
+CC BY 3.0 licence: https://creativecommons.org/licenses/by/3.0/  ·  Clips were trimmed, de-noised and loudness-matched.
 
-Real animal, vehicle and home sounds: ESC-50 dataset by Karol J. Piczak,
-licensed CC BY-NC 3.0 (non-commercial use). Clips come from Freesound.org;
-each was trimmed, cleaned and volume-matched for this app.
+Dog       "Dog on a chain" by urupin — CC-BY — https://freesound.org/people/urupin/sounds/157695/
+Cat       "Cat meowing x5" by peridactyloptrix — CC0 — https://freesound.org/people/peridactyloptrix/sounds/214759/
+Cow       "Distressed Mother Cow and Calves.wav" by lolamadeus — CC0 — https://freesound.org/people/lolamadeus/sounds/194899/
+Pig       "Pig_Grunts_Snorts_Breathing_Hackney_City_Farm.wav" by tompallant — CC0 — https://freesound.org/people/tompallant/sounds/257858/
+Hen       "Two Chickens "Talking"" by SquaredGlasses — CC-BY — https://freesound.org/people/SquaredGlasses/sounds/253649/
+Rooster   "Cock-a-doodle-doo" by kangaroovindaloo — CC-BY — https://freesound.org/people/kangaroovindaloo/sounds/164021/
+Frog      "tree frog.wav" by reinsamba — CC-BY — https://freesound.org/people/reinsamba/sounds/15689/
+Sheep     "110419-000_sheep_bleating.wav" by reinsamba — CC-BY — https://freesound.org/people/reinsamba/sounds/119161/
+Crow      "Carrion Crows.wav" by Benboncan — CC-BY — https://freesound.org/people/Benboncan/sounds/96950/
+Bird      "Sylvia communis (slavka gray)." by urupin — CC-BY — https://freesound.org/people/urupin/sounds/159609/
+car       "claxon.wav" by han1 — CC-BY — https://freesound.org/people/han1/sounds/19026/
+bus       "honk2.mp3" by genel — CC0 — https://freesound.org/people/genel/sounds/178402/
+auto      "horn.wav" by guitarguy1985 — CC0 — https://freesound.org/people/guitarguy1985/sounds/54086/
+truck     "car-horn.wav" by krissyeliot — CC0 — https://freesound.org/people/krissyeliot/sounds/125520/
+train     "On a train in Argentina, between two wagons. Door is knocking" by felix.blume — CC0 — https://freesound.org/people/felix.blume/sounds/165933/
+plane     "P-47 Flyby" by Fight2FlyPhoto — CC-BY — https://freesound.org/people/Fight2FlyPhoto/sounds/143560/
+heli      "London Exterior  helicopter passes overhead.mp3" by kerouac21 — CC0 — https://freesound.org/people/kerouac21/sounds/154926/
+siren     "police2.wav" by guitarguy1985 — CC0 — https://freesound.org/people/guitarguy1985/sounds/70938/
+siren2    "01052010 Tornado siren test.flac" by thaighaudio — CC0 — https://freesound.org/people/thaighaudio/sounds/121532/
+siren3    "siren_short_low.wav" by UncleSigmund — CC0 — https://freesound.org/people/UncleSigmund/sounds/117122/
+tractor   "Triumph start and idle.wav" by lonemonk — CC-BY — https://freesound.org/people/lonemonk/sounds/107228/
+clap      "Polite Clapping with no Yelling" by dianadesim — CC0 — https://freesound.org/people/dianadesim/sounds/130330/
+walk      "Wet Footsteps in Small Shower Cabin.wav" by RutgerMuller — CC0 — https://freesound.org/people/RutgerMuller/sounds/51147/
+laugh     "Child Laughing (wav file)" by OBXJohn — CC-BY — https://freesound.org/people/OBXJohn/sounds/242932/
+brush     "Brushing Teeth" by nebulousflynn — CC-BY — https://freesound.org/people/nebulousflynn/sounds/220939/
+sneeze    "sneeze2.mp3" by loisgwenllian — CC0 — https://freesound.org/people/loisgwenllian/sounds/142601/
+snore     "STE-000.wav" by Daxter31 — CC-BY — https://freesound.org/people/Daxter31/sounds/114609/
+drink     "Water_Drink.wav" by Q.K. — CC0 — https://freesound.org/people/Q.K./sounds/56270/
+knock     "Window_Knocking_Door_Interior-perspective_Exterior_Bang_Aggressive.wav" by tompallant — CC0 — https://freesound.org/people/tompallant/sounds/261068/
+tick      "wall_clock.wav" by Sclolex — CC0 — https://freesound.org/people/Sclolex/sounds/210571/
+drops     "Water drop" by Elfman-Rox — CC0 — https://freesound.org/people/Elfman-Rox/sounds/156907/
 
-Dog        ESC-50 3-157695-A-0  (Freesound sound #157695, category: dog)
-Cat        ESC-50 4-161303-A-5  (Freesound sound #161303, category: cat)
-Cow        ESC-50 1-16568-A-3  (Freesound sound #16568, category: cow)
-Pig        ESC-50 3-257858-A-2  (Freesound sound #257858, category: pig)
-Hen        ESC-50 4-253649-A-6  (Freesound sound #253649, category: hen)
-Rooster    ESC-50 4-164021-A-1  (Freesound sound #164021, category: rooster)
-Frog       ESC-50 1-15689-A-4  (Freesound sound #15689, category: frog)
-Sheep      ESC-50 2-119161-A-8  (Freesound sound #119161, category: sheep)
-Crow       ESC-50 1-96950-A-9  (Freesound sound #96950, category: crow)
-Bird       ESC-50 4-159609-B-14  (Freesound sound #159609, category: chirping_birds)
-car        ESC-50 1-19026-A-43  (Freesound sound #19026, category: car_horn)
-bus        ESC-50 4-178402-A-43  (Freesound sound #178402, category: car_horn)
-auto       ESC-50 2-54086-A-43  (Freesound sound #54086, category: car_horn)
-truck      ESC-50 2-125520-A-43  (Freesound sound #125520, category: car_horn)
-train      ESC-50 4-165933-A-45  (Freesound sound #165933, category: train)
-plane      ESC-50 3-143560-A-47  (Freesound sound #143560, category: airplane)
-heli       ESC-50 3-154926-A-40  (Freesound sound #154926, category: helicopter)
-siren      ESC-50 2-70938-A-42  (Freesound sound #70938, category: siren)
-siren2     ESC-50 4-121532-A-42  (Freesound sound #121532, category: siren)
-siren3     ESC-50 1-76831-A-42  (Freesound sound #76831, category: siren)
-tractor    ESC-50 2-107228-B-44  (Freesound sound #107228, category: engine)
-clap       ESC-50 3-197435-A-22  (Freesound sound #197435, category: clapping)
-walk       ESC-50 1-51147-A-25  (Freesound sound #51147, category: footsteps)
-laugh      ESC-50 4-132810-A-26  (Freesound sound #132810, category: laughing)
-brush      ESC-50 5-220939-A-27  (Freesound sound #220939, category: brushing_teeth)
-sneeze     ESC-50 3-142601-A-21  (Freesound sound #142601, category: sneezing)
-snore      ESC-50 2-114609-B-28  (Freesound sound #114609, category: snoring)
-drink      ESC-50 1-67230-A-29  (Freesound sound #67230, category: drinking_sipping)
-knock      ESC-50 4-261068-A-30  (Freesound sound #261068, category: door_wood_knock)
-tick       ESC-50 5-210571-A-38  (Freesound sound #210571, category: clock_tick)
-drops      ESC-50 3-156907-A-15  (Freesound sound #156907, category: water_drops)
-
-Music and small effects (tune, chimes, pop, bell, boing): made for this app.
+Voice: generated with Kokoro-82M (Apache 2.0 licence), voices af_heart and hf_alpha.
+Music, jingles and effects (pop, ding, win, tunes, intro): made for Baby Sparkle; free to use.
+Fonts: Baloo 2, Fredoka, Andika, Comic Neue, Nunito — SIL Open Font License 1.1.

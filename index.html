@@ -9,6 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-512.png">
+<script>window.swReady=("serviceWorker" in navigator)?new Promise(res=>{ navigator.serviceWorker.addEventListener("controllerchange",()=>res()); navigator.serviceWorker.register("sw.js").then(()=>{ if(navigator.serviceWorker.controller) res(); }).catch(()=>res()); if(navigator.serviceWorker.controller) res(); setTimeout(res,6000); }):null;</script>
 <style>body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 </head><body>
 <title>Baby Sparkle</title>
@@ -547,6 +548,16 @@ body[data-w="ocean"] .bar h1{color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.3)}
 @keyframes splstar{0%{opacity:1;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.3) rotate(200deg)}}
 #splash.out{animation:splOut .6s forwards}
 @keyframes splOut{to{opacity:0;transform:scale(1.15)}}
+#splash.wait .spl-logo{transform:none;animation:splBob 1.6s ease-in-out infinite}#splash.wait .spl-word span{transform:none}#splash.wait .spl-tag{opacity:1}#splash.wait .spl-rays{opacity:.6}
+@keyframes splBob{50%{transform:translateY(-14px) rotate(4deg)}}
+.spl-load{position:absolute;left:50%;bottom:12%;transform:translateX(-50%);width:min(80vw,360px);text-align:center;z-index:2;color:#fff;font-weight:800;text-shadow:0 2px 0 rgba(0,0,0,.2)}
+.spl-load b{display:block;height:16px;border-radius:99px;background:rgba(255,255,255,.4);overflow:hidden;margin-bottom:8px;box-shadow:inset 0 2px 4px rgba(0,0,0,.15)}
+.spl-load i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#FFE14D,#FF7A33);transition:width .25s}
+.holdbtn{position:relative;overflow:hidden;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:none}
+.holdbtn::before{content:"";position:absolute;inset:0;width:0;background:rgba(255,255,255,.35);transition:width .2s}
+.holdbtn.holding::before{width:100%;transition:width 1.5s linear}
+.credits{overflow-wrap:anywhere;font-size:.78rem;line-height:1.35;max-height:220px;overflow:auto;background:#fff;border-radius:12px;padding:8px 10px;margin-top:8px}
+a.opt{text-decoration:none;color:inherit;display:inline-flex;align-items:center}
 /* ---------- big celebration ---------- */
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
 #confetti span{position:absolute;top:-40px;font-size:1.8rem;animation:fall linear forwards}
@@ -560,8 +571,9 @@ body[data-w="ocean"] .bar h1{color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.3)}
 .ltile .dot{display:block;width:min(70px,16cqw);aspect-ratio:1;border-radius:50%;box-shadow:inset 0 0 0 3px rgba(0,0,0,.08)}
 .ltile svg{width:min(70px,16cqw);height:auto}
 .ltile.lit{transform:scale(1.1);filter:brightness(1.18) saturate(1.2);box-shadow:0 0 0 5px #FFE14D,0 0 26px #FFE14D;background:#FFFBE6;z-index:2}
-.lboard.scene{display:block;border-radius:24px;overflow:hidden}
-.lboard.scene .ltile{position:absolute;transform:translate(-50%,-50%);background:rgba(255,255,255,.72);padding:6px 6px 4px;width:min(96px,19cqw);font-size:clamp(1.8rem,min(9cqw,8cqh),3rem);box-shadow:0 4px 0 rgba(0,0,0,.08)}
+.lboard.scene{display:block;border-radius:24px;overflow:hidden;container-type:size}
+.lboard.scene .ltile{position:absolute;transform:translate(-50%,-50%);background:rgba(255,255,255,.72);padding:3px;width:min(96px,18cqw,25cqh);aspect-ratio:1.15;font-size:clamp(1rem,min(9cqw,11cqh),3rem);border-radius:min(22px,5cqh);box-shadow:0 4px 0 rgba(0,0,0,.08)}
+@media (orientation:landscape) and (max-height:520px){.movebtns .bigbtn{padding:6px 18px;font-size:1rem}.stage>.q{margin:0;font-size:1.05rem}}
 .lboard.scene .ltile.lit{transform:translate(-50%,-50%) scale(1.2)}
 .lboard.room{background:linear-gradient(#FFE9C7 0 62%,#C88A55 62% 100%)}
 .lboard.room::before{content:"";position:absolute;left:8%;top:8%;width:26%;height:30%;background:linear-gradient(#BDE7FF,#E8F7FF);border:6px solid #fff;border-radius:8px;box-shadow:0 0 0 3px #D9A66B}
@@ -748,7 +760,8 @@ body[data-w="ocean"] .bar h1{color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.3)}
     <button class="cancel" id="gcancel" hidden>Not now</button>
   </div>
 </div>
-<div class="bye" id="bye" hidden><div class="pic">👋</div><h2 style="margin:0;font-size:2rem">Bye bye!</h2><p style="margin:0;font-weight:600">Swipe up or press Home to close Baby Sparkle.</p><button class="bigbtn" style="background:#22B573" id="byeback">Open again</button></div>
+<div class="bye" id="bye" hidden><div class="pic">👋</div><h2 style="margin:0;font-size:2rem" id="byeT">Bye bye!</h2><p style="margin:0;font-weight:600" id="byeP">Press your phone's Back or Home button to close Baby Sparkle.</p><button class="bigbtn" style="background:#22B573" id="byeback">Play again</button></div>
+<div class="bye" id="hold" hidden><div class="pic" id="holdPic">🚪</div><h2 style="margin:0;font-size:2rem" id="holdT">Leaving?</h2><p style="margin:0;font-weight:600" id="holdP">Parents: press and hold the button below</p><button class="bigbtn holdbtn" style="background:#8A5CFF" id="holdOk">🔒 Hold to close</button><button class="bigbtn" style="background:#22B573;font-size:1.5rem;padding:16px 34px" id="holdNo">▶ Keep playing</button></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="logoSym" viewBox="0 0 100 100">
@@ -808,12 +821,15 @@ body[data-w="ocean"] .bar h1{color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.3)}
   <div class="spl-word" id="splWord"></div>
   <div class="spl-tag" id="splTag">Write · Learn · Play</div>
   <div class="spl-stars" id="splStars"></div>
+  <div class="spl-load" id="splLoad" hidden><b><i></i></b><span>Getting the sounds ready…</span></div>
 </div>
 <div id="confetti" aria-hidden="true"></div>
 <div class="sheet" id="settings" hidden><div class="sheetcard" id="setCard"></div></div>
 <div class="bye" id="rest" hidden><div class="pic">😴</div><h2 style="margin:0;font-size:2rem" id="restT">Time to rest!</h2><p style="margin:0;font-weight:600" id="restP">Playtime is over for now. Parents can add more time.</p><button class="bigbtn" style="background:#8A5CFF" id="restOk">Parents: more time</button></div>
 
 <script>
+const PACKSIZE={"sfx": 2431472, "voice-en1": 7542966, "voice-en2": 8248872, "voice-hi1": 5925501, "voice-hi2": 5484447, "voice-x": 4722534};
+const CREDITS=[["Dog", "Dog on a chain", "urupin", "CC-BY", "https://freesound.org/people/urupin/sounds/157695/"], ["Cat", "Cat meowing x5", "peridactyloptrix", "CC0", "https://freesound.org/people/peridactyloptrix/sounds/214759/"], ["Cow", "Distressed Mother Cow and Calves.wav", "lolamadeus", "CC0", "https://freesound.org/people/lolamadeus/sounds/194899/"], ["Pig", "Pig_Grunts_Snorts_Breathing_Hackney_City_Farm.wav", "tompallant", "CC0", "https://freesound.org/people/tompallant/sounds/257858/"], ["Hen", "Two Chickens \"Talking\"", "SquaredGlasses", "CC-BY", "https://freesound.org/people/SquaredGlasses/sounds/253649/"], ["Rooster", "Cock-a-doodle-doo", "kangaroovindaloo", "CC-BY", "https://freesound.org/people/kangaroovindaloo/sounds/164021/"], ["Frog", "tree frog.wav", "reinsamba", "CC-BY", "https://freesound.org/people/reinsamba/sounds/15689/"], ["Sheep", "110419-000_sheep_bleating.wav", "reinsamba", "CC-BY", "https://freesound.org/people/reinsamba/sounds/119161/"], ["Crow", "Carrion Crows.wav", "Benboncan", "CC-BY", "https://freesound.org/people/Benboncan/sounds/96950/"], ["Bird", "Sylvia communis (slavka gray).", "urupin", "CC-BY", "https://freesound.org/people/urupin/sounds/159609/"], ["car", "claxon.wav", "han1", "CC-BY", "https://freesound.org/people/han1/sounds/19026/"], ["bus", "honk2.mp3", "genel", "CC0", "https://freesound.org/people/genel/sounds/178402/"], ["auto", "horn.wav", "guitarguy1985", "CC0", "https://freesound.org/people/guitarguy1985/sounds/54086/"], ["truck", "car-horn.wav", "krissyeliot", "CC0", "https://freesound.org/people/krissyeliot/sounds/125520/"], ["train", "On a train in Argentina, between two wagons. Door is knocking", "felix.blume", "CC0", "https://freesound.org/people/felix.blume/sounds/165933/"], ["plane", "P-47 Flyby", "Fight2FlyPhoto", "CC-BY", "https://freesound.org/people/Fight2FlyPhoto/sounds/143560/"], ["heli", "London Exterior  helicopter passes overhead.mp3", "kerouac21", "CC0", "https://freesound.org/people/kerouac21/sounds/154926/"], ["siren", "police2.wav", "guitarguy1985", "CC0", "https://freesound.org/people/guitarguy1985/sounds/70938/"], ["siren2", "01052010 Tornado siren test.flac", "thaighaudio", "CC0", "https://freesound.org/people/thaighaudio/sounds/121532/"], ["siren3", "siren_short_low.wav", "UncleSigmund", "CC0", "https://freesound.org/people/UncleSigmund/sounds/117122/"], ["tractor", "Triumph start and idle.wav", "lonemonk", "CC-BY", "https://freesound.org/people/lonemonk/sounds/107228/"], ["clap", "Polite Clapping with no Yelling", "dianadesim", "CC0", "https://freesound.org/people/dianadesim/sounds/130330/"], ["walk", "Wet Footsteps in Small Shower Cabin.wav", "RutgerMuller", "CC0", "https://freesound.org/people/RutgerMuller/sounds/51147/"], ["laugh", "Child Laughing (wav file)", "OBXJohn", "CC-BY", "https://freesound.org/people/OBXJohn/sounds/242932/"], ["brush", "Brushing Teeth", "nebulousflynn", "CC-BY", "https://freesound.org/people/nebulousflynn/sounds/220939/"], ["sneeze", "sneeze2.mp3", "loisgwenllian", "CC0", "https://freesound.org/people/loisgwenllian/sounds/142601/"], ["snore", "STE-000.wav", "Daxter31", "CC-BY", "https://freesound.org/people/Daxter31/sounds/114609/"], ["drink", "Water_Drink.wav", "Q.K.", "CC0", "https://freesound.org/people/Q.K./sounds/56270/"], ["knock", "Window_Knocking_Door_Interior-perspective_Exterior_Bang_Aggressive.wav", "tompallant", "CC0", "https://freesound.org/people/tompallant/sounds/261068/"], ["tick", "wall_clock.wav", "Sclolex", "CC0", "https://freesound.org/people/Sclolex/sounds/210571/"], ["drops", "Water drop", "Elfman-Rox", "CC0", "https://freesound.org/people/Elfman-Rox/sounds/156907/"]];
 /* =================================================================== data */
 const PAL=['#FF5C8A','#2FBF7F','#3E9BFF','#8E6CFF','#FFB020','#FF7A45','#20B2B8'];
 const LN={A:"A",B:"B",C:"C",D:"D",E:"E",F:"F",G:"G",H:"H",I:"I",J:"J",K:"K",L:"L",M:"M",N:"N",O:"O",P:"P",Q:"Q",R:"R",S:"S",T:"T",U:"U",V:"V",W:"W",X:"X",Y:"Y",Z:"Zed"};
@@ -892,20 +908,37 @@ function burstAt(el){ const r=el.getBoundingClientRect(), s=stage.getBoundingCli
    NAME.json says where each clip starts {key:[offset,length,seconds]}. */
 let ac=null, master=null, musicBus=null, voiceBus=null, fxBus=null;
 function applyVol(){ if(!ac) return; musicBus.gain.value=ST.music; voiceBus.gain.value=ST.voice; fxBus.gain.value=ST.fx; }
-function audio(){ try{ if(!ac){ ac=new (window.AudioContext||window.webkitAudioContext)(); master=ac.createGain(); master.gain.value=.95; master.connect(ac.destination); musicBus=ac.createGain(); musicBus.connect(master); voiceBus=ac.createGain(); voiceBus.connect(master); fxBus=ac.createGain(); fxBus.connect(master); applyVol();} if(ac.state==="suspended") ac.resume(); }catch(e){} return ac; }
+function audio(){ try{ if(!ac){ ac=new (window.AudioContext||window.webkitAudioContext)(); master=ac.createGain(); master.gain.value=.95; master.connect(ac.destination); musicBus=ac.createGain(); musicBus.connect(master); voiceBus=ac.createGain(); voiceBus.connect(master); fxBus=ac.createGain(); fxBus.connect(master); applyVol();} if(ac.state!=="running") ac.resume().catch(()=>{}); }catch(e){} return ac; }
 const PACK={}, DEC=new Map(), packWait={};
+/* download progress, so the first open can show "Loading sounds 40%" */
+const LOAD={got:{},size:{},fail:{}};
+function loadProgress(names){ let g=0,t=0; names.forEach(n=>{ const sz=LOAD.size[n]||PACKSIZE[n]||1; t+=sz; g+=PACK[n]||LOAD.fail[n]?sz:Math.min(sz,LOAD.got[n]||0); }); return t?g/t:1; }
+async function fetchBytes(url,name){
+  const r=await fetch(url); if(!r.ok) throw new Error(r.status);
+  const len=+r.headers.get("content-length")||0; if(len) LOAD.size[name]=len;
+  if(!r.body||!r.body.getReader) return r.arrayBuffer();
+  const rd=r.body.getReader(), parts=[]; let got=0;
+  for(;;){ const {done,value}=await rd.read(); if(done) break; parts.push(value); got+=value.length; LOAD.got[name]=got; }
+  const out=new Uint8Array(got); let o=0; for(const p of parts){ out.set(p,o); o+=p.length; } return out.buffer;
+}
 function loadPack(name){
   if(packWait[name]) return packWait[name];
-  return packWait[name]=Promise.all([fetch(name+".json").then(r=>r.ok?r.json():null),fetch(name+".mp3").then(r=>r.ok?r.arrayBuffer():null)])
-    .then(([idx,ab])=>{ if(idx&&ab){ PACK[name]={idx,ab,base:0}; showNote(); } }).catch(()=>{});
+  /* in the installed app, wait for the offline worker so each pack is downloaded and saved only once */
+  return packWait[name]=Promise.resolve(window.swReady).then(()=>Promise.all([fetch(name+".json").then(r=>r.ok?r.json():null),fetchBytes(name+".mp3",name)]))
+    .then(([idx,ab])=>{ if(idx&&ab){ PACK[name]={idx,ab,base:0}; showNote(); } else LOAD.fail[name]=1; })
+    .catch(()=>{ LOAD.fail[name]=1; delete packWait[name]; showNote(); });
 }
 function clipLen(pack,key){ const e=PACK[pack]?.idx[key]; return e?e[2]:0; }
+decode.n=0;
 function decode(pack,key){
   const id=pack+"|"+key; if(DEC.has(id)) return DEC.get(id);
   const p=PACK[pack], e=p&&p.idx[key]; if(!e||!audio()) return Promise.resolve(null);
   const ab=p.ab.slice(p.base+e[0],p.base+e[0]+e[1]);
   const pr=new Promise(res=>{ try{ const r=ac.decodeAudioData(ab,b=>res(b),()=>res(null)); if(r&&r.catch) r.catch(()=>res(null)); }catch(err){ res(null); } });
-  DEC.set(id,pr); return pr;
+  DEC.set(id,pr);
+  /* keep only recent voice clips decoded, so memory stays small on older phones */
+  if(pack!=="sfx"&&++decode.n%40===0){ const v=[...DEC.keys()].filter(x=>!x.startsWith("sfx|")); v.slice(0,Math.max(0,v.length-160)).forEach(x=>DEC.delete(x)); }
+  return pr;
 }
 const live=new Set();
 function playBuf(buf,{gain=1,rate=1,dest,loop=false}={}){
@@ -927,7 +960,7 @@ function ding(n=0){ sfx("ding",{rate:Math.pow(2,n/12),gain:.7,force:true}); }
 function popGood(){ sfx("pop",{force:true}); }
 function tone(f){ sfx("mar",{rate:f/523.25,gain:.9,force:true}); }
 /* home tune */
-let tuneSrc=null, tuneOn=true;
+let tuneSrc=null, tuneOn=ST.tuneOn!==false;
 const TUNES={sunny:["tune","Sunny Day","धूप वाला दिन"],lullaby:["tune_lullaby","Lullaby","लोरी"],jungle:["tune_jungle","Jungle Jam","जंगल की धुन"],stars:["tune_stars","Twinkle Stars","टिमटिमाते तारे"],off:["","No music","कोई धुन नहीं"]};
 let tuneKey="";
 function startTune(force){ const k=(TUNES[ST.tune]||TUNES.sunny)[0]; if(!k||!tuneOn||!audio()) return; if(tuneSrc&&tuneKey===k) return; stopTune(); tuneKey=k; decode("sfx",k).then(b=>{ if(!b||tuneSrc||!tuneOn||(!force&&!$("play").hidden)||tuneKey!==k) return; tuneSrc=playBuf(b,{dest:musicBus,loop:true}); }); }
@@ -1069,11 +1102,11 @@ function traceList(kind){
     intro:[bi(o.say,o.sayHi)], outro:()=>[bi(o.done,o.doneHi)], show:o.fin||o.b}));
   if(kind==="abc") return ABC.map(([L,w,e,h])=>({kind:"glyph",label:L,chip:L,g:GLYPH[L],
     intro:[EN()&&{t:`Let's write ${LN[L]}.`},H()&&{t:`${LNH[L]} लिखो`,l:"hi"},sx("startDot")],
-    outro:()=>[EN()&&{t:`Wow! ${LN[L]}!`,gap:300},EN()&&{t:`${LN[L]}, for ${w}!`},H()&&{t:`${LNH[L]} से ${h}`,l:"hi"}], show:e, sub:`${L} for ${w}`}));
+    outro:()=>[EN()&&{t:`Wow! ${LN[L]}!`,gap:300},EN()&&{t:`${LN[L]}, for ${w}!`},H()&&{t:`${LNH[L]} से ${h}`,l:"hi"}], show:e, sub:Tp(`${L} for ${w}`,`${L} से ${h}`)}));
   if(kind==="num") return NUM_EN.map((w,i)=>{ const n=i+1, th=THINGS[i]; return {kind:"glyph",label:String(n),chip:String(n),g:GLYPH[String(n)],
     intro:[EN()&&{t:`Let's write ${w}.`},H()&&{t:`${NUM_HI[i]} लिखो`,l:"hi"},sx("startDot")],
     outro:()=>[EN()?{t:`${NUMW[i]}!`,gap:300}:{t:NUM_HI[i],l:"hi",gap:300},sx("countWithMe"),...Array.from({length:n},(_,k)=>({...countSeg(k),on:()=>{ const o=$("ovobjs"); o&&o.children[k].classList.add("on"); },gap:150})),EN()&&{t:`${NUMW[i]} ${n===1?sing(th[1]):th[1]}!`}],
-    count:n, thing:th[0], sub:`${n} = ${w}`}; });
+    count:n, thing:th[0], sub:Tp(`${n} = ${w}`,`${n} = ${NUM_HI[i].replace(/[!।]/g,"")}`)}; });
   return DOTS.map(o=>({kind:"dots",label:Tp(o.n,o.hi),chip:o.pts.length,pts:o.pts,e:o.e,
     intro:[sx("joinDots")],
     outro:()=>[sx2(dotDone(o))], show:o.e}));
@@ -1329,7 +1362,7 @@ function quiz(pool,next,ans=pool[rand(pool.length)],o={}){
   if((PROF().age||2)<=1&&pool.length>2&&!o.keep){ pool=[ans,pool.find(x=>x!==ans)]; o={...o,two:true}; }
   const opts=o.keep?pool:shuffle(pool), Q=o.q||ans; let asks=0, wt=null;
   const qseg=()=>o.en?{t:Q.q}:bi(Q.q,Q.qh), NS=x=>o.en?{t:x.en+"!"}:nameSeg(x), PR=()=>o.en?{t:PRAISE[rand(PRAISE.length)]}:praise();
-  stage.innerHTML=`<div class="q">${o.en?Q.q:T_(Q.q,Q.qh)}</div>${o.head||""}<div class="choices${o.two?" two":""}">${opts.map((x,i)=>`<button data-i="${i}" aria-label="${x.en}">${x.choice}</button>`).join("")}</div>`;
+  stage.innerHTML=`<div class="q">${o.en?(lang!=="en"&&Q.qh&&Q.qh!==Q.q?`${Q.q}<span class="hl">${Q.qh}</span>`:Q.q):T_(Q.q,Q.qh)}</div>${o.head||""}<div class="choices${o.two?" two":""}">${opts.map((x,i)=>`<button data-i="${i}" aria-label="${x.en}">${x.choice}</button>`).join("")}</div>`;
   const btns=[...stage.querySelectorAll(".choices button")];
   const wait=()=>{ clearTimeout(wt); wt=later(()=>{ if(asks<3) ask(); else hint(); },9000); };
   const ask=()=>{ asks++; play([...(o.pre?o.pre():[]),qseg()],wait); };
@@ -1494,11 +1527,12 @@ function bubbles(){
   newTarget(); spawn(); every(spawn,1000); every(()=>{ if(!paused) play([sx2(target.ask)]); },14000);
 }
 const NOTE={C4:261.6,D4:293.7,E4:329.6,F4:349.2,G4:392,A4:440,B4:493.9,C5:523.3};
+const SONG_HI={"Twinkle":"टिमटिम तारे","Mary's Lamb":"मैरी का मेमना","Happy Birthday":"हैप्पी बर्थडे"};
 const SONGS={"Twinkle":"C4 C4 G4 G4 A4 A4 G4- F4 F4 E4 E4 D4 D4 C4- G4 G4 F4 F4 E4 E4 D4- G4 G4 F4 F4 E4 E4 D4- C4 C4 G4 G4 A4 A4 G4- F4 F4 E4 E4 D4 D4 C4-","Mary's Lamb":"E4 D4 C4 D4 E4 E4 E4- D4 D4 D4- E4 G4 G4- E4 D4 C4 D4 E4 E4 E4 E4 D4 D4 E4 D4 C4-","Happy Birthday":"C4 C4 D4- C4- F4- E4-- C4 C4 D4- C4- G4- F4-- C4 C4 C5- A4- F4- E4- D4-- B4 B4 A4- F4- G4- F4--"};
 const BARS=[["C4","#FF5C8A"],["D4","#FF7A45"],["E4","#FFB020"],["F4","#2FBF7F"],["G4","#20B2B8"],["A4","#3E9BFF"],["B4","#8E6CFF"],["C5","#D14FB5"]];
 function music(){
   stopAll(); cur.resume=music; cur.ctl={replay:music};
-  stage.innerHTML=`<div class="xylo">${BARS.map((b,i)=>`<button data-n="${b[0]}" style="background:${b[1]};height:${100-i*7}%" aria-label="note ${i+1}">${i+1}</button>`).join("")}</div><div class="songs">${Object.keys(SONGS).map(s=>`<button data-s="${s}">▶ ${s}</button>`).join("")}</div>`;
+  stage.innerHTML=`<div class="xylo">${BARS.map((b,i)=>`<button data-n="${b[0]}" style="background:${b[1]};height:${100-i*7}%" aria-label="note ${i+1}">${i+1}</button>`).join("")}</div><div class="songs">${Object.keys(SONGS).map(s=>`<button data-s="${s}">▶ ${Tp(s,SONG_HI[s])}</button>`).join("")}</div>`;
   const hit=n=>{ const el=stage.querySelector(`[data-n="${n}"]`); if(el){ el.classList.add("hit"); setTimeout(()=>el.classList.remove("hit"),180);} };
   stage.querySelectorAll(".xylo button").forEach(b=>b.addEventListener("pointerdown",()=>{ tone(NOTE[b.dataset.n]); hit(b.dataset.n); }));
   stage.querySelectorAll(".songs button").forEach(b=>b.onclick=()=>{ stopAll(); cur.resume=music; let t=0;
@@ -1549,7 +1583,7 @@ function firstSound(){
   begin(firstSound);
   const tgt=ABC[rand(26)], L=tgt[0];
   const others=[]; for(const w of shuffle(FIRSTW)){ const f=w[0][0]; if(f!==L&&!others.some(o=>o[0][0]===f)&&w[1]!==tgt[2]) others.push(w); if(others.length===2) break; }
-  const mk=w=>({choice:w[1],en:w[0],hi:w[0],q:`Which one starts with ${LN[L]}?`,qh:`Which one starts with ${LN[L]}?`});
+  const mk=w=>({choice:w[1],en:w[0],hi:w[0],q:`Which one starts with ${LN[L]}?`,qh:`${L} से कौन सा शब्द शुरू होता है?`});
   const pool=[mk([tgt[1],tgt[2]]),...others.map(mk)], ans=pool[0];
   quiz(pool,firstSound,ans,{en:1,head:`<div class="big" style="color:${PAL[rand(7)]}">${L}<small>${L.toLowerCase()}</small></div>`,
     rightSay:()=>[{t:`Yes! ${LN[L]}, for ${tgt[1]}!`}],wrongSay:x=>[{t:`${x.en} starts with ${LN[x.en[0].toUpperCase()]}.`}]});
@@ -1557,7 +1591,7 @@ function firstSound(){
 }
 function readFind(){
   begin(readFind);
-  const three=shuffle(WORDS).slice(0,3), pool=three.map(w=>({choice:w[1],en:w[0],hi:w[0],q:`Where is the ${w[0].toLowerCase()}?`,qh:`Where is the ${w[0].toLowerCase()}?`})), ans=pool[rand(3)];
+  const three=shuffle(WORDS).slice(0,3), pool=three.map(w=>({choice:w[1],en:w[0],hi:w[0],q:`Where is the ${w[0].toLowerCase()}?`,qh:`अंग्रेज़ी शब्द पढ़ो और तस्वीर ढूँढो`})), ans=pool[rand(3)];
   quiz(pool,readFind,ans,{en:1,head:spellRow(ans.en),pre:()=>spell(ans.en),rightSay:()=>[...spell(ans.en),{t:PRAISE[0]}]});
   cur.resume=readFind;
 }
@@ -1877,23 +1911,36 @@ function peekaboo(){
     play([...sndThen(w.snd),nameSeg(w),...(end?[{on:()=>celebrate()},sx("foundAll")]:[])],()=>{ if(end) later(peekaboo,1500); }); });
   play([sx("peek")]);
 }
+/* Keeps a drawing canvas sharp and the right size when the phone rotates; the picture so far is scaled across. */
+function keepFit(cv,c,onSize){
+  const fit=()=>{ if(!cv.isConnected){ ro.disconnect(); return; }
+    const r=cv.getBoundingClientRect(); if(r.width<4||r.height<4) return;
+    const dpr=Math.min(2,devicePixelRatio||1), w=Math.round(r.width*dpr), h=Math.round(r.height*dpr);
+    if(w===cv.width&&h===cv.height&&cv.dataset.fit) return;
+    let tmp=null; if(cv.dataset.fit&&cv.width&&cv.height){ tmp=document.createElement("canvas"); tmp.width=cv.width; tmp.height=cv.height; tmp.getContext("2d").drawImage(cv,0,0); }
+    const op=c.globalCompositeOperation; cv.width=w; cv.height=h; cv.dataset.fit=1;
+    if(tmp){ const k=Math.min(w/tmp.width,h/tmp.height); c.drawImage(tmp,0,0,tmp.width*k,tmp.height*k); }
+    c.setTransform(dpr,0,0,dpr,0,0); c.globalCompositeOperation=op; c.lineCap="round"; c.lineJoin="round";
+    onSize(r); };
+  const ro=new ResizeObserver(fit); ro.observe(cv); fit();
+}
 const WASHV=[["Car","🚗","कार"],["Bus","🚌","बस"],["Truck","🚚","ट्रक"],["Tractor","🚜","ट्रैक्टर"],["Fire truck","🚒","दमकल"],["Auto","🛺","ऑटो"],["Scooter","🛵","स्कूटर"]];
 const washDone=v=>[`Sparkle clean! A shiny ${lc(v[0])}!`,`चमचमाती ${v[2]}!`];
 function carWash(){
   begin(carWash); stopAll(); cur.resume=carWash;
   const v=WASHV[rand(WASHV.length)]; stage.classList.add("lockpan");
   stage.innerHTML=`<div class="q">${T_("Rub to wash it!","रगड़ के साफ़ करो!")}</div><div class="washwrap"><div class="car">${v[1]}</div><canvas id="wash"></canvas></div>`;
-  const cv=$("wash"), r=cv.getBoundingClientRect(), S=Math.round(r.width), dpr=Math.min(2,devicePixelRatio||1);
-  cv.width=S*dpr; cv.height=S*dpr; const c=cv.getContext("2d"); c.scale(dpr,dpr);
-  c.fillStyle="#9C6B3E"; c.fillRect(0,0,S,S);
-  for(let i=0;i<70;i++){ c.fillStyle=["#7A4F2A","#B07A47","#8C5A30","#A26D3B"][i%4]; c.beginPath(); c.arc(R()*S,R()*S,10+R()*40,0,7); c.fill(); }
-  c.font=`${S*.09}px serif`; for(let i=0;i<8;i++) c.fillText("💧",R()*S,R()*S);
-  c.globalCompositeOperation="destination-out";
+  const cv=$("wash"), c=cv.getContext("2d"); let S=0, dirty=false;
+  const dirt=()=>{ c.globalCompositeOperation="source-over"; c.fillStyle="#9C6B3E"; c.fillRect(0,0,S,S);
+    for(let i=0;i<70;i++){ c.fillStyle=["#7A4F2A","#B07A47","#8C5A30","#A26D3B"][i%4]; c.beginPath(); c.arc(R()*S,R()*S,(10+R()*40)*S/320,0,7); c.fill(); }
+    c.font=`${S*.09}px serif`; for(let i=0;i<8;i++) c.fillText("💧",R()*S,R()*S);
+    c.globalCompositeOperation="destination-out"; dirty=true; };
+  keepFit(cv,c,r=>{ S=Math.round(r.width); if(!dirty) dirt(); });
   let down=false, last=null, done=false, rubs=0;
   const at=e=>{ const b=cv.getBoundingClientRect(); return [e.clientX-b.left,e.clientY-b.top]; };
-  const rub=e=>{ const p=at(e); c.lineWidth=S*.16; c.lineCap="round"; c.beginPath(); c.moveTo(...(last||p)); c.lineTo(...p); c.stroke(); last=p; rubs++;
+  const rub=e=>{ const p=at(e); if(!S) return; c.lineWidth=S*.16; c.lineCap="round"; c.beginPath(); c.moveTo(...(last||p)); c.lineTo(...p); c.stroke(); last=p; rubs++;
     if(rubs%14===0){ sfx("shaker",{gain:.5,force:true}); check(); } };
-  const check=()=>{ if(done) return; const d=c.getImageData(0,0,cv.width,cv.height).data; let clear=0, tot=0; for(let i=3;i<d.length;i+=4*97){ tot++; if(d[i]<40) clear++; }
+  const check=()=>{ if(done||!cv.width) return; const d=c.getImageData(0,0,cv.width,cv.height).data; let clear=0, tot=0; for(let i=3;i<d.length;i+=4*97){ tot++; if(d[i]<40) clear++; }
     if(clear/tot>.72){ done=true; c.clearRect(0,0,S,S); hush(); celebrate(); play([sx2(washDone(v))],()=>later(carWash,1800)); } };
   cv.addEventListener("pointerdown",e=>{ cv.setPointerCapture(e.pointerId); down=true; last=null; rub(e); });
   cv.addEventListener("pointermove",e=>{ if(down) (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(rub); });
@@ -1904,13 +1951,13 @@ const PAINT=["#E8323C","#FF8A1F","#FFCC1F","#2DB45E","#2F7BEA","#8B4CE0","#FF6FB
 function magicPaint(){
   stopAll(); cur.resume=magicPaint; cur.ctl={replay:magicPaint};
   stage.classList.add("lockpan"); stage.innerHTML=`<div class="paintwrap"><canvas id="paint"></canvas><div class="brushes">${COLS.slice(0,8).map((cl,i)=>`<button data-i="${i}" aria-label="${cl[0]}" aria-pressed="${i===0}" style="background:${cl[1]}"></button>`).join("")}<button data-i="rb" aria-label="Rainbow" aria-pressed="false" style="background:conic-gradient(red,orange,yellow,lime,cyan,blue,violet,red)"></button><button data-i="st" aria-label="Stars" aria-pressed="false" style="background:#fff">⭐</button></div></div>`;
-  const cv=$("paint"), r=cv.getBoundingClientRect(), S=Math.round(Math.min(r.width,r.height)), dpr=Math.min(2,devicePixelRatio||1);
-  cv.width=Math.round(r.width*dpr); cv.height=Math.round(r.height*dpr); const c=cv.getContext("2d"); c.scale(dpr,dpr); c.lineCap="round"; c.lineJoin="round";
+  const cv=$("paint"), c=cv.getContext("2d"); let S=0;
+  keepFit(cv,c,r=>{ S=Math.round(Math.min(r.width,r.height)); });
   let mode=0, hue=0, down=false, last=null, n=0;
   stage.querySelectorAll(".brushes button").forEach(b=>b.onclick=()=>{ const i=b.dataset.i; stage.querySelectorAll(".brushes button").forEach(x=>x.setAttribute("aria-pressed",x===b)); hush();
     if(i==="rb"){ mode="rb"; play([sx("rainbow")]); } else if(i==="st"){ mode="st"; play([sx("stars")]); } else { mode=+i; play([nameSeg({en:COLS[mode][0],hi:COLS[mode][2]})]); } });
   const at=e=>{ const b=cv.getBoundingClientRect(); return [e.clientX-b.left,e.clientY-b.top]; };
-  const draw=e=>{ const p=at(e); n++;
+  const draw=e=>{ if(!S) return; const p=at(e); n++;
     if(mode==="st"){ if(n%6) return; c.font=`${S*.07}px serif`; c.textAlign="center"; c.textBaseline="middle"; c.fillText(["⭐","🌟","✨","💖"][n%4],p[0],p[1]); return; }
     c.strokeStyle=mode==="rb"?`hsl(${hue=(hue+6)%360} 90% 55%)`:COLS[mode][1]; c.lineWidth=S*.035;
     c.beginPath(); c.moveTo(...(last||p)); c.lineTo(...p); c.stroke(); last=p; };
@@ -2024,10 +2071,11 @@ const SHELVES=[
    C("Animal Piano","जानवरों का बाजा","Every key is an animal","हर चाबी एक जानवर","🎹","#D14FB5","fantasy",animalPiano,1),
    C("Music","संगीत","Xylophone and songs","बाजा और गाने","🎵","#8A5CFF","fantasy",music,1)]},
 ];
-SHELVES.forEach((s,si)=>s.cards.forEach((c,ci)=>c.id=`${si}:${c.t}`));
+/* lock ids don't depend on the shelf position; old saved locks are carried over */
+SHELVES.forEach((s,si)=>s.cards.forEach(c=>{ c.id=c.t.toLowerCase().replace(/[^a-z0-9]+/g,"-"); const old=`${si}:${c.t}`; if(ST.locks[old]){ ST.locks[c.id]=1; delete ST.locks[old]; save(); } }));
 let openShelf=-1;
 function renderHome(){
-  $("shelves").innerHTML=SHELVES.map((s,si)=>`<section><button class="world" data-s="${si}" style="--c:${s.c}" aria-expanded="${si===openShelf}"><i>${s.i}</i><span class="wt"><b>${T_(s.t,s.th)}</b><small>${lang==="hi"?s.dh:s.d}</small></span><span class="cnt">${s.cards.length}</span><span class="chev">▼</span></button>${si===openShelf?`<div class="wbody"><div class="cards">${s.cards.map((c,ci)=>`<button class="card${ST.locks[c.id]?" locked":""}" data-s="${si}" data-c="${ci}" style="--c:${c.c}">${ST.locks[c.id]?'<span class="lk">🔒</span>':""}<i>${c.i}</i><b>${lang==="hi"?c.th:c.t}</b><small>${lang==="hi"?c.dh:lang==="both"?c.th:c.d}</small></button>`).join("")}</div></div>`:""}</section>`).join("");
+  $("shelves").innerHTML=SHELVES.map((s,si)=>`<section><button class="world" data-s="${si}" style="--c:${s.c}" aria-expanded="${si===openShelf}"><i>${s.i}</i><span class="wt"><b>${T_(s.t,s.th)}</b><small>${lang==="hi"?s.dh:s.d}</small></span><span class="cnt">${s.cards.length}</span><span class="chev">▼</span></button>${si===openShelf?`<div class="wbody"><div class="cards">${s.cards.map((c,ci)=>`<button class="card${ST.locks[c.id]?" locked":""}" data-s="${si}" data-c="${ci}" style="--c:${c.c}">${ST.locks[c.id]?'<span class="lk">🔒</span>':""}<i>${c.i}</i><b>${lang==="hi"?c.th:lang==="both"?`${c.t}<span class="hl">${c.th}</span>`:c.t}</b><small>${lang==="hi"?c.dh:c.d}</small></button>`).join("")}</div></div>`:""}</section>`).join("");
   const p=PROF(); $("hello").textContent=p.name?`${lang==="hi"?"नमस्ते":"Hi"}, ${p.name}! ${p.av||""} ⭐ ${p.stars||0}`:(lang==="hi"?"लिखो · सीखो · खेलो":"Write · Learn · Play")+`  ⭐ ${p.stars||0}`;
   $("langPill").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===lang));
   $("backT").textContent=lang==="hi"?"वापस":"Back";
@@ -2073,7 +2121,7 @@ $("cPause").onclick=()=>setPause(!paused);
 const ctl=k=>{ $("cNext").classList.remove("nudge"); if(paused){ paused=false; $("cPause").textContent="⏸"; } const f=cur&&cur.ctl&&cur.ctl[k]; if(f) f(); else if(k==="replay"&&cur&&cur.resume) cur.resume(); };
 $("cPrev").onclick=()=>ctl("prev"); $("cNext").onclick=()=>ctl("next"); $("cReplay").onclick=()=>ctl("replay");
 setInterval(()=>{ if($("play").hidden) return; const c=cur&&cur.ctl||{}; $("cPrev").disabled=!c.prev; $("cNext").disabled=!c.next; },400);
-document.addEventListener("visibilitychange",()=>{ if(document.hidden){ if(cur&&!paused&&!$("play").hidden) setPause(true); stopTune(); } else if(!$("home").hidden) startTune(); });
+document.addEventListener("visibilitychange",()=>{ if(document.hidden){ if(cur&&!paused&&!$("play").hidden) setPause(true); stopTune(); } else { audio(); if(!$("home").hidden) startTune(); } });
 
 /* =================================================================== parent lock */
 let gateMode="enter", gateA=0, gateOk=null, allowExit=false, gateDone=false;
@@ -2085,7 +2133,7 @@ const GATE_TXT={enter:["Baby Sparkle","Parents: solve this to start","बेब�
   unlock:["Locked game","Parents: solve this to open it","बंद खेल","माता-पिता: खोलने के लिए हल करें"],
   rest:["More time?","Parents: solve this to keep playing","और समय?","माता-पिता: खेलना जारी रखने के लिए हल करें"]};
 function showGate(mode,ok){
-  if(gateDone&&mode!=="enter"){ if(mode==="exit") byeBye(); else if(mode==="settings") openSettings(); else ok&&ok(); return; }
+  if(gateDone&&mode!=="enter"){ if(mode==="exit"||mode==="settings") askHold(mode); else ok&&ok(); return; }
   gateMode=mode; gateOk=ok||null; const a=1+rand(5), b=1+rand(4); gateA=a+b; const tx=GATE_TXT[mode], hi=lang==="hi";
   $("geq").textContent=`${a} + ${b} =`; $("gans").textContent="";
   $("gtitle").textContent=hi?tx[2]:tx[0]; $("gsub").textContent=hi?tx[3]:tx[1];
@@ -2096,34 +2144,63 @@ $("gkeys").onclick=e=>{ const b=e.target.closest("button"); if(!b) return; const
   else { anim($("gans"),"shake"); setTimeout(()=>showGate(gateMode,gateOk),600); } };
 $("gcancel").onclick=()=>{ $("gate").hidden=true; };
 $("exitBtn").onclick=()=>showGate("exit");
+/* After the first parent question, closing the app or opening settings needs a 1.5-second press,
+   so a toddler tapping around (or pressing Back) can't leave the app by accident. */
+let holdMode="";
+function askHold(mode){
+  holdMode=mode; const hi=lang==="hi";
+  $("holdPic").textContent=mode==="exit"?"🚪":"⚙️";
+  $("holdT").textContent=mode==="exit"?(hi?"बंद करना है?":"Leaving?"):(hi?"सेटिंग्स":"Settings");
+  $("holdP").textContent=hi?"माता-पिता: नीचे वाला बटन 2 सेकंड दबाए रखें":"Parents: press and hold the button below";
+  $("holdOk").textContent=mode==="exit"?(hi?"🔒 दबाए रखें: बंद करें":"🔒 Hold to close"):(hi?"🔒 दबाए रखें: खोलें":"🔒 Hold to open");
+  $("holdNo").textContent=hi?"▶ खेलते रहो":"▶ Keep playing";
+  $("hold").hidden=false;
+}
+(()=>{ let ht=null; const b=$("holdOk"); const up=()=>{ clearTimeout(ht); b.classList.remove("holding"); };
+  b.addEventListener("pointerdown",e=>{ e.preventDefault(); b.classList.add("holding"); ht=setTimeout(()=>{ up(); $("hold").hidden=true; if(holdMode==="exit") byeBye(); else openSettings(); },1500); });
+  b.addEventListener("pointerup",up); b.addEventListener("pointerleave",up); b.addEventListener("pointercancel",up);
+  b.addEventListener("contextmenu",e=>e.preventDefault());
+  $("holdNo").onclick=()=>{ $("hold").hidden=true; }; })();
 $("setBtn").onclick=()=>showGate("settings");
 async function startApp(){
   unlock(); renderHome();
   const sp=$("splash"), cols=["#FF4F8B","#FF7A33","#E8A400","#22B573","#3E8EFF","#8A5CFF","#FF4F8B","#14B3B8","#FF7A33","#22B573","#8A5CFF"];
   $("splWord").innerHTML=[..."Baby Sparkle"].map((ch,i)=>ch===" "?'<span>&nbsp;</span>':`<span style="color:${cols[i%11]};animation-delay:${.8+i*.08}s">${ch}</span>`).join("");
   $("splTag").textContent=lang==="hi"?"लिखो · सीखो · खेलो":"Write · Learn · Play";
-  sp.hidden=false; void sp.offsetWidth; sp.classList.add("go");
-  let skipped=false; const finish=()=>{ if(skipped) return; skipped=true; sp.classList.add("out"); setTimeout(()=>{ sp.hidden=true; sp.className=""; $("home").hidden=false; renderHome(); startTune(); },550); };
+  sp.hidden=false; void sp.offsetWidth;
+  let skipped=false; const finish=()=>{ if(skipped) return; skipped=true; sp.classList.add("out"); setTimeout(()=>{ sp.hidden=true; sp.className=""; $("home").hidden=false; renderHome(); startTune(); showNote(); },550); };
   sp.onclick=finish;
-  await Promise.race([loadPack("sfx"),new Promise(r=>setTimeout(r,2500))]);
+  const need=["sfx",...packsFor(lang)], wait=ms=>new Promise(r=>setTimeout(r,ms));
+  const all=Promise.all(need.map(loadPack));
+  if(!(await Promise.race([all.then(()=>1),wait(800)]))){
+    /* first open (or slow internet): show how much is downloaded; a tap skips, sounds keep loading */
+    const ld=$("splLoad"); ld.hidden=false; sp.classList.add("wait"); const hi=lang==="hi";
+    const tick=setInterval(()=>{ const f=loadProgress(need); ld.querySelector("i").style.width=Math.round(f*100)+"%"; ld.querySelector("span").textContent=(hi?"आवाज़ें आ रही हैं… ":"Getting the sounds ready… ")+Math.round(f*100)+"%"; },250);
+    let skipT; await Promise.race([all,wait(120000),new Promise(r=>{ skipT=setInterval(()=>skipped&&r(),200); })]);
+    clearInterval(tick); clearInterval(skipT); ld.hidden=true; sp.classList.remove("wait"); void sp.offsetWidth;
+    if(skipped) return;
+  }
+  sp.classList.add("go");
   sfx("intro",{force:true,keep:true});
   setTimeout(()=>{ $("splStars").innerHTML=Array.from({length:26},(_,i)=>{ const a=i/26*Math.PI*2, d=120+(i%4)*50; return `<span style="left:50%;top:42%;--dx:${Math.cos(a)*d}px;--dy:${Math.sin(a)*d}px;animation-delay:${(i%5)*.05}s">${["⭐","✨","💖","🌟"][i%4]}</span>`; }).join(""); },700);
-  await Promise.race([Promise.all([...VPACKS].map(loadPack)),new Promise(r=>setTimeout(r,2500))]);
   setTimeout(()=>{ if(!skipped){ run++; play([sx("welcome")]); } },1500);
   setTimeout(finish,5600);
   ["win","pop","ding","tap","clap",(TUNES[ST.tune]||TUNES.sunny)[0]].forEach(k=>k&&decode("sfx",k));
 }
 
-function byeBye(){ stopAll(); stopTune(); $("home").hidden=true; $("play").hidden=true; $("bye").hidden=false; play([sx("bye")]); allowExit=true; try{ history.go(-(history.length-1)); }catch(e){} try{ window.close(); }catch(e){} }
+function byeBye(){ stopAll(); stopTune(); $("home").hidden=true; $("play").hidden=true; $("bye").hidden=false; landscape(false);
+  const hi=lang==="hi"; $("byeT").textContent=hi?"टाटा, बाय बाय!":"Bye bye!"; $("byeP").textContent=hi?"बंद करने के लिए फ़ोन का Back या Home बटन दबाएँ।":"Press your phone's Back or Home button to close Baby Sparkle."; $("byeback").textContent=hi?"फिर से खेलो":"Play again"; play([sx("bye")]); allowExit=true; try{ const st=history.state?.p; if(st==="home"||st==="act") history.go(st==="act"?-2:-1); }catch(e){} try{ window.close(); }catch(e){} }
 $("byeback").onclick=()=>{ $("bye").hidden=true; allowExit=false; try{ history.pushState({p:"home"},""); }catch(e){} $("home").hidden=false; renderHome(); startTune(); };
 try{ history.replaceState({p:"root"},""); history.pushState({p:"home"},""); }catch(e){}
 window.addEventListener("popstate",e=>{
   const p=e.state?.p;
   if(!$("settings").hidden){ closeSettings(); try{ history.pushState({p:"home"},""); }catch(err){} return; }
   if(!$("play").hidden){ goHome(); if(p==="root"){ try{ history.pushState({p:"home"},""); }catch(err){} } return; }
+  if(!$("hold").hidden){ $("hold").hidden=true; try{ history.pushState({p:"home"},""); }catch(err){} return; }
   if(p==="root"&&!allowExit){ try{ history.pushState({p:"home"},""); }catch(err){} if($("gate").hidden&&$("bye").hidden) showGate("exit"); }
 });
-$("tuneBtn").onclick=()=>{ tuneOn=!tuneOn; $("tuneBtn").textContent=tuneOn?"🎵":"🔇"; tuneOn?startTune():stopTune(); };
+$("tuneBtn").onclick=()=>{ tuneOn=!tuneOn; ST.tuneOn=tuneOn; save(); $("tuneBtn").textContent=tuneOn?"🎵":"🔇"; tuneOn?startTune():stopTune(); };
+$("tuneBtn").textContent=tuneOn?"🎵":"🔇";
 
 /* screen-time limit */
 let playedMs=0, lastTick=Date.now();
@@ -2139,7 +2216,7 @@ setInterval(()=>{ const now=Date.now(), dt=now-lastTick; lastTick=now; if(docume
 /* =================================================================== settings (parents) */
 const AVATARS=["🐰","🐱","🐶","🦁","🐼","🦄","🐥","🐻","🐸","🦋","⭐","🌸"];
 const THEMES={auto:["Each world its own","हर दुनिया की अपनी","linear-gradient(90deg,#7CCBFF,#86CF6E,#2F8FD6,#2A2468,#FFD6EC)"],sky:["Sunny sky","नीला आसमान","#7CCBFF"],jungle:["Jungle","जंगल","#86CF6E"],ocean:["Under the sea","समुद्र के अंदर","#2F8FD6"],space:["Space","अंतरिक्ष","#2A2468"],fantasy:["Fairy land","परियों का देश","#FFD6EC"],art:["Art room","चित्रकला कक्ष","#FFE08A"]};
-let editing=null;
+let editing=null, showCred=false;
 function openSettings(){ stopAll(); $("settings").hidden=false; renderSettings(); try{ history.pushState({p:"set"},""); }catch(e){} }
 function closeSettings(){ $("settings").hidden=true; stopTune(); renderHome(); if(!$("home").hidden) startTune(); }
 const opt=(on,html,act)=>`<button class="opt" aria-pressed="${on}" data-act="${act}">${html}</button>`;
@@ -2165,7 +2242,9 @@ function renderSettings(){
   <div class="sec"><h4>🔒 ${L("Lock games","खेल बंद करें")}</h4><p>${L("Tap a game to lock or unlock it. A locked game cannot be opened until you unlock it here.","किसी खेल को बंद या चालू करने के लिए टैप करें। बंद खेल तब तक नहीं खुलेगा जब तक आप यहाँ से चालू न करें।")}</p>
    ${SHELVES.map(s=>`<b>${s.i} ${L(s.t,s.th)}</b><div class="lockgrid">${s.cards.map(c=>`<button class="lockrow" aria-pressed="${!!ST.locks[c.id]}" data-act="lock:${c.id}">${ST.locks[c.id]?"🔒":"🔓"} ${c.i} ${L(c.t,c.th)}</button>`).join("")}</div>`).join("")}</div>
   <div class="sec"><h4>🚪 ${L("Parent question when the app opens (asked once)","ऐप खुलने पर पैरेंट सवाल (सिर्फ़ एक बार)")}</h4><div class="opts">${opt(ST.gateOpen,L("On","चालू"),"gate:1")}${opt(!ST.gateOpen,L("Off","बंद"),"gate:0")}</div></div>
-  <div class="sec"><h4>ℹ️ ${L("About","जानकारी")}</h4><p>Baby Sparkle · ${L("Voice made with the Kokoro AI voice. Real animal and everyday sounds from the ESC-50 collection (CC BY-NC). Works offline after the first open.","आवाज़ Kokoro AI से बनी है। जानवरों की असली आवाज़ें ESC-50 संग्रह से। पहली बार खुलने के बाद बिना इंटरनेट चलता है।")}</p>${opt(false,"⭐ "+L("Reset stars","स्टार शून्य करें"),"resetstars")}</div>`;
+  <div class="sec"><h4>ℹ️ ${L("About","जानकारी")}</h4><p>Baby Sparkle · ${L("No ads, no accounts, nothing leaves this phone. Voice made with the Kokoro AI voice (Apache 2.0). Real sounds are free recordings from freesound.org (CC0 and CC BY). Works offline after the first open.","कोई विज्ञापन नहीं, कोई अकाउंट नहीं, कुछ भी फ़ोन से बाहर नहीं जाता। आवाज़ Kokoro AI से बनी है। असली आवाज़ें freesound.org की मुफ़्त रिकॉर्डिंग हैं (CC0 और CC BY)। पहली बार खुलने के बाद बिना इंटरनेट चलता है।")}</p>
+   <div class="opts">${opt(showCred,"🎶 "+L("Sound credits","आवाज़ों का श्रेय"),"cred")}<a class="opt" href="privacy.html" target="_blank" rel="noopener">🔐 ${L("Privacy policy","गोपनीयता नीति")}</a>${opt(false,"⭐ "+L("Reset stars","स्टार शून्य करें"),"resetstars")}</div>
+   ${showCred?`<div class="credits">${CREDITS.map(([k,t,b,l,u])=>`<div>“${t.replace(/</g,"")}” · ${b} · ${l==="CC0"?"CC0":"CC BY 3.0"}</div>`).join("")}<div>Kokoro-82M voice · Apache 2.0</div><div>Fonts · SIL Open Font License</div></div>`:""}</div>`;
 }
 $("setCard").addEventListener("click",e=>{
   const b=e.target.closest("[data-act]"); if(!b) return; const [a,v]=b.dataset.act.split(/:(.*)/s);
@@ -2178,7 +2257,7 @@ $("setCard").addEventListener("click",e=>{
   else if(a==="av"){ P[editing].av=v; }
   else if(a==="age"){ P[editing].age=+v; }
   else if(a==="saveprof"){ P[editing].name=($("pname").value||"").trim().slice(0,16); ST.active=editing; editing=null; }
-  else if(a==="lang"){ lang=ST.lang=v; showNote(); }
+  else if(a==="lang"){ lang=ST.lang=v; packsFor(v).forEach(loadPack); showNote(); }
   else if(a==="theme"){ ST.theme=v; setScene("sky"); }
   else if(a==="font"){ ST.font=v; applyFont(); }
   else if(a==="tune"){ ST.tune=v; stopTune(); startTune(true); }
@@ -2187,19 +2266,26 @@ $("setCard").addEventListener("click",e=>{
   else if(a==="lock"){ if(ST.locks[v]) delete ST.locks[v]; else ST.locks[v]=1; }
   else if(a==="gate"){ ST.gateOpen=v==="1"; }
   else if(a==="resetstars"){ PROF().stars=0; }
+  else if(a==="cred"){ showCred=!showCred; }
   if(editing!=null&&a!=="saveprof"&&$("pname")) P[editing].name=($("pname").value||"").trim().slice(0,16);
   save(); renderSettings();
 });
 $("setCard").addEventListener("input",e=>{ const k=e.target.dataset.vol; if(!k) return; ST[k]=+e.target.value; applyVol(); save(); });
 
+/* English-only mode doesn't need the Hindi voice files in memory */
+const packsFor=l=>l==="en"?["voice-en1","voice-en2","voice-x"]:[...VPACKS];
+let noteT=null;
 function showNote(){
   const n=$("note"); if(!n) return;
+  const need=["sfx",...packsFor(lang)], loading=need.some(k=>!PACK[k]&&!LOAD.fail[k]), failed=need.some(k=>LOAD.fail[k]);
+  if(loading&&!$("home").hidden){ n.textContent=(lang==="hi"?"🔊 आवाज़ें आ रही हैं… ":"🔊 Getting the sounds ready… ")+Math.round(loadProgress(need)*100)+"%"; n.hidden=false; clearTimeout(noteT); noteT=setTimeout(showNote,500); return; }
+  if(failed&&!navigator.onLine){ n.textContent=lang==="hi"?"कुछ आवाज़ें अभी नहीं आईं। इंटरनेट चालू करके ऐप फिर खोलें।":"Some sounds haven't downloaded yet. Turn on the internet and open the app again."; n.hidden=false; return; }
   if(!PACK["voice-en1"]&&!synth){ n.textContent=lang==="hi"?"आवाज़ की फ़ाइलें लोड नहीं हुईं। इंटरनेट चालू करके ऐप फिर खोलें।":"The voice files did not load. Turn on the internet and open the app again."; n.hidden=false; return; }
   n.hidden=true;
 }
-function setLang(l){ lang=ST.lang=l; save(); showNote(); renderHome(); }
+function setLang(l){ lang=ST.lang=l; save(); packsFor(l).forEach(loadPack); showNote(); renderHome(); }
 $("langPill").onclick=e=>{ const b=e.target.closest("button"); if(b) setLang(b.dataset.l); };
-["sfx",...VPACKS].forEach(loadPack);
+Promise.all(["sfx",...packsFor(lang)].map(loadPack)).then(()=>setTimeout(()=>{ try{ navigator.serviceWorker?.controller?.postMessage("fill"); }catch(e){} },4000));
 if(ST.gateOpen) showGate("enter");
 else { $("gate").hidden=false; document.querySelector(".eq").hidden=true; $("gkeys").hidden=true; $("gtitle").textContent="Baby Sparkle"; $("gsub").textContent=lang==="hi"?"शुरू करने के लिए टैप करें":"Tap to start"; $("gcancel").hidden=false; $("gcancel").textContent="▶ "+(lang==="hi"?"शुरू":"Start");
   $("gcancel").onclick=()=>{ $("gate").hidden=true; $("gkeys").hidden=false; document.querySelector(".eq").hidden=false; $("gcancel").onclick=()=>{ $("gate").hidden=true; }; gateDone=true; startApp(); }; }
@@ -2251,5 +2337,4 @@ window.allPhrases=allPhrases; window.fnv=fnv;
 
 </script>
 
-<script>if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script>
 </body></html>
