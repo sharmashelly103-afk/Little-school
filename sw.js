@@ -3,7 +3,7 @@
    - Sound packs are cached the first time the app downloads them (so they download only once),
      and the app then asks for the rest to be filled in quietly so everything works offline.
    - On an update only the files that changed are downloaded again. */
-const AUD="baby-sparkle-v1", APP="baby-sparkle-app-v6";
+const AUD="baby-sparkle-v1", APP="baby-sparkle-app-v7";
 const APPFILES=["./","index.html","manifest.webmanifest","icon-192.png","icon-512.png","privacy.html","CREDITS.txt"];
 const FRESH=["sfx.mp3","sfx.json","voice-x.mp3","voice-x.json"];
 const KEEP=["voice-en1.mp3","voice-en1.json","voice-en2.mp3","voice-en2.json","voice-hi1.mp3","voice-hi1.json","voice-hi2.mp3","voice-hi2.json","voice-x.mp3","voice-x.json","sfx.mp3","sfx.json"];

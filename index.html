@@ -600,6 +600,10 @@ a.opt{text-decoration:none;color:inherit;display:inline-flex;align-items:center}
 .ltile .dot{display:block;width:min(70px,16cqw);aspect-ratio:1;border-radius:50%;box-shadow:inset 0 0 0 3px rgba(0,0,0,.08)}
 .ltile svg{width:min(70px,16cqw);height:auto}
 .ltile.lit{transform:scale(1.1);filter:brightness(1.18) saturate(1.2);box-shadow:0 0 0 5px #FFE14D,0 0 26px #FFE14D;background:#FFFBE6;z-index:2}
+.lboard.fit{justify-content:center;align-content:center;gap:8px;overflow:hidden}
+.lboard.fit .ltile{height:var(--ts);width:var(--ts);padding:2px;gap:0;border-radius:calc(var(--ts)*.2);font-size:calc(var(--ts)*.48);box-shadow:0 calc(var(--ts)*.05) 0 var(--soft)}
+.lboard.fit .ltile small{font-size:max(.6rem,calc(var(--ts)*.13));line-height:1.05}
+.lboard.fit .ltile .dot,.lboard.fit .ltile svg{width:calc(var(--ts)*.55)}
 .lboard.scene{display:block;border-radius:24px;overflow:hidden;container-type:size}
 .lboard.scene .ltile{position:absolute;transform:translate(-50%,-50%);background:rgba(255,255,255,.72);padding:3px;width:min(96px,18cqw,25cqh);aspect-ratio:1.15;font-size:clamp(1rem,min(9cqw,11cqh),3rem);border-radius:min(22px,5cqh);box-shadow:0 4px 0 rgba(0,0,0,.08)}
 @media (orientation:landscape) and (max-height:520px){.movebtns .bigbtn{padding:6px 18px;font-size:1rem}.stage>.q{margin:0;font-size:1.05rem}}
@@ -1412,13 +1416,23 @@ function quiz(pool,next,ans=pool[rand(pool.length)],o={}){
 /* =================================================================== more lesson styles, so every topic feels different */
 const learnSegs=it=>[...(it.snd&&hasSfx(it.snd)?sndThen(it.snd):[]),EN()&&{t:it.en+"!",gap:250},H()&&{t:it.hi+"!",l:"hi",gap:250},EN()&&it.sent&&{t:it.sent},H()&&it.sentHi&&{t:it.sentHi,l:"hi"}];
 function popShow(it){ const p=$("lpop"); if(!p) return; p.innerHTML=`<div class="pic">${it.big||it.e}</div><b>${Tp(it.L?`${it.L} for ${it.word}`:it.en,it.hi)}</b>`; p.classList.add("on"); clearTimeout(popShow.t); popShow.t=setTimeout(()=>p.classList.remove("on"),2600); }
+/* Pick the number of columns that makes the tiles as big as possible while ALL of them fit on
+   screen without scrolling (26 letters, 10 family members…); re-done when the phone rotates. */
+function fitBoard(lb,n){
+  const fit=()=>{ if(!lb.isConnected){ ro.disconnect(); return; }
+    const W=lb.clientWidth-8, H=lb.clientHeight-8, g=8; if(W<20||H<20) return;
+    let best=[1,0]; for(let c=1;c<=n;c++){ const r=Math.ceil(n/c), sz=Math.min((W-g*(c-1))/c,(H-g*(r-1))/r,150); if(sz>best[1]) best=[c,sz]; }
+    lb.classList.add("fit"); lb.style.gridTemplateColumns=`repeat(${best[0]},${Math.floor(best[1])}px)`; lb.style.setProperty("--ts",Math.floor(best[1])+"px"); };
+  const ro=new ResizeObserver(fit); ro.observe(lb); fit();
+}
 /* 1) tap board: everything on screen, tap to hear; then "find it" */
 function boardLesson(mode="explore"){
   stopAll(); cur.resume=()=>boardLesson(mode); cur.inQuiz=false;
   const T=cur.T, items=T.items; let ask=null, asks=0, wt=null, taps=0, found=0;
   const sc=T.scene;
-  stage.innerHTML=`<div class="q" id="bq">${mode==="explore"?T_(T.tapEn||"Tap and listen!",T.tapHi||"टैप करो और सुनो!"):""}</div><div class="lboard${sc?" scene "+sc:""}" id="lb">${items.map((it,i)=>`<button class="ltile" data-i="${i}" style="${sc?`left:${T.pos[i][0]}%;top:${T.pos[i][1]}%`:""}" aria-label="${it.en}">${it.tile||it.choice||it.e}${sc?"":`<small>${Tp(it.L||it.en,it.L?"":it.hi)}</small>`}</button>`).join("")}<div class="lpop" id="lpop"></div></div><div class="movebtns"><button class="bigbtn" id="lbm" style="background:${mode==="explore"?"#8A5CFF":"#22B573"}">${mode==="explore"?Tp("▶ Play: Find it","▶ खेलो: ढूँढो"):Tp("👆 Just tap","👆 बस टैप करो")}</button></div>`;
+  stage.innerHTML=`<div class="q" id="bq">${mode==="explore"?T_(T.tapEn||"Tap and listen!",T.tapHi||"टैप करो और सुनो!"):""}</div><div class="lboard${sc?" scene "+sc:""}" id="lb">${items.map((it,i)=>`<button class="ltile" data-i="${i}" style="${sc?`left:${T.pos[i][0]}%;top:${T.pos[i][1]}%`:""}" aria-label="${it.en}">${it.tile||it.choice||it.e}${sc?"":`<small>${it.L?it.L.toLowerCase():Tp(it.en,it.hi)}</small>`}</button>`).join("")}<div class="lpop" id="lpop"></div></div><div class="movebtns"><button class="bigbtn" id="lbm" style="background:${mode==="explore"?"#8A5CFF":"#22B573"}">${mode==="explore"?Tp("▶ Play: Find it","▶ खेलो: ढूँढो"):Tp("👆 Just tap","👆 बस टैप करो")}</button></div>`;
   const tiles=[...stage.querySelectorAll(".ltile")];
+  if(!sc) fitBoard($("lb"),tiles.length);
   const light=i=>{ tiles.forEach(t=>t.classList.remove("lit")); tiles[i].classList.add("lit"); };
   $("lbm").onclick=()=>boardLesson(mode==="explore"?"quiz":"explore");
   const newQ=()=>{ ask=items[rand(items.length)]; asks=0; $("bq").innerHTML=T_(ask.q,ask.qh); askIt(); };
@@ -2338,7 +2352,7 @@ function renderSettings(){
   <div class="sec"><h4>🔒 ${L("Lock games","खेल बंद करें")}</h4><p>${L("Tap a game to lock or unlock it. A locked game cannot be opened until you unlock it here.","किसी खेल को बंद या चालू करने के लिए टैप करें। बंद खेल तब तक नहीं खुलेगा जब तक आप यहाँ से चालू न करें।")}</p>
    ${SHELVES.map(s=>`<b>${s.i} ${L(s.t,s.th)}</b><div class="lockgrid">${s.cards.map(c=>`<button class="lockrow" aria-pressed="${!!ST.locks[c.id]}" data-act="lock:${c.id}">${ST.locks[c.id]?"🔒":"🔓"} ${c.i} ${L(c.t,c.th)}</button>`).join("")}</div>`).join("")}</div>
   <div class="sec"><h4>🚪 ${L("Parent question when the app opens (asked once)","ऐप खुलने पर पैरेंट सवाल (सिर्फ़ एक बार)")}</h4><div class="opts">${opt(ST.gateOpen,L("On","चालू"),"gate:1")}${opt(!ST.gateOpen,L("Off","बंद"),"gate:0")}</div></div>
-  <div class="sec"><h4>ℹ️ ${L("About","जानकारी")}</h4><p>Baby Sparkle · ${L("No ads, no accounts, nothing leaves this phone. Voice made with the Kokoro AI voice (Apache 2.0). Real sounds are free recordings from freesound.org (CC0 and CC BY). Works offline after the first open.","कोई विज्ञापन नहीं, कोई अकाउंट नहीं, कुछ भी फ़ोन से बाहर नहीं जाता। आवाज़ Kokoro AI से बनी है। असली आवाज़ें freesound.org की मुफ़्त रिकॉर्डिंग हैं (CC0 और CC BY)। पहली बार खुलने के बाद बिना इंटरनेट चलता है।")}</p>
+  <div class="sec"><h4>ℹ️ ${L("About","जानकारी")}</h4><p><b>Baby Sparkle · ${L("Version","संस्करण")} 6</b><br>${L("No ads, no accounts, nothing leaves this phone. Voice made with the Kokoro AI voice (Apache 2.0). Real sounds are free recordings from freesound.org (CC0 and CC BY). Works offline after the first open.","कोई विज्ञापन नहीं, कोई अकाउंट नहीं, कुछ भी फ़ोन से बाहर नहीं जाता। आवाज़ Kokoro AI से बनी है। असली आवाज़ें freesound.org की मुफ़्त रिकॉर्डिंग हैं (CC0 और CC BY)। पहली बार खुलने के बाद बिना इंटरनेट चलता है।")}</p>
    <div class="opts">${opt(showCred,"🎶 "+L("Sound credits","आवाज़ों का श्रेय"),"cred")}<a class="opt" href="privacy.html" target="_blank" rel="noopener">🔐 ${L("Privacy policy","गोपनीयता नीति")}</a>${opt(false,"⭐ "+L("Reset stars","स्टार शून्य करें"),"resetstars")}</div>
    ${showCred?`<div class="credits">${CREDITS.map(([k,t,b,l,u])=>`<div>“${t.replace(/</g,"")}” · ${b} · ${l==="CC0"?"CC0":"CC BY 3.0"}</div>`).join("")}<div>Kokoro-82M voice · Apache 2.0</div><div>Fonts · SIL Open Font License</div></div>`:""}</div>`;
 }
